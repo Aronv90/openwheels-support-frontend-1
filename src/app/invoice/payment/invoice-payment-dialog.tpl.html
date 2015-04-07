@@ -1,0 +1,38 @@
+<div class="modal-content">
+  <form name="invoicePaymentCreateForm">
+
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
+      <h4 class="modal-title" ng-hide="payment.id">Create invoice mutation</h4>
+      <h4 class="modal-title" ng-show="payment.id">Edit invoice mutation</h4>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text" required class="form-control" id="description" name="description" placeholder="description" ng-model="payment.description">
+      </div>
+
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="text" smart-float required class="form-control" id="amount" name="amount" placeholder="amount" ng-model="payment.amount">
+      </div>
+
+      <div class="form-group">
+        <label for="passed">Passed</label>
+        <input type="text" id="passed" placeholder="pick a date" class="form-control pickadate-input" ng-model="payment.passed" pickadate="datetimeConfig">
+      </div>
+
+      <div ng-show="payment.id" class="form-group">
+        <label for="source">Invoice group</label>
+        <input id="source" type="number" ng-model="payment.group" required class="form-control">
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
+      <button type="submit" class="btn btn-primary" ng-disabled="invoicePaymentCreateForm.$invalid" ng-click="save(payment)">Submit</button>
+    </div>
+  </form>
+</div>

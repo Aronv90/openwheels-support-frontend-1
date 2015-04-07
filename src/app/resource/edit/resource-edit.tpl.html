@@ -1,0 +1,310 @@
+<form name="editResourceForm">
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="owner">Owner</label>
+      <input type="text" find-person id="owner" model="resource.owner" />
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="contactPerson">Contact Person</label>
+      <input type="text" find-person id="contactPerson" model="resource.contactPerson" />
+    </div>
+  </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="resourceType">Resource type</label>
+            <select id="resourceType" class="form-control" ng-model="resource.resourceType"
+                    ng-options="o.value as o.label for o in resourceTypeOptions"></select>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="form-group">
+            <label for="fleet">Fleet</label>
+            <select id="fleet" class="form-control" ng-model="resource.fleet"
+                    ng-options="o.id as o.name for o in fleetOptions"></select>
+        </div>
+
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="providerId">Provider ID</label>
+            <input type="number" id="providerId" class="form-control" ng-model="resource.providerId"
+                    name="providerId"></select>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="registrationPlate">Registration plate</label>
+            <input type="text" id="registrationPlate" name="registrationPlate" class="form-control"
+                   ng-model="resource.registrationPlate" required placeholder="registration plate">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="alias">Alias</label>
+            <input type="text" id="alias" name="alias" class="form-control" ng-model="resource.alias" required
+                   placeholder="resource alias">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="brand">Brand</label>
+            <input type="text" id="brand" name="brand" class="form-control" ng-model="resource.brand"
+                   placeholder="brand">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="model">Model</label>
+            <input type="text" id="model" name="model" class="form-control" ng-model="resource.model"
+                   placeholder="model">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="fuelType">Fuel type</label>
+            <select id="fuelType" class="form-control" ng-model="resource.fuelType"
+                    ng-options="f.value as f.label for f in fuelTypeOptions">
+                <option value="">-- select fuel type --</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="model">Fuel card code</label>
+            <input type="text" id="fuelCardCode" name="fuelCardCode" class="form-control"
+                   ng-model="resource.fuelCardCode" placeholder="Fuel card code">
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<div class="form-group">
+    <label for="advertisement">Advertisement</label>
+    <textarea id="advertisement" rows="4" class="form-control" ng-model="resource.advertisement"
+              placeholder="Advertisement"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="notes">Usage manual</label>
+    <textarea id="usageManual" rows="3" class="form-control" ng-model="resource.usageManual"
+              placeholder="Usage manual"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="notes">Notes</label>
+    <textarea id="notes" rows="3" class="form-control" ng-model="resource.notes" placeholder="Notes"></textarea>
+</div>
+
+<div class="form-group">
+    <label for="roadAssistance">Road assistance</label>
+    <textarea id="roadAssistance" rows="3" class="form-control" ng-model="resource.roadAssistance"
+              placeholder="Road assistance"></textarea>
+</div>
+
+
+<hr>
+
+<h3>Insurance</h3>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="insurancePolicy">Insurance policy</label>
+            <select id="insurancePolicy" class="form-control" ng-model="resource.insurancePolicy"
+                    ng-options="i.value as i.label for i in insurancePolicyOptions">
+                <option value="">-- select policy type --</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="deductible">Deductible</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input type="text" smart-float id="deductible" name="deductible" class="form-control"
+                       ng-model="resource.deductible" placeholder="Deductible (eigen risico)">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="deductibleCasco">Deductible casco</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input type="text" smart-float id="deductibleCasco" name="deductibleCasco" class="form-control"
+                       ng-model="resource.deductibleCasco" placeholder="Deductible (eigen risico) casco">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="knownDamage">Known damage</label>
+    <textarea id="knownDamage" class="form-control" ng-model="resource.knownDamage"
+              placeholder="Known damage"></textarea>
+</div>
+
+<hr>
+
+<h3>Availability</h3>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="resource.isActive"> Active
+            </label>
+        </div>
+
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="resource.multiple"> Multiple
+                <small>(rental loket / OV-fietsenstalling)</small>
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="resource.isAvailableFriends"> Available for friends
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="resource.isAvailableOthers"> Available for others
+            </label>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="resource.isConfirmationRequiredFriends"> Confirmation required for
+                friends
+            </label>
+        </div>
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" ng-model="resource.isConfirmationRequiredOthers"> Confirmation required for
+                others
+            </label>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h3>Price</h3>
+
+<div class="row">
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="dayRateTotal">Price per day</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input type="text" smart-float id="dayRateTotal" name="dayRateTotal" class="form-control"
+                       ng-model="resource.dayRateTotal" required placeholder="per day">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="hourRate">Price per hour</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input type="text" smart-float id="hourRate" name="hourRate" class="form-control"
+                       ng-model="resource.hourRate" required placeholder="per hour">
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="kilometerRate">Price per km</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input type="text" smart-float id="kilometerRate" name="kilometerRate" class="form-control"
+                       ng-model="resource.kilometerRate" required placeholder="per km">
+                <span class="input-group-addon">
+                  <input type="checkbox" ng-model="resource.price.kmFree"> 100km Free
+                </span>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-group">
+            <label for="fuelPerKilometer">Fuel price per km</label>
+
+            <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input type="text" smart-float id="fuelPerKilometer" name="fuelPerKilometer" class="form-control"
+                       ng-model="resource.fuelPerKilometer" required placeholder="per km">
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+
+<h3>Location</h3>
+
+<p>{{ resource.location }}, {{ resource.city }}</p>
+
+<div class="form-group">
+    <label for="location">Search new address</label>
+
+    <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+        <input type="text" id="location" name="location" class="form-control" ng-model="searchPlace.name"
+               placeholder="Full address with streetnumber" ng-autocomplete details="searchPlace.details"
+               options="completePlacesOptions">
+    </div>
+
+</div>
+
+<div class="google-map"
+     center="map.center"
+     zoom="map.zoom"
+     draggable="true"
+     dragging="map.dragging"
+     bounds="map.bounds"
+     events="map.events"
+     options="map.options">
+    <!-- prefedined markers -->
+    <marker coords="map.resourceMarker"></marker>
+    <!-- marker for clicked position -->
+    <!-- can not put google.map.animations.BOUNCE , since it is not initiaized yet -->
+    <div ng-init="opts = {animation:1}">
+        <marker coords="map.clickedMarker" options="opts" click="map.clickedMarker.onClicked"></marker>
+    </div>
+</div>
+
+<hr>
+<div class="form-group">
+    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>
+    <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+</div>
+</form>

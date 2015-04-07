@@ -1,0 +1,37 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th>Trip</th>
+    <th>Booking timeframe</th>
+    <th>Person</th>
+    <th>Woonplaats</th>
+    <th>Resource</th>
+    <th>Locatie</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="b in bookings | orderBy:'(trip.odoBegin-trip.odoEnd)'">
+    <td><a ui-sref="root.trip.show.summary({ tripId: b.id })">#{{ b.id }}</a></td>
+    <td class="booking__date--fw-calendar">
+      {{ b.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}<br/>
+      {{ b.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}
+    </td>
+    <td>
+      <a ui-sref="root.person.show.summary({ personId: b.person.id })">{{ b.person | fullname }}</a>
+    </td>
+    <td>{{ b.person.city }}</td>
+    <td>
+      <a ui-sref="root.resource.show.summary({ resourceId: b.resource.id })">{{ b.resource.alias }}</a>
+    </td>
+    <td>
+      {{ b.resource.city }}
+    </td>
+    <td>
+      {{ b.trip.odoEnd - b.trip.odoBegin }} km
+    </td>
+    <td>
+      <span class="text-success" ng-if="b.trip.finalized">finalized</span>
+    </td>
+  </tr>
+  </tbody>
+</table>

@@ -1,0 +1,14 @@
+*.sw*
+*~
+.bower-cache
+.bower-registry
+.bower-tmp
+.DS_Store
+.idea
+.sublime/*.sublime-workspace
+bin
+build
+Capfile
+config
+node_modules
+/vendor

@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        Filters komen hier later
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+
+        <table class="table table-condensed table-hover table-invoice">
+            <thead>
+                <tr>
+                    <th>Account</th>
+                    <th>Person</th>
+                    <th>Machtiging</th>
+                    <th>Factureer</th>
+                    <th>Stort</th>
+                    <th>Rekeningnummer</th>
+                    <th class="table-invoice__price">Saldo</th>
+                    <th class="table-invoice__price">Krediet</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="a in accounts">
+                  <td>{{ a.id }}</td>
+                  <td>
+                    <a ui-sref="root.person.show.transaction.list({ personId: a.person.id })">
+                      {{ a.person | fullname }}
+                    </a>
+                  </td>
+                  <td>{{ a.machtiging }}</td>
+                  <td>{{ a.factureer }}</td>
+                  <td>{{ a.stort }}</td>
+                  <td>{{ a.rekeningnummer }}</td>
+                  <td class="table-invoice__price">{{ a.saldo | currency }}</td>
+                  <td class="table-invoice__price">{{ a.credit | currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<form name="accountDataForm">
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="accountName">Account name</label>
+        <input type="text" id="accountName" name="accountName" class="form-control" ng-model="account.name" placeholder="Name for bank account">
+      </div>
+
+      <div class="form-group">
+        <label for="accountName">Account adres</label>
+        <input type="text" id="accountAadres" name="accountAdres" class="form-control" ng-model="account.adres" placeholder="Adres for bank account">
+      </div>
+
+      <div class="form-group">
+        <label for="iban">Iban account</label>
+        <input type="text" id="iban" name="iban" class="form-control" ng-model="account.iban" placeholder="Iban number" null-if-empty>
+      </div>
+
+      <div class="form-group">
+        <label for="credit">Credit</label>
+        <input type="text" smart-float id="credit" name="credit" class="form-control" ng-model="account.credit" placeholder="Credit">
+      </div>
+    </div>
+    <div class="col-sm-6">
+
+     <!-- <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="person.bankCheck" ng-change="toggleVerified(person)"> Verified
+          </label>
+        </div>
+      </div> -->
+
+      <div ng-click="toggleVerified(person)" style="cursor:pointer;">
+        <h2 ng-if="person.bankCheck">
+          <i class="fa fa-check"></i> Verified
+        </h2>
+        <h2 ng-if="!person.bankCheck">
+          <i class="fa fa-times"></i> Not verified
+        </h2>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="account.machtiging"> Wil incasso
+          </label>
+          <span ng-if="account.datumMachtiging" class="help-block">gemachtigd op: {{ account.datumMachtiging | amDateFormat: 'DD-MM-YYYY' }}</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="account.mail"> Factuur per post
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="form-group">
+    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>
+    <button  ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+  </div>
+
+</form>

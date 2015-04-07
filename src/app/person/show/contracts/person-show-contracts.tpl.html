@@ -1,0 +1,30 @@
+  <h4>Contracts</h4>
+<button class="btn" ng-click="createEditContract()">Create Contract</button>
+<table class="table">
+    <thead>
+    <tr>
+        <td></td>
+        <th>#</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Contractor</th>
+        <th>Max Drivers</th>
+        <th>Own risk</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contract in contracts">
+        <td class="text-right">
+            <button class="btn btn-default btn-xs" ng-click="createEditContract(contract)"><i class="fa fa-pencil fa-lg"></i></button>
+            <button class="btn btn-default btn-xs" ng-click="showPersons(contract)"><i class="fa fa-users fa-lg"></i></button>
+        </td>
+        <td>{{ contract.id }}</td>
+        <td>{{ contract.type.name }}</td>
+        <td>{{ contract.status }}</td>
+        <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{ contract.contractor.firstName }} {{ contract.contractor.surname }}</a></td>
+        <td>{{ contract.maxDrivers }}</td>
+        <td>{{ contract.ownRiskWaiver }}</td>
+    </tr>
+    </tbody>
+</table>
+

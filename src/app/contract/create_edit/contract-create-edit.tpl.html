@@ -1,0 +1,37 @@
+<div class="modal-content">
+    <form name="contractCreateEditForm" ng-submit="save(contract)">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
+            <h4 class="modal-title" ng-hide="contract.id">Create Contract</h4>
+            <h4 class="modal-title" ng-show="contract.id">Edit Contract</h4>
+        </div>
+
+        <div class="modal-body">
+            <div class="form-group" ng-show="contract.id">
+                <label for="status">Status</label>
+                <select class="form-control" name="status" id="status" ng-model="contract.status" ng-options="o.value as o.label for o in statuses"></select>
+            </div>
+
+            <div class="form-group">
+                <label for="type">Contract Type</label>
+                <select class="form-control" name="type" id="type" ng-model="contract.type.id" ng-options="o.id as o.name for o in contractTypes"></select>
+            </div>
+
+            <div class="form-group" ng-show="contract.id">
+                <label for="maxDrivers">Max Drivers</label>
+                <input name="maxDrivers" id="maxDrivers" class="form-control" type="number" ng-model="contract.maxDrivers" />
+            </div>
+
+            <div class="form-group" ng-show="contract.id">
+                <label for="ownRiskWaiver">Own Risk Waiver</label>
+                <select class="form-control" name="ownRiskWaiver" id="ownRiskWaiver" ng-model="contract.ownRiskWaiver" ng-options="o.value as o.label for o in ownRiskWaiverOptions"></select>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>

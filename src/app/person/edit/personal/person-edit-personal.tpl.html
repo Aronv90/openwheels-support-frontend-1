@@ -1,0 +1,48 @@
+<form name="personalDataForm">
+  <div  class="form-group"
+        ng-class="{
+          'has-error': personalDataForm.firstName.$invalid,
+          'has-success': !personalDataForm.firstName.$invalid
+        }">
+    <label for="firstName">First name</label>
+    <input type="text" id="firstName" name="firstName" class="form-control" ng-model="person.firstName" required placeholder="First name">
+  </div>
+
+
+  <div class="form-group" ng-class="{true: 'has-error', false: 'is-required'}[personalDataForm.person.surname.$dirty && personalDataForm.person.surname.$invalid]">
+    <label for="preposition">Preposition & surname</label>
+    <div class="row">
+      <div class="col-xs-4">
+        <label for="preposition" class="sr-only">Preposition</label>
+        <input type="text" id="preposition" class="form-control" ng-model="person.preposition" placeholder="Preposition">
+      </div>
+      <div class="col-xs-8">
+        <label for="surname" class="sr-only">Surname</label>
+        <input type="text" id="surname" class="form-control" ng-model="person.surname" required placeholder="Surname">
+      </div>
+    </div>
+    <span class="help-block" ng-show="personalDataForm.person.surname.$dirty && personalDataForm.person.surname.$error.required">Proposer's name is required.</span>
+  </div>
+
+
+
+  <div class="form-group">
+    <label for="gender">Gender</label>
+    <span class="nullable">
+      <select id="gender" class="form-control" ng-model="person.male" ng-change="selectAction()" ng-options="gender.value as gender.label for gender in genderOptions">
+        <option value="">-- select gender --</option>
+      </select>
+    </span>
+  </div>
+
+  <div class="form-group">
+    <label for="dateOfBirth">Date of birth</label>
+    <input type="text" id="dateOfBirth" placeholder="pick a date" class="form-control pickadate-input" ng-model="person.dateOfBirth" pickadate="dateConfig">
+  </div>
+
+  <div class="form-group">
+    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>
+    <button  ng-click="save()" ng-disabled="isPersonalDataSaveDisabled()" class="btn btn-primary">Save</button>
+  </div>
+
+</form>

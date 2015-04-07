@@ -1,0 +1,28 @@
+<ul class="list-inline">
+  <li><b>Unique raters:</b> {{ ratingTotals.senders || '-' }}</li>
+  <li><b>Satisfaction:</b> {{ (ratingTotals.satisfaction | percentage) || '-'}}</li>
+  <li><b>Cleanliness:</b> <span ng-bind-html="(ratingTotals.cleanliness | ratingStars) || '-'"></span></li>
+  <li><b>Punctuality:</b> <span ng-bind-html="(ratingTotals.punctuality | ratingStars) || '-'"></span></li>
+</ul>
+
+<ul class="list-unstyled list-block">
+  <li ng-repeat="rating in ratings">
+    <div class="media">
+      <a class="pull-left" ui-sref="root.person.show.summary({personId: rating.sender.id })">
+        <img class="media-object" ng-src="{{ rating.sender | personAvatar:'square' }}" alt="Rater">
+      </a>
+      <div class="pull-left">
+        <span ng-bind-html="rating | satisfactionThumb:'fa-lg'"></span>
+      </div>
+      <div class="media-body">
+        <p><i>{{ rating.review || 'no review given'}}</i></p>
+        <a ui-sref="root.person.show.summary({personId: rating.sender.id })">{{ rating.sender | fullname }}</a>
+          <ul class="list-inline">
+            <li><span class="text-muted">Cleanliness:</span> <span ng-bind-html="(rating.cleanliness | ratingStars) || '-'"></span></li>
+            <li><span class="text-muted">Punctuality:</span> <span ng-bind-html="(rating.punctuality | ratingStars) || '-'"></span></li>
+            <li><span class="text-muted">{{ rating.created | amDateFormat:'DD-MM-YYYY | HH:mm' }}</span></li>
+          </ul>
+      </div>
+    </div>
+  </li>
+</ul>

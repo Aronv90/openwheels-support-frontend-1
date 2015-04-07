@@ -1,0 +1,25 @@
+<div class="modal-content">
+
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
+      <h4 class="modal-title" ng-hide="badge.created">Link Transaction to Person</h4>
+    </div>
+
+    <div class="modal-body">
+      <table class="table table-condensed">
+        <tr><th>Datum</th><td>{{transaction.datum | amDateFormat:'DD-MM-YYYY'}}</td></tr>
+        <tr><th>Naam</th><td>{{transaction.naam}}</td></tr>
+        <tr><th>Tegenrekening</th><td>{{transaction.tegenrekening}}</td></tr>
+        <tr><th>Omschrijving</th><td><span ng-repeat="omschrijving in transaction.omschrijving">
+                {{omschrijving.omschrijving.REMI}}<span ng-if="! $last">,</span>
+                </span></td></tr>
+      </table>
+
+      <input type="text" find-person id="person" model="transaction.account.person" />
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Cancel</button>
+      <button type="button" ng-click="link(person, transaction)" class="btn btn-primary">Link</button>
+    </div>
+</div>

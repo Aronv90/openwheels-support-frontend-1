@@ -1,0 +1,2 @@
+<alert class="text-center" ng-show="loader" type="loader.type"><i class="fa fa-spin fa-2x fa-fw fa-spinner"></i> {{loader.msg}}</alert>
+<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>

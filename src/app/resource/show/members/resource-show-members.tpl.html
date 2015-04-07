@@ -1,0 +1,33 @@
+<div class="form-group">
+  <label for="searchPerson">Add new person to members</label>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-search"></i></span>
+    <input id="searchPerson" type="text" class="form-control typeahead" placeholder="Search person" ng-model="searchPerson" typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)" typeahead-min-length="3" typeahead-input-formatter="formatPerson($model)" typeahead-wait-ms="250" required>
+  </div>
+
+</div>
+<div class="form-group">
+  <button  ng-click="addMember(searchPerson)" ng-disabled="isAddDisabled()" class="btn btn-primary">Add</button>
+</div>
+
+<ul class="list-unstyled list-block" ng-if="members">
+  <li ng-repeat="p in members">
+    <div class="media">
+
+      <a class="pull-left" ui-sref="root.person.show.summary({personId: p.id })">
+        <img class="media-object img-square" ng-src="{{ p | personAvatar:'square' }}" alt="Person">
+      </a>
+
+      <div class="pull-left">
+        <button ng-click="removeMember(p)" class="btn btn-link"><i class="fa fa-lg fa-trash-o"></i></button>
+      </div>
+
+      <div class="media-body">
+        <div>
+          <a ui-sref="root.person.show.summary({personId: p.id })">{{ p | fullname }}</a>
+        </div>
+        <div><i class="fa fa-map-marker fa-fw"></i> {{ p.streetName }} {{ p.streetNumber }}, {{ p.city }}</div>
+      </div>
+    </div>
+  </li>
+</ul>

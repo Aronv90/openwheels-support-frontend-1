@@ -1,0 +1,39 @@
+{
+  "name": "mywheels",
+  "version": "0.3.1",
+  "devDependencies": {
+    "angular-mocks": "1.2.4"
+  },
+  "dependencies": {
+    "bootstrap": "https://github.com/twbs/bootstrap.git",
+    "angular-uuid": "~0.1.0",
+    "angular-jsonrpc": "https://github.com/jaPajaap/angular-jsonrpc.git",
+    "underscore": "~1.5.2",
+    "underscore.string": "~2.3.3",
+    "pickadate": "3.5.3",
+    "momentjs": "~2.4.0",
+    "font-awesome": "~4.0.3",
+    "angular-moment": "~0.5.2",
+    "angular-ui-router": "~0.2.10",
+    "angular-ui-utils": "~0.0.4",
+    "angular": "1.2.27",
+    "angular-dragdrop": "~1.0.5",
+    "jquery": "~2.1.0",
+    "jquery-ui": "1.10.4",
+    "ngprogress": "~1.0.4",
+    "angular-sanitize": "1.2.27",
+    "angular-percentage-filter": "*",
+    "angular-google-maps": "~1.0.2",
+    "angular-local-storage": "0.0.1",
+    "angular-translate": "~1.1.1",
+    "ng-file-upload": "~1.3.2",
+    "headroom.js": "https://github.com/WickyNilliams/headroom.js.git#master",
+    "animate.css": "~3.0.0",
+    "ngAutocomplete": "https://github.com/wpalahnuk/ngAutocomplete.git",
+    "angular-bootstrap": "~0.9.0",
+    "ng-table": "~0.3.2"
+  },
+  "resolutions": {
+    "angular": "1.2.27"
+  }
+}

@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h2>{{pageTitle}}</h2>
+        <p>Filter: <input class="form-control" type="text" ng-model="filter.$" placeholder="Filter op alle kolommen, bijv. Naam, Type, Rekening, Bedrag"/></p>
+        <table class="table table-condensed table-hover" ng-table="tableParams" show-filter="false">
+          <tbody>
+            <tr ng-repeat="transaction in transactions">
+              <td data-title="'ID'" sortable="'id'">{{ transaction.id }}</td>
+              <td data-title="'Datum'" sortable="'datum'">{{ transaction.datum | amDateFormat:'DD-MM-YYYY' }}</td>
+              <td data-title="'Naam'" sortable="'naam'">{{ transaction.naam }}</td>
+              <td data-title="'Omschrijving'">
+                <span ng-repeat="omschrijving in transaction.omschrijving">
+                {{omschrijving.omschrijving.REMI}}<span ng-if="! $last">,</span>
+                </span>
+              </td>
+              <td data-title="'Tegenrekening'">{{ transaction.tegenrekening }}</td>
+              <td data-title="'Type'" sortable="'type'">{{ transaction.type }}</td>
+              <td data-title="'Email'">
+                <a  ui-sref="root.person.show.transaction.list({personId: transaction.account.person.id})">
+                  {{ transaction.account.person.email }}
+                </a>
+                <i style="cursor:pointer;" class="fa fa-edit" ng-click="linkPerson(transaction)"></i>
+              </td>
+              <td data-title="'Mutation'" ng-show="! $state.includes('root.bank.transaction.todo')">{{ transaction.mutation.id }}</td>
+              <td data-title="'Afhandeling'" ng-show="! $state.includes('root.bank.transaction.todo')">{{ transaction.afhandeling }}</td>
+              <td data-title="'Bedrag'" sortable="'bedrag'">{{ transaction.bedrag | currency }}</td>
+              <td data-title="'Maak Storting'" ng-show="$state.includes('root.bank.transaction.todo') && transaction.account !== null"><button class="btn btn-primary" ng-click="rematchTransaction(transaction)">Maak storting</button></td>
+            </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

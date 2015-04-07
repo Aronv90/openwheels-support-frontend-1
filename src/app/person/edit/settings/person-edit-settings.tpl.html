@@ -1,0 +1,145 @@
+<form name="mywheelsDataForm">
+
+  <div class="form-group">
+    <label for="status">Status & role</label>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <select class="form-control" id="status" ng-model="person.status"
+                ng-options="status.value as status.label for status in statusOptions"></select>
+      </div>
+      <div class="col-xs-6">
+        <select class="form-control" id="role" ng-model="person.role"
+                ng-options="role.value as role.label for role in roleOptions">
+          <option value="">-- select role --</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="status">Provider ID & Visibility</label>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <input class="form-control" id="providerId" name="providerId" ng-model="person.providerId" type="number">
+      </div>
+      <div class="col-xs-6">
+        <select class="form-control" ng-model="person.visibility"
+                ng-options="visibility.value as visibility.label for visibility in visibilityOptions">
+          <option value="">-- select visibility --</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="driverLicenseNumber">Driver license & status</label>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <input type="text" id="driverLicenseNumber" class="form-control" ng-model="person.driverLicenseNumber"
+               placeholder="Driver license number">
+      </div>
+      <div class="col-xs-6">
+        <select class="form-control" id="driverLicenseStatus" ng-model="person.driverLicenseStatus"
+                ng-options="status.value as status.label for status in driverLicenseStatusOptions">
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="preference">User type preference & slug</label>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <select class="form-control" id="preference" ng-model="person.preference"
+                ng-options="preference.value as preference.label for preference in preferenceOptions">
+          <option value="">-- select preference --</option>
+        </select>
+      </div>
+      <div class="col-xs-6">
+        <input type="text" id="slug" class="form-control" ng-model="person.slug" placeholder="Slug"
+               ng-disabled="person.preference === 'renter'">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="emailPreference">Email preference & book confirmation</label>
+
+    <div class="row">
+      <div class="col-xs-6">
+        <select id="emailPreference" class="form-control" ng-model="person.emailPreference"
+                ng-change="selectAction()"
+                ng-options="preference.value as preference.label for preference in emailPreferenceOptions"></select>
+      </div>
+      <div class="col-xs-6">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="person.bookConfirmation"> Book confirmation?
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button ng-click="enable2Step()" class="btn">2-step Verification</button>
+  </div>
+
+  <div class="form-group">
+    <label for="companyName">Is company? & name</label>
+
+    <div class="input-group">
+      <span class="input-group-addon">
+        <input type="checkbox" ng-model="person.isCompany">
+      </span>
+      <input type="text" id="companyName" class="form-control" ng-model="person.companyName"
+             ng-disabled="!person.isCompany" placeholder="Company name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="visibility">Profile visibility</label>
+    <select class="form-control" id="visibility" ng-model="person.visibility"
+            ng-options="visibility.value as visibility.label for visibility in visibilityOptions">
+      <option value="">-- select visiblity --</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="remark">Remark</label>
+    <textarea id="remark" class="form-control" ng-model="person.remark" placeholder="Remark"></textarea>
+  </div>
+
+  <div class="form-group">
+    <label for="facebookUid">Facebook uid</label>
+    <input type="text" id="facebookUid" class="form-control" ng-model="person.facebookUid"
+           placeholder="Facebook uid">
+  </div>
+
+  <div class="form-group">
+    <label for="twitterUid">Twitter uid</label>
+    <input type="text" id="twitterUid" class="form-control" ng-model="person.twitterUid" placeholder="Twitter uid">
+  </div>
+
+  <div class="form-group">
+    <label for="linkedinUid">Linked in uid</label>
+    <input type="text" id="linkedinUid" class="form-control" ng-model="person.linkedinUid"
+           placeholder="Linked in uid">
+  </div>
+
+  <div class="form-group">
+    <label for="about">About</label>
+    <textarea id="about" class="form-control" ng-model="person.about" placeholder="About"></textarea>
+  </div>
+
+
+
+  <div class="form-group">
+    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>
+    <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+  </div>
+</form>

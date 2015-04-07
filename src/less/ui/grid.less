@@ -1,0 +1,36 @@
+/* Small devices (tablets, 768px and up) */
+@media (min-width: @screen-tablet) {
+  div[class^="col"]{
+    padding-left: @grid-gutter-width-tablet / 2;
+    padding-right: @grid-gutter-width-tablet / 2;
+  }
+  .row{
+    margin-left:  (@grid-gutter-width-tablet / -2);
+    margin-right: (@grid-gutter-width-tablet / -2);
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: @screen-desktop) {  
+  div[class^="col"]{
+    padding-left: @grid-gutter-width-desktop / 2;
+    padding-right: @grid-gutter-width-desktop / 2;
+  }
+  .row{
+    margin-left:  (@grid-gutter-width-desktop / -2);
+    margin-right: (@grid-gutter-width-desktop / -2);
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: @screen-lg-desktop) {   
+  /*default so you don't need this*/
+  div[class^="col"]{
+    padding-left: @grid-gutter-width-lg-desktop / 2;
+    padding-right: @grid-gutter-width-lg-desktop / 2;
+  }
+  .row{
+    margin-left:  (@grid-gutter-width-lg-desktop / -2);
+    margin-right: (@grid-gutter-width-lg-desktop / -2);
+  }
+}

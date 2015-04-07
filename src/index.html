@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" ng-controller="AppCtrl">
+    <head>
+        <title ng-bind="pageTitle"></title>
+        <base href="">
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+        <!-- responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+        <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+    </head>
+    <body class="waiting-for-angular">
+        <div ui-view="navigation"></div>
+        <div class="container">
+            <div ui-view="alerts" class="alerts"></div>
+            <div ui-view="main"></div>
+            <div ui-view="footer"></div>
+        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false"></script>
+        <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+        <script type="text/javascript" src="<%= file %>"></script><% }); %>
+    </body>
+</html>

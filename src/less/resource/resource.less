@@ -1,0 +1,33 @@
+.resource__thumb {
+  height: 80px;
+}
+
+.resource__alias {
+    font-size: floor(@font-size-base * 1.15);
+}
+
+.resource__price {
+  color: @gray-light;
+  font-size: floor(@font-size-base * 1.15);
+  padding-right: 5px;
+}
+
+.truncate {
+    overflow: hidden; /* to hide anything that doesn't fit in the containing element. */
+    white-space: nowrap; /* to make sure the line doesn't break when it is longer than the containing div. */
+    text-overflow: ellipsis; /* to do what you want. */
+}
+
+.resource__price-list {
+    > li {
+        text-align: center;
+    }
+}
+.resource_price-list__unit {
+    font-size: 12px;
+    color: @gray-light;
+}
+
+input.ng-invalid {
+  background-color: rgba(255, 189, 189, 0.63);
+}

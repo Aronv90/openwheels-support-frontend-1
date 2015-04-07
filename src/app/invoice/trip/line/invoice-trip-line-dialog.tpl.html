@@ -1,0 +1,56 @@
+<div class="modal-content">
+    <form name="invoiceTripLineDialogForm">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
+            <h4 class="modal-title" ng-hide="invoiceLine.id">Create invoice line</h4>
+            <h4 class="modal-title" ng-show="invoiceLine.id">Edit invoice line</h4>
+        </div>
+        <div class="modal-body">
+
+              <div class="form-group">
+                  <label for="description">Description</label>
+                  <input type="text" required class="form-control" id="description" name="description" placeholder="description" ng-model="invoiceLine.description">
+              </div>
+
+              <div class="form-group">
+                  <label for="quantity">Quantity & price</label>
+                  <div class="form-inline">
+                      <div class="form-group">
+                          <label class="sr-only" for="quantity">Quantity</label>
+                          <input type="number" min="0" required class="form-control" id="quantity" name="quantity" placeholder="quantity" ng-model="invoiceLine.quantity">
+                      </div>
+                      <div class="form-group">
+                          <label class="sr-only" for="quantity">Price</label>
+                          <input type="text" smart-float required class="form-control" id="price" name="price" placeholder="price" ng-model="invoiceLine.price">
+                      </div>
+                      total: {{ invoiceLine.quantity * invoiceLine.price | currency}}
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="quantity">BTW</label>
+                  <div class="form-inline">
+                      <div class="form-group">
+                          <label class="sr-only" for="btw">Price</label>
+                          <select integer required class="form-control" id="btw" name="btw" ng-model="invoiceLine.btw"
+                          ng-options="btw.value as btw.label for btw in btwOptions">
+                  </select>
+                      </div>
+                      BTW: {{ invoiceLine.btw / 100 * invoiceLine.quantity * invoiceLine.price | currency}}
+                  </div>
+              </div>
+
+              <div ng-hide="invoiceLine.id" class="form-group">
+                  <label for="sender">Sender</label>
+                  <select class="form-control" id="sender" name="sender" ng-model="invoiceId"
+                          ng-options="i.id as i.sender.firstName for i in invoiceSenders | unique:'sender'">
+                  </select>
+              </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
+            <button type="submit" class="btn btn-primary" ng-disabled="invoiceTripLineDialogForm.$invalid" ng-click="save(invoiceLine, invoiceId)">Submit</button>
+        </div>
+    </form>
+</div>

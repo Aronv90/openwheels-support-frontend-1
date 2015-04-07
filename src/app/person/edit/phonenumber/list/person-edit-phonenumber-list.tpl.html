@@ -1,0 +1,24 @@
+<table class="table">
+    <thead>
+        <tr>
+            <td></td>
+            <th class="text-right">Order</th>
+            <th>Number</th>
+            <th>Type</th>
+            <th><i class="fa fa-eye"></i></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="phone in phoneNumbers">
+            <td class="text-right">
+                <button class="btn btn-default btn-sm" ng-click="editPhone(phone)"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-default btn-sm" ng-click="removePhone(phone)"><i class="fa fa-trash-o"></i></button>
+            </td>
+            <td class="text-right">{{ phone.sortOrder }}</td>
+            <td>{{ phone.number }}</td>
+            <td>{{ phone.type }}</td>
+            <td><i ng-class="{ 'fa fa-eye': !phone.confidential, 'fa fa-eye-slash': phone.confidential }"></i></td>
+        </tr>
+    </tbody>
+</table>
+<button ng-click="addPhone()" class="btn">Add phone number</button>

@@ -1,0 +1,29 @@
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    #<IfModule mod_vhost_alias.c>
+    #    RewriteBase /
+    #</IfModule>
+
+</IfModule>
+
+    #server sent events
+    RewriteRule ^(.*)events$ http://localhost:1337/ [P]
+
+    #force https
+    #RewriteCond %{SERVER_PORT} 80
+    #RewriteRule ^(.*)$ https://www.example.com/$1 [R,L]
+
+# ------------------------------------------------------------------------------
+# | UTF-8 encoding                                                             |
+# ------------------------------------------------------------------------------
+
+# Use UTF-8 encoding for anything served as `text/html` or `text/plain`.
+AddDefaultCharset utf-8
+
+# Force UTF-8 for certain file formats.
+<IfModule mod_mime.c>
+    AddCharset utf-8 .atom .css .js .json .rss .vtt .webapp .xml
+</IfModule>

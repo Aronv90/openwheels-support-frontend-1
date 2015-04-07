@@ -1,0 +1,47 @@
+<div class="modal-content">
+
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="dismiss()">&times;</button>
+        <h4 class="modal-title">Persons On Contract ( {{ contract.id }} )</h4>
+    </div>
+
+    <div class="modal-body">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control input-sm typeahead" placeholder="Search person"
+                       ng-model="newPerson"
+                       typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)"
+                       typeahead-min-length="3" typeahead-on-select="addPerson(newPerson)"
+                       typeahead-input-formatter="formatPerson($model)">
+            </div>
+        </form>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>E-mail</th>
+                <th></th>
+            </tr>
+            </thead>
+
+            <tr ng-repeat="contractPerson in contract.persons">
+                <td>{{contractPerson.id}} {{person.id}}</td>
+                <td>{{contractPerson.firstName}} {{contractPerson.surname}}</td>
+                <td>{{contractPerson.email}}</td>
+                <td>
+                    <button ng-hide="contractPerson.id === person.id" class="btn btn-default btn-xs" ng-click="removePerson(contractPerson)">
+                        <i class="fa fa-trash-o fa-lg"></i>
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
+    </div>
+</div>

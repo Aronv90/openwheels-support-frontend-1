@@ -1,0 +1,32 @@
+<div class="panel panel-default card">
+    <div class="panel-heading card__heading">
+        <h1>Add Person</h1>
+    </div>
+</div>
+
+<div class="panel panel-default card">
+    <div class="panel-body">
+        <form id="personCreateForm" name="personCreateForm" ng-submit="save(newPerson)">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input required class="form-control" name="email" id="email" type="email" ng-model="newPerson.email">
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="createPassword()">
+                        Create Random Password
+                    </button>
+                </span>
+                    <input required class="form-control" name="password" id="password" type="text"
+                           ng-model="newPerson.password">
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-default" ng-click="reset()">Cancel</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>

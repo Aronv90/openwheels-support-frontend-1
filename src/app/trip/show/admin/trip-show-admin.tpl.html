@@ -1,0 +1,93 @@
+<div class="alert alert-danger" ng-if="! isFinished()"><b>Pas op!</b> Deze boeking is nog niet voorbij. Gebruik het scherm <a ui-sref="^.edit_booking">Edit booking</a> om de boeking te verlengen of te stoppen.</div>
+<div class="row">
+  <div class="col-sm-6">
+    <h4 class="booking__timeframe__title" ng-class="{ 'booking--isActive': isBooking() }">Booking</h4>
+    <form name="bookingBooking">
+      <div class="form-group">
+        <label for="beginBooking">Begin date & time</label>
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" id="beginBooking" placeholder="pick a date" class="form-control pickadate-input" ng-model="booking.beginBooking" pickadate="dateConfig">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" placeholder="pick a time" class="form-control pickadate-input" ng-model="booking.beginBooking" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endBooking">End date & time</label>
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" id="endBooking" placeholder="pick a date" class="form-control pickadate-input" ng-model="booking.endBooking" pickadate="dateConfig">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" placeholder="pick a time" class="form-control pickadate-input" ng-model="booking.endBooking" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="contract">Contract</label>
+        <select class="form-control" id="contract" ng-model="booking.contract.id" ng-options="contract.id as ( ( contract.contractor | fullname ) + ' - ' + contract.type.name ) for contract in driverContracts"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="remarkRequester">Remark requester</label>
+        <textarea id="remarkRequester" name="remarkRequester" class="form-control" ng-model="booking.remarkRequester"
+                  placeholder="Remark requester"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="saveBooking()">Save Booking</button>
+      </div>
+
+    </form>
+  </div>
+  <div class="col-sm-6">
+    <h4 class="booking__timeframe__title" ng-class="{ 'trip--isActive': isTrip() }">Trip</h4>
+    <form name="bookingTrip">
+      <div class="form-group">
+        <label for="beginTrip">Begin date & time</label>
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" id="beginTrip" placeholder="pick a date" class="form-control pickadate-input" ng-model="booking.trip.begin" pickadate="dateConfig">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" id="endTrip" placeholder="pick a time" class="form-control pickadate-input" ng-model="booking.trip.begin" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endTrip">End date & time</label>
+
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" placeholder="pick a date" class="form-control pickadate-input" ng-model="booking.trip.end" pickadate="dateConfig">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" placeholder="pick a time" class="form-control pickadate-input" ng-model="booking.trip.end" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="beginOdo">Begin & end odo</label>
+        <div class="row">
+          <div class="col-xs-6">
+            <input type="number" id="beginOdo" class="form-control" ng-model="booking.trip.odoBegin" placeholder="Begin odo">
+          </div>
+          <div class="col-xs-6">
+            <input type="number" id="endOdo" class="form-control" ng-model="booking.trip.odoEnd" placeholder="End odo">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-default" ng-click="setTrip()">Save Trip</button>
+      </div>
+    </form>
+</div>
+
+</div>

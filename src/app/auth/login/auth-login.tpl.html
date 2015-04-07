@@ -1,0 +1,40 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <img class="img-responsive center-block" src="assets/img/mywheels-logo-head-hd.png">
+  </div>
+  <div class="modal-body">
+    <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+    <form role="form" class="form" ng-submit="login()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" required autofocus ng-model="auth.email">
+      </div>
+      <div class="form-group">
+        <span class="pull-right">
+          <a ui-sref="owm.auth.signup">I forgot</a>
+        </span>
+        <label for="password">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" required ng-model="auth.password">
+      </div>
+      <div class="form-inline">
+        <button type="submit" class="btn btn-primary">Login</button>
+        <!-- <div class="checkbox">
+          <label for="remember-me">
+            <input id="remember-me" type="checkbox"> Ingelogd blijven
+          </label>
+        </div> -->
+      </div>
+
+    </form>
+    <hr>
+    <ul class="list-inline text-center">
+      <li>
+        <a ui-sref="root.auth.signup">Create an account</a>
+      </li>
+      <li>
+        <a ui-sref="owm.auth.signup">Trouble logging in?</a>
+      </li>
+    </ul>
+
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<h3>Rekeningnummer: {{ account.rekeningnummer || "onbekend" }} <small>{{ account.id }}</small></h3>
+<ul class="list-inline">
+  <li><strong>Saldo:</strong> {{ account.saldo | currency }}</li>
+  <li><strong>Credit:</strong> {{ account.credit | currency }}</li>
+</ul>
+<ul class="list-inline">
+  <li><strong>Naam:</strong> {{ account.name || "account naam onbekend" }}</li>
+  <li><strong>Machting:</strong> {{ account.machtiging }}</li>
+  <li><strong>Factureer:</strong> {{ account.factureer }}</li>
+  <li><strong>Stort:</strong> {{ account.stort }}</li>
+  <li><strong>Description:</strong> {{ account.discr }}</li>
+</ul>
+
+<hr>
+
+<table class="table table-condensed table-hover table-invoice">
+  <thead>
+    <tr>
+      <th>Transaction</th>
+      <th>Date</th>
+      <th>Verzamelfactuur</th>
+      <th>Description</th>
+      <th class="table-invoice__price">Af</th>
+      <th class="table-invoice__price">Bij</th>
+      <th class="table-invoice__price">Saldo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="t in transactions">
+      <td>{{ t.id }}</td>
+      <td>{{ t.passed | amDateFormat: 'DD-MM-YYYY' }}</td>
+      <td><a ui-sref="root.invoice.group.show({ invoiceGroupId: t.mut_af[0].invoices[0].recvGroup.id })">{{ t.mut_af[0].invoices[0].recvGroup.id }}</a></td>
+      <td>{{ t.description }}</td>
+      <td class="table-invoice__price"><span ng-show="t.total < 0">{{ t.total | currency }}</span></td>
+      <td class="table-invoice__price"><span ng-show="t.total > 0">{{ t.total|currency }}</span></td>
+      <td class="table-invoice__price">{{ t.saldo | currency }}</td>
+    </tr>
+
+  </tbody>
+</table>

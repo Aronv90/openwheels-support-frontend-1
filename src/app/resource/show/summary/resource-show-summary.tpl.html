@@ -1,0 +1,85 @@
+<div class="row">
+  <div class="col-md-4">
+    <h5>Owner / Contact person</h5>
+    <table class="table table-condensed">
+      <tbody>
+        <tr>
+          <td>Owner</td>
+          <td><a ui-sref="root.person.show.summary({ personId: resource.owner.id })">{{ resource.owner | fullname }}</a></td>
+        </tr>
+        <tr>
+          <td>Contact person</td>
+          <td><a ui-sref="root.person.show.summary({ personId: resource.contactPerson.id })">{{ resource.contactPerson | fullname }}</a></td>
+        </tr>
+        <tr>
+          <td>Provider</td>
+          <td>{{ resource.provider }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-4">
+  <h5>Resource</h5>
+    <table class="table table-condensed">
+      <tbody>
+        <tr ng-class="{ 'text-danger': !resource.isActive }">
+          <td>Active</td>
+          <td>{{ resource.isActive }}</td>
+        </tr>
+        <tr>
+          <td>Amount of seats</td>
+          <td>{{ resource.amountOfSeats }}</td>
+        </tr>
+        <tr>
+          <td>Fuel type</td>
+          <td>{{ resource.fuelType }}</td>
+        </tr>
+        <tr>
+          <td>Fuel card code</td>
+          <td>{{ resource.fuelCardCode }}</td>
+        </tr>
+        <tr ng-class="{ 'text-danger': !resource.isAvailableOthers }">
+          <td>Avalability others</td>
+          <td>{{ resource.isAvailableOthers }}, confirmation {{ resource.isConfirmationRequiredOthers ? 'required' : 'not required' }}</td>
+        </tr>
+        <tr ng-class="{ 'text-danger': !resource.isAvailableFriends }">
+          <td>Avalability friends</td>
+            <td>{{ resource.isAvailableFriends }}, confirmation {{ resource.isConfirmationRequiredFriends ? 'required' : 'not required' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-4">
+    <h5>Price</h5>
+    <table class="table table-condensed">
+      <tbody>
+        <tr>
+          <td>Day rate</td>
+          <td>{{ resource.dayRateTotal | currency }}</td>
+        </tr>
+        <tr>
+          <td>Hour rate</td>
+          <td>{{ resource.hourRate | currency }}</td>
+        </tr>
+        <tr>
+          <td>KM rate</td>
+          <td>{{ resource.kilometerRate | currency }} + {{ resource.fuelPerKilometer | currency }} (fuel)</td>
+        </tr>
+        <tr>
+          <td>Insurance rate</td>
+          <td>{{ resource.insuranceRate | currency }}</td>
+        </tr>
+        <tr>
+          <td>KM free</td>
+          <td>{{ resource.kmFree }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
+

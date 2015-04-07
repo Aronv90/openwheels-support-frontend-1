@@ -1,0 +1,79 @@
+<div class="panel panel-default card" ng-show="resource.removed">
+    <div class="panel-heading">
+        <h1>Resource with id: {{resource.id}} was removed.</h1>
+    </div>
+</div>
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <div class="media row">
+          <div class="col-md-1">
+            <img class="img-responsive media-object img-square" ng-src="{{ resource.pictures[0] | resourceAvatar:'small' }}">
+          </div>
+          <div class="media-body col-md-8">
+            <h3 class="card__title">
+              <a target="_blank" href="{{ frontResources }}{{ resource.owner.email }}"><i class="fa fa-external-link"></i></a>
+              {{ resource.alias }}
+              <span class="lead text-muted">({{ resource.registrationPlate }})</span>
+              van <a ui-sref="root.person.show.summary({ personId: resource.ownerId })">{{ resource.owner.firstName }}</a>
+              <small>{{ resource.id }}</small>
+            </h3>
+            <ul class="list-inline card__subtitle">
+              <li>{{ resource.isActive ? 'Active' : 'Inactive' }}</li>
+              <li><i class="fa fa-map-marker"></i> {{resource.location}}, {{ resource.city }}</li>
+              <li><i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Available for others' : 'Not available for others'}}</li>
+              <li><i class="fa fa-gear"></i> {{ resource.fuelType}}</li>
+            </ul>
+          </div>
+          <div class="col-md-1">
+            <button class="btn btn-xl" ng-click="bookResource(resource)">Book Resource</button>
+          </div>
+          <div class="col-md-2">
+              <i class="fa fa-trash-o fa-4x  pull-right" ng-click="removeResource(resource)"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="panel panel-default card">
+    <nav class="navbar navbar-default card__navbar">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ow-navbar-collapse-person">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" ui-sref="root.resource.show.summary({ tripId: resource.id })">Summary</a>
+        </div>
+        <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
+            <ul class="nav navbar-nav">
+                <li ng-class="{ active: $state.includes('root.resource.show.edit') }">
+                    <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Edit</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.members') }">
+                    <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Members</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.trip') }">
+                    <a ui-sref="root.resource.show.trip({ resourceId: resource.id })">Trips</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.boardcomputer">
+                    <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Board PC</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.boardcomputer">
+                  <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boardcomputer Log</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
+                    <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Rating ( {{ resource.ratings.length }} )</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
+                    <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Revisions</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="panel-body">
+        <div ui-view></div>
+    </div>
+</div>

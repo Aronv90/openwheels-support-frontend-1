@@ -1,0 +1,31 @@
+<ul class="list-unstyled list-block">
+  <li ng-repeat="r in resources">
+    <div class="media">
+
+      <a class="pull-left" ui-sref="root.resource.show.summary({resourceId: r.id })">
+        <img class="media-object img-square" ng-src="{{ r.pictures.0 | resourceAvatar:'small' }}" alt="Resource">
+      </a>
+
+      <div class="pull-left">
+        <span ng-bind-html="r.rating_totals | satisfactionThumb:'fa-lg'"></span>
+      </div>
+
+      <div class="media-body">
+        <div>
+          <a ui-sref="root.resource.show.summary({resourceId: r.id })">{{ r.alias }}</a>
+          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }">{{ r.isActive ? 'Active' : 'Inactive' }}</span>
+        </div>
+        <div>{{ r.brand }} {{ r.model }}</div>
+        <div><i class="fa fa-map-marker fa-fw"></i> {{ r.location }}, {{ r.city }}</div>
+        <ul class="list-inline">
+          <li>
+            <i class="fa fa-user fa-fw"></i> <a ui-sref="root.person.show.summary({personId: r.ownerId })">{{ person | fullname }}</a>
+          </li>
+          <li ng-show="r.contactPersonId">
+            <i class="fa fa-user fa-fw"></i> contact <a ui-sref="root.person.show.summary({personId: r.contactPersonId })">{{ person | fullname }}</a>
+          </li>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

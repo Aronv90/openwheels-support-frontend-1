@@ -1,0 +1,55 @@
+<h4>Revisions</h4>
+
+<form>
+  <div class="form-group" ng-show="fields.length">
+    <select class="form-control"
+            ng-model="selectedField"
+            ng-options="field for field in fields | orderBy : 'toString()'">
+        <option value="">-- Filter by field --</option>
+    </select>
+  </div>
+</form>
+
+<div ng-show="!selectedField">
+  <table class="table" ng-show="revisions.length">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Changes</th>
+        <th>Updated by</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="revision in revisions">
+      <td class="nowrap">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
+      <td>
+        <span ng-if="revision.action==='create'">Created</span>
+        <span ng-if="revision.action==='update'">{{ revision.data | json }}</span>
+      </td>
+      <td>{{ revision.username }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<div ng-show="selectedField">
+  <table class="table" ng-show="revisions.length">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>{{ selectedField }}</th>
+        <th>Updated by</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="revision in revisions" ng-show="revision.data[selectedField]">
+      <td class="nowrap">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
+      <td>
+        <span ng-if="revision.action==='create'">Created</span>
+        <span ng-if="revision.action==='update'">{{ revision.data[selectedField] | json }}</span>
+      </td>
+      <td>{{ revision.username }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

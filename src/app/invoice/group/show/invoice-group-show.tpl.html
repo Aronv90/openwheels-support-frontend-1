@@ -1,0 +1,113 @@
+  <div class="panel panel-default card">
+    <div class="panel-heading">
+        <h3 class="card__title">
+          <a href="{{ frontInvoiceGroupPath + invoiceGroup.invoiceGroup.id }}.pdf" target="_blank"><i class="fa fa-external-link"></i></a>
+          Verzamelfactuur
+          <small>{{ invoiceGroup.invoiceGroup.id }}</small>
+        </h3>
+
+      <p>{{ ( invoiceGroup.invoiceGroup.due | amDateFormat: 'DD-MM-YYYY' ) || 'concept' }}</p>
+      <p><a ui-sref="root.person.show.invoice-group.list({ personId: invoiceGroup.invoiceGroup.person.id })">{{ invoiceGroup.invoiceGroup.person | fullname }}</a><br>
+      {{ invoiceGroup.invoiceGroup.person.streetName }} {{ invoiceGroup.invoiceGroup.person.streetNumber }}<br>
+      {{ invoiceGroup.invoiceGroup.person.zipcode }} {{ invoiceGroup.invoiceGroup.person.city }}</p>
+    </div>
+</div>
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <h4 class="card__title">Invoice lines in group</h4>
+        <button class="btn btn-primary" ng-click="createInvoice()" ng-disabled="invoiceGroup.invoiceGroup.due">Create invoice</button>
+    </div>
+    <div class="panel-body">
+        <table ng-show="invoiceGroup.invoiceGroup.lines" class="table table-condensed table-hover table-invoice">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Sender</th>
+                    <th>description</th>
+                    <th class="table-invoice__price">ex. BTW</th>
+                    <th class="table-invoice__price">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="line in invoiceGroup.invoiceGroup.lines">
+                    <td class="text-right">
+                        <span ng-show="line.id">
+                            <button class="btn btn-default btn-xs" ng-click="removeInvoiceLine(line.id, $index)"><i class="fa fa-trash-o"></i></button>
+                            <button class="btn btn-default btn-xs" ng-click="alterInvoiceLine(line, $index)"><i class="fa fa-pencil"></i></button>
+                        </span>
+                    </td>
+                    <td><a ui-sref="root.person.show.summary({ personId: line.sender_id })">
+                        {{ line.sender_firstName ? line.sender_firstName : "MyWheels" }} {{ line.sender_preposition }} {{ line.sender_surname }}
+                    </a> <small class="text-muted">{{ line.sender_id }}</small></td>
+                    <td>{{ line.description }}</td>
+                    <td class="table-invoice__price">{{ ( line.total - line.btw  ) | currency }}</td>
+                    <td class="table-invoice__price">{{ line.total | currency }}</td>
+                </tr>
+                <tr class="table-invoice__total">
+                    <td class="text-right" colspan="4">Total</td>
+                    <th class="table-invoice__price">{{ invoiceGroup.total | currency }}</th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <h4 class="card__title">Payments in group</h4>
+        <button class="btn btn-primary" ng-click="createPayment(invoiceGroup.invoiceGroup.id)" ng-disabled="invoiceGroup.invoiceGroup.due">Create payment</button>
+    </div>
+    <div class="panel-body">
+        <table ng-show="invoiceGroup.invoiceGroup.payments" class="table table-condensed table-hover table-invoice">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>passed</th>
+                    <th>description</th>
+                    <th class="table-invoice__price">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="payment in invoiceGroup.invoiceGroup.payments">
+                    <td class="text-right">
+                        <button class="btn btn-default btn-xs" ng-click="removePayment(payment.id, $index)"><i class="fa fa-trash-o"></i></button>
+                        <button class="btn btn-default btn-xs" ng-click="alterPayment(payment, invoiceGroup.invoiceGroup.id, $index)"><i class="fa fa-pencil"></i></button>
+                    </td>
+                    <td>{{ payment.passed | amDateFormat: 'DD-MM-YYYY'}}</td>
+                    <td>{{ payment.description }}</td>
+                    <td class="table-invoice__price">{{ payment.total | currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <h4>Trips in group</h4>
+    </div>
+    <div class="panel-body">
+        <table ng-show="invoiceGroup.trips" class="table table-condensed table-hover table-invoice">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Trip</th>
+                    <th>Resource</th>
+                    <th>Person</th>
+                    <th class="table-invoice__price">ex. BTW</th>
+                    <th class="table-invoice__price">Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="tripOverview in invoiceGroup.trips">
+                    <td>{{ tripOverview.beginBooking | amDateFormat:'DD-MM-YYYY' }}</td>
+                    <td><a ui-sref="root.trip.show.overview({ tripId: tripOverview.id })">#{{ tripOverview.id }}</a></td>
+                    <td>{{ tripOverview.resource.alias }}</td>
+                    <td>{{ tripOverview.person.firstName }}</td>
+                    <td class="table-invoice__price">{{ ( tripOverview.total - tripOverview.btw ) | currency }}</td>
+                    <td class="table-invoice__price">{{ tripOverview.total | currency }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

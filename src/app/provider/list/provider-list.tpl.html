@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <table class="table table-hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>URL</th>
+            <th>Fleet</th>
+            <th>Default Contract Type</th>
+            <th>Default Country</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="provider in providers">
+            <!--<td><a href="" ui-sref="root.provider.show({ providerId: provider.id })">{{ provider.id }}</a></td>-->
+            <td>{{ provider.id }}</td>
+            <td>{{ provider.name}}</td>
+            <td>{{ provider.url[0] }}</td>
+            <!--<td><a href="" ui-sref="fleet.show({fleetId: provider.fleet.id})">{{ provider.fleet.name }}</a></td>-->
+            <td>{{ provider.fleet.name }}</td>
+            <!--<td><a href="" ui-sref="contract.show({contractId: contract.defaultContractType.id})">{{ provider.defaultContractType.name }}</a></td>-->
+            <td>{{ provider.defaultContractType.name }}</td>
+            <td>{{ provider.defaultCountry }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

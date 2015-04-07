@@ -1,0 +1,198 @@
+<div ng-show="$state.includes('root.person')">
+  <h3>Rekeningnummer: {{ invoiceGroups[0].person.accounts[0].rekeningnummer || "onbekend" }}
+    <small>{{ invoiceGroups[0].person.accounts[0].id }}</small>
+    <span class="pull-right">IBAN: {{ invoiceGroups[0].person.accounts[0].iban || "onbekend" }}</span></h3>
+  <ul class="list-inline">
+    <li><strong>Saldo:</strong> {{ invoiceGroups[0].person.accounts[0].saldo | currency }}</li>
+    <li><strong>Credit:</strong> {{ invoiceGroups[0].person.accounts[0].credit | currency }}</li>
+  </ul>
+  <ul class="list-inline">
+    <li><strong>Naam:</strong> {{ invoiceGroups[0].person.accounts[0].name || "invoiceGroups[0].person.accounts.0 naam onbekend" }}
+    </li>
+    <li><strong>Machting:</strong> {{ invoiceGroups[0].person.accounts[0].machtiging }}</li>
+    <li><strong>Factureer:</strong> {{ invoiceGroups[0].person.accounts[0].factureer }}</li>
+    <li><strong>Stort:</strong> {{ invoiceGroups[0].person.accounts[0].stort }}</li>
+    <li><strong>Description:</strong> {{ invoiceGroups[0].person.accounts[0].discr }}</li>
+  </ul>
+  <hr>
+</div>
+
+<div class="row">
+  <div class="col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <form class="form">
+          <div class="form-group">
+            <label for="limit">Limit</label>
+            <select id="limit" class="form-control" ng-model="params.limit"
+                    ng-options="limit.value as limit.label for limit in limitOptions">
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="gtamount">Amount</label>
+
+
+            <div class="input-group">
+              <span class="input-group-addon">></span>
+              <input class="form-control" id="gtamount" type="number" ng-model="params.gtamount" placeholder="Greater than">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <span class="input-group-addon"><</span>
+              <input class="form-control" id="ltamount" type="number" ng-model="params.ltamount" placeholder="Less than">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date</label>
+            <input type="text" id="date" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-disabled="params.concept === true" ng-model="params.date" pickadate="invoiceDateConfig">
+          </div>
+
+          <div class="form-group">
+            <label for="ltdate">Date before</label>
+            <input type="text" id="ltdate" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-disabled="params.concept === true" ng-model="params.ltdate" pickadate="invoiceDateConfig">
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.concept" ng-change="toggleConcept()"> Concept
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.unpaid"> Not paid
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.overpaid"> Overpaid
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.owner"> Owner
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.renter"> Renter
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.neq_saldo"> Saldo not equal
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.has_mandate"> Machtiging
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.no_mandate"> Geen Machtiging
+              </label>
+            </div>
+          </div>
+          <button class="btn btn-primary" ng-click="refresh()">refresh</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <table class="table table-condensed table-hover table-invoice">
+          <thead>
+          <tr>
+            <th colspan="2">Verzamelfactuur</th>
+            <th>Date</th>
+            <th ng-hide="$state.includes('root.person')">Person</th>
+            <th class="table-invoice__price">Amount</th>
+            <th class="table-invoice__price">Paid</th>
+            <th class="table-invoice__price">Openstaand</th>
+            <th ng-hide="$state.includes('root.person')" class="table-invoice__price">Saldo
+            </th>
+          </tr>
+          </thead>
+          <tbody ng-repeat="iG in invoiceGroups" ng-model="iG.payments"
+                 data-drop="true" jqyoui-droppable="{multiple: true, stack: true, onDrop: 'moveMutation(iG.id)' }"
+                 data-jqyoui-options="{ activeClass: 'ui-droppable__table--hover' }">
+          <tr class="table-invoice--group">
+            <td>
+              <a class="btn btn-default btn-xs" href="{{ frontInvoiceGroupPath + iG.id }}.pdf" target="_blank"><i
+                class="fa fa-external-link"></i></a>
+            </td>
+            <td><a ui-sref="root.invoice.group.show({ invoiceGroupId: iG.id })">{{ iG.id }}</a></td>
+            <td>{{ iG.due ? ( iG.due | amDateFormat: 'DD-MM-YYYY' ) : 'concept' }}</td>
+            <td ng-hide="$state.includes('root.person')">
+              <a
+                ui-sref="root.person.show.invoice-group.list({ personId: iG.person.id, overpaid: undefined, date: undefined, ltDate: undefined, unpaid: undefined, owner: undefined, amount: undefined, page: undefined, limit: undefined })">{{
+                iG.person.firstName }} {{ iG.person.surname }}</a>
+              <span class="label label-warning">{{ iG.person.status ==! 'active' ? iG.person.status : '' }}</span>
+              <span class="label label-default">{{ iG.person.accounts[0].machtiging ? 'machtiging' : '' }}</span>
+            </td>
+            <td class="table-invoice__price">{{ iG.total | currency}}</td>
+            <td class="table-invoice__price">{{ countPaid($index) | currency }}</td>
+            <td class="table-invoice__price"
+                ng-class="{ 'table-invoice__price--negative': ( iG.total - countPaid($index) ) < 0, 'table-invoice__price--positive': ( iG.total - countPaid($index) ) > 0 }">
+              {{ ( iG.total - countPaid($index) ) | currency}}
+            </td>
+            <td ng-hide="$state.includes('root.person')" class="table-invoice__price">{{ iG.person.accounts[0].saldo |
+              currency }}
+            </td>
+          </tr>
+
+
+          <tr ng-repeat="p in iG.payments" ng-model="iG.payments" data-drag="true" jqyoui-draggable="{index: $index}"
+              data-jqyoui-options="{helper:'clone', revert: 'invalid', axis: 'y', cursor: '-webkit-grabbing', handle: 'i' }"
+              id="{{ p.id }}">
+            <td class="text-right btn-draggable"><i class="fa fa-bars fa-draggable"></i></td>
+            <td>{{ p.id }}</td>
+            <td>{{ p.passed | amDateFormat: 'DD-MM-YYYY' }}</td>
+            <td colspan="2">{{ p.description }}</td>
+            <td class="table-invoice__price">{{ p.total | currency}}</td>
+          </tr>
+
+          <tr
+            ng-show="iG.due && $state.includes('root.person') && ( (iG.total|currency) !== (countPaid($index)|currency) )">
+            <td colspan="4"></td>
+            <td colspan="2" class="text-right">
+              <btn class="btn btn-primary btn-xs"
+                   ng-click="transferMutation(iG.person.accounts[0].id, iG.id, $index, countPaid($index) - iG.total)">
+                Overhevelen
+              </btn>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+
+        <pagination total-items="totalItems" page="params.page" max-size="maxSize" items-per-page="params.limit"
+                    on-select-page="setPage(page)" rotate="false"></pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+

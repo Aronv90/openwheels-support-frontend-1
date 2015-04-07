@@ -1,0 +1,81 @@
+<form name="contactDataForm">
+
+  <div class="form-group">
+    <label for="email">Email</label>
+    <div class="row">
+      <div class="col-xs-7">
+        <input type="text" id="email" class="form-control" ng-model="person.email" required placeholder="Email">
+      </div>
+      <div class="col-xs-2">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="person.emailValid"> Valid
+          </label>
+        </div>
+      </div>
+      <div class="col-xs-3">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="person.isEmailConfidential"> Confidential
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="zipcode">Zip code & street number</label>
+    <div class="row">
+      <div class="col-xs-4">
+        <input type="text" id="zipcode" class="form-control" ng-model="person.zipcode" placeholder="Zip code">
+      </div>
+      <div class="col-xs-3">
+        <input type="text" id="streetNumber" class="form-control" ng-model="person.streetNumber" placeholder="Number">
+      </div>
+      <div class="col-xs-5">
+        <button class="btn btn-primary" ng-click="lookupZip()" ng-disabled="isZipLookupBusy">Lookup address</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="streetName">Street name</label>
+    <div class="row">
+      <div class="col-xs-12">
+        <input type="text" id="streetName" class="form-control" ng-model="person.streetName" placeholder="Street name">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="city">City</label>
+    <div class="row">
+      <div class="col-xs-12">
+        <input type="text" id="city" class="form-control" ng-model="person.city" placeholder="City">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="country">Country</label>
+    <input type="text" id="country" class="form-control" ng-model="person.country" placeholder="Country">
+  </div>
+
+  <div class="form-group">
+    <label for="latitude">Latitude & longtitude</label>
+    <div class="row">
+      <div class="col-xs-6">
+        <input type="number" step="any" id="latitude" class="form-control" ng-model="person.latitude" placeholder="Latitude">
+      </div>
+      <div class="col-xs-6">
+        <input type="number" step="any" id="longitude" class="form-control" ng-model="person.longitude" placeholder="Longitude">
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>
+    <button  ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+  </div>
+
+</form>

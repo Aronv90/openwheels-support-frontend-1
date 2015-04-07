@@ -1,0 +1,20 @@
+<div class="modal-content">
+
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
+    <h4 class="modal-title"><i class="fa fa-phone"></i> Ring Ring</h4>
+  </div>
+
+  <div class="modal-body">
+    <div ng-show="person">
+      <ng-include src="'person/show/summary/person-show-summary.tpl.html'"></ng-include>
+    </div>
+    <alert ng-hide="person"><strong>Unknown caller:</strong> {{ ringerData.tel }}</alert>
+  </div>
+  <div class="modal-footer">
+    <div ng-show="person">
+      <button ng-click="dismiss()" class="btn btn-default">Close</button>
+      <button ng-focus ng-click="goToPerson(person.id)" class="btn btn-primary">Go to person</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="panel panel-default card">
+  <div class="panel-heading card__heading">
+    <div class="media">
+      <div class="media-body">
+        <h3 class="card__title"> Show Incasso Batch </h3>
+        <ul class="list-inline card__subtitle">
+          <li>ID: {{ batch.id }}</li>
+          <li>Created: {{ batch.created | amDateFormat:'DD-MM-YYYY' }}</li>
+          <li>Passed: {{ batch.passed | amDateFormat:'DD-MM-YYYY' }}</li>
+          <li>Type: {{ batch.type }}</li>
+          <li>Total: {{ batch.total | currency }}</li>
+          <li>Locked: {{ batch.locked }}</li>
+          <li>Reconsiled: {{ batch.reconsiled }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="panel panel-default card">
+  <div class="panel-body">
+    <table class="table table-condensed table-hover" ng-table="tableParams" show-filter="false">
+      <tbody>
+      <tr ng-repeat="row in rules">
+        <td data-title="'ID'" sortable="'id'">{{ row.id }}</td>
+        <td ng-show="batch.type === 'incasso'" data-title="'SeqType'" sortable="'seqType'">{{ row.seqType }}</td>
+        <td data-title="'Total'" sortable="'total'">{{ row.mutation.total | currency }}</td>
+        <td data-title="'Name'" sortable="'mutation.sink.person'">{{ row.mutation.sink.person | fullname }} {{
+          row.mutation.source.person | fullname }}
+        </td>
+      </tr>
+      <!-- TODO: fix this shit -->
+    </table>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<div class="panel panel-default card">
+  <div class="form-horizontal">
+      <input class="form-control" type="text" ng-model="filter.$" placeholder="Type to filter...">
+  </div>
+  <table class="table table-condensed table-hover" ng-table="tableParams" show-filter="false">
+    <tbody>
+    <tr ng-repeat="conversation in conversations" >
+      <td data-title="'ID'" sortable="'id'" ng-click="showMessage(conversation)">{{ conversation.id }}</td>
+      <td data-title="'PersonId'" sortable="'personId'">{{ conversation.personId }}</td>
+      <td data-title="'Channel'" sortable="'channel'">{{ conversation.channel }}</td>
+      <td data-title="'Address'" sortable="'address'">{{ conversation.address }}</td>
+      <td data-title="'Timestamp'" sortable="'timestamp'">{{ conversation.timestamp | amDateFormat:'DD-MM-YYYY' }}</td>
+      <td data-title="'Direction'" sortable="'outbound'"><span ng-if="conversation.outbound">Outbound</span><span
+        ng-if="!conversation.outbound">Inbound</span></td>
+      <td data-title="'Type'" sortable="'type'">{{ conversation.type }}</td>
+      <td data-title="'SubType'" sortable="'subtype'">{{ conversation.subtype }}</td>
+      <td data-title="'MailingRuleId'" sortable="'mailingRuleId'">{{ conversation.mailingRuleId }}</td>
+      <td data-title="'Subject'" sortable="'subject'">{{ conversation.subject }}</td>
+      <td data-title="'Sender'" sortable="'sender'">{{ conversation.sender }}</td>
+      <td data-title="'Total'" sortable="'total'">{{ conversation.total }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

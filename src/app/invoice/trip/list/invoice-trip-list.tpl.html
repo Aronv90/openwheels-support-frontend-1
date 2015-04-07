@@ -1,0 +1,22 @@
+<table class="table table-condensed table-hover table-invoice">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Trip</th>
+            <th>Resource</th>
+            <th>Person</th>
+            <th>incl BTW</th>
+            <th>ex BTW</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="tripOverview in trips">
+            <td>{{ tripOverview.beginBooking | amDateFormat:'DD-MM-YYYY' }}</td>
+            <td><a ui-sref="root.trip.show.overview({ tripId: tripOverview.id })">#{{ tripOverview.id }}</a></td>
+            <td>{{ tripOverview.resource.alias }}</td>
+            <td>{{ tripOverview.person.firstName }}</td>
+            <td>{{ tripOverview.total | currency}}</td>
+            <td>{{ ( tripOverview.total - tripOverview.btw ) | currency}}</td>
+        </tr>
+    </tbody>
+</table>

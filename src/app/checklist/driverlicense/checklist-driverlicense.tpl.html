@@ -1,0 +1,29 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h2>Checklist Driver License</h2>
+        <table class="table table-condensed table-hover">
+          <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Person</th>
+            <th>Member since</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="person in uncheckedPersons" ui-sref="root.person.show.data.driverlicense({personId: person.id})" style="cursor:pointer">
+              <td>{{person.providerId}}</td>
+              <td>{{person.id}}</td>
+              <td>{{person.created | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
+              <td>{{person | fullname }}</td>
+              <td>{{person.email}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

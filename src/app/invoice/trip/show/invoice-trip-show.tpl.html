@@ -1,0 +1,49 @@
+<h4>
+    <a ng-show="booking.resource.ownerId == $stateParams.person" target="_blank" href="{{ frontTripOverview }}{{ booking.resource.owner.email }}"><i class="fa fa-external-link"></i></a>
+    <a ng-show="booking.personId == $stateParams.person" target="_blank" href="{{ frontTripOverview }}{{ booking.person.email }}"><i class="fa fa-external-link"></i></a>
+    Rit overzicht
+    <small>
+        <a ng-hide="booking.resource.ownerId == $stateParams.person" ui-sref="^.overview({ person: booking.resource.ownerId })">switch to owner view</a>
+        <a ng-hide="booking.personId == $stateParams.person" ui-sref="^.overview({ person: booking.personId })">switch to renter view</a>
+    </small>
+</h4>
+<p><button ng-click="createInvoiceLine()" class="btn btn-primary"><i class="fa fa-plus-circle"></i> Add line</button></p>
+<table class="table table-condensed table-hover table-invoice">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Description</th>
+            <th>Sender</th>
+            <th class="table-invoice__quantity">Quantity</th>
+            <th class="table-invoice__price">Price</th>
+            <th class="table-invoice__price">Total</th>
+            <th class="table-invoice__price">BTW</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="invoiceLine in overview">
+            <td class="text-right"><span ng-show="invoiceLine.type == 'custom'">
+                <button class="btn btn-default btn-xs" ng-click="alterInvoiceLine(invoiceLine, $index)"><i class="fa fa-edit"></i></button>
+                <button class="btn btn-default btn-xs" ng-click="removeInvoiceLine(invoiceLine.id, $index)"><i class="fa fa-trash-o"></i></button>
+            </span></td>
+
+            <td>{{ invoiceLine.description }}</td>
+            <td>{{ invoiceLine.invoice.sender ? invoiceLine.invoice.sender.firstName : "MyWheels" }} {{ invoiceLine.invoice.sender.preposition }} {{ invoiceLine.invoice.sender.surname }}</td>
+            <td class="table-invoice__quantity">{{ invoiceLine.quantity|number:2}}</td>
+            <td class="table-invoice__price">{{ invoiceLine.price | currency}}</td>
+            <td class="table-invoice__price">{{ invoiceLine.quantity * invoiceLine.price | currency }}</td>
+            <td class="table-invoice__price">{{ invoiceLine.btw }}%</td>
+        </tr>
+
+        <tr class="table-invoice__total">
+            <td class="text-right" colspan="5">Total</td>
+            <td class="table-invoice__price">{{ total(overview) | currency }}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="text-right" colspan="5">Total ex. BTW</td>
+            <td class="table-invoice__price">{{ totalExBTW(overview) | currency }}</td>
+            <td class="table-invoice__price">{{ ( total(overview) - totalExBTW(overview) ) | currency }}</td>
+        </tr>
+    </tbody>
+</table>

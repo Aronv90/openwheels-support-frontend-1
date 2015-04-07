@@ -1,0 +1,221 @@
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  </div>
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="collapse navbar-collapse navbar-main-collapse">
+    <ul class="nav navbar-nav">
+      <li show-if-user-has-role="ROLE_PROVIDER_ADMIN"
+          ng-class="{ dropdown: true, active: $state.includes('root.person') }">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Person <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a ui-sref="root.person.create">Add person</a></li>
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
+            ui-sref="root.person.blacklist">Blacklist</a>
+          </li>
+          <!-- <li><a href="#">Driver licenses</a></li>
+          <li><a href="#">Advanced search</a></li> -->
+        </ul>
+      </li>
+    </ul>
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+      <li ng-class="{ dropdown: true, active: $state.includes('root.resource') }">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resource <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a ui-sref="root.resource.create">Add resource</a></li>
+          <!-- <li><a href="#">CCOM warnings</a></li>
+          <li><a href="#">Advanced search</a></li> -->
+        </ul>
+      </li>
+    </ul>
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+      <li ng-class="{ dropdown: true, active: $state.includes('root.trip') }">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trip <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.trip.list.requested') }">
+            <a ui-sref="root.trip.list.requested">Requested</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.trip.list.current') }">
+            <a ui-sref="root.trip.list.current">Current</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.trip.list.problem') }">
+            <a ui-sref="root.trip.list.problem">Problem</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.trip.list.disapproved') }">
+            <a ui-sref="root.trip.list.disapproved">Invalid Bookings</a>
+          </li>
+          <li class="divider"></li>
+          <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }">
+            <a ui-sref="root.trip.list.strange-kms">Strange kms</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.trip.list.remarked') }">
+            <a ui-sref="root.trip.list.remarked">Remarks</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }">
+            <a ui-sref="root.trip.list.returned-late">Returned late</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.trip.list.farfromhome') }">
+            <a ui-sref="root.trip.list.farfromhome">Far From Home</a>
+          </li>
+
+        </ul>
+      </li>
+    </ul>
+
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+      <li ng-class="{ dropdown: true, active: $state.includes('root.invoice') }">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bill <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.invoice.group.list') }">
+            <a ui-sref="root.invoice.group.list">Verzamelfacturen</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.invoice.group.list') }">
+            <a ui-sref="root.invoice.group.list({neq_saldo: true, unpaid: false})">Openstaand !== Saldo</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.invoice.group.list') }">
+            <a ui-sref="root.invoice.group.list({unpaid: true, amount: 5, ltdue: twoWeeksAgo, neq_saldo: false})">Openstaande
+              bedragen</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.invoice.group.list') }">
+            <a ui-sref="root.invoice.group.list({due: 'concept', owner: true, amount: 10})">Concept for owner</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.invoice.account.belowcredit') }">
+            <a ui-sref="root.invoice.account.belowcredit({due: 'concept', owner: true, amount: 10})">Under credit
+              limit</a>
+          </li>
+          <li>
+            <a href="" ng-click="printBills()">Print Bills</a>
+          </li>
+          <!-- <li ng-class="{ active: $state.includes('root.invoice.account.list') }">
+            <a ui-sref="root.invoice.account.list" >Rekeningen</a>
+          </li> -->
+          <!-- <li><a href="#">Transactions</a></li>
+          <li><a href="#">Invoices</a></li> -->
+        </ul>
+      </li>
+    </ul>
+
+    <!-- INVOICE MODULE VERSION 2 -->
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+      <li ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Invoice <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.invoice2.invoiceGroup.list') }">
+            <a ui-sref="root.invoice2.invoiceGroup.list">Invoice groups</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+      <li class="dropdown" ng-class="{ active: $state.includes('root.bank') }">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bank <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.bank.transaction.import') }">
+            <a ui-sref="root.bank.transaction.import">Import Transactions</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.bank.transaction.all') }">
+            <a ui-sref="root.bank.transaction.all">Show Transactions</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.bank.transaction.unknownaccount') }">
+            <a ui-sref="root.bank.transaction.unknownaccount">Unknown Account</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.bank.transaction.todo') }">
+            <a ui-sref="root.bank.transaction.todo">To Do</a>
+          </li>
+          <li class="divider"></li>
+          <li ng-class="{ active: $state.includes('root.bank.incasso.all') }">
+            <a ui-sref="root.bank.incasso.all">Incasso Batches</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+      <li class="dropdown" ng-class="{ active: $state.includes('root.checklist') }">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Checklists <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.checklist.driverlicense') }">
+            <a ui-sref="root.checklist.driverlicense">Driver License</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.checklist.bankcheck') }">
+            <a ui-sref="root.checklist.bankcheck">Bank not verified</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+      <li class="dropdown" ng-class="{ active: $state.includes('root.report') }">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lists <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.report.report1') }">
+            <a ui-sref="root.report.report1">Report 1</a>
+          </li>
+
+          <li ng-class="{ active: $state.includes('root.provider') }">
+            <a ui-sref="root.provider.list">Providers</a>
+          </li>
+
+          <li ng-class="{ active: $state.includes('root.fleet') }">
+            <a ui-sref="root.fleet.list">Fleets</a>
+          </li>
+
+          <li ng-class="{ active: $state.includes('root.contract.type') }">
+            <a ui-sref="root.contract.type.list">Contract Types</a>
+          </li>
+
+          <li ng-class="{ active: $state.includes('root.mailer') }">
+            <a ui-sref="root.mailer.list">Mailings</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control input-sm typeahead" placeholder="Search person"
+               ng-model="selectedPerson"
+               typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)"
+               typeahead-min-length="3" typeahead-on-select="selectPerson()"
+               typeahead-input-formatter="formatPerson($model)">
+      </div>
+    </form>
+    <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input type="text" class="form-control input-sm typeahead" placeholder="Search resource"
+               ng-model="selectedResource"
+               typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '</small></p>') for resource in searchResources($viewValue)"
+               typeahead-min-length="3" typeahead-on-select="selectResource()"
+               typeahead-input-formatter="formatResource($model)">
+      </div>
+    </form>
+    <ul class="nav navbar-nav">
+      <li ng-if="user.isAuthenticated">
+        <a href="/#/person/{{user.identity.id}}">{{user.identity.firstName}} {{user.identity.surname}}</a>
+      </li>
+      <li ng-if="!user.isAuthenticated">
+        <a ng-click="logIn()">Log In</a>
+      </li>
+    </ul>
+    <ul class="nav navbar-nav">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li ng-if="user.isAuthenticated">
+            <a ng-click="logOut()">Log out</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.settings') }">
+            <a href="#" ui-sref="root.settings">Settings</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
+</nav>

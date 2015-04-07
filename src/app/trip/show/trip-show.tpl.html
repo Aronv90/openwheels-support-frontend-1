@@ -1,0 +1,99 @@
+<div class="panel panel-default card">
+  <div class="panel-heading">
+    <h3 class="card__title">
+      <a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person | fullname }}</a> in
+      <a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }} ({{ booking.resource.registrationPlate}})</a>
+      <small>{{ booking.id }}</small>
+    </h3>
+    <div class="row">
+      <div class="col-sm-8">
+        <ul class="list-unstyled">
+          <li>
+            <i class="fa fa-clock-o"></i>
+            <strong>Booking</strong>
+              {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}} Tot: {{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}}
+              <span
+                ng-class="{ 'text-success': booking.status === 'accepted', 'text-warning': booking.status === 'requested', 'text-danger': booking.status === 'cancelled' }">{{ booking.status }}</span>
+          </li>
+          <li ng-class="{'text-danger': booking.beginRequested}">
+            <i class="fa fa-clock-o"></i> <strong>Request</strong>
+            <span ng-if="booking.beginRequested">{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}} Tot: {{ booking.endRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}}</span>
+            <span ng-if="! booking.beginRequested">No current request</span>
+          </li>
+          <li ng-if="booking.trip.odoBegin || booking.trip.begin">
+            <i class="fa fa-clock-o"></i> <strong>Trip</strong> {{ booking.trip.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }} Tot: {{ booking.trip.end | amDateFormat:'DD-MM-YYYY | HH:mm' }}  KM:{{ booking.trip.odoEnd - booking.trip.odoBegin }} <span
+            class="text-muted" >{{ booking.trip.odoBegin }}km - {{ booking.trip.odoEnd }}km</span>
+          </li>
+          <li ng-if="! (booking.trip.odoBegin && booking.trip.begin)">
+            <i class="fa fa-clock-o"></i> <strong>Trip</strong> No trip set
+          </li>
+          <li>&nbsp;</li>
+          <li>
+            <strong>Driver</strong> <a ui-sref="root.person.show.summary({personId: booking.person.id})">{{booking.person| fullname }}</a>
+            <span class="text-grey">{{ booking.person.id }}</span>, {{booking.person.status}}, {{booking.person.email}}, {{booking.person.city}}
+          </li>
+          <li>
+            <strong>Contract</strong> {{booking.contract.type.name}} <span class="text-grey">{{booking.contract.id}}</span>, {{booking.contract.status}}, <a ui-sref="root.person.show.summary({personId: booking.contract.contractor.id})">{{booking.contract.contractor | fullname}}</a>
+            <span class="text-grey">{{ booking.contract.contractor.id }}</span>, {{booking.contract.contractor.account.credit}}
+          </li>
+        </ul>
+      </div>
+      <div class="col-sm-4">
+        <div ng-if="booking.ok === false" class="alert alert-danger">
+          <i class="fa fa-exclamation-triangle fa-4x danger"></i> GAAT NIET NAAR BOORDCOMPU
+          <div class="form-group">
+            <button class="btn btn-default" ng-if="booking.approved !== 'ok'" ng-click="approveBooking()">Approve Booking
+            </button>
+            <button class="btn btn-default" ng-if="booking.approved === 'ok'" ng-click="disapproveBooking()">Disapprove
+              Booking
+            </button>
+          </div>
+        </div>
+        <div ng-if="booking.ok === true" class="alert alert-success">
+          <i class="fa fa-check fa-4x"></i> OK
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default card">
+  <nav class="navbar navbar-default card__navbar">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ow-navbar-collapse-person">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ui-sref="root.trip.show.summary({ tripId: booking.id })">Summary</a>
+    </div>
+    <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: $state.includes('root.trip.show.overview') }">
+          <a ui-sref="root.trip.show.overview({ tripId: booking.id })">Overview</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.trip.show.edit_booking') }">
+          <a ui-sref="root.trip.show.edit_booking({ tripId: booking.id })">Edit Booking</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.trip.show.admin') }">
+          <a ui-sref="root.trip.show.admin({ tripId: booking.id })">Admin</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.trip.show.log') }"  ng-if="booking.resource.boardcomputer">
+          <a ui-sref="root.trip.show.log({ tripId: booking.id })">Boardcomputer Log</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.trip.show.lock') }"
+            ng-if="booking.resource.locktypes.indexOf('smartphone') !== -1">
+          <a ui-sref="root.trip.show.lock({ tripId: booking.id })">Lock / Unlock</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.trip.show.revisions') }">
+          <a ui-sref="root.trip.show.revisions({ tripId: booking.id })">Revisions</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="panel-body">
+    <div ui-view></div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="panel panel-default card" ng-hide="resource.removed">
+  <div class="panel-heading">
+    <h1>Report 1</h1>
+  </div>
+</div>
+
+<div class="panel panel-default card">
+  <div class="panel-body">
+    <form>
+      <div class="form-group">
+        <label for="from">From</label>
+        <input type="text" id="from" placeholder="pick a date" class="form-control pickadate-input"  ng-model="timeFrame.from" pickadate="reportDateConfig">
+        {{timeFrame.from}}
+      </div>
+      <div class="form-group">
+        <label for="to">To</label>
+        <input type="text" id="to" placeholder="pick a date" class="form-control pickadate-input"  ng-model="timeFrame.to" pickadate="reportDateConfig">
+        {{timeFrame.to}}
+      </div>
+      <button class="btn btn-default" ng-click="openReport(timeFrame)">Open Report</button>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="panel panel-default card">
+  <div class="panel-heading card__heading">
+    <div class="media">
+      <div class="pull-left">
+        <img class="img-responsive media-object img-square" ng-src="{{ person | personAvatar:'square' }}">
+      </div>
+      <div class="media-body">
+        <h3 class="card__title"><a target="_blank" href="{{ frontDashboard }}{{ person.email }}"><i
+          class="fa fa-external-link"></i></a> {{ person | fullname }}
+          <small>{{ person.id }}</small>
+        </h3>
+        <ul class="list-inline card__subtitle">
+          <li><i class="fa fa-user"></i> {{ person.status }}</li>
+          <li><i class="fa fa-calendar"></i> {{ person.created | amDateFormat:'DD-MM-YYYY' }}</li>
+          <li><a href="mailto:{{person.email}}"><i class="fa fa-envelope"></i></a> {{ person.email }}</li>
+          <li><i class="fa fa-mobile-phone"></i> <span ng-repeat="phone in person.phoneNumbers | limitTo: 2">{{ phone.number }}<span ng-if="!$last">, </span></span></li>
+          <li><i class="fa fa-home"></i> {{ person.streetName }} {{ person.streetNumber }}, {{person.zipcode}} {{ person.city }}</li>
+          <li><i class="fa fa-calendar-o"></i> {{ person.dateOfBirth | amDateFormat:'DD-MM-YYYY' }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="panel panel-default card">
+  <nav class="navbar navbar-default card__navbar">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#ow-navbar-collapse-person">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" ui-sref="root.person.show.summary">Summary</a>
+    </div>
+    <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
+      <ul class="nav navbar-nav">
+        <li ng-class="{ active: $state.includes('root.person.show.data') }">
+          <a ui-sref=".data.personal">Gegevens</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.trip') }">
+          <a ui-sref=".trip">Trips</a>
+        </li>
+
+        <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }">
+          <a ui-sref=".invoice-group.list">Verzamelfacturen</a>
+        </li>
+
+        <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }">
+          <a ui-sref=".invoiceGroupV2.list">Invoice</a>
+        </li>
+
+        <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }">
+          <a ui-sref=".transaction.list">Transactions</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.contracts') }">
+          <a ui-sref=".contracts">Contracts ( {{ person.contracts.length }} )</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.chipcards') }">
+          <a ui-sref=".chipcards">Chipcards ( {{ person.chipcards.length }} )</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.resource') }">
+          <a ui-sref=".resource">Resources ( {{ person.resources.length }} )</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.rating') }">
+          <a ui-sref=".rating">Ratings ( {{ person.ratings.length }} )</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.badges') }">
+          <a ui-sref=".badges">Badges ( {{ person.badges.length }} )</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.vouchers') }">
+          <a ui-sref=".vouchers">Vouchers ( {{ person.vouchers.length }} )</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.actions') }">
+          <a ui-sref=".actions">Actions</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.revisions') }">
+          <a ui-sref=".revisions">Revisions</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div class="panel-body">
+    <div ui-view></div>
+  </div>
+</div>

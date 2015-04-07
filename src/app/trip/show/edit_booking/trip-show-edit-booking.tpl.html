@@ -1,0 +1,84 @@
+<div class="row">
+  <div class="col-sm-6">
+    <h4 class="booking__timeframe__title" ng-class="{ 'booking--isActive': isBooking() }">Booking</h4>
+
+    <form name="bookingBooking">
+      <div class="form-group">
+        <label for="beginBooking">Begin date & time</label>
+
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="booking.beginBooking" pickadate="dateConfig">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" placeholder="pick a time" class="form-control pickadate-input"
+                   ng-model="booking.beginBooking" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endBooking">End date & time</label>
+
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="booking.endBooking" pickadate="dateConfig">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" placeholder="pick a time" class="form-control pickadate-input"
+                   ng-model="booking.endBooking" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="remarkRequester">Remark requester</label>
+        <textarea id="remarkRequester" name="remarkRequester" class="form-control" ng-model="booking.remarkRequester"
+                  placeholder="Remark requester"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="saveBooking()">Save Changes</button>
+        <span class="pull-right">
+          <button class="btn btn-default" ng-click="stopBooking()">Stop Booking</button>
+          <button class="btn btn-default" ng-click="cancelBooking()" ng-disabled="isBookingDisabled()">
+            Cancel Booking
+          </button>
+        </span>
+      </div>
+    </form>
+  </div>
+  <div class="col-sm-6">
+    <h4 class="booking__timeframe__title" ng-class="{ 'request--isActive': isRequest() }">Request</h4>
+
+    <div ng-hide="booking.beginRequested || booking.endRequested">No current request</div>
+    <form name="responseForm" ng-show="booking.beginRequested || booking.endRequested">
+
+      <div class="row">
+        <div class="col-xs-12">
+          Begin date & time: {{ booking.beginRequested }}
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xs-12">
+          End date & time: {{ booking.endRequested }}
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="remarkAuthorizer">Remark authorizer</label>
+        <textarea id="remarkAuthorizer" name="remarkAuthorizer" class="form-control"
+                  ng-model="booking.remarkAuthorizer" placeholder="Remark authorizer"></textarea>
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-success" ng-click="acceptRequest()">Accept</button>
+        <button class="btn btn-default" ng-click="rejectRequest()">Reject</button>
+      </div>
+    </form>
+  </div>
+
+</div>

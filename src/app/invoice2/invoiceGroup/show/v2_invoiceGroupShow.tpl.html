@@ -1,0 +1,200 @@
+<div class="panel panel-default card">
+  <div class="panel-heading">
+    <h3 class="card__title">
+
+      <a ng-href="{{ FRONT_BASE }}/verzamelfactuur/{{ invoiceGroup.id}}.pdf" target="_blank">
+        <i class="fa fa-external-link"></i></a>
+      Invoice group <small>{{ invoiceGroup.id }}</small>
+
+    </h3>
+
+    <dl class="dl-horizontal">
+      <dt>Person</dt>
+      <dd>
+        <b><a ui-sref="root.person.show.invoiceGroupV2.list({ personId: invoiceGroup.person.id })">{{ invoiceGroup.person | fullname }}</a></b>
+        <br>
+        {{ invoiceGroup.person.streetName }} {{ invoiceGroup.person.streetNumber }}<br>
+        {{ invoiceGroup.person.zipcode }} {{ invoiceGroup.person.city }}
+      </dd>
+      <dt>Type<dt><dd>{{ invoiceGroup.type || '-' }}</dd>
+      <dt>Date<dt><dd>{{ invoiceGroup.date }}</dd>
+      <dt>ExpirationDate<dt><dd>{{ invoiceGroup.expirationDate }}</dd>
+      <dt>Paid<dt><dd>
+        {{ invoiceGroup.paid }}
+        <span ng-if="!invoiceGroup.paid" class="text-danger">
+          <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
+        </span>
+      </dd>
+      <dt>Total<dt><dd><strong>{{ invoiceGroup.total | currency }}</strong></dd>
+    </dl>
+
+  </div>
+</div>
+
+
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <h3 class="card__title">Sent invoices</h3>
+    </div>
+    <div class="panel-body">
+
+        <div ng-repeat="invoice in invoiceGroup.sentInvoices">
+            <h4>
+              {{ invoice.description }}<br/>
+              <small>
+                ID: {{ invoice.id }};
+                Date: {{ invoice.date | amDateFormat: 'DD-MM-YYYY' }};
+                Recipient: <b><a ui-sref="root.person.show.summary({ personId: invoice.recipient.id })">{{ invoice.recipient | fullname }}</a></b>;
+                Trip: <b><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></b>
+              </small>
+            </h4>
+
+            <table class="table table-condensed table-hover table-invoice">
+                <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                      <th class="text-right">Price</th>
+                      <th class="text-right">Qty</th>
+                      <th class="text-right">Tax rate</th>
+                      <th class="text-right">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="line in invoice.invoiceLines">
+                      <td>
+                        {{ line.id }}
+                      </td>
+
+                      <td>
+                        {{ line.type }}
+                      </td>
+
+                      <td>
+                        {{ line.description }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.price | currency }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.quantity }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.taxRate }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.total | currency }}
+                      </td>
+                    </tr>
+
+                    <tr class="table-invoice__total">
+                        <td colspan="2">&nbsp;</td>
+                        <td>Total</td>
+                        <td colspan="3">&nbsp;</td>
+                        <td class="table-invoice__price text-right">{{ invoice.total | currency }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br/>
+            <br/>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <h3 class="card__title">Received invoices</h3>
+    </div>
+    <div class="panel-body">
+
+        <div ng-repeat="invoice in invoiceGroup.receivedInvoices">
+            <h4>
+              {{ invoice.description }}<br/>
+              <small>
+                ID: {{ invoice.id }};
+                Date: {{ invoice.date | amDateFormat: 'DD-MM-YYYY' }};
+                Sender: <b><a ui-sref="root.person.show.summary({ personId: invoice.sender.id })">{{ invoice.sender | fullname }}</a></b>;
+                Trip: <b><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></b>
+              </small>
+            </h4>
+            <table class="table table-condensed table-hover table-invoice">
+                <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Type</th>
+                      <th>Description</th>
+                      <th class="text-right">Price</th>
+                      <th class="text-right">Qty</th>
+                      <th class="text-right">Tax rate</th>
+                      <th class="text-right">Total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr ng-repeat="line in invoice.invoiceLines">
+                      <td>
+                        {{ line.id }}
+                      </td>
+
+                      <td>
+                        {{ line.type }}
+                      </td>
+
+                      <td>
+                        {{ line.description }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.price | currency }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.quantity }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.taxRate }}
+                      </td>
+
+                      <td class="text-right">
+                        {{ line.total | currency }}
+                      </td>
+                    </tr>
+
+                    <tr class="table-invoice__total">
+                        <td colspan="2">&nbsp;</td>
+                        <td>Total</td>
+                        <td colspan="3">&nbsp;</td>
+                        <td class="table-invoice__price text-right">{{ invoice.total | currency }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+            <br/>
+            <br/>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+

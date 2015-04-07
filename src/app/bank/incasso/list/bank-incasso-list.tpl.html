@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h2>{{pageTitle}}</h2>
+        <table class="table table-condensed table-hover" ng-table="tableParams" show-filter="false">
+          <tbody>
+            <tr ng-repeat="incasso in incassos">
+              <td data-title="'ID'" sortable="'id'" ui-sref="root.bank.incasso.show({batchId:incasso.id})">{{ incasso.id }}</td>
+              <td data-title="'Type'" sortable="'type'" ui-sref="root.bank.incasso.show({batchId:incasso.id})">{{ incasso.type }}</td>
+              <td data-title="'Created'" sortable="'created'" ui-sref="root.bank.incasso.show({batchId:incasso.id})">{{ incasso.created | amDateFormat:'DD-MM-YYYY' }}</td>
+              <td data-title="'Passed'" sortable="'passed'" ui-sref="root.bank.incasso.show({batchId:incasso.id})">{{ incasso.passed | amDateFormat:'DD-MM-YYYY' }}</td>
+              <td data-title="'Total'" sortable="'total'" ui-sref="root.bank.incasso.show({batchId:incasso.id})">{{ incasso.total | currency }}</td>
+              <td data-title="'Download'">
+                <a class="btn btn-default" target="_blank" href="{{ front_base }}/clieob/{{ incasso.id }}">Download MT940</a>
+                <a class="btn btn-default" target="_blank" href="{{ front_base }}/sepa/{{ incasso.id }}">Download SEPA</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<h4>Badges</h4>
+
+<div class="col-md-4">
+  <button class="btn btn-default" ng-click="createEditBadge()">Add new Badge</button>
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <td></td>
+    <th>ID</th>
+    <th>Created</th>
+    <th>Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="badge in person.badges">
+    <td class="text-right">
+      <button class="btn btn-default btn-xs" ng-click="createEditBadge(badge)"><i class="fa fa-pencil fa-lg"></i>
+      </button>
+      <button class="btn btn-default btn-xs" ng-click="removeBadge(badge)"><i class="fa fa-trash-o fa-lg"></i>
+      </button>
+    </td>
+    <td>{{ badge.id }}</td>
+    <td>{{ badge.created | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td>{{ badge.name }}</td>
+  </tr>
+  </tbody>
+</table>

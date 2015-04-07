@@ -1,0 +1,93 @@
+<h4>{{ person | fullname }}
+  <small>{{ person.male ? "male" : "female"}}</small>
+</h4>
+<div class="alert alert-warning" ng-show="warnings.total()">
+
+  <div ng-show="warnings.personal">
+    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.personal">personal data</a>
+    <ul>
+      <li ng-repeat="warning in warnings.personal">
+        {{ warning.message }}
+      </li>
+    </ul>
+  </div>
+
+  <div ng-show="warnings.mywheels">
+    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.mywheels">Mywheels data</a>
+    <ul>
+      <li ng-repeat="warning in warnings.mywheels">
+        {{ warning.message }}
+      </li>
+    </ul>
+  </div>
+
+  <div ng-show="warnings.contact">
+    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.contact">contact data</a>
+    <ul>
+      <li ng-repeat="warning in warnings.contact">
+        {{ warning.message }}
+      </li>
+    </ul>
+  </div>
+
+  <div ng-show="warnings.phone">
+    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.phones">phone data</a>
+    <ul>
+      <li ng-repeat="warning in warnings.phone">
+        {{ warning.message }}
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<ul class="fa-ul">
+  <li>
+    {{ person.dateOfBirth | amDateFormat:'DD-MM-YYYY' }}
+  </li>
+  <li>
+    <i class="fa fa-li fa-home"></i>
+    {{ person.streetName }} {{ person.streetNumber }}, {{ person.city }}
+  </li>
+  <li>
+    <a href="mailto:{{person.email}}" target="_BLANK"><i class="fa fa-li fa-envelope"></i></a>
+    <i
+      ng-class="{ 'fa fa-eye-slash text-muted': person.isEmailConfidential, 'fa fa-eye text-muted': !person.isEmailConfidential }"></i>
+    {{ person.email }}
+  </li>
+  <li ng-repeat="phone in person.phoneNumbers">
+    <a href="tel:{{phone.number}}"><i class="fa fa-li fa-phone"></i></a>
+    <i
+      ng-class="{ 'fa fa-eye-slash mute text-muted': phone.confidential, 'fa fa-eye mute text-muted': !phone.confidential }"></i>
+    {{ phone.number }}
+  </li>
+</ul>
+
+<div class="alert alert-info" ng-hide="bookings.length > 0">
+  No bookings found in this timeframe
+</div>
+<table class="table table-hover" ng-show="bookings.length > 0">
+  <thead>
+  <tr>
+    <th>Trip</th>
+    <th>Begin booking</th>
+    <th>End booking</th>
+    <th>Begin trip</th>
+    <th>Begin requested</th>
+    <th>Resource</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="booking in bookings | orderBy:'beginBooking':true">
+    <td><a ui-sref="root.trip.show.summary({ tripId: booking.id })">#{{ booking.id }}</a></td>
+    <td>{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td>{{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td>{{ booking.trip.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td>{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td><a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
+    <td>
+      <span class="text-success" ng-if="booking.trip.finalized">finalized</span>
+    </td>
+  </tr>
+  </tbody>
+</table>

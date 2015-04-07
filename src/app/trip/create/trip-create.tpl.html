@@ -1,0 +1,74 @@
+<div class="modal-content">
+  <form name="bookingCreateForm" ng-submit="save(booking)">
+
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
+      <h4 class="modal-title">Create Booking</h4>
+    </div>
+
+    <div class="modal-body">
+      <div class="form-group">
+        <label>Resource</label>
+        {{booking.resource.alias}} ({{booking.resource.id}})
+        <button ng-if="booking.person.id" class="btn" ng-click="findResource(booking.person)">Find Resource</button>
+      </div>
+
+      <div class="form-group">
+        <label for="person">Person</label>
+        <input find-person model="booking.person" id="person" name="person" onselect="onSelectPerson(person)"/>
+      </div>
+
+      <div class="form-group">
+        <label for="contract">Contract</label>
+        <select class="form-control" id="contract" ng-model="booking.contract.id"
+                ng-options="contract.id as ( ( contract.contractor | fullname ) + ' - ' + contract.type.name ) for contract in driverContracts"></select>
+      </div>
+
+      <div class="form-group">
+        <label for="beginBooking">Begin date & time</label>
+        <button type="button" class="btn btn-warning btn-xs" ng-click="setTimeframe(0)">now</button>
+
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="booking.beginBooking" pickadate="dateConfig" ng-change="onBeginDateChange()">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" placeholder="pick a time" class="form-control pickadate-input"
+                   ng-model="booking.beginBooking" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="endBooking">End date & time</label>
+
+        <div class="row">
+          <div class="col-xs-7">
+            <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="booking.endBooking" pickadate="dateConfig" ng-change="onEndDateChange()">
+          </div>
+          <div class="col-xs-5">
+            <input type="text" placeholder="pick a time" class="form-control pickadate-input"
+                   ng-model="booking.endBooking" pickatime="timeConfig">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+
+        <label for="remark">Remark</label>
+        <textarea id="remark" name="remark" class="form-control" ng-model="booking.remark" placeholder="Remark"></textarea>
+      </div>
+
+      <div class="checkbox">
+        <label for="riskReduction"><input id="riskReduction" type="checkbox" ng-model="booking.riskReduction"> Risk Reduction</label>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
