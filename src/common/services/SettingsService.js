@@ -14,7 +14,7 @@ angular.module('settingsService', ['LocalStorageModule'])
       if (defaultServer) { return; }
       if (!firstEntry) { firstEntry = backend; }
       if (ENV === 'development' && backend.development) { defaultServer = backend.url; }
-      if (ENV === 'production' && !backend.development) { defaultServer = backend.url; }
+      if (ENV === 'production' && backend.production) { defaultServer = backend.url; }
     });
 
     // fallback to first entry
