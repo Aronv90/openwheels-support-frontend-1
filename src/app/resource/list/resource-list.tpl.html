@@ -3,7 +3,7 @@
     <div class="media">
 
       <a class="pull-left" ui-sref="root.resource.show.summary({resourceId: r.id })">
-        <img class="media-object img-square" ng-src="{{ r.pictures.0 | resourceAvatar:'small' }}" alt="Resource">
+        <img class="media-object img-square" ng-src="{{ r.pictures[0] | resourceAvatar:'small' }}" alt="Resource">
       </a>
 
       <div class="pull-left">
