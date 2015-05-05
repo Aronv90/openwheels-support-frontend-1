@@ -1,0 +1,55 @@
+<div class="panel panel-default card">
+    <div class="panel-heading card__heading">
+        <h1>Advanced search</h1>
+    </div>
+</div>
+
+<div class="panel panel-default card">
+    <div class="panel-body">
+
+        <form id="personSearchForm" name="personSearchForm" ng-submit="searchZip(person)">
+            <div class="form-group">
+                <label for="zipcode">Zip code & street number</label>
+                <div class="row">
+                  <div class="col-xs-4 col-md-2">
+                    <input type="text" id="zipcode" class="form-control" ng-model="person.zipcode" placeholder="Zip code">
+                  </div>
+                  <div class="col-xs-4 col-md-2">
+                    <input type="text" id="streetNumber" class="form-control" ng-model="person.streetNumber" placeholder="Street number">
+                  </div>
+                  <div class="col-xs-4 col-md-8">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                </div>
+            </div>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Id</th>
+                  <th>Status</th>
+                  <th>Name</th>
+                  <th>Address</th>
+                  <th>Zip code and city</th>
+                  <th>Email</th>
+                  <th>Preference</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="person in persons | orderBy:'id'" ui-sref="root.person.show.summary({personId: person.id})" style="cursor:pointer">
+                  <td>{{ person.providerId }}</td>
+                  <td>{{ person.id }}</td>
+                  <td>{{ person.status }}</td>
+                  <td>{{ person.firstName }} {{ person.preposition }} {{ person.surname }}</td>
+                  <td>{{ person.streetName }} {{ person.streetNumber }}</td>
+                  <td>{{ person.zipcode}}, {{ person.city }}</td>
+                  <td>{{ person.email }}</td>
+                  <td>{{ person.preference }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>

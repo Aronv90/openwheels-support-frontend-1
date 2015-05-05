@@ -4,6 +4,7 @@ angular.module('openwheels.person', [
 	'openwheels.person.show',
 	'openwheels.person.blacklist',
 	'openwheels.person.create',
+	'openwheels.person.search',
 	'openwheels.person.edit.data',
 	'openwheels.person.rentalcheck'
 ])
@@ -21,6 +22,16 @@ angular.module('openwheels.person', [
 					template: '<div ui-view></div>'
 				}
 			}
+		});
+
+		/**
+		 * person/search
+		 */
+		$stateProvider.state('root.person.search', {
+			url: '/search',
+			controller: 'PersonSearchController',
+			templateUrl: 'person/search/person-search.tpl.html',
+			data: {pageTitle: 'Search person'}
 		});
 
 		/**

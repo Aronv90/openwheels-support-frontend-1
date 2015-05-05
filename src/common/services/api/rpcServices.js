@@ -15,6 +15,7 @@ angular.module('rpcServices', [])
 		this.alter = m('alter');
 		this.get = m('get');
 		this.search = m('search');
+		this.searchZip = m('searchZip');
 		this.getByPhone = m('getByPhone');
 		this.addPhoneWithPersonId = m('addPhoneWithPersonId');
 		this.alterPhoneWithPhoneId = m('alterPhoneWithPhoneId');
