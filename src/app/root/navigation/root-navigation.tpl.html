@@ -16,11 +16,11 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Person <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a ui-sref="root.person.create">Add person</a></li>
+          <li><a ui-sref="root.person.search">Advanced search</a></li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
             ui-sref="root.person.blacklist">Blacklist</a>
           </li>
-          <!-- <li><a href="#">Driver licenses</a></li>
-          <li><a href="#">Advanced search</a></li> -->
+          <!-- <li><a href="#">Driver licenses</a></li> -->
         </ul>
       </li>
     </ul>
