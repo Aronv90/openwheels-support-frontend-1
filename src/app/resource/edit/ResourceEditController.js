@@ -101,6 +101,7 @@ angular.module('openwheels.resource.edit', [])
     }, true);
 
     $scope.cancel = function () {
+      masterResource.fleet = masterResource.fleet.id;
       $scope.resource = angular.copy(masterResource);
       $scope.resourceProperties = angular.copy(masterResourceProperties);
     };
