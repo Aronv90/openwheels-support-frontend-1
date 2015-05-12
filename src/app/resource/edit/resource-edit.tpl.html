@@ -269,6 +269,18 @@
 
 <hr>
 
+<h3>Resource properties</h3>
+
+<div class="form-group">
+    <div class="checkbox" ng-repeat="option in resourcePropertyOptions">
+        <label>
+            <input type="checkbox" ng-model="resourceProperties[option.value]" id="{{ option.value }}" />{{ option.label }}
+        </label>
+    </div>
+</div>
+
+<hr>
+
 <h3>Location</h3>
 
 <p>{{ resource.location }}, {{ resource.city }}</p>
@@ -303,8 +315,9 @@
 </div>
 
 <hr>
+
 <div class="form-group">
-    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>
-    <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+    <button ng-click="cancel()" ng-disabled="editResourceForm.$pristine" class="btn">Cancel</button>
+    <button ng-click="save()" ng-disabled="editResourceForm.$pristine" class="btn btn-primary">Save</button>
 </div>
 </form>

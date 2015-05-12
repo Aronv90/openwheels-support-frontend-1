@@ -2,8 +2,19 @@
 
 angular.module('openwheels.resource.edit', [])
 
-  .controller('ResourceEditController', function ($scope, $log, $state, $stateParams, resource, fleets, alertService, resourceService) {
+  .controller('ResourceEditController', function ($q, $scope, $log, $state, $stateParams, resource, fleets, alertService, resourceService) {
+
     var masterResource = resource;
+    var masterResourceProperties = createResourceProperties(resource);
+
+    function createResourceProperties (resource) {
+      var resourceProperties = {};
+      angular.forEach(resource.properties, function (resourceProperty) {
+        resourceProperties[resourceProperty.id] = true;
+      });
+      return resourceProperties;
+    }
+
     var resetCenter = function () {
       $scope.map.center = {
         latitude: $scope.resource.latitude,
@@ -37,6 +48,18 @@ angular.module('openwheels.resource.edit', [])
       {label: 'Bike', value: 'bike'},
       {label: 'Boat', value: 'boat'},
       {label: 'Scooter', value: 'scooter'}
+    ];
+
+    $scope.resourcePropertyOptions = [
+      { value: 'airconditioning'    , label: 'airconditioning' },
+      { value: 'fietsendrager'      , label: 'fietsendrager' },
+      { value: 'winterbanden'       , label: 'winterbanden' },
+      { value: 'kinderzitje'        , label: 'kinderzitje' },
+      { value: 'navigatie'          , label: 'navigatie' },
+      { value: 'trekhaak'           , label: 'trekhaak' },
+      { value: 'automaat'           , label: 'automaat' },
+      { value: 'mp3-aansluiting'    , label: 'mp3-aansluiting' },
+      { value: 'rolstoelvriendelijk', label: 'rolstoelvriendelijk' }
     ];
 
     $scope.completePlacesOptions = {
@@ -80,6 +103,7 @@ angular.module('openwheels.resource.edit', [])
     $scope.cancel = function () {
       masterResource.fleet = masterResource.fleet.id;
       $scope.resource = angular.copy(masterResource);
+      $scope.resourceProperties = angular.copy(masterResourceProperties);
     };
 
     $scope.cancel();
@@ -103,33 +127,49 @@ angular.module('openwheels.resource.edit', [])
       }
     });
 
-
     $scope.save = function () {
       resourceService.alter({
         id: masterResource.id,
         newProps: difference(masterResource, $scope.resource)
-      }).then(function (resource) {
+      })
+     .then(function (resource) {
+        if (!angular.equals(masterResourceProperties, $scope.resourceProperties)) {
+          return saveResourceProperties().then(function () { return resource; });
+        } else {
+          return resource;
+        }
+      })
+      .then(function (resource) {
         alertService.add('success', 'resource edited', 3000);
+        masterResourceProperties = $scope.resourceProperties;
         masterResource = resource;
         $scope.cancel();
-      }, function (error) {
+      })
+      .catch(function (error) {
         alertService.add('danger', error.message, 5000);
       });
-
     };
 
-    $scope.isCancelDisabled = function () {
-      return angular.equals(masterResource, $scope.resource);
-    };
+    function saveResourceProperties () {
+      var pending = [];
+      angular.forEach($scope.resourceProperties, function (value, propertyName) {
+        if (value === true && !masterResourceProperties[propertyName]) {
+          pending.push(resourceService.addProperty({
+            resource: masterResource.id,
+            property: propertyName
+          }));
+        }
+        if (value === false && masterResourceProperties[propertyName]) {
+          pending.push(resourceService.removeProperty({
+            resource: masterResource.id,
+            property: propertyName
+          }));
+        }
+      });
+      return $q.all(pending);
+    }
 
-    $scope.isSaveDisabled = function () {
-      return $scope.editResourceForm.$invalid || angular.equals(masterResource, $scope.resource);
-    };
-
-  })
-
-;
-
+  });
 
 // dit moet misschien in een speciale service?
 // of id property bij functies die een alter doen deleten

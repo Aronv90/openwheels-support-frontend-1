@@ -73,12 +73,12 @@ angular.module('rpcServices', [])
 		this.select = m('select');
 		this.forOwner = m('forOwner');
 		this.search = m('search');
-
 		this.allFleets = m('allFleets');
-
 		this.getMembers = m('getMembers');
 		this.addMember = m('addMember');
 		this.removeMember = m('removeMember');
+		this.addProperty = m('addProperty');
+		this.removeProperty = m('remProperty');
 	})
 
 	.service('bookingService', function (api) {
