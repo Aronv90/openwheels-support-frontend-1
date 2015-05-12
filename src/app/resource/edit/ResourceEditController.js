@@ -144,7 +144,8 @@ angular.module('openwheels.resource.edit', [])
         masterResourceProperties = $scope.resourceProperties;
         masterResource = resource;
         $scope.cancel();
-      }, function (error) {
+      })
+      .catch(function (error) {
         alertService.add('danger', error.message, 5000);
       });
     };
