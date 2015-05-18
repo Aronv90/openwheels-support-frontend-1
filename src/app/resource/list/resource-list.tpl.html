@@ -29,3 +29,7 @@
     </div>
   </li>
 </ul>
+
+<div ng-show="resources.length > 4">
+  <pagination total-items="200" page="params.page" on-select-page="setPage(page)" rotate="false"></pagination>
+</div>

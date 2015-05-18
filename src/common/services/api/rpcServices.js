@@ -72,9 +72,8 @@ angular.module('rpcServices', [])
 		this.select = m('select');
 		this.forOwner = m('forOwner');
 		this.search = m('search');
-
+		this.searchV2 = m('searchV2');
 		this.allFleets = m('allFleets');
-
 		this.getMembers = m('getMembers');
 		this.addMember = m('addMember');
 		this.removeMember = m('removeMember');
