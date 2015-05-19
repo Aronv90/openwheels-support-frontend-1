@@ -8,12 +8,12 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   $stateParams,
   settingsService,
   invoiceGroups,
-  unpaidInvoices
+  ungroupedReceivedInvoices
   ) {
 
   $scope.invoiceGroups = invoiceGroups;
-  $scope.unpaidInvoices = unpaidInvoices;
-  $scope.unpaidInvoicesTotal = calculateTotal(unpaidInvoices);
+  $scope.ungroupedReceivedInvoices = ungroupedReceivedInvoices;
+  $scope.ungroupedReceivedInvoicesTotal = calculateTotal(ungroupedReceivedInvoices);
 
   $scope.FRONT_BASE = settingsService.settings.server;
 

@@ -33,7 +33,7 @@ angular.module('openwheels.invoice2', [
     templateUrl: 'invoice2/invoiceGroup/list/v2_invoiceGroupList.tpl.html',
     data: {pageTitle: 'Invoice groups'},
     resolve: {
-      unpaidInvoices: function () {
+      ungroupedReceivedInvoices: function () {
         return null;
       },
       invoiceGroups: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {

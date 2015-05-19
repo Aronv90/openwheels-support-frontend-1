@@ -288,12 +288,10 @@ angular.module('openwheels.person', [
       templateUrl: 'invoice2/invoiceGroup/list/v2_invoiceGroupList.tpl.html',
       data: {pageTitle: 'Person invoice group list'},
       resolve: {
-        unpaidInvoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
+        ungroupedReceivedInvoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
           return invoice2Service.getReceived({
-            person       : $stateParams.personId,
-            status       : 'unpaid',
-            positivesOnly: true,
-            grouped      : 'ungrouped'
+            person: $stateParams.personId,
+            grouped: 'ungrouped'
           });
         }],
         invoiceGroups: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
