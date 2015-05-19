@@ -294,6 +294,12 @@ angular.module('openwheels.person', [
             grouped: 'ungrouped'
           });
         }],
+        ungroupedSentInvoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
+          return invoice2Service.getSent({
+            person: $stateParams.personId,
+            grouped: 'ungrouped'
+          });
+        }],
         invoiceGroups: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
           var req = $stateParams;
           var params = {

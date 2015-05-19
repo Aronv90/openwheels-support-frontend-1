@@ -36,6 +36,9 @@ angular.module('openwheels.invoice2', [
       ungroupedReceivedInvoices: function () {
         return null;
       },
+      ungroupedSentInvoices: function () {
+        return null;
+      },
       invoiceGroups: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
         var req = $stateParams;
         var params = {};
