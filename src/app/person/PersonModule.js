@@ -74,7 +74,8 @@ angular.module('openwheels.person', [
 				person: ['$stateParams', 'personService', function ($stateParams, personService) {
 					var personId = $stateParams.personId;
 					return personService.get({
-						id: personId
+						id: personId,
+						version: 2
 					});
 				}]
 			}
@@ -493,29 +494,31 @@ angular.module('openwheels.person', [
 		 * person/:id/resource
 		 * @resolve {promise} person, from parent
 		 */
-		/* $stateProvider.state('root.person.show.resource', {
-		 abstract: true,
-		 url: '/resource',
-		 template: '<div ui-view></div>',
-		 data: { pageTitle: 'Person resource list' }
-		 }); */
+		$stateProvider.state('root.person.show.resource', {
+			abstract: true,
+			url: '/resource',
+			template: '<div ui-view></div>',
+			data: {pageTitle: 'Person resource list'}
+		});
 
 		/**
-		 * person/:id/resource
+		 * person/:id/resource?page=
 		 * @resolve {promise} person, from parent
 		 * @resolve {promise} resource
 		 */
-		$stateProvider.state('root.person.show.resource', {
-			url: '/resource',
+		$stateProvider.state('root.person.show.resource.list', {
+			url: '?page',
 			controller: 'ResourceListController',
 			templateUrl: 'resource/list/resource-list.tpl.html',
 			data: {pageTitle: 'Person resource list'},
 			resolve: {
 				resources: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 					var personId = $stateParams.personId;
-					return resourceService.forOwner({
-						person: personId,
-						removed: true
+					var page = $stateParams.page || 1;
+					return resourceService.search({
+						owner: personId,
+						page: page - 1,
+						perPage: 5
 					});
 				}]
 			}
