@@ -80,6 +80,21 @@ angular.module('openwheels.root.navigation', [])
 		//		}
 		//	);
 		//};
+
+		/* prevent dropdown from closing when clicking on a form field inside the dropdown */
+		$scope.stopPropagation = function ($event) {
+			$event.stopPropagation();
+		};
+
+		$scope.tripId = '';
+
+		$scope.followTripId = function (tripId) {
+			if (tripId) {
+				$state.go('root.trip.show.summary', { tripId: tripId });
+			} else {
+				$state.go('root');
+			}
+		};
 	})
 
 ;

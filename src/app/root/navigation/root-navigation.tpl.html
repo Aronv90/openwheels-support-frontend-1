@@ -38,6 +38,12 @@
       <li ng-class="{ dropdown: true, active: $state.includes('root.trip') }">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trip <b class="caret"></b></a>
         <ul class="dropdown-menu">
+          <li>
+            <form ng-submit="followTripId(tripId)" ng-click="stopPropagation($event)">
+              <input ng-model="tripId" class="form-control" placeholder="Jump to trip id" style="width: 90%; margin: 5px 5% 0 5%;" />
+            </form>
+          </li>
+          <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.trip.list.requested') }">
             <a ui-sref="root.trip.list.requested">Requested</a>
           </li>
