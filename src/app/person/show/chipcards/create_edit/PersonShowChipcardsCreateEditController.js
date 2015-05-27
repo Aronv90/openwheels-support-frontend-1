@@ -22,6 +22,7 @@ angular.module('openwheels.person.show.chipcards.create_edit', [])
         })
         .then(function (chipcard) {
           $modalInstance.close(chipcard);
+          $scope.chipcard = chipcard;
           alertService.add('success', 'Chipcard edited.', 2000);
         },
         function(error) {
@@ -30,14 +31,19 @@ angular.module('openwheels.person.show.chipcards.create_edit', [])
         );
 
       } else { // create
-        chipcardService.create({id: chipcard.mifareUid, person: person.id, description: chipcard.description })
-          .then(function ( chipcard ) {
-            $modalInstance.close( chipcard );
-            alertService.add('success', 'Chipcard created.', 2000);
-          },
-          function(error) {
-            alertService.add('danger', 'Chipcard creation failed: ' + error.message, 5000);
-          }
+        chipcardService.create({
+          mifareUid: chipcard.mifareUid,
+          person: person.id,
+          description: chipcard.description
+        })
+        .then(function (chipcard) {
+          $modalInstance.close(chipcard);
+          $scope.chipcard = chipcard;
+          alertService.add('success', 'Chipcard created.', 2000);
+        },
+        function(error) {
+          alertService.add('danger', 'Chipcard creation failed: ' + error.message, 5000);
+        }
         );
       }
     };
