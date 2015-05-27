@@ -13,7 +13,11 @@
         </tr>
         <tr>
           <td>Provider</td>
-          <td>{{ resource.provider }}</td>
+          <td>{{ resource.providerId }}</td>
+        </tr>
+        <tr>
+          <td>Fleet</td>
+          <td>{{ resource.fleet.id }}</td>
         </tr>
       </tbody>
     </table>
@@ -23,13 +27,25 @@
   <h5>Resource</h5>
     <table class="table table-condensed">
       <tbody>
+        <tr>
+          <td>Brand en model</td>
+          <td>{{ resource.brand }} {{ resource.model }}</td>
+        </tr>
         <tr ng-class="{ 'text-danger': !resource.isActive }">
           <td>Active</td>
           <td>{{ resource.isActive }}</td>
         </tr>
+        <tr ng-class="{ 'text-danger': !resource.isAvailableOthers }">
+          <td>Avalability others</td>
+          <td>{{ resource.isAvailableOthers }}, confirmation {{ resource.isConfirmationRequiredOthers ? 'required' : 'not required' }}</td>
+        </tr>
+        <tr ng-class="{ 'text-danger': !resource.isAvailableFriends }">
+          <td>Avalability friends</td>
+            <td>{{ resource.isAvailableFriends }}, confirmation {{ resource.isConfirmationRequiredFriends ? 'required' : 'not required' }}</td>
+        </tr>
         <tr>
           <td>Amount of seats</td>
-          <td>{{ resource.amountOfSeats }}</td>
+          <td>{{ resource.numberOfSeats }}</td>
         </tr>
         <tr>
           <td>Fuel type</td>
@@ -39,13 +55,13 @@
           <td>Fuel card code</td>
           <td>{{ resource.fuelCardCode }}</td>
         </tr>
-        <tr ng-class="{ 'text-danger': !resource.isAvailableOthers }">
-          <td>Avalability others</td>
-          <td>{{ resource.isAvailableOthers }}, confirmation {{ resource.isConfirmationRequiredOthers ? 'required' : 'not required' }}</td>
+        <tr>
+          <td>Number of bookings</td>
+          <td>{{ resource.numberOfBookings }}</td>
         </tr>
-        <tr ng-class="{ 'text-danger': !resource.isAvailableFriends }">
-          <td>Avalability friends</td>
-            <td>{{ resource.isAvailableFriends }}, confirmation {{ resource.isConfirmationRequiredFriends ? 'required' : 'not required' }}</td>
+        <tr>
+          <td>Response accept</td>
+          <td>{{ resource.response_accept | percentage:0 }}</td>
         </tr>
       </tbody>
     </table>
@@ -69,17 +85,17 @@
         </tr>
         <tr>
           <td>Insurance rate</td>
-          <td>{{ resource.insuranceRate | currency }}</td>
+          <td>{{ resource.insuranceRate | percentage:2 }}</td>
         </tr>
         <tr>
           <td>KM free</td>
           <td>{{ resource.kmFree }}</td>
         </tr>
+         <tr>
+          <td>Refuel by renter</td>
+          <td>{{ resource.refuelByRenter }}</td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
-
-
-
-
