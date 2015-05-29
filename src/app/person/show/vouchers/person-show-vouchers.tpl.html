@@ -1,39 +1,36 @@
 <h4>Vouchers</h4>
 
-<div class="col-md-4">
-  <!--<button class="btn btn-default" ng-click="createEditVoucher()">Add new voucher</button>-->
-</div>
+<dl class="dl-horizontal">
+  <dt>Credit</dt>
+  <dd>{{ credit.error.message || (debt.value | currency) }}</dd>
+
+  <dt>Debt</dt>
+  <dd>{{ debt.error.message || (debt.value | currency) }}</dd>
+
+  <dt>Required value</dt>
+  <dd>{{ requiredValue.error.message || (requiredValue.value | currency) }}</dd>
+
+  <dt>Number of vouchers</dt>
+  <dd>{{ vouchers.length }}</dd>
+</dl>
 
 <table class="table">
   <thead>
-  <tr>
-    <!--<td></td>-->
-    <th>ID</th>
-    <th>Status</th>
-    <th>Description</th>
-    <th>Type</th>
-    <th>Value</th>
-    <th>Used</th>
-    <th>Valid From</th>
-    <th>Valid Until</th>
-  </tr>
+    <tr>
+      <th>Created</th>
+      <th>Current value</th>
+      <th>Initial value</th>
+      <th>Paid</th>
+      <th>ID</th>
+    </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="voucher in vouchers">
-    <!--<td class="text-right">-->
-      <!--<button class="btn btn-default btn-xs" ng-click="createEditVoucher(voucher)"><i class="fa fa-pencil fa-lg"></i>-->
-      <!--</button>-->
-      <!--<button class="btn btn-default btn-xs" ng-click="removeVoucher(voucher)"><i class="fa fa-trash-o fa-lg"></i>-->
-      <!--</button>-->
-    <!--</td>-->
-    <td>{{ voucher.id }}</td>
-    <td>{{ voucher.status }}</td>
-    <td>{{ voucher.description }}</td>
-    <td>{{ voucher.type }}</td>
-    <td>{{ voucher.value | currency }}</td>
-    <td>{{ voucher.used | currency }}</td>
-    <td>{{ voucher.validFrom | amDateFormat:'DD-MM-YYYY | HH:mm'  }}</td>
-    <td>{{ voucher.validUntil | amDateFormat:'DD-MM-YYYY | HH:mm'  }}</td>
-  </tr>
+    <tr ng-repeat="voucher in vouchers">
+      <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
+      <td><b>{{ voucher.currency }} {{ voucher.value }}</b></td>
+      <td>{{ voucher.currency }} {{ voucher.initialValue | currency }}</td>
+      <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+      <td>{{ voucher.id }}</td>
+    </tr>
   </tbody>
 </table>
