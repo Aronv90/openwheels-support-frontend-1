@@ -61,7 +61,12 @@ angular.module('rpcServices', [])
 
 	.service('voucherService', function (api) {
 		var m = function (name) { return api.createRpcMethod('voucher.' + name ); };
-		this.getVouchers = m('getVouchers');
+	  this.get = m('get');
+	  this.search = m('search');
+	  this.calculateRequiredCredit = m('calculateRequiredCredit');
+	  this.calculateCredit = m('calculateCredit');
+	  this.calculateDebt = m('calculateDebt');
+	  this.createVoucher = m('createVoucher');
 	})
 
 	.service('resourceService', function (api) {

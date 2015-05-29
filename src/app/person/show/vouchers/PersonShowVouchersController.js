@@ -1,55 +1,65 @@
 'use strict';
 
-angular.module('openwheels.person.show.vouchers', ['openwheels.person.show.vouchers.create_edit'])
+angular.module('openwheels.person.show.vouchers', [])
 
-  .controller('PersonShowVouchersController', function ($scope, $filter, $modal, alertService, dialogService, personService, person, vouchers) {
-    $scope.person = person;
-    $scope.vouchers = vouchers;
+.controller('PersonShowVouchersController', function ($q, $modal, $scope, alertService, voucherService, person) {
 
-    $scope.removeVoucher = function (voucher) {
-      personService.removeVoucher({voucher: voucher.id}).then(
-        function(voucher){
-          alertService.add('success', 'voucher ' + voucher.name + '('+voucher.id+') removed.', 2000);
-          var foundVoucher;
-          foundVoucher = $filter('getByProperty')('id', voucher.id, $scope.person.vouchers);
-          var index = $scope.person.vouchers.indexOf(foundVoucher);
-          $scope.person.vouchers.splice(index, 1);
-        },
-        function(error) {
-          alertService.add('danger', 'removing ' + voucher.name + '('+voucher.id+') failed: ' + error.message, 3500);
-        }
-      );
-    };
+  $scope.person = person;
+  $scope.vouchers = null;
+  $scope.requiredValue = null;
+  $scope.credit = null;
+  $scope.debt = null;
 
-    $scope.createEditVoucher = function (voucher) {
-      var newVoucher;
-      if (voucher) {
-        newVoucher = false;
-      } else {
-        newVoucher = true;
-        voucher = {};
-      }
-      $modal.open({
-        templateUrl: 'person/show/vouchers/create_edit/person-show-vouchers-create-edit.tpl.html',
-        windowClass: 'modal--xl',
-        controller: 'PersonShowVouchersCreateEditController',
-        resolve: {
-          voucher: function () {
-            return voucher;
-          },
-          person: function () {
-            return person;
-          }
-        }
-      }).result.then(function (voucher) {
-          if (true === newVoucher) {
-            $scope.person.vouchers.push(voucher);
-          } else {
-            var foundVoucher;
-            foundVoucher = $filter('getByProperty')('id', voucher.id, $scope.person.vouchers);
-            var index = $scope.person.vouchers.indexOf(foundVoucher);
-            $scope.person.vouchers[index] = voucher;
-          }
-        });
-    };
+  alertService.load();
+  $q.all([ getVouchers(), getRequiredValue(), getCredit(), getDebt() ]).finally(function () {
+    alertService.loaded();
   });
+
+  function getVouchers () {
+    $scope.vouchers = null;
+    var promise = voucherService.search({ person: person.id });
+    promise.then(function (vouchers) {
+      $scope.vouchers = vouchers;
+    })
+    .catch(function (err) {
+      $scope.vouchers = [];
+    });
+    return promise;
+  }
+
+  function getRequiredValue () {
+    $scope.requiredValue = null;
+    var promise = voucherService.calculateRequiredCredit({ person: person.id });
+    promise.then(function (value) {
+      $scope.requiredValue = { value: value };
+    })
+    .catch(function (err) {
+      $scope.requiredValue = { error: err };
+    });
+    return promise;
+  }
+
+  function getCredit () {
+    $scope.credit = null;
+    var promise = voucherService.calculateCredit({ person: person.id });
+    promise.then(function (credit) {
+      $scope.credit = { value: credit };
+    })
+    .catch(function (err) {
+      $scope.credit = { error: err };
+    });
+    return promise;
+  }
+
+  function getDebt () {
+    $scope.debt = null;
+    var promise = voucherService.calculateDebt({ person: person.id });
+    promise.then(function (debt) {
+      $scope.debt = { value: debt };
+    })
+    .catch(function (err) {
+      $scope.debt = { error: err };
+    });
+    return promise;
+  }
+});
