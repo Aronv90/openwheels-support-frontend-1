@@ -30,10 +30,11 @@ angular.module('openwheels.resource.edit', [])
     $scope.fuelTypeOptions = [
       {label: 'Benzine', value: 'benzine'},
       {label: 'Diesel', value: 'diesel'},
+      {label: 'LPG', value: 'lpg'},
       {label: 'Elektrisch', value: 'elektrisch'},
       {label: 'Hybride', value: 'hybride'},
-      {label: 'Lpg', value: 'lpg'},
-      {label: 'Other', value: 'other'}
+      {label: 'Aardgas', value: 'cng'},
+      {label: 'Onbekend', value: 'onbekend'}
     ];
 
     $scope.insurancePolicyOptions = [
@@ -45,9 +46,23 @@ angular.module('openwheels.resource.edit', [])
 
     $scope.resourceTypeOptions = [
       {label: 'Car', value: 'car'},
+      {label: 'Cabrio', value: 'cabrio'},
+      {label: 'Camper', value: 'camper'},
+      {label: 'Van', value: 'van'}
+    ];
+
+    $scope.typeOptions = [
+      {label: 'Car', value: 'car'},
       {label: 'Bike', value: 'bike'},
       {label: 'Boat', value: 'boat'},
       {label: 'Scooter', value: 'scooter'}
+    ];
+
+    $scope.locktypeOptions = [
+      {label: 'Chipcard', value: 'chipcard'},
+      {label: 'Locker', value: 'locker'},
+      {label: 'Meeting', value: 'meeting'},
+      {label: 'Smartphone', value: 'smartphone'}
     ];
 
     $scope.resourcePropertyOptions = [

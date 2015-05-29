@@ -19,7 +19,8 @@
             </h3>
             <ul class="list-inline card__subtitle">
               <li>{{ resource.isActive ? 'Active' : 'Inactive' }}</li>
-              <li><i class="fa fa-map-marker"></i> {{resource.location}}, {{ resource.city }}</li>
+              <li><i class="fa fa-calendar"></i> {{ resource.created | amDateFormat:'DD-MM-YYYY' }}</li>
+              <li><i class="fa fa-map-marker"></i> {{ resource.location }}, {{ resource.city }}</li>
               <li><i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Available for others' : 'Not available for others'}}</li>
               <li><i class="fa fa-gear"></i> {{ resource.fuelType}}</li>
             </ul>
