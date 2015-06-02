@@ -405,23 +405,12 @@ angular.module('openwheels.person', [
 			data: {pageTitle: 'Person Badges'}
 		});
 
-		/**
-		 * person/:id/rating
-		 * @resolve {promise} person, from parent
-		 */
+		/* Vouchers */
 		$stateProvider.state('root.person.show.vouchers', {
 			url: '/vouchers',
 			controller: 'PersonShowVouchersController',
 			templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
 			data: {pageTitle: 'Person Vouchers'},
-			resolve: {
-				vouchers: ['$stateParams', 'voucherService', function ($stateParams, voucherService) {
-					var personId = $stateParams.personId;
-					return voucherService.getVouchers({
-						person: personId
-					});
-				}]
-			}
 		});
 
 		$stateProvider.state('root.person.show.revisions', {
