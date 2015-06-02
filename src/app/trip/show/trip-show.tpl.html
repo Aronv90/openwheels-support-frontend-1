@@ -79,11 +79,16 @@
         <li ng-class="{ active: $state.includes('root.trip.show.admin') }">
           <a ui-sref="root.trip.show.admin({ tripId: booking.id })">Admin</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.trip.show.log') }"  ng-if="booking.resource.boardcomputer">
-          <a ui-sref="root.trip.show.log({ tripId: booking.id })">Boardcomputer Log</a>
+        <li ng-class="{ active: $state.includes('root.trip.show.ccomlog') }" ng-if="booking.resource.boardcomputer.indexOf('convadis') !== -1">
+          <a ui-sref="root.trip.show.ccomlog({ tripId: booking.id })">CCOM Log</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.trip.show.lock') }"
-            ng-if="booking.resource.locktypes.indexOf('smartphone') !== -1">
+        <li ng-class="{ active: $state.includes('root.trip.show.ccomstate') }" ng-if="booking.resource.boardcomputer.indexOf('convadis') !== -1">
+          <a ui-sref="root.trip.show.ccomstate({ tripId: booking.id })">CCOM State</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.trip.show.boardcomputer') }" ng-if="booking.resource.locktypes.indexOf('smartphone') !== -1">
+          <a ui-sref="root.trip.show.boardcomputer({ tripId: booking.id })">Boardcomputer Log</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.trip.show.lock') }" ng-if="booking.resource.locktypes.indexOf('smartphone') !== -1">
           <a ui-sref="root.trip.show.lock({ tripId: booking.id })">Lock / Unlock</a>
         </li>
         <li ng-class="{ active: $state.includes('root.trip.show.revisions') }">
