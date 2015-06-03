@@ -21,6 +21,7 @@
       <th>Begin requested</th>
       <th ng-if="! $state.includes('root.resource')">Resource</th>
       <th ng-if="! $state.includes('root.person')">Person</th>
+      <th ng-if="!$state.includes('root.person')">Email</th>
     </tr>
   </thead>
   <tbody>
@@ -33,6 +34,7 @@
       <td>{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
       <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
       <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
+      <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
       <td>
         <span class="text-success" ng-if="b.trip.finalized">finalized</span>
       </td>
