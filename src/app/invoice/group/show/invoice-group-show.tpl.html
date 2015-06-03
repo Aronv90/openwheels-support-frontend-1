@@ -7,7 +7,8 @@
         </h3>
 
       <p>{{ ( invoiceGroup.invoiceGroup.due | amDateFormat: 'DD-MM-YYYY' ) || 'concept' }}</p>
-      <p><a ui-sref="root.person.show.invoice-group.list({ personId: invoiceGroup.invoiceGroup.person.id })">{{ invoiceGroup.invoiceGroup.person | fullname }}</a><br>
+      <p>Lidnummer: {{ invoiceGroup.invoiceGroup.person.id }}<br>
+      <a ui-sref="root.person.show.invoice-group.list({ personId: invoiceGroup.invoiceGroup.person.id })">{{ invoiceGroup.invoiceGroup.person | fullname }}</a><br>
       {{ invoiceGroup.invoiceGroup.person.streetName }} {{ invoiceGroup.invoiceGroup.person.streetNumber }}<br>
       {{ invoiceGroup.invoiceGroup.person.zipcode }} {{ invoiceGroup.invoiceGroup.person.city }}</p>
     </div>
