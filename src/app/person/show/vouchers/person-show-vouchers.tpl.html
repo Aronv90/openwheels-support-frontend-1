@@ -8,7 +8,10 @@
   <dd>{{ debt.error.message || (debt.value | currency) }}</dd>
 
   <dt>Required value</dt>
-  <dd>{{ requiredValue.error.message || (requiredValue.value | currency) }}</dd>
+  <dd>
+    {{ requiredValue.error.message || (requiredValue.value.voucher | currency) }}
+    &nbsp;<a href="" ng-click="showRequiredValueDetails(requiredValue.value)">show details popup</a>
+  </dd>
 
   <dt>Number of vouchers</dt>
   <dd>{{ vouchers.length }}</dd>
@@ -28,7 +31,7 @@
     <tr ng-repeat="voucher in vouchers">
       <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
       <td><b>{{ voucher.currency }} {{ voucher.value }}</b></td>
-      <td>{{ voucher.currency }} {{ voucher.initialValue | currency }}</td>
+      <td>{{ voucher.currency }} {{ voucher.initialValue }}</td>
       <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
       <td>{{ voucher.id }}</td>
     </tr>

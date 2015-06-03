@@ -1,0 +1,60 @@
+<div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="close()"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+    <h3 class="modal-title">
+      Required voucher value
+    </h3>
+  </div>
+
+  <div class="modal-body">
+
+    <table ng-if="requiredValue.bookings" class="table">
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Booking price</th>
+          <th>Km price</th>
+          <th class="text-right">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="booking in requiredValue.bookings">
+          <td>{{ booking.title }}</td>
+          <td class="text-muted">{{ booking.booking_price | currency }}</td>
+          <td class="text-muted">{{ booking.km_price | currency }}</td>
+          <td class="text-right">{{ (booking.booking_price + booking.km_price) | currency }}</td>
+        </tr>
+
+        <tr>
+          <td>Debt</td>
+          <td></td>
+          <td></td>
+          <td class="text-right">{{ requiredValue.debt | currency }}</td>
+        </tr>
+
+        <tr>
+          <td>Credit</td>
+          <td></td>
+          <td></td>
+          <td class="text-right">{{ -1 * requiredValue.credit | currency }}</td>
+        </tr>
+
+        <tr>
+          <td colspan="3" class="text-right"><b>Total</b></td>
+          <td class="text-right"><b>{{ requiredValue.total | currency }}</b></td>
+        </tr>
+
+        <tr>
+          <td colspan="3" class="text-right text-success"><b>Required voucher value (rounded)</b></td>
+          <td class="text-right text-success"><b>{{ requiredValue.voucher | currency }}</b></td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-link" ng-click="close()">{{ 'CLOSE' | translate }}</button>
+  </div>
+</div>
