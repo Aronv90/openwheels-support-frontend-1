@@ -1,0 +1,22 @@
+<table class="table table-striped">
+  <tr>
+    <th></th>
+    <th>Booking</th>
+    <th>Request number</th>
+    <th>Subject</th>
+    <th>Target</th>
+    <th>Direction</th>
+    <th>State</th>
+    <th>Date incoming</th>
+  </tr>
+  <tr ng-repeat="log in logs">
+    <td><a href ng-click="showContent(log.msgContentDA_CCOM)">Show</a></td>
+    <td><a ui-sref="root.trip.show.summary({ tripId: log.bookingId })">#{{log.bookingId}}</a></td>
+    <td>{{log.anfrageNr}}</td>
+    <td>{{log.msgSubject}}</td>
+    <td>{{log.msgTarget}}</td>
+    <td>{{log.msgDirection}}</td>
+    <td>{{log.msgState}}</td>
+    <td>{{log.dateIncoming}}</td>
+  </tr>
+</table>

@@ -57,10 +57,10 @@
           <a ui-sref=".contracts">Contracts ( {{ person.contracts.length }} )</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.chipcards') }">
-          <a ui-sref=".chipcards">Chipcards ( {{ person.chipcards.length }} )</a>
+          <a ui-sref=".chipcards">Chipcards</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.resource') }">
-          <a ui-sref=".resource">Resources</a>
+        <li ng-class="{ active: $state.includes('root.person.show.resource.list') }">
+          <a ui-sref=".resource.list">Resources</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.rating') }">
           <a ui-sref=".rating">Ratings ( {{ person.ratings.length }} )</a>
@@ -69,7 +69,7 @@
           <a ui-sref=".badges">Badges ( {{ person.badges.length }} )</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.vouchers') }">
-          <a ui-sref=".vouchers">Vouchers ( {{ person.vouchers.length }} )</a>
+          <a ui-sref=".vouchers">Vouchers</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.actions') }">
           <a ui-sref=".actions">Actions</a>

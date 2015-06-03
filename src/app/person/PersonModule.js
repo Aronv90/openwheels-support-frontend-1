@@ -74,7 +74,8 @@ angular.module('openwheels.person', [
 				person: ['$stateParams', 'personService', function ($stateParams, personService) {
 					var personId = $stateParams.personId;
 					return personService.get({
-						id: personId
+						id: personId,
+						version: 2
 					});
 				}]
 			}
@@ -288,12 +289,16 @@ angular.module('openwheels.person', [
       templateUrl: 'invoice2/invoiceGroup/list/v2_invoiceGroupList.tpl.html',
       data: {pageTitle: 'Person invoice group list'},
       resolve: {
-        unpaidInvoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
+        ungroupedReceivedInvoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
           return invoice2Service.getReceived({
-            person       : $stateParams.personId,
-            status       : 'unpaid',
-            positivesOnly: true,
-            grouped      : 'ungrouped'
+            person: $stateParams.personId,
+            grouped: 'ungrouped'
+          });
+        }],
+        ungroupedSentInvoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
+          return invoice2Service.getSent({
+            person: $stateParams.personId,
+            grouped: 'ungrouped'
           });
         }],
         invoiceGroups: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
@@ -400,23 +405,12 @@ angular.module('openwheels.person', [
 			data: {pageTitle: 'Person Badges'}
 		});
 
-		/**
-		 * person/:id/rating
-		 * @resolve {promise} person, from parent
-		 */
+		/* Vouchers */
 		$stateProvider.state('root.person.show.vouchers', {
 			url: '/vouchers',
 			controller: 'PersonShowVouchersController',
 			templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
 			data: {pageTitle: 'Person Vouchers'},
-			resolve: {
-				vouchers: ['$stateParams', 'voucherService', function ($stateParams, voucherService) {
-					var personId = $stateParams.personId;
-					return voucherService.getVouchers({
-						person: personId
-					});
-				}]
-			}
 		});
 
 		$stateProvider.state('root.person.show.revisions', {
@@ -493,29 +487,31 @@ angular.module('openwheels.person', [
 		 * person/:id/resource
 		 * @resolve {promise} person, from parent
 		 */
-		/* $stateProvider.state('root.person.show.resource', {
-		 abstract: true,
-		 url: '/resource',
-		 template: '<div ui-view></div>',
-		 data: { pageTitle: 'Person resource list' }
-		 }); */
+		$stateProvider.state('root.person.show.resource', {
+			abstract: true,
+			url: '/resource',
+			template: '<div ui-view></div>',
+			data: {pageTitle: 'Person resource list'}
+		});
 
 		/**
-		 * person/:id/resource
+		 * person/:id/resource?page=
 		 * @resolve {promise} person, from parent
 		 * @resolve {promise} resource
 		 */
-		$stateProvider.state('root.person.show.resource', {
-			url: '/resource',
+		$stateProvider.state('root.person.show.resource.list', {
+			url: '?page',
 			controller: 'ResourceListController',
 			templateUrl: 'resource/list/resource-list.tpl.html',
 			data: {pageTitle: 'Person resource list'},
 			resolve: {
 				resources: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 					var personId = $stateParams.personId;
-					return resourceService.forOwner({
-						person: personId,
-						removed: true
+					var page = $stateParams.page || 1;
+					return resourceService.search({
+						owner: personId,
+						page: page - 1,
+						perPage: 5
 					});
 				}]
 			}

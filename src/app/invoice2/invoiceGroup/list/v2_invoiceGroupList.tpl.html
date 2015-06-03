@@ -114,25 +114,67 @@
       </div>
     </div>
 
+    <!-- ungrouped received invoices -->
+
     <div ng-if="$state.includes('root.person')" class="panel panel-default card">
       <div class="panel-body">
-        <h3>Unpaid invoices</h3>
+        <h3>Ungrouped received invoices</h3>
 
         <table class="table">
           <thead>
             <tr>
+              <th>Trip</th>
+              <th>Date</th>
+              <th>Sender</th>
               <th>Description</th>
               <th class="text-right">Total</th>
             </tr>
           </thead>
-          <tr ng-repeat="invoice in unpaidInvoices">
+          <tr ng-repeat="invoice in ungroupedReceivedInvoices">
+            <td><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
+            <td>{{ invoice.date | amDateFormat: 'DD-MM-YY HH:MM'}}</td>
+            <td>{{ invoice.sender | fullname }}</a>
             <td>{{ invoice.description }}</td>
             <td class="text-right">{{ invoice.total | currency }}</td>
           </tr>
           <tr>
-            <td><b>Total</b></td>
+            <td colspan="4"><b>Total</b></td>
             <td class="text-right">
-              <strong>{{ unpaidInvoicesTotal | currency }}</strong>
+              <strong>{{ ungroupedReceivedInvoicesTotal | currency }}</strong>
+            </td>
+          </tr>
+        </table>
+
+      </div>
+    </div>
+
+    <!-- ungrouped sent invoices -->
+
+    <div ng-if="$state.includes('root.person')" class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Ungrouped sent invoices</h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Trip</th>
+              <th>Date</th>
+              <th>Sender</th>
+              <th>Description</th>
+              <th class="text-right">Total</th>
+            </tr>
+          </thead>
+          <tr ng-repeat="invoice in ungroupedSentInvoices">
+            <td><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
+            <td>{{ invoice.date | amDateFormat: 'DD-MM-YY HH:MM'}}</td>
+            <td>{{ invoice.sender | fullname }}</a>
+            <td>{{ invoice.description }}</td>
+            <td class="text-right">{{ invoice.total | currency }}</td>
+          </tr>
+          <tr>
+            <td colspan="4"><b>Total</b></td>
+            <td class="text-right">
+              <strong>{{ ungroupedSentInvoicesTotal | currency }}</strong>
             </td>
           </tr>
         </table>

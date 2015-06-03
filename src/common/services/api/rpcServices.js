@@ -61,7 +61,12 @@ angular.module('rpcServices', [])
 
 	.service('voucherService', function (api) {
 		var m = function (name) { return api.createRpcMethod('voucher.' + name ); };
-		this.getVouchers = m('getVouchers');
+	  this.get = m('get');
+	  this.search = m('search');
+	  this.calculateRequiredCredit = m('calculateRequiredCredit');
+	  this.calculateCredit = m('calculateCredit');
+	  this.calculateDebt = m('calculateDebt');
+	  this.createVoucher = m('createVoucher');
 	})
 
 	.service('resourceService', function (api) {
@@ -73,6 +78,7 @@ angular.module('rpcServices', [])
 		this.select = m('select');
 		this.forOwner = m('forOwner');
 		this.search = m('search');
+		this.searchV2 = m('searchV2');
 		this.allFleets = m('allFleets');
 		this.getMembers = m('getMembers');
 		this.addMember = m('addMember');
@@ -114,6 +120,8 @@ angular.module('rpcServices', [])
 	.service('ccomService', function (api) {
 		var m = function (name) { return api.createRpcMethod('ccom.' + name ); };
 		this.problemBookings = m('problemBookings');
+		this.log = m('log');
+		this.state = m('state');
 	})
 
 	.service('invoiceService', function (api) {
