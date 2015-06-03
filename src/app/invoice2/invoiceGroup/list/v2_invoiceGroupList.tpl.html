@@ -159,7 +159,7 @@
             <tr>
               <th>Trip</th>
               <th>Date</th>
-              <th>Sender</th>
+              <th>Recipient</th>
               <th>Description</th>
               <th class="text-right">Total</th>
             </tr>
@@ -167,7 +167,7 @@
           <tr ng-repeat="invoice in ungroupedSentInvoices">
             <td><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
             <td>{{ invoice.date | amDateFormat: 'DD-MM-YY HH:MM'}}</td>
-            <td>{{ invoice.sender | fullname }}</a>
+            <td>{{ invoice.recipient | fullname }}</a>
             <td>{{ invoice.description }}</td>
             <td class="text-right">{{ invoice.total | currency }}</td>
           </tr>
