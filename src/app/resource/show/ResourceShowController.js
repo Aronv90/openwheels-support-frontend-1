@@ -5,6 +5,7 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.rating',
   'openwheels.resource.show.members',
   'openwheels.resource.show.boardcomputer',
+  'openwheels.resource.show.ccom',
   'openwheels.resource.show.log',
   'openwheels.resource.show.revisions'
 ])
