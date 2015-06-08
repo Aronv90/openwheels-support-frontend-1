@@ -15,6 +15,16 @@ angular.module('openwheels.person.show.vouchers', [])
     alertService.loaded();
   });
 
+  $scope.showRequiredValueDetails = function (requiredValue) {
+    $modal.open({
+      templateUrl: 'person/show/vouchers/requiredValuePopup.tpl.html',
+      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+        $scope.requiredValue = requiredValue;
+        $scope.close = $modalInstance.close;
+      }]
+    });
+  };
+
   function getVouchers () {
     $scope.vouchers = null;
     var promise = voucherService.search({ person: person.id });
