@@ -12,9 +12,12 @@
             <i class="fa fa-clock-o"></i>
             <strong>Booking</strong>
               {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}} Tot: {{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}}
+              <b>status:</b>
               <span
-                ng-class="{ 'text-success': booking.status === 'accepted', 'text-warning': booking.status === 'requested', 'text-danger': booking.status === 'cancelled' }">{{ booking.status }}</span>
+                ng-class="{ 'text-success': booking.status === 'accepted', 'text-warning': booking.status === 'requested', 'text-danger': booking.status === 'cancelled' }">{{ booking.status || '?' }}</span>
+            <b>approved:</b> {{ booking.approved || '-' }}
           </li>
+
           <li ng-class="{'text-danger': booking.beginRequested}">
             <i class="fa fa-clock-o"></i> <strong>Request</strong>
             <span ng-if="booking.beginRequested">{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}} Tot: {{ booking.endRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}}</span>
@@ -23,6 +26,7 @@
           <li ng-if="booking.trip.odoBegin || booking.trip.begin">
             <i class="fa fa-clock-o"></i> <strong>Trip</strong> {{ booking.trip.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }} Tot: {{ booking.trip.end | amDateFormat:'DD-MM-YYYY | HH:mm' }}  KM:{{ booking.trip.odoEnd - booking.trip.odoBegin }} <span
             class="text-muted" >{{ booking.trip.odoBegin }}km - {{ booking.trip.odoEnd }}km</span>
+            <b>finalized:</b> {{ booking.trip.finalized || '-' }}
           </li>
           <li ng-if="! (booking.trip.odoBegin && booking.trip.begin)">
             <i class="fa fa-clock-o"></i> <strong>Trip</strong> No trip set
