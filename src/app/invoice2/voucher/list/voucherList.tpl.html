@@ -1,0 +1,67 @@
+<div class="row">
+
+  <div class="col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <form class="form">
+
+          <div class="form-group">
+            <label for="min">Minimum value €</label>
+            <input id="min" type="text" class="form-control" ng-model="params.minValue" />
+          </div>
+
+          <div class="form-group">
+            <label for="max">Maximum value €</label>
+            <input id="max" type="text" class="form-control" ng-model="params.maxValue" />
+          </div>
+
+          <div class="form-group">
+            <label>Presets</label>
+            <select class="form-control" ng-options="preset as preset.label for preset in presets" ng-model="preset" ng-change="selectPreset(preset)">
+            </select>
+          </div>
+
+          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          <button class="btn btn-link" ng-click="clear()">Clear</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-9">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Vouchers</h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Created</th>
+              <th>Current value</th>
+              <th>Initial value</th>
+              <th>Paid</th>
+              <th>ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="voucher in vouchers">
+              <td>
+                <a ui-sref="root.person.show.summary({ personId: voucher.person.id })">
+                  {{ voucher.person | fullname }}
+                </a>
+              </td>
+              <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
+              <td><b>{{ voucher.currency }} {{ voucher.value }}</b></td>
+              <td>{{ voucher.currency }} {{ voucher.initialValue }}</td>
+              <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+              <td><input type="text" ng-model="voucher.id" style="padding:0; margin:0; border: none" /></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

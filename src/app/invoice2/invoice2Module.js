@@ -2,7 +2,8 @@
 
 angular.module('openwheels.invoice2', [
   'openwheels.invoice2.invoiceGroup.list',
-  'openwheels.invoice2.invoiceGroup.show'
+  'openwheels.invoice2.invoiceGroup.show',
+  'openwheels.invoice2.voucher.list'
 ])
 
 .config(function config($stateProvider) {
@@ -71,6 +72,32 @@ angular.module('openwheels.invoice2', [
     }
   });
 
+  $stateProvider.state('root.invoice2.voucher', {
+    abstract: true,
+    url: '/vouchers',
+    views: {
+      'main@': {
+        template: '<div ui-view></div>'
+      }
+    }
+  });
+
+  $stateProvider.state('root.invoice2.voucher.list', {
+    url: '?minValue&maxValue',
+    controller: 'VoucherListController',
+    templateUrl: 'invoice2/voucher/list/voucherList.tpl.html',
+    data: {pageTitle: 'Vouchers'},
+    resolve: {
+      vouchers: ['$stateParams', 'voucherService', function ($stateParams, voucherService) {
+        var params = {};
+        var minValue = parseFloat($stateParams.minValue);
+        var maxValue = parseFloat($stateParams.maxValue);
+        if (!isNaN(minValue)) { params.minValue = minValue; }
+        if (!isNaN(maxValue)) { params.maxValue = maxValue; }
+        return voucherService.search(params);
+      }]
+    }
+  });
 
 })
 ;
