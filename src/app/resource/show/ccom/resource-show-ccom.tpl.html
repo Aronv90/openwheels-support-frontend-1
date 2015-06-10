@@ -1,7 +1,7 @@
 <div class="form-group">
-	<select ng-model="alarmDescription" class="form-control" >
+	<select ng-model="alarmDescription" class="form-control">
 	    <option value=" " selected>All</option>
-	    <option ng-repeat="description in alarmDescriptions" value="{{description}}">{{description}}</option>
+	    <option ng-repeat="alarm in alarms | unique:'desc'" value="{{alarm.desc}}">{{alarm.desc}}</option>
 	</select>
 </div>
 
