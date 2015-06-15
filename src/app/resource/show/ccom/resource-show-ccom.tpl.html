@@ -1,0 +1,25 @@
+<div class="form-group">
+	<select ng-model="alarmDescription" class="form-control">
+	    <option value=" " selected>All</option>
+	    <option ng-repeat="alarm in alarms | unique:'desc'" value="{{alarm.desc}}">{{alarm.desc}}</option>
+	</select>
+</div>
+
+<table class="table table-striped">
+  <tr>
+    <th>ID</th>
+    <th>Number</th>
+    <th>Alarm timestamp</th>
+    <th>Received on</th>
+    <th>Description</th>
+    <th>Signal Strength</th>
+  </tr>
+  <tr ng-repeat="alarm in alarms | filter: alarmDescription">
+    <td>{{alarm.id}}</td>
+    <td>{{alarm.alarmNr}}</td>
+    <td>{{alarm.alarmTimestamp}}</td>
+    <td>{{alarm.receivedOn}}</td>
+    <td>{{alarm.desc}}</td>
+    <td>{{alarm.gsmSignalStrength}}</td>
+  </tr>
+</table>

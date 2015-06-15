@@ -119,6 +119,7 @@ angular.module('rpcServices', [])
 
 	.service('ccomService', function (api) {
 		var m = function (name) { return api.createRpcMethod('ccom.' + name ); };
+		this.alarms = m('alarms');
 		this.problemBookings = m('problemBookings');
 		this.log = m('log');
 		this.state = m('state');
