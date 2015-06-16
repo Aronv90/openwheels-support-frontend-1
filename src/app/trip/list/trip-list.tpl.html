@@ -22,10 +22,11 @@
       <th ng-if="! $state.includes('root.resource')">Resource</th>
       <th ng-if="! $state.includes('root.person')">Person</th>
       <th ng-if="!$state.includes('root.person')">Email</th>
+      <th>Approved</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-class="{danger: booking.status === 'cancelled', warning: booking.status === 'rejected'}" ng-repeat="booking in bookings | orderBy:'beginBooking':true">
+    <tr ng-class="{danger: booking.status === 'cancelled', warning: booking.status === 'rejected'}" ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']">
       <td><a ui-sref="root.trip.show.summary({ tripId: booking.id })">#{{ booking.id }}</a></td>
       <td>{{ booking.status }}</td>
       <td>{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
@@ -35,6 +36,9 @@
       <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
       <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
       <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
+      <td>
+        <span>{{ booking.approved }}</span>
+      </td>
       <td>
         <span class="text-success" ng-if="b.trip.finalized">finalized</span>
       </td>
