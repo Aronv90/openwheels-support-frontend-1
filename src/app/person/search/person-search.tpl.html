@@ -7,18 +7,32 @@
 <div class="panel panel-default card">
     <div class="panel-body">
 
-        <form id="personSearchForm" name="personSearchForm" ng-submit="searchZip(person)">
+        <form>
             <div class="form-group">
                 <label for="zipcode">Zip code & street number</label>
                 <div class="row">
                   <div class="col-xs-4 col-md-2">
-                    <input type="text" id="zipcode" class="form-control" ng-model="person.zipcode" placeholder="Zip code">
+                    <input type="text" id="zipcode" class="form-control" ng-model="data.zipcode" placeholder="Zip code">
                   </div>
                   <div class="col-xs-4 col-md-2">
-                    <input type="text" id="streetNumber" class="form-control" ng-model="person.streetNumber" placeholder="Street number">
+                    <input type="text" id="streetNumber" class="form-control" ng-model="data.streetNumber" placeholder="Street number">
                   </div>
                   <div class="col-xs-4 col-md-8">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" ng-click="searchZip()" ng-disabled="!(data.zipcode && data.streetNumber)">Search</button>
+                  </div>
+                </div>
+            </div>
+          </form>
+
+          <form name="ibanForm" ng-submit="searchIban()">
+            <div class="form-group">
+                <label for="iban">IBAN-number</label>
+                <div class="row">
+                  <div class="col-xs-8 col-md-4">
+                    <input type="text" id="iban" class="form-control" ng-model="data.iban">
+                  </div>
+                  <div class="col-xs-4 col-md-8">
+                    <button type="submit" class="btn btn-primary" ng-disabled="!data.iban">Search</button>
                   </div>
                 </div>
             </div>
