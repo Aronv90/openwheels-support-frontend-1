@@ -160,6 +160,23 @@ angular.module('openwheels.resource', [
 		});
 
 		/**
+		 * resource/:id/ccom
+		 * @resolve {promise} resource
+		 */
+		$stateProvider.state('root.resource.show.ccom', {
+			url: '/ccom',
+			controller: 'ResourceShowCcomController',
+			templateUrl: 'resource/show/ccom/resource-show-ccom.tpl.html',
+			data: {pageTitle: 'Resource CCOM'},
+			resolve: {
+				alarms: ['ccomService', 'resource', function (ccomService, resource) {
+					return ccomService.alarms({resource: resource.id, limit: 50});
+				}]
+			},
+			role: 'ROLE_PROVIDER_ADMIN'
+		});
+
+		/**
 		 * resource/:id/log
 		 * @resolve {promise} resource
 		 */

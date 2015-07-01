@@ -31,6 +31,12 @@ angular.module('alertService', [])
     }
   };
 
+  alertService.addError = function (err) {
+    var level   = err.level   || 'danger';
+    var message = err.message || 'An error has occurred';
+    alertService.add(level, message, 8000);
+  };
+
   alertService.closeAlert = function(index) {
     $rootScope.alerts.splice(index, 1);
   };
