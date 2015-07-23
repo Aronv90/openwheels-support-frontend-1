@@ -4,6 +4,7 @@ angular.module('openwheels.invoice2', [
   'openwheels.invoice2.invoiceGroup.list',
   'openwheels.invoice2.invoiceGroup.show',
   'openwheels.invoice2.voucher.list',
+  'openwheels.invoice2.payment.list',
   'openwheels.invoice2.payout.list'
 ])
 
@@ -96,6 +97,42 @@ angular.module('openwheels.invoice2', [
         if (!isNaN(minValue)) { params.minValue = minValue; }
         if (!isNaN(maxValue)) { params.maxValue = maxValue; }
         return voucherService.search(params);
+      }]
+    }
+  });
+
+  $stateProvider.state('root.invoice2.payment', {
+    abstract: true,
+    url: '/payments',
+    views: {
+      'main@': {
+        template: '<div ui-view></div>'
+      }
+    }
+  });
+
+  $stateProvider.state('root.invoice2.payment.list', {
+    url: '?gateway&minValue&maxValue&startDate&endDate',
+    controller: 'PaymentListController',
+    templateUrl: 'invoice2/payment/list/paymentList.tpl.html',
+    data: {pageTitle: 'Payments'},
+    resolve: {
+      payments: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
+        var params = {};
+        if ($stateParams.gateway) { params.gateway = $stateParams.gateway; }
+        var minValue = parseFloat($stateParams.minValue);
+        var maxValue = parseFloat($stateParams.maxValue);
+        if (!isNaN(minValue)) { params.minAmount = minValue; }
+        if (!isNaN(maxValue)) { params.maxAmount = maxValue; }
+        var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract('months', 1);
+        var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add('months', 1);
+        if (startDate || endDate) {
+          params.timeFrame = {
+            startDate: startDate.format('YYYY-MM-DD HH:mm'),
+            endDate: endDate.format('YYYY-MM-DD HH:mm')
+          };
+        }
+        return paymentService.getPayments(params);
       }]
     }
   });

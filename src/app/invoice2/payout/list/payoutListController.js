@@ -15,8 +15,10 @@ angular.module('openwheels.invoice2.payout.list', [])
   };
 
   $scope.presets = [
-    { label: 'Pay.nl, uitbetaald', params: { gateway: 'pay_nl', state: 'paid' } },
-    { label: 'Pay.nl, uit te betalen', params: { gateway: 'pay_nl', state: 'unpaid' } },
+    { label: 'Pay.nl MyWheels, uitbetaald', params: { gateway: 'paynl_gateway_mywheels', state: 'paid' } },
+    { label: 'Pay.nl MyWheels, uit te betalen', params: { gateway: 'paynl_gateway_mywheels', state: 'unpaid' } },
+    { label: 'Pay.nl ANWB, uitbetaald', params: { gateway: 'paynl_gateway_anwb', state: 'paid' } },
+    { label: 'Pay.nl ANWB, uit te betalen', params: { gateway: 'paynl_gateway_anwb', state: 'unpaid' } },
   ];
 
   $scope.selectPreset = function (preset) {
