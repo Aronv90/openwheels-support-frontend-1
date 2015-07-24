@@ -105,6 +105,7 @@ angular.module('rpcServices', [])
 		this.allLateBack = m('allLateBack');
 		this.requested = m('requested');
 		this.actualBooking = m('actualBooking');
+    this.futureByNotActiveDriver = m('futureByNotActiveDriver');
 
 		this.forResource = m('forResource');
 		this.getBookingList = m('getBookingList');
