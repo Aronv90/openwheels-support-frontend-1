@@ -160,6 +160,7 @@ angular.module('rpcServices', [])
     this.payInvoiceGroup  = m('payInvoiceGroup');
     this.getInvoiceGroups = m('getInvoiceGroups');
     this.getPayouts       = m('getPayouts');
+    this.getPayments      = m('getPayments');
   })
 
 	.service('accountService', function (api) {
