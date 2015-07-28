@@ -12,10 +12,10 @@ angular.module('dialogService', [])
   };
 
   var modalOptions = {
-    closeButtonText: 'Close',
-    actionButtonText: 'OK',
-    headerText: 'Proceed?',
-    bodyText: 'Perform this action?'
+    closeButtonText: 'Cancel',
+    actionButtonText: 'Ok',
+    headerText: 'Confirmation',
+    bodyText: 'Are you sure?'
   };
 
   this.showModal = function (customModalDefaults, customModalOptions) {
