@@ -56,6 +56,9 @@
           <li ng-class="{ active: $state.includes('root.trip.list.disapproved') }">
             <a ui-sref="root.trip.list.disapproved">Invalid Bookings</a>
           </li>
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.trip.list.notactive') }">
+            <a ui-sref="root.trip.list.notactive">Not active bookings</a>
+          </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }">
             <a ui-sref="root.trip.list.strange-kms">Strange kms</a>
