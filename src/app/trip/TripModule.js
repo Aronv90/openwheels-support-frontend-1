@@ -167,6 +167,23 @@ angular.module('openwheels.trip', [
 			role: 'ROLE_ADMIN'
 		});
 
+		/**
+		 * trip/
+		 * @resolve {promise} booking
+		 */
+		$stateProvider.state('root.trip.list.notactive', {
+			url: '/notactive',
+			controller: 'TripListController',
+			templateUrl: 'trip/list/trip-list--not-active.tpl.html',
+			data: {pageTitle: 'Trip list - Not Active'},
+			resolve: {
+				bookings: ['bookingService', function (bookingService) {
+					return bookingService.futureByNotActiveDriver();
+				}]
+			},
+			role: 'ROLE_ADMIN'
+		});
+
 
 		/**
 		 * trip/disaproved
