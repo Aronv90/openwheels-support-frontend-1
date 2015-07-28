@@ -1,0 +1,87 @@
+<div class="row">
+
+  <div class="col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <form class="form">
+
+          <div class="form-group">
+            <label for="gateway">Gateway</label>
+            <input id="gateway" type="text" class="form-control" ng-model="params.gateway" />
+          </div>
+
+          <div class="form-group">
+            <label for="min">Minimum value €</label>
+            <input id="min" type="text" class="form-control" ng-model="params.minValue" />
+          </div>
+
+          <div class="form-group">
+            <label for="max">Maximum value €</label>
+            <input id="max" type="text" class="form-control" ng-model="params.maxValue" />
+          </div>
+
+          <div class="form-group">
+            <label for="startDate">From</label>
+            <input id="startDate" type="text" class="form-control" ng-model="params.startDate" />
+          </div>
+
+          <div class="form-group">
+            <label for="endDate">Until</label>
+            <input id="endDate" type="text" class="form-control" ng-model="params.endDate" />
+          </div>
+
+          <div class="form-group">
+            <label>Presets</label>
+            <select class="form-control" ng-options="preset as preset.label for preset in presets" ng-model="preset" ng-change="selectPreset(preset)">
+            </select>
+          </div>
+
+          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          <button class="btn btn-link" ng-click="clear()">Clear</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-9">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Payments</h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Gateway</th>
+              <th>Created</th>
+              <th>Updated</th>
+              <th>Invoice group</th>
+              <th>Voucher</th>
+              <th>Amount</th>
+              <th>Payments</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="payment in payments">
+              <td>{{ payment.paymentInstruction.paymentSystemName }}</td>
+              <td>{{ payment.paymentInstruction.createdAt | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
+              <td>{{ payment.paymentInstruction.updatedAt | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
+              <td>{{ payment.invoiceGroup.id }}</td>
+              <td>{{ payment.voucher.id }}</td>
+              <td>{{ payment.paymentInstruction.currency }} {{ payment.paymentInstruction.amount }}</td>
+              <td>
+                <ul>
+                    <li ng-repeat="transaction in payment.paymentInstruction.payments">
+                      {{ payment.paymentInstruction.currency }} {{ transaction.depositedAmount }}
+                      <b ng-show="{{ transaction.attentionRequired }}">ACTIE VEREIST</b>
+                    </li>
+                </ul>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

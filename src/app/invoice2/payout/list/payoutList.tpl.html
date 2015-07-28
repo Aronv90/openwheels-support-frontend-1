@@ -1,0 +1,77 @@
+<div class="row">
+
+  <div class="col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <form class="form">
+
+          <div class="form-group">
+            <label for="gateway">Gateway</label>
+            <input id="gateway" type="text" class="form-control" ng-model="params.gateway" />
+          </div>
+
+          <div class="form-group">
+            <label for="state">State</label>
+            <input id="state" type="text" class="form-control" ng-model="params.state" />
+          </div>
+
+          <div class="form-group">
+            <label for="startDate">From</label>
+            <input id="startDate" type="text" class="form-control" ng-model="params.startDate" />
+          </div>
+
+          <div class="form-group">
+            <label for="endDate">Until</label>
+            <input id="endDate" type="text" class="form-control" ng-model="params.endDate" />
+          </div>
+
+          <div class="form-group">
+            <label>Presets</label>
+            <select class="form-control" ng-options="preset as preset.label for preset in presets" ng-model="preset" ng-change="selectPreset(preset)">
+            </select>
+          </div>
+
+          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          <button class="btn btn-link" ng-click="clear()">Clear</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-9">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Payouts</h3>
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Person</th>
+              <th>Created</th>
+              <th>Invoice group</th>
+              <th>Voucher</th>
+              <th>Paid</th>
+              <th>ID</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="payout in payouts">
+              <td>
+                <a ui-sref="root.person.show.summary({ personId: payout.person.id })">
+                  {{ payout.person | fullname }}
+                </a>
+              </td>
+              <td>{{ payout.created | amDateFormat : 'DD-MM-YY' }}</td>
+              <td>{{ payout.invoiceGroup.id }}</td>
+              <td>{{ payout.voucher.id }}</td>
+              <td>{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+              <td><input type="text" ng-model="payout.id" style="padding:0; margin:0; border: none" /></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
