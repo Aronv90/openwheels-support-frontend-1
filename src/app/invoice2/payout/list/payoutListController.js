@@ -2,7 +2,8 @@
 
 angular.module('openwheels.invoice2.payout.list', [])
 
-.controller( 'PayoutListController', function ($location, $state, $stateParams, $scope, payouts) {
+.controller( 'PayoutListController', function ($timeout, $location, $state, $stateParams, $scope, dialogService, alertService,
+  paymentService, payouts) {
 
   $scope.payouts = payouts;
   $scope.preset = null;
@@ -31,6 +32,17 @@ angular.module('openwheels.invoice2.payout.list', [])
 
   $scope.clear = function () {
     $location.search({});
+  };
+
+  $scope.processPayout = function (payoutId) {
+    dialogService.showModal().then(function () {
+      alertService.load();
+      paymentService.processPayout({ payout: payoutId }).then(function (result) {
+        alertService.add('success', 'Ok', 5000);
+      })
+      .catch(alertService.addError)
+      .finally(alertService.loaded);
+    });
   };
 
 });
