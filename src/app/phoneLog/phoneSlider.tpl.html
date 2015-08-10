@@ -1,0 +1,66 @@
+<div class="phone-slider" ng-if="settings.ringerPopups">
+
+  <!-- active calls -->
+
+  <div class="phone-slider-heading">
+    <div ng-switch="(events | filter:{active:true}).length === 0">
+      <span ng-switch-when="true"><b>No incoming calls</b></span>
+      <div ng-switch-when="false">
+        <a class="icon-button pull-right" ng-click="clearActive()">Dismiss</a>
+        <b>Incoming calls</b>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone-slider-body">
+    <ul class="phone-slider-events">
+      <li ng-repeat="event in events | filter:{active:true} | orderBy:'timestamp':true" class="clearfix">
+        <i class="fa fa-phone fa-fw fa-2x pull-left text-muted" ng-class="{ 'text-green faa-shake animated': event.active }"></i>
+        <span ng-if="!event.personPending">
+          <span ng-if="!event.person"><b>Unkown</b></span>
+          <a ng-click="select(event)">
+            <b>{{ event.person | fullname }}</b>
+          </a>
+        </span>
+        <i ng-if="event.personPending" class="fa fa-fw fa-spinner fa-spin"></i>
+        {{ event.data.tel }}
+        <div><small class="text-muted" am-time-ago="event.timestamp"></small></div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- call history -->
+
+  <div class="phone-slider-heading" ng-click="sliderOptions.historyVisible = !!!sliderOptions.historyVisible">
+    <div class="pull-right">
+      <a class="icon-button">
+        <i class="fa" ng-class="{ 'fa-chevron-up': !sliderOptions.historyVisible, 'fa-chevron-down': sliderOptions.historyVisible }"></i>
+      </a>
+    </div>
+    <b>Recent</b>
+  </div>
+
+  <div class="phone-slider-body" ng-if="sliderOptions.historyVisible">
+    <ul class="phone-slider-events">
+      <li ng-repeat="event in events | filter:{active:false} | orderBy:'timestamp':true" class="clearfix">
+        <i class="fa fa-phone fa-fw fa-2x pull-left text-muted" ng-class="{ 'text-green faa-shake animated': event.active }"></i>
+        <span ng-if="!event.personPending">
+          <span ng-if="!event.person"><b>Unkown</b></span>
+          <a ng-click="select(event)">
+            <b>{{ event.person | fullname }}</b>
+          </a>
+        </span>
+        <i ng-if="event.personPending" class="fa fa-fw fa-spinner fa-spin"></i>
+        {{ event.data.tel }}
+        <div><small class="text-muted" am-time-ago="event.timestamp"></small></div>
+      </li>
+    </ul>
+  </div>
+
+  <ul class="phone-slider-events" ng-if="sliderOptions.historyVisible">
+    <li ng-if="(events | filter:{active:false}).length === 0">
+      Nothing
+    </li>
+  </ul>
+
+</div>
