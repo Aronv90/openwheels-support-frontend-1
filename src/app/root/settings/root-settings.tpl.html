@@ -12,6 +12,7 @@
 
         <div show-if-user-has-role="ROLE_ADMIN" class="form-group">
           <label for="ringerPopups"><input class="" id="ringerPopups" type="checkbox" ng-model="settings.ringerPopups"> Enable Ringer Popups</label>
+          <span ng-if="user && settings.ringerPopups"> - <a ng-click="testCall()">test call</a></span>
         </div>
 
         <div class="form-group">
