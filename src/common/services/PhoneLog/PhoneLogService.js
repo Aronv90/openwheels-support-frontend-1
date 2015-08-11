@@ -51,6 +51,8 @@ angular.module('openwheels.phoneLogService', [])
         lookupPhoneNumber(eventInfo, data.tel);
       }
     }
+
+    $rootScope.$evalAsync();
   }
 
   function lookupPhoneNumber (eventInfo, phoneNumber) {

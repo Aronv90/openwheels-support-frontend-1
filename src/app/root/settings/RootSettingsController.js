@@ -21,9 +21,11 @@ angular.module('openwheels.root.settings', [
     phoneLogService.testCall();
     $timeout(function () {
       phoneLogService.testHangup();
-    }, 3000);
 
-    phoneLogService.sliderOptions.historyVisible = old;
+      $timeout(function () {
+        phoneLogService.sliderOptions.historyVisible = old;
+      }, 1000);
+    }, 2000);
   };
 })
 ;
