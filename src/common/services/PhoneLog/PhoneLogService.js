@@ -5,6 +5,7 @@ angular.module('openwheels.phoneLogService', [])
 .service('phoneLogService', function($rootScope, personService) {
 
   var MAX_EVENTS = 20;
+  var TEST_NUMBER = 'TEST-CALL';
   var uid = 0;
 
   var service = {
@@ -15,36 +16,43 @@ angular.module('openwheels.phoneLogService', [])
   };
 
   var source = new EventSource('events');
-  source.addEventListener('phone', handlePhoneEvent, false);
+  source.addEventListener('phone', handleEvent, false);
+  source.addEventListener('phonehangup', handleEvent, false);
 
-  function handlePhoneEvent (e) {
+  function handleEvent (e) {
     var data = JSON.parse(e.data);
+    var eventInfo;
+    console.log(e, data);
 
-    var eventInfo = {
-      id: (uid++) + '',
-      active: true,
-      timestamp: new Date(),
-      data: data,
-      person: null,
-      personPending: false
-    };
-
-    // deactivate other events
-    service.events.forEach(function (e) {
-      e.active = false;
+    // deactivate current events
+    service.events.forEach(function (evt) {
+      evt.active = false;
     });
-    service.events.push(eventInfo);
-    console.log(data);
 
-    // rotate events
-    while (service.events.length > MAX_EVENTS) {
-      service.events.shift();
+    if (e.type === 'phone') {
+      // add to backlog
+      eventInfo = {
+        id: e.lastEventId,
+        active: true,
+        timestamp: new Date(),
+        data: data,
+        person: null,
+        personPending: false
+      };
+      service.events.push(eventInfo);
+
+      // rotate backlog
+      while (service.events.length > MAX_EVENTS) {
+        service.events.shift();
+      }
+
+      // lookup additional info
+      if (data.tel && data.tel !== TEST_NUMBER) {
+        lookupPhoneNumber(eventInfo, data.tel);
+      }
     }
 
-    // lookup additional info
-    if (data.tel) {
-      lookupPhoneNumber(eventInfo, data.tel);
-    }
+    $rootScope.$evalAsync();
   }
 
   function lookupPhoneNumber (eventInfo, phoneNumber) {
@@ -59,7 +67,11 @@ angular.module('openwheels.phoneLogService', [])
   }
 
   service.testCall = function (phoneNumber) {
-    handlePhoneEvent({ data: JSON.stringify({ tel: phoneNumber || 'TEST-CALL' }) });
+    handleEvent({ lastEventId: ((uid++) + ''), type: 'phone', data: JSON.stringify({ event: 'phone', tel: phoneNumber || 'TEST-CALL' }) });
+  };
+
+  service.testHangup = function () {
+    handleEvent({ lastEventId: ((uid++) + ''), type: 'phonehangup', data: JSON.stringify({ event: 'phonehangup' }) });
   };
 
   return service;
