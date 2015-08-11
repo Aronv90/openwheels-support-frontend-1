@@ -4,7 +4,7 @@ angular.module('openwheels.root.settings', [
   'jsonrpc'
 ])
 
-.controller('RootSettingsController', function ($scope, user, settingsService, appConfig, phoneLogService) {
+.controller('RootSettingsController', function ($timeout, $scope, user, settingsService, appConfig, phoneLogService) {
 
   $scope.user = user;
   $scope.settings = settingsService.settings;
@@ -15,13 +15,15 @@ angular.module('openwheels.root.settings', [
   };
 
   $scope.testCall = function () {
-    phoneLogService.sliderOptions.historyVisible = true;
+    var old = phoneLogService.sliderOptions.historyVisible;
 
-    if (user.identity && user.identity.phoneNumbers && user.identity.phoneNumbers.length) {
-      phoneLogService.testCall(user.identity.phoneNumbers[0]);
-    } else {
-      phoneLogService.testCall();
-    }
+    phoneLogService.sliderOptions.historyVisible = true;
+    phoneLogService.testCall();
+    $timeout(function () {
+      phoneLogService.testHangup();
+    }, 3000);
+
+    phoneLogService.sliderOptions.historyVisible = old;
   };
 })
 ;
