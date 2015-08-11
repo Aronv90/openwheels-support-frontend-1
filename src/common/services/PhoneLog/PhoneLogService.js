@@ -25,14 +25,14 @@ angular.module('openwheels.phoneLogService', [])
     console.log(e, data);
 
     // deactivate current events
-    service.events.forEach(function (e) {
-      e.active = false;
+    service.events.forEach(function (evt) {
+      evt.active = false;
     });
 
-    if (e.event === 'phone') {
+    if (e.type === 'phone') {
       // add to backlog
       eventInfo = {
-        id: e.id,
+        id: e.lastEventId,
         active: true,
         timestamp: new Date(),
         data: data,
@@ -65,11 +65,11 @@ angular.module('openwheels.phoneLogService', [])
   }
 
   service.testCall = function (phoneNumber) {
-    handleEvent({ id: ((uid++) + ''), event: 'phone', data: JSON.stringify({ event: 'phone', tel: phoneNumber || 'TEST-CALL' }) });
+    handleEvent({ lastEventId: ((uid++) + ''), type: 'phone', data: JSON.stringify({ event: 'phone', tel: phoneNumber || 'TEST-CALL' }) });
   };
 
   service.testHangup = function () {
-    handleEvent({ id: ((uid++) + ''), event: 'phonehangup', data: JSON.stringify({ event: 'phonehangup' }) });
+    handleEvent({ lastEventId: ((uid++) + ''), type: 'phonehangup', data: JSON.stringify({ event: 'phonehangup' }) });
   };
 
   return service;
