@@ -2,11 +2,13 @@
 
 angular.module('openwheels.phoneLogService', [])
 
-.service('phoneLogService', function($rootScope, personService) {
+.service('phoneLogService', function($rootScope, $timeout, personService) {
 
   var MAX_EVENTS = 20;
+  var HANGUP_DELAY_MS = 5000;
   var TEST_NUMBER = 'TEST-CALL';
   var uid = 0;
+  var hangupTimer;
 
   var service = {
     events: [],
@@ -24,12 +26,23 @@ angular.module('openwheels.phoneLogService', [])
     var eventInfo;
     console.log(e, data);
 
-    // deactivate current events
-    service.events.forEach(function (evt) {
-      evt.active = false;
-    });
+    if (e.type === 'phonehangup') {
+      // deactivate all events after delay
+      $timeout.cancel(hangupTimer);
+      hangupTimer = $timeout(function () {
+        service.events.forEach(function (evt) {
+          evt.active = false;
+        });
+      }, HANGUP_DELAY_MS);
+    }
 
     if (e.type === 'phone') {
+      // deactivate all events immediately
+      $timeout.cancel(hangupTimer);
+      service.events.forEach(function (evt) {
+        evt.active = false;
+      });
+
       // add to backlog
       eventInfo = {
         id: e.lastEventId,

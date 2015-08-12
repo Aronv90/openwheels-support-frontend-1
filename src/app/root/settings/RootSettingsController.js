@@ -15,17 +15,8 @@ angular.module('openwheels.root.settings', [
   };
 
   $scope.testCall = function () {
-    var old = phoneLogService.sliderOptions.historyVisible;
-
-    phoneLogService.sliderOptions.historyVisible = true;
     phoneLogService.testCall();
-    $timeout(function () {
-      phoneLogService.testHangup();
-
-      $timeout(function () {
-        phoneLogService.sliderOptions.historyVisible = old;
-      }, 1000);
-    }, 2000);
+    phoneLogService.testHangup();
   };
 })
 ;
