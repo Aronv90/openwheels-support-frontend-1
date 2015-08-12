@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('openwheels.phoneLog', [
-  'openwheels.phoneLog.slider'
+  'openwheels.phoneLog.slider',
+  'openwheels.phoneLog.history'
 ])
 
 .config(function ($stateProvider) {
@@ -17,9 +18,9 @@ angular.module('openwheels.phoneLog', [
     }
   });
 
-  // $stateProvider.state('phoneLog.event', {
-  //   url: '/example',
-  //   templateUrl: '',
-  //   controller: ''
-  // });
+  $stateProvider.state('phoneLog.history', {
+    url: '/history',
+    templateUrl: 'phoneLog/history/phoneHistory.tpl.html',
+    controller: 'PhoneHistoryController'
+  });
 });

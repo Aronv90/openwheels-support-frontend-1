@@ -20,7 +20,10 @@
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
             ui-sref="root.person.blacklist">Blacklist</a>
           </li>
-          <!-- <li><a href="#">Driver licenses</a></li> -->
+          <li show-if-user-has-role="ROLE_ADMIN" class="divider"></li>
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
+            <a ui-sref="phoneLog.history">Call history</a>
+          </li>
         </ul>
       </li>
     </ul>

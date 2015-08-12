@@ -30,6 +30,11 @@ angular.module('rpcServices', [])
 		this.enableGoogle2steps = m('enableGoogle2steps');
 	})
 
+	.service('phonecallService', function (api) {
+		var m = function (name) { return api.createRpcMethod('phonecall.' + name ); };
+		this.getRecentIncomingCalls = m('getRecentIncomingCalls');
+	})
+
 	.service('contractService', function (api) {
 		var m = function (name) { return api.createRpcMethod('contract.' + name ); };
 		this.get = m('get');
