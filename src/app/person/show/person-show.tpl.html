@@ -7,7 +7,10 @@
       <div class="media-body">
         <h3 class="card__title"><a target="_blank" href="{{ frontDashboard }}{{ person.email }}"><i
           class="fa fa-external-link"></i></a> {{ person | fullname }}
-          <small>{{ person.id }}</small>
+          <small>
+            {{ person.id }},
+            provider {{ person.provider.id }} <b>{{ person.provider.name }}</b>
+          </small>
         </h3>
         <ul class="list-inline card__subtitle">
           <li><i class="fa fa-user"></i> {{ person.status }}</li>
