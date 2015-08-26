@@ -2,7 +2,7 @@
 
 angular.module('openwheels.checklist.ownerNotActive', [])
 
-.controller('ChecklistDriverlicenseController', function ($scope, persons) {
+.controller('ChecklistOwnerNotActiveController', function ($scope, persons) {
   $scope.persons = persons;
 })
 ;
