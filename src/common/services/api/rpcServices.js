@@ -24,6 +24,7 @@ angular.module('rpcServices', [])
 		this.blocked = m('blocked');
 		this.blockedLike = m('blockedLike');
 		this.tobankCheck = m('tobankCheck');
+		this.ownerNotActive = m('ownerNotActive');
 		this.addBadge = m('addBadge');
 		this.alterBadge = m('alterBadge');
 		this.removeBadge = m('removeBadge');
