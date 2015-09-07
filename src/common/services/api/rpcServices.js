@@ -24,10 +24,16 @@ angular.module('rpcServices', [])
 		this.blocked = m('blocked');
 		this.blockedLike = m('blockedLike');
 		this.tobankCheck = m('tobankCheck');
+		this.ownerNotActive = m('ownerNotActive');
 		this.addBadge = m('addBadge');
 		this.alterBadge = m('alterBadge');
 		this.removeBadge = m('removeBadge');
 		this.enableGoogle2steps = m('enableGoogle2steps');
+	})
+
+	.service('phonecallService', function (api) {
+		var m = function (name) { return api.createRpcMethod('phonecall.' + name ); };
+		this.getRecentIncomingCalls = m('getRecentIncomingCalls');
 	})
 
 	.service('contractService', function (api) {
@@ -105,6 +111,7 @@ angular.module('rpcServices', [])
 		this.allLateBack = m('allLateBack');
 		this.requested = m('requested');
 		this.actualBooking = m('actualBooking');
+		this.futureByNotActiveDriver = m('futureByNotActiveDriver');
 
 		this.forResource = m('forResource');
 		this.getBookingList = m('getBookingList');
@@ -160,6 +167,7 @@ angular.module('rpcServices', [])
     this.getInvoiceGroups = m('getInvoiceGroups');
     this.getPayouts       = m('getPayouts');
     this.getPayments      = m('getPayments');
+    this.processPayout    = m('processPayout');
   })
 
 	.service('accountService', function (api) {

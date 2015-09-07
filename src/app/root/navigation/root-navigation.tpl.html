@@ -20,7 +20,10 @@
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
             ui-sref="root.person.blacklist">Blacklist</a>
           </li>
-          <!-- <li><a href="#">Driver licenses</a></li> -->
+          <li show-if-user-has-role="ROLE_ADMIN" class="divider"></li>
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
+            <a ui-sref="phoneLog.history">Call history</a>
+          </li>
         </ul>
       </li>
     </ul>
@@ -55,6 +58,9 @@
           </li>
           <li ng-class="{ active: $state.includes('root.trip.list.disapproved') }">
             <a ui-sref="root.trip.list.disapproved">Invalid Bookings</a>
+          </li>
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.trip.list.notactive') }">
+            <a ui-sref="root.trip.list.notactive">Not active bookings</a>
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }">
@@ -157,6 +163,9 @@
         <ul class="dropdown-menu">
           <li ng-class="{ active: $state.includes('root.checklist.driverlicense') }">
             <a ui-sref="root.checklist.driverlicense">Driver License</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.checklist.ownerNotActive') }">
+            <a ui-sref="root.checklist.ownerNotActive">Owner not active</a>
           </li>
           <li ng-class="{ active: $state.includes('root.checklist.bankcheck') }">
             <a ui-sref="root.checklist.bankcheck">Bank not verified</a>

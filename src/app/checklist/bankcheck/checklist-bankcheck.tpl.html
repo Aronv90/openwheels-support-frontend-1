@@ -8,7 +8,7 @@
           <tr>
             <th>Person</th>
             <th>Name</th>
-            <th>Rekeningnummer(s)</th>
+            <th>IBAN-number(s)</th>
             <th>Email</th>
           </tr>
           </thead>
@@ -18,7 +18,7 @@
               <td>{{person | fullname }}</td>
               <td>
                 <span ng-repeat="account in person.accounts">
-                  {{account.rekeningnummer}}<span ng-if="!$last">, </span>
+                  {{account.iban}}<span ng-if="!$last">, </span>
                 </span>
               </td>
               <td>{{person.email}}</td>
