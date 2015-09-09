@@ -1,19 +1,21 @@
 <table class="table table-hover">
   <thead>
     <tr>
+      <th>Provider</th>
       <th>Trip</th>
-      <th>Booking timeframe</th>
       <th>Request timeframe</th>
       <th>Person</th>
+      <th>Number of bookings person</th>
       <th>Resource</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="b in bookings | orderBy:'beginBooking':true">
-      <td><a ui-sref="root.trip.show.summary({ tripId: b.id })">#{{ b.id }}</a></td>
-      <td class="booking__date--fw-calendar">
-        {{ b.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}<br/>
-        {{ b.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}
+    <tr ng-repeat="b in bookings | filter:{ status: 'requested' } | orderBy:'beginRequested'">
+      <td>
+        {{ b.resource.providerId }}
+      </td>
+      <td>
+        <a ui-sref="root.trip.show.summary({ tripId: b.id })">#{{ b.id }}</a>
       </td>
       <td class="booking__date--fw-calendar">
         {{ b.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}<br/>
@@ -23,14 +25,11 @@
         <a ui-sref="root.person.show.summary({ personId: b.person.id })">{{ b.person | fullname }}</a>
       </td>
       <td>
-        <a ui-sref="root.resource.show.summary({ resourceId: b.resource.id })">{{ b.resource.alias }}</a>
+        {{ b.person.numberOfBookings }}
       </td>
       <td>
-        <span class="text-success" ng-if="b.trip.finalized">finalized</span>
+        <a ui-sref="root.resource.show.summary({ resourceId: b.resource.id })">{{ b.resource.alias }}</a>
       </td>
     </tr>
   </tbody>
 </table>
-
-
-
