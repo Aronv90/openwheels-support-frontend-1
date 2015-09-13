@@ -31,7 +31,8 @@
     "animate.css": "~3.0.0",
     "ngAutocomplete": "https://github.com/wpalahnuk/ngAutocomplete.git",
     "angular-bootstrap": "~0.9.0",
-    "ng-table": "~0.3.2"
+    "ng-table": "~0.3.2",
+    "angular-google-chart": "~0.0.11"
   },
   "resolutions": {
     "angular": "1.3.11"
