@@ -30,6 +30,11 @@ angular.module('rpcServices', [])
 		this.removeBadge = m('removeBadge');
 		this.enableGoogle2steps = m('enableGoogle2steps');
 	})
+  
+  .service('ccomeService', function (api) {
+    var m = function (name) { return api.createRpcMethod('ccome.' + name); };
+    this.unfinishedJobs = m('unfinishedJobs');
+  })
 
 	.service('phonecallService', function (api) {
 		var m = function (name) { return api.createRpcMethod('phonecall.' + name ); };

@@ -1,0 +1,27 @@
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th>Session id</th>
+      <th>last server time</th>
+      <th>status</th>
+      <th>message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="b in jobs">
+      <td>#{{ b.id }}</td>
+      <td>
+        {{ b.lastServerTime | amDateFormat:'DD-MM-YYYY | HH:mm' }}
+      </td>
+      <td>
+        {{ b.status }}
+      </td>
+      <td>
+        {{b.lastMessage}}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+

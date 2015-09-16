@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('openwheels.trip.list', [])
+angular.module('openwheels.trip.list')
 
 	.controller('TripListController', function ($log, $scope, $filter, $compile, bookings, bookingService, alertService, $state, $stateParams) {
 		var todayTimeframe = {
