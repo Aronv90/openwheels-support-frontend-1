@@ -1,0 +1,83 @@
+<div class="row">
+
+  <div class="col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <form class="form">
+
+          <div class="form-group">
+            <label for="date">Until</label>
+            <input type="text" id="date" placeholder="Pick a date" class="form-control pickadate-input"
+                   ng-model="params.date" pickadate="dateConfig">
+          </div>
+
+          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="col-sm-9">
+
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Debtors</h3>
+
+        <table class="table table-condensed table-hover table-invoice">
+
+          <thead>
+          <tr>
+            <th>Invoice</th>
+            <th>Sender</th>
+            <th>Recipient</th>
+            <th>Date</th>
+            <th>Expires</th>
+            <th>Paid</th>
+            <th class="text-right">Total</th>
+          </tr>
+          </thead>
+
+          <tr ng-repeat="invoice in invoices">
+            <!-- invoice -->
+            <td>{{ invoice.id }}</td>
+
+            <!-- sender -->
+            <td>{{ invoice.sender | fullname }}</td>
+
+            <!-- recipient -->
+            <td>{{ invoice.recipient | fullname }}</td>
+
+            <!-- date -->
+            <td>
+              {{ invoice.date | amDateFormat: 'DD-MM-YYYY' }}
+            </td>
+
+            <!-- expiry -->
+            <td>
+              {{ invoice.expirationDate | amDateFormat: 'DD-MM-YYYY' }}
+            </td>
+
+            <!-- description -->
+            <td>{{ invoice.description }}</td>
+
+            <!-- paid -->
+            <td>
+              {{ invoice.paid | amDateFormat: 'DD-MM-YYYY' }}
+              <span ng-if="!invoice.paid" class="text-danger">
+                <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
+              </span>
+            </td>
+
+           <!-- total -->
+            <td class="text-right">
+              {{ invoice.total | currency }}
+            </td>
+
+          </tr>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
