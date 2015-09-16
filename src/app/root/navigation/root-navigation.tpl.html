@@ -118,6 +118,9 @@
       <li ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Invoice <b class="caret"></b></a>
         <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.invoice2.account.list') }">
+            <a ui-sref="root.invoice2.account.list">Accounts</a>
+          </li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoiceGroup.list') }">
             <a ui-sref="root.invoice2.invoiceGroup.list">Invoice groups</a>
           </li>

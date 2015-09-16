@@ -7,7 +7,8 @@ angular.module('openwheels.invoice2', [
   'openwheels.invoice2.invoice.creditor.list',
   'openwheels.invoice2.voucher.list',
   'openwheels.invoice2.payment.list',
-  'openwheels.invoice2.payout.list'
+  'openwheels.invoice2.payout.list',
+  'openwheels.invoice2.account.list'
 ])
 
 .config(function config($stateProvider) {
@@ -139,6 +140,29 @@ angular.module('openwheels.invoice2', [
         if (!isNaN(minValue)) { params.minValue = minValue; }
         if (!isNaN(maxValue)) { params.maxValue = maxValue; }
         return voucherService.search(params);
+      }]
+    }
+  });
+
+  $stateProvider.state('root.invoice2.account', {
+    abstract: true,
+    url: '/accounts',
+    views: {
+      'main@': {
+        template: '<div ui-view></div>'
+      }
+    }
+  });
+
+  $stateProvider.state('root.invoice2.account.list', {
+    url: '?approved',
+    controller: 'v2_AccountListController',
+    templateUrl: 'invoice2/account/list/v2_accountList.tpl.html',
+    data: {pageTitle: 'Accounts'},
+    resolve: {
+      accounts: ['$stateParams', 'account2Service', function ($stateParams, account2Service) {
+        var params = {};
+        return account2Service.search(params);
       }]
     }
   });
