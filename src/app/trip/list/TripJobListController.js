@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('openwheels.trip.list', [])
-.controller('TripJobsListController', function ($scope, jobs, eventSourceService, bookingService){
+.controller('TripJobsListController', function ($scope, jobs, eventSourceService, ccomeService){
   function update_job(event) {
     var eventData = JSON.parse(event.data);
     console.log(eventData);
-    bookingService.allLateBack().then(function (data) {
+    ccomeService.unfinishedJobs().then(function (data) {
       $scope.jobs = data;
     });
   }
