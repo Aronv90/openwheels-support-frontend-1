@@ -32,39 +32,29 @@
   <div class="col-sm-9">
     <div class="panel panel-default card">
       <div class="panel-body">
-        <h3>Vouchers</h3>
+        <h3>Accounts</h3>
 
         <table class="table">
           <thead>
             <tr>
               <th>Person</th>
-              <th>Created</th>
-              <th>Current value</th>
-              <th>Initial value</th>
-              <th>Paid</th>
+              <th>IBAN</th>
               <th>Approved</th>
-              <th>Payout request</th>
-              <th>ID</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="voucher in vouchers">
+            <tr ng-repeat="account in accounts">
               <td>
-                <a ui-sref="root.person.show.summary({ personId: voucher.person.id })">
-                  {{ voucher.person | fullname }}
+                <a ui-sref="root.person.show.summary({ personId: account.person.id })">
+                  {{ account.person | fullname }}
                 </a>
               </td>
-              <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
-              <td><b>{{ voucher.currency }} {{ voucher.value }}</b></td>
-              <td>{{ voucher.currency }} {{ voucher.initialValue }}</td>
-              <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+              <td>{{ account.iban }}</td>
               <td class="text-right">
-                <span ng-if="!voucher.approved" class="text-danger">
+                <span ng-if="!account.approved" class="text-danger">
                   <i class="fa fa-exclamation-triangle fa-fw"></i>Not approved
                 </span>
               </td>
-              <td>{{ voucher.payoutRequest.id }}</td>
-              <td><input type="text" ng-model="voucher.id" style="padding:0; margin:0; border: none" /></td>
             </tr>
           </tbody>
         </table>

@@ -55,6 +55,7 @@
             <th>Expires</th>
             <th class="text-center">Sent / received</th>
             <th>Paid</th>
+            <th>Approved</th>
             <th class="text-right">Total</th>
           </tr>
           </thead>
@@ -100,6 +101,13 @@
               {{ elm.paid | amDateFormat: 'DD-MM-YYYY' }}
               <span ng-if="!elm.paid" class="text-danger">
                 <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
+              </span>
+            </td>
+
+            <!-- approved -->
+            <td class="text-right">
+              <span ng-if="!elm.approved" class="text-danger">
+                <i class="fa fa-exclamation-triangle fa-fw"></i>Not approved
               </span>
             </td>
 
