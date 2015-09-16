@@ -87,7 +87,7 @@ angular.module('openwheels.invoice2', [
     }
   });
 
-  $stateProvider.state('root.invoice2.invoice.debtors-list', {
+  $stateProvider.state('root.invoice2.invoice.debtors.list', {
     url: '/debtors?date',
     controller: 'v2_InvoiceDebtorListController',
     templateUrl: 'invoice2/invoice/list/v2_invoiceDebtorList.tpl.html',
@@ -102,7 +102,7 @@ angular.module('openwheels.invoice2', [
     }
   });
 
-  $stateProvider.state('root.invoice2.invoice.creditors-list', {
+  $stateProvider.state('root.invoice2.invoice.creditors.list', {
     url: '/creditors?date',
     controller: 'v2_InvoiceCreditorListController',
     templateUrl: 'invoice2/invoice/list/v2_invoiceCreditorList.tpl.html',
