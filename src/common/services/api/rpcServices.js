@@ -34,6 +34,7 @@ angular.module('rpcServices', [])
     .service('ccomeService', function (api) {
         var m = function (name) { return api.createRpcMethod('ccome.' + name); };
         this.unfinishedJobs = m('unfinishedJobs');
+        this.getState = m('getState');
       })
 
     .service('phonecallService', function (api) {
