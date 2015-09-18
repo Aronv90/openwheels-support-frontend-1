@@ -2,6 +2,7 @@
   <thead>
     <tr>
       <th>Session id</th>
+      <th>start rit</th>
       <th>last server time</th>
       <th>status</th>
       <th>message</th>
@@ -9,15 +10,16 @@
   </thead>
   <tbody>
     <tr ng-repeat="b in jobs">
-      <td>#{{ b.id }}</td>
+      <td>#{{ b.job.id }}</td>
+      <td>#{{ b.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
       <td>
-        {{ b.lastServerTime | amDateFormat:'DD-MM-YYYY | HH:mm' }}
+        {{ b.job.lastServerTime | amDateFormat:'DD-MM-YYYY | HH:mm' }}
       </td>
       <td>
-        {{ b.status }}
+        {{ b.job.status }}
       </td>
       <td>
-        {{b.lastMessage}}
+        {{b.job.lastMessage}}
       </td>
     </tr>
   </tbody>
