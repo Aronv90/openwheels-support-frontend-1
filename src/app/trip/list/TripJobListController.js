@@ -30,10 +30,9 @@ angular.module('openwheels.trip.list', [])
       return;
     }
     
-    ccomeService.getState({state: $scope.jobs[key].id})
-    .then(function (data) {
+    ccomeService.unfinishedJobs().then(function (data) {
       $scope.jobs.push(data);
-    });
+    })
   }
   eventSourceService.addEventListener('openwheels.ccome.jobstate_event', update_job);
   $scope.jobs = jobs;
