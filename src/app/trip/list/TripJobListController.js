@@ -7,6 +7,8 @@ angular.module('openwheels.trip.list', [])
     for(var key in $scope.jobs) {
       if($scope.jobs[key].job.id === eventData.job_id) {
         if(eventData.job_status === 'success') {
+          $scope.jobs[key].job.status = 'success';
+          
           delete $scope.jobs[key];
         } else {
           ccomeService.getState({state: $scope.jobs[key].id})
@@ -17,9 +19,9 @@ angular.module('openwheels.trip.list', [])
         return;
       }
     }
-    
-    ccomeService.unfinishedJobs().then(function (data) {
-      $scope.jobs = data;
+    ccomeService.getState({state: $scope.jobs[key].id})
+    .then(function (data) {
+      $scope.jobs.push(data);
     });
   }
   eventSourceService.addEventListener('openwheels.ccome.jobstate_event', update_job);
