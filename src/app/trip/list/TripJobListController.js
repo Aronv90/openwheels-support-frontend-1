@@ -21,13 +21,13 @@ angular.module('openwheels.trip.list', [])
         
         return;
       }
-      
-      ccomeService.getState({state: $scope.jobs[key].id})
-      .then(function (data) {
-        $scope.jobs[key] = data;
-      });
-      
-      return;
+//      
+//      ccomeService.getState({state: $scope.jobs[key].id})
+//      .then(function (data) {
+//        $scope.jobs[key] = data;
+//      });
+//      
+//      return;
     }
     
     ccomeService.unfinishedJobs().then(function (data) {
