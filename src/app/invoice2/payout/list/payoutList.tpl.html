@@ -49,6 +49,7 @@
             <tr>
               <th>Person</th>
               <th>Created</th>
+              <th>Amount</th>
               <th>Invoice group</th>
               <th>Voucher</th>
               <th>Paid</th>
@@ -64,6 +65,10 @@
                 </a>
               </td>
               <td>{{ payout.created | amDateFormat : 'DD-MM-YY' }}</td>
+              <td>
+                {{ payout.invoiceGroup.total }}
+                {{ payout.voucher.value }}
+              </td>
               <td>{{ payout.invoiceGroup.id }}</td>
               <td>{{ payout.voucher.id }}</td>
               <td>{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
