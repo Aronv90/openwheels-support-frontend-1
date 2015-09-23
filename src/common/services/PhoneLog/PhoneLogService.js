@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('openwheels.phoneLogService', [])
-
-.service('phoneLogService', function($rootScope, $timeout, personService) {
+.service('eventSourceService', function () {
+  return new EventSource('events');
+})
+.service('phoneLogService', function($rootScope, $timeout, eventSourceService, personService) {
 
   var MAX_EVENTS = 20;
   var HANGUP_DELAY_MS = 5000;
@@ -17,7 +19,7 @@ angular.module('openwheels.phoneLogService', [])
     }
   };
 
-  var source = new EventSource('events');
+  var source = eventSourceService;
   source.addEventListener('phone', handleEvent, false);
   source.addEventListener('phonehangup', handleEvent, false);
 

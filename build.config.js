@@ -100,7 +100,8 @@ module.exports = {
             'vendor/headroom.js/dist/angular.headroom.js',
             'vendor/ngAutocomplete/src/ngAutocomplete.js',
             'vendor/ng-file-upload/angular-file-upload.js',
-            'vendor/ng-table/ng-table.js'
+            'vendor/ng-table/ng-table.js',
+            'vendor/angular-google-chart/ng-google-chart.js'
             //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
         ],
         css: [

@@ -2,8 +2,7 @@
 
 angular.module('openwheels.checklist.bankcheck', [])
 
-  .controller('ChecklistBankcheckController', function ($scope, $modal, $q, personService, alertService, persons) {
-    $scope.persons = persons;
-  })
-
+.controller('ChecklistBankcheckController', function ($scope, persons) {
+  $scope.persons = persons;
+})
 ;

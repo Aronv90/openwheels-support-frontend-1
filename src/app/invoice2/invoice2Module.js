@@ -3,6 +3,8 @@
 angular.module('openwheels.invoice2', [
   'openwheels.invoice2.invoiceGroup.list',
   'openwheels.invoice2.invoiceGroup.show',
+  'openwheels.invoice2.invoice.debtor.list',
+  'openwheels.invoice2.invoice.creditor.list',
   'openwheels.invoice2.voucher.list',
   'openwheels.invoice2.payment.list',
   'openwheels.invoice2.payout.list',
@@ -71,6 +73,46 @@ angular.module('openwheels.invoice2', [
           invoiceGroup: $stateParams.invoiceGroupId
         };
         return invoice2Service.getInvoiceGroup(params);
+      }]
+    }
+  });
+
+  $stateProvider.state('root.invoice2.invoice', {
+    abstract: true,
+    url: '/invoices',
+    views: {
+      'main@': {
+        template: '<div ui-view></div>'
+      }
+    }
+  });
+
+  $stateProvider.state('root.invoice2.invoice.debtors.list', {
+    url: '/debtors?date',
+    controller: 'v2_InvoiceDebtorListController',
+    templateUrl: 'invoice2/invoice/list/v2_invoiceDebtorList.tpl.html',
+    data: {pageTitle: 'Invoices - Debtors'},
+    resolve: {
+      invoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
+        var req = $stateParams;
+        var params = {};
+        if (req.date) { params.date = req.date; }
+        return invoice2Service.getDebtors(params);
+      }]
+    }
+  });
+
+  $stateProvider.state('root.invoice2.invoice.creditors.list', {
+    url: '/creditors?date',
+    controller: 'v2_InvoiceCreditorListController',
+    templateUrl: 'invoice2/invoice/list/v2_invoiceCreditorList.tpl.html',
+    data: {pageTitle: 'Invoices - Creditors'},
+    resolve: {
+      invoices: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
+        var req = $stateParams;
+        var params = {};
+        if (req.date) { params.date = req.date; }
+        return invoice2Service.getCreditors(params);
       }]
     }
   });
