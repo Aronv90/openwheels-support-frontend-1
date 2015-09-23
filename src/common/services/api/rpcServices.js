@@ -186,6 +186,12 @@ angular.module('rpcServices', [])
 		this.alterMutation = m('alterMutation');
 		this.splitMutation = m('splitMutation');
 	})
+  .service('account2Service', function (api) {
+    var m = function (name) { return api.createRpcMethod('account2.' + name); };
+    this.search           = m('search');
+    this.approve          = m('approve');
+    this.disapprove       = m('disapprove');
+  })
 
 	.service('incassoService', function (api) {
 		var m = function (name) { return api.createRpcMethod('incasso.' + name ); };
