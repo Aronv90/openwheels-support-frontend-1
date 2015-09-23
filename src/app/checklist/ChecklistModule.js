@@ -29,7 +29,7 @@ angular.module('openwheels.checklist', [
 			templateUrl: 'checklist/driverlicense/checklist-driverlicense.tpl.html',
 			data: {pageTitle: 'Check Driver Licenses'},
 			resolve: {
-				uncheckedPersons: ['personService', function (personService) {
+				persons: ['personService', function (personService) {
 					return personService.uncheckedLicenseStatus();
 				}]
 			}
