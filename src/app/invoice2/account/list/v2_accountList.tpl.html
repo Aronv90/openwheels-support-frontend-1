@@ -49,12 +49,18 @@
                   {{ account.person | fullname }}
                 </a>
               </td>
+
               <td>{{ account.iban }}</td>
-              <td class="text-right">
-                <span ng-if="!account.approved" class="text-danger">
-                  <i class="fa fa-exclamation-triangle fa-fw"></i>Not approved
+
+              <td>
+                <span ng-if="account.approved">
+                  <i class="fa fa-check fa-fw text-success"></i> Approved (<a href="" ng-click="disapprove(account)">disapprove</a>)
+                </span>
+                <span ng-if="!account.approved">
+                  <i class="fa fa-times fa-fw text-danger"></i> Not approved (<a href="" ng-click="approve(account)">approve</a>)
                 </span>
               </td>
+
             </tr>
           </tbody>
         </table>

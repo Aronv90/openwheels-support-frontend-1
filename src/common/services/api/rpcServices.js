@@ -159,6 +159,8 @@ angular.module('rpcServices', [])
 
   .service('invoice2Service', function (api) {
     var m = function (name) { return api.createRpcMethod('invoice2.' + name ); };
+    this.approve         = m('approve');
+    this.disapprove      = m('disapprove');
     this.calculatePrice  = m('calculatePrice');
     this.getSent         = m('getSent');
     this.getReceived     = m('getReceived');
