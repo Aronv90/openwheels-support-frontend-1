@@ -55,8 +55,8 @@
                 </a>
               </td>
               <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
-              <td><b>{{ voucher.currency }} {{ voucher.value }}</b></td>
-              <td>{{ voucher.currency }} {{ voucher.initialValue }}</td>
+              <td><b>{{ voucher.value | currency : voucher.currency === 'EUR' ? '€' : voucher.currency }}</b></td>
+              <td>{{ voucher.initialValue | currency : voucher.currency === 'EUR' ? '€' : voucher.currency }}</td>
               <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
               <td class="text-right">
                 <span ng-if="!voucher.approved" class="text-danger">
