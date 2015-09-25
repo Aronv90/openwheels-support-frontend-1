@@ -66,10 +66,13 @@
               <td>{{ payment.paymentInstruction.paymentSystemName }}</td>
               <td>{{ payment.paymentInstruction.createdAt | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
               <td>{{ payment.paymentInstruction.updatedAt | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
-              <td><a ui-sref="root.invoice2.invoiceGroup.show({ invoiceGroupId: payment.invoiceGroup.id })">{{ payment.invoiceGroup.id }}</a></td>
               <td>
-                <a ui-sref="root.person.show.vouchers({ personId: payment.voucher.person.id })">{{ payment.voucher.person | fullname }}</a><br/>
-                {{ payment.voucher.id }}
+                {{ payment.invoiceGroup.person | fullname }}<br/>
+                <a ui-sref="root.invoice2.invoiceGroup.show({ invoiceGroupId: payment.invoiceGroup.id })">{{ payment.invoiceGroup.id }}</a>
+              </td>
+              <td>
+                {{ payment.voucher.person | fullname }}<br/>
+                <a ui-sref="root.person.show.vouchers({ personId: payment.voucher.person.id })">{{ payment.voucher.id }}</a>
               </td>
               <td>{{ payment.paymentInstruction.currency }} {{ payment.paymentInstruction.amount }}</td>
               <td>
