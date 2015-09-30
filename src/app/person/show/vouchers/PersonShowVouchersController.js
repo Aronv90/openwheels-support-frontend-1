@@ -10,10 +10,14 @@ angular.module('openwheels.person.show.vouchers', [])
   $scope.credit = null;
   $scope.debt = null;
 
-  alertService.load();
-  $q.all([ getVouchers(), getRequiredValue(), getCredit(), getDebt() ]).finally(function () {
-    alertService.loaded();
-  });
+  reload();
+
+  function reload () {
+    alertService.load();
+    $q.all([ getVouchers(), getRequiredValue(), getCredit(), getDebt() ]).finally(function () {
+      alertService.loaded();
+    });
+  }
 
   $scope.showRequiredValueDetails = function (requiredValue) {
     $modal.open({
@@ -72,4 +76,30 @@ angular.module('openwheels.person.show.vouchers', [])
     });
     return promise;
   }
+
+  $scope.createVoucher = function (value) {
+    if (Math.round(value) !== value) {
+      return alertService.add('danger', 'Whole numbers only', 3000);
+    }
+
+    alertService.load();
+
+    voucherService.createVoucher({
+      person: person.id,
+      value: value,
+      free: true // user doesn't have to pay for this
+    })
+    .then(function (res) {
+      alertService.add('success', 'The voucher was successfully created!', 5000);
+      $scope.voucherValue = 0;
+      reload();
+    })
+    .catch(function (err) {
+      alertService.addError(err);
+    })
+    .finally(function () {
+      alertService.loaded();
+    });
+  };
+
 });
