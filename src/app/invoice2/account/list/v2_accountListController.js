@@ -3,7 +3,7 @@
 angular.module('openwheels.invoice2.account.list', [])
 
 .controller( 'v2_AccountListController', function ($location, $state, $stateParams, $scope, alertService,
-  invoice2Service, accounts) {
+  account2Service, accounts) {
 
   $scope.accounts = accounts;
   $scope.preset = null;
@@ -29,8 +29,9 @@ angular.module('openwheels.invoice2.account.list', [])
   /* approve an account */
   $scope.approve = function (account) {
     alertService.load($scope);
-    invoice2Service.approve({
-      account: account.id
+    account2Service.approve({
+      person: account.person.id,
+      iban: account.iban
     })
     .then(function () {
       account.approved = true;
@@ -41,8 +42,9 @@ angular.module('openwheels.invoice2.account.list', [])
   /* disapprove an account */
   $scope.disapprove = function (account) {
     alertService.load($scope);
-    invoice2Service.disapprove({
-      account: account.id
+    account2Service.disapprove({
+      person: account.person.id,
+      iban: account.iban
     })
     .then(function () {
       account.approved = false;
