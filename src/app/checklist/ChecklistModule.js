@@ -3,6 +3,7 @@
 angular.module('openwheels.checklist', [
 	'openwheels.checklist.driverlicense',
 	'openwheels.checklist.bankcheck',
+	'openwheels.checklist.dashboard',
 	'openwheels.checklist.ownerNotActive',
 ])
 
@@ -19,6 +20,13 @@ angular.module('openwheels.checklist', [
 				}
 			}
 		});
+    
+    $stateProvider.state('ow-dashboard', {
+      parent: 'root.checklist',
+      url: '/dashboard',
+      controller: 'DashboardController',
+      templateUrl: 'checklist/dashboard/dashboard.tpl.html'
+    });
 
 		/**
 		 * checklist/driverlicense
