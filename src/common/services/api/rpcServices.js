@@ -128,6 +128,8 @@ angular.module('rpcServices', [])
         this.disapprove = m('disapprove');
 
         this.checked = m('checked');
+        
+        this.bookingWeekKPIData = m('bookingWeekKPIData');
       })
 
     .service('ccomService', function (api) {

@@ -1,5 +1,6 @@
 <section class="row">
-    <article class="col-md-6">
+    <article class="col-md-6 panel panel-default card">
+        <div class="card-body">
         <table class="table table-condensed">
             <caption>Rijbewijzen {{notActiveDrivers.length}}</caption>
             <thead>
@@ -17,8 +18,10 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </article>
-    <article class="col-md-6">
+    <article class="col-md-6 panel panel-default card">
+        <div class="card-body">
         <table class="table table-condensed">
             <caption>Requested {{requested.length}}</caption>
             <thead>
@@ -38,10 +41,12 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </article>
 </section>
 <section class="row">
-    <article class="col-md-6">
+    <article class="col-md-6 panel panel-default card">
+        <div class="card-body">
         <table class="table table-condensed">
             <caption>ccome berichten {{unfinishedJobs.length}}</caption>
             <thead>
@@ -59,8 +64,9 @@
                 </tr>
             </tbody>
         </table>
+        </div>
     </article>
     <article class="col-md-6">
-        test bb
+        <div google-chart chart="chartData" style="height:20em"> </div>
     </article>
 </section>
