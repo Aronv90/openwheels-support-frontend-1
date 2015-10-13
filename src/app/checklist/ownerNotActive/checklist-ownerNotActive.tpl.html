@@ -17,7 +17,8 @@
           </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="person in uncheckedPersons" ui-sref="root.person.show.data.driverlicense({personId: person.id})" style="cursor:pointer">
+
+            <tr ng-repeat="person in persons" ui-sref="root.person.show.data.driverlicense({personId: person.id})" style="cursor:pointer">
               <td>{{person.providerId}}</td>
               <td>{{person.id}}</td>
               <td>{{person.created | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>

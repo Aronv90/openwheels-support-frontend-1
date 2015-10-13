@@ -118,8 +118,17 @@
       <li ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Invoice <b class="caret"></b></a>
         <ul class="dropdown-menu">
+          <li ng-class="{ active: $state.includes('root.invoice2.account.list') }">
+            <a ui-sref="root.invoice2.account.list">Accounts</a>
+          </li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoiceGroup.list') }">
             <a ui-sref="root.invoice2.invoiceGroup.list">Invoice groups</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.invoice2.invoice.debtors-list') }">
+            <a ui-sref="root.invoice2.invoice.debtors-list">Debtors</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.invoice2.invoice.creditors-list') }">
+            <a ui-sref="root.invoice2.invoice.creditors-list">Creditors</a>
           </li>
           <li ng-class="{ active: $state.includes('root.invoice2.voucher.list') }">
             <a ui-sref="root.invoice2.voucher.list">Vouchers</a>
@@ -169,6 +178,9 @@
           </li>
           <li ng-class="{ active: $state.includes('root.checklist.bankcheck') }">
             <a ui-sref="root.checklist.bankcheck">Bank not verified</a>
+          </li>
+          <li ng-class="{ active: $state.includes('ow-dashboard') }">
+            <a ui-sref="ow-dashboard">dashboard</a>
           </li>
         </ul>
       </li>

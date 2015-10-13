@@ -3,6 +3,7 @@
 angular.module('openwheels.checklist', [
 	'openwheels.checklist.driverlicense',
 	'openwheels.checklist.bankcheck',
+	'openwheels.checklist.dashboard',
 	'openwheels.checklist.ownerNotActive',
 ])
 
@@ -19,6 +20,13 @@ angular.module('openwheels.checklist', [
 				}
 			}
 		});
+    
+    $stateProvider.state('ow-dashboard', {
+      parent: 'root.checklist',
+      url: '/dashboard',
+      controller: 'DashboardController',
+      templateUrl: 'checklist/dashboard/dashboard.tpl.html'
+    });
 
 		/**
 		 * checklist/driverlicense
@@ -29,7 +37,7 @@ angular.module('openwheels.checklist', [
 			templateUrl: 'checklist/driverlicense/checklist-driverlicense.tpl.html',
 			data: {pageTitle: 'Check Driver Licenses'},
 			resolve: {
-				uncheckedPersons: ['personService', function (personService) {
+				persons: ['personService', function (personService) {
 					return personService.uncheckedLicenseStatus();
 				}]
 			}

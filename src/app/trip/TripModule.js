@@ -169,6 +169,23 @@ angular.module('openwheels.trip', [
 
 		/**
 		 * trip/
+		 * @resolve {promise} jobs
+		 */
+		$stateProvider.state('root.trip.list.jobs', {
+			url: '/joblist',
+			controller: 'TripJobsListController',
+			templateUrl: 'trip/list/trip-job-list.tpl.html',
+			data: {pageTitle: 'Job list'},
+			resolve: {
+				jobs: ['ccomeService', function (ccomeService) {
+					return ccomeService.unfinishedJobs();
+				}]
+			},
+			role: 'ROLE_ADMIN'
+		});
+
+		/**
+		 * trip/
 		 * @resolve {promise} booking
 		 */
 		$stateProvider.state('root.trip.list.notactive', {

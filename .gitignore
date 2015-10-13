@@ -6,6 +6,8 @@
 .DS_Store
 .idea
 .sublime/*.sublime-workspace
+.project
+.settings
 bin
 build
 Capfile

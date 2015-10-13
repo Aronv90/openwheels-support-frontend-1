@@ -43,17 +43,16 @@
     <div class="panel panel-default card">
       <div class="panel-body">
         <h3>Payouts</h3>
-
         <table class="table">
           <thead>
             <tr>
               <th>Person</th>
+              <th>Payout ID</th>
               <th>Created</th>
               <th>Invoice group</th>
               <th>Voucher</th>
+              <th>Amount</th>
               <th>Paid</th>
-              <th>ID</th>
-              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -63,12 +62,17 @@
                   {{ payout.person | fullname }}
                 </a>
               </td>
+              <td>{{ payout.id }}</td>
               <td>{{ payout.created | amDateFormat : 'DD-MM-YY' }}</td>
-              <td>{{ payout.invoiceGroup.id }}</td>
-              <td>{{ payout.voucher.id }}</td>
-              <td>{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
-              <td><input type="text" ng-model="payout.id" style="padding:0; margin:0; border: none" /></td>
-              <td><button class="btn btn-link" ng-click="processPayout(payout.id)">Payout now</button></td>
+              <td><a ui-sref="root.invoice2.invoiceGroup.show({ invoiceGroupId: payout.invoiceGroup.id })">{{ payout.invoiceGroup.id }}</a></td>
+              <td><a ui-sref="root.person.show.vouchers({ personId: payout.person.id })">{{ payout.voucher.id }}</a></td>
+              <td class="text-right">
+                <b>{{ ( -1 * payout.paymentInstruction.amount) | currency }}</b>
+              </td>
+              <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+              <td ng-if="!payout.paid">
+                <a ng-click="processPayout(payout.id)">Payout now</a>
+              </td>
             </tr>
           </tbody>
         </table>
