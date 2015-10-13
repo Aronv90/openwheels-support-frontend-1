@@ -14,11 +14,10 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
     ccomeService.unfinishedJobs().then(function(list){
       $scope.unfinishedJobs = list;
     });
-  };  
+  };
   $scope.chartData = {
     'type': 'AreaChart',
     'displayed': true,
-    'data': [],
     'options': {
       'title': 'ritten per week',
       'isStacked': 'true',
@@ -38,7 +37,7 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
   $q.all([bookingService.bookingWeekKPIData(), googleChartApiPromise])
   .then(function(result) {
     var list = result[0];
-    var data = $scope.chartData = new window.google.visualization.DataTable();
+    var data = $scope.chartData.data = new window.google.visualization.DataTable();
     data.addColumn('number', 'week');
     data.addColumn('number', 'eigen autos');
     data.addColumn('number', 'pear 2 pear autos');
