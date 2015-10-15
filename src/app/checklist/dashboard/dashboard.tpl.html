@@ -1,3 +1,30 @@
+
+<section class="row">
+    <article class="col-md-6 panel panel-default card">
+        <div class="card-body">
+        <table class="table table-condensed">
+            <caption>ccome berichten {{unfinishedJobs.length}}</caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>boeking #</th>
+                    <th>begin boeking</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in unfinishedJobs">
+                    <td>{{item.id}}</td>
+                    <td>{{item.booking.id}}</td>
+                    <td>{{item.begin | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </article>
+    <article class="col-md-6">
+        <div google-chart chart="chartData" style="height:20em"> </div>
+    </article>
+</section>
 <section class="row">
     <article class="col-md-6 panel panel-default card">
         <div class="card-body">
@@ -33,7 +60,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in requested">
+                <tr ng-repeat="item in requested | orderBy:item.beginRequested | limitTo:10">
                     <td>{{item.id}}</td>
                     <td>{{item.resource.alias}}</td>
                     <td>{{item.person.firstName}}</td>
@@ -42,31 +69,5 @@
             </tbody>
         </table>
         </div>
-    </article>
-</section>
-<section class="row">
-    <article class="col-md-6 panel panel-default card">
-        <div class="card-body">
-        <table class="table table-condensed">
-            <caption>ccome berichten {{unfinishedJobs.length}}</caption>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>boeking #</th>
-                    <th>begin boeking</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in unfinishedJobs">
-                    <td>{{item.id}}</td>
-                    <td>{{item.booking.id}}</td>
-                    <td>{{item.begin | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-    </article>
-    <article class="col-md-6">
-        <div google-chart chart="chartData" style="height:20em"> </div>
     </article>
 </section>
