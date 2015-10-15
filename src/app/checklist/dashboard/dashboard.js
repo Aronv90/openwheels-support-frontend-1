@@ -27,7 +27,7 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
       });
 
       $q.all([
-        bookingService.bookingWeekKPIData(), 
+        bookingService.bookingWeekKPIData(),
         googleChartApiPromise
       ]).then(populateRitten);
     };
