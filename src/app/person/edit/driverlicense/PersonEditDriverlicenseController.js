@@ -45,6 +45,42 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 				});
 		};
 
+    var images = {
+      front: null
+    };
+
+    $scope.images = images;
+    $scope.isBusy = false;
+
+    angular.element('#licenseFrontFile').on('change', function (e) {
+      $scope.$apply(function () {
+        images.front = e.target.files[0];
+      });
+    });
+
+    $scope.startUpload = function () {
+      if (!images.front) { return; }
+
+      $scope.isBusy = true;
+      alertService.load();
+
+      personService.addLicenseImages({
+        person: person.id
+      }, {
+        frontImage: images.front
+      })
+      .then(function (returnedPerson) {
+        alertService.add('success', 'Bedankt voor het uploaden van het rijbewijs', 5000);
+      })
+      .catch(function (err) {
+        alertService.addError(err);
+      })
+      .finally(function () {
+        alertService.loaded();
+        $scope.isBusy = false;
+      });
+    };
+
     $scope.saveDriverLicenseNumber = function () {
       alertService.load();
       personService.alter({
