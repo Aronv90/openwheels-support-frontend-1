@@ -21,6 +21,7 @@ angular.module('rpcServices', [])
         this.alterPhoneWithPhoneId = m('alterPhoneWithPhoneId');
         this.removePhone = m('dropPhoneWithPhoneId');
         this.uncheckedLicenseStatus = m('uncheckedLicenseStatus');
+        this.addLicenseImages      = m('addLicenseImages');
         this.blocked = m('blocked');
         this.blockedLike = m('blockedLike');
         this.tobankCheck = m('tobankCheck');
