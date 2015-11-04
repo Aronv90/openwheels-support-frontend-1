@@ -3,6 +3,7 @@
 angular.module('openwheels.invoice2', [
   'openwheels.invoice2.invoiceGroup.list',
   'openwheels.invoice2.invoiceGroup.show',
+  'openwheels.invoice2.invoice.edit',
   'openwheels.invoice2.invoice.debtor.list',
   'openwheels.invoice2.invoice.creditor.list',
   'openwheels.invoice2.voucher.list',
@@ -87,6 +88,33 @@ angular.module('openwheels.invoice2', [
     }
   });
 
+  $stateProvider.state('root.invoice2.invoice.edit', {
+    url: '/:invoiceId/edit',
+    controller: 'InvoiceEditController',
+    templateUrl: 'invoice2/invoice/edit/invoiceEdit.tpl.html',
+    data: {
+      pageTitle: 'Edit invoice'
+    },
+    resolve: {
+      invoice: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
+        return invoice2Service.get({ invoice: $stateParams.invoiceId });
+      }]
+    }
+  });
+
+  $stateProvider.state('root.invoice2.invoice.create', {
+    url: '/create',
+    controller: 'InvoiceEditController',
+    templateUrl: 'invoice2/invoice/edit/invoiceEdit.tpl.html',
+    data: {
+      pageTitle: 'Invoice'
+    },
+    resolve: {
+      invoice: function () {
+        return null;
+      }
+    }
+  });
 
   $stateProvider.state('root.invoice2.invoice.debtors-list', {
     url: '/debtors?date',

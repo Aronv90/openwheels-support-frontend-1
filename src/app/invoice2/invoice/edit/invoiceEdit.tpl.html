@@ -1,0 +1,78 @@
+<div class="row">
+  <div class="col-xs-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+
+        &nbsp;
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-9">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+
+        <h3 ng-if="invoice.id">Edit invoice</h3>
+        <h3 ng-if="!invoice.id">Create invoice</h3>
+
+        <form name="form">
+          <div class="row">
+            <div class="form-group col-xs-6">
+              <label>Sender</label>
+              <input find-person name="sender" model="invoice.sender" class="form-control" class="error" />
+            </div>
+
+            <div class="form-group col-xs-6">
+              <label>Recipient</label>
+              <input find-person name="recipient" model="invoice.recipient" class="form-control" />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Invoice type</label>
+            <select ng-model="invoice.type" ng-options="item.value as item.label for item in typeOptions" class="form-control" required>
+              <option value="">Select...</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <input ng-model="invoice.description" class="form-control" required />
+          </div>
+
+          <div class="row">
+            <div class="form-group col-xs-4">
+              <label>Quantity</label>
+              <input ng-model="invoice.quantity" type="number" class="form-control" required />
+            </div>
+
+            <div class="form-group col-xs-4">
+              <label>Price</label>
+              <div class="input-group">
+                <span class="input-group-addon">€</span>
+                <input ng-model="invoice.price" type="number" class="form-control" required />
+              </div>
+            </div>
+
+            <div class="form-group col-xs-4">
+              <label>Tax rate</label>
+              <select ng-model="invoice.taxRate" ng-options="item.value as item.label for item in taxRateOptions" class="form-control" required>
+                <option value="">Select...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Booking id (optional)</label>
+            <input ng-model="invoice.booking" class="form-control" integer />
+          </div>
+
+        </form>
+
+        <button ng-click="save(invoice)" class="btn btn-primary">Ok</button>
+
+      </div>
+    </div>
+  </div>
+</div>
