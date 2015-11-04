@@ -4,6 +4,8 @@ angular.module('openwheels.invoice2.invoice.edit', [])
 
 .controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService) {
 
+  $scope.finished = false; // prevent creating an invoice twice
+
   $scope.taxRateOptions = [
     { label: '21%', value: 21 },
     { label:  '6%', value:  6 },
@@ -67,7 +69,7 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     alertService.load();
 
     invoice2Service.create(params).then(function () {
-      $scope.form.$setPristine();
+      $scope.finished = true;
       alertService.add('success', 'Saved', 5000);
     })
     .catch(function (err) {
