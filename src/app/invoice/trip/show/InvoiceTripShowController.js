@@ -5,7 +5,7 @@ angular.module('openwheels.invoice.trip.show', [])
 .controller('InvoiceTripShowController', function ($scope, $modal, $filter, $stateParams, overview, invoiceService, settingsService, FRONT_TRIP_OVERVIEW, FRONT_SWITCHUSER) {
 
   $scope.overview = overview;
-  $scope.frontTripOverview = settingsService.settings.server + FRONT_TRIP_OVERVIEW + '/' + $stateParams.tripId +  FRONT_SWITCHUSER;
+  $scope.frontTripOverview = settingsService.settings.server + FRONT_TRIP_OVERVIEW + '/' + $stateParams.tripId;
 
   $scope.totalExBTW = function (invoiceLines) {
     if (!angular.isArray(invoiceLines)) {

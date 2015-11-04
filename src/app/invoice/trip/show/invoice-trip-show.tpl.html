@@ -1,7 +1,12 @@
+<div ng-if="booking.contract.type.id === 60">
+  <a target="_blank" href="{{ frontTripOverview }}/print.pdf"><i class="fa fa-external-link"></i></a>
+  Ritoverzicht
+</div>
+
+<div ng-if="booking.contract.type.id !== 60">
+
 <h4>
-    <a ng-show="booking.resource.ownerId == $stateParams.person" target="_blank" href="{{ frontTripOverview }}{{ booking.resource.owner.email }}"><i class="fa fa-external-link"></i></a>
-    <a ng-show="booking.personId == $stateParams.person" target="_blank" href="{{ frontTripOverview }}{{ booking.person.email }}"><i class="fa fa-external-link"></i></a>
-    Rit overzicht
+    Ritoverzicht
     <small>
         <a ng-hide="booking.resource.ownerId == $stateParams.person" ui-sref="^.overview({ person: booking.resource.ownerId })">switch to owner view</a>
         <a ng-hide="booking.personId == $stateParams.person" ui-sref="^.overview({ person: booking.personId })">switch to renter view</a>
@@ -47,3 +52,5 @@
         </tr>
     </tbody>
 </table>
+
+</div>
