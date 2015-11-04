@@ -1,17 +1,12 @@
 <div class="row">
   <div class="col-xs-3">
-    <div class="panel panel-default card">
-      <div class="panel-body">
-
-        &nbsp;
-
-      </div>
-    </div>
+    &nbsp;
   </div>
 
   <div class="col-xs-9">
     <div class="panel panel-default card">
-      <div class="panel-body">
+
+      <div class="panel-body" ng-if="!finished">
 
         <h3 ng-if="invoice.id">Edit invoice</h3>
         <h3 ng-if="!invoice.id">Create invoice</h3>

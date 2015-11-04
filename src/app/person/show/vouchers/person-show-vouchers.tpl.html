@@ -22,7 +22,8 @@
   <dt>Required value</dt>
   <dd>
     {{ requiredValue.error.message || (requiredValue.value.voucher | currency) }}
-    &nbsp;<a href="" ng-click="showRequiredValueDetails(requiredValue.value)">show details popup</a>
+    &nbsp;<a href="" ng-click="showRequiredValueDetails(requiredValue.value)">show details popup</a> |
+    <a href="" ng-click="recalculate()">recalculate</a>
   </dd>
 
   <dt>Number of vouchers</dt>
