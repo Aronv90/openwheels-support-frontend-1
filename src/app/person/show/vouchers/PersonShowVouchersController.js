@@ -102,4 +102,16 @@ angular.module('openwheels.person.show.vouchers', [])
     });
   };
 
+  /**
+   * Force server side recalculation of required value
+   */
+  $scope.recalculate = function () {
+    alertService.load();
+
+    voucherService.recalculate({ person: person.id })
+    .then(getRequiredValue)
+    .catch(alertService.addError)
+    .finally(alertService.loaded);
+  };
+
 });

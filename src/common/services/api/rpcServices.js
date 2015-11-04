@@ -80,6 +80,7 @@ angular.module('rpcServices', [])
         this.calculateCredit = m('calculateCredit');
         this.calculateDebt = m('calculateDebt');
         this.createVoucher = m('createVoucher');
+        this.recalculate = m('recalculate');
       })
 
     .service('resourceService', function (api) {
