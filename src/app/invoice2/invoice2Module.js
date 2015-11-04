@@ -184,13 +184,16 @@ angular.module('openwheels.invoice2', [
   });
 
   $stateProvider.state('root.invoice2.account.list', {
-    url: '?approved',
+    url: '?unchecked',
     controller: 'v2_AccountListController',
     templateUrl: 'invoice2/account/list/v2_accountList.tpl.html',
     data: {pageTitle: 'Accounts'},
     resolve: {
       accounts: ['$stateParams', 'account2Service', function ($stateParams, account2Service) {
-        var params = {};
+        var params = {
+          // default to unchecked=true, unless explicitly set to false
+          unchecked: $stateParams.unchecked !== 'false'
+        };
         return account2Service.search(params);
       }]
     }

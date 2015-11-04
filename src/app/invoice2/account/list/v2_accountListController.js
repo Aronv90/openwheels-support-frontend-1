@@ -6,25 +6,16 @@ angular.module('openwheels.invoice2.account.list', [])
   account2Service, accounts) {
 
   $scope.accounts = accounts;
-  $scope.preset = null;
 
   $scope.params = {
+    'unchecked': $stateParams.unchecked !== 'false'
   };
 
-  $scope.presets = [
-  ];
-
-  $scope.selectPreset = function (preset) {
-    $location.search(preset.params);
-  };
-
-  $scope.refresh = function () {
-    $location.search($scope.params);
-  };
-
-  $scope.clear = function () {
-    $location.search({});
-  };
+  /* auto-reload after every change */
+  $scope.$watch('params', function (params) {
+    if (!params) { return; }
+    $location.search(params);
+  }, true); // deep watch
 
   /* approve an account */
   $scope.approve = function (account) {
