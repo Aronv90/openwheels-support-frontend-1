@@ -129,7 +129,7 @@ angular.module('rpcServices', [])
         this.disapprove = m('disapprove');
 
         this.checked = m('checked');
-        
+
         this.bookingWeekKPIData = m('bookingWeekKPIData');
       })
 
@@ -170,6 +170,8 @@ angular.module('rpcServices', [])
     this.getInvoiceGroup = m('getInvoiceGroup');
     this.getDebtors      = m('getDebtors');
     this.getCreditors    = m('getCreditors');
+    this.create          = m('create');
+    this.alter           = m('alter');
   })
 
   .service('paymentService', function (api) {
