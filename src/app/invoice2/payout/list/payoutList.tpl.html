@@ -71,7 +71,7 @@
               </td>
               <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
               <td ng-if="!payout.paid">
-                <a ng-click="processPayout(payout.id)">Payout now</a>
+                <a ng-click="processPayout(payout)">Payout now</a>
               </td>
             </tr>
           </tbody>

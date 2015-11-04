@@ -34,11 +34,15 @@ angular.module('openwheels.invoice2.payout.list', [])
     $location.search({});
   };
 
-  $scope.processPayout = function (payoutId) {
+  $scope.processPayout = function (payout) {
     dialogService.showModal().then(function () {
       alertService.load();
-      paymentService.processPayout({ payout: payoutId }).then(function (result) {
+      paymentService.processPayout({ payout: payout.id }).then(function (result) {
         alertService.add('success', 'Ok', 5000);
+
+        /* update changes in $scope */
+        angular.extend(payout, result);
+
       })
       .catch(alertService.addError)
       .finally(alertService.loaded);
