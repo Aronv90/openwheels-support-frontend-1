@@ -184,6 +184,7 @@ angular.module('rpcServices', [])
     this.getPayouts       = m('getPayouts');
     this.getPayments      = m('getPayments');
     this.processPayout    = m('processPayout');
+    this.deletePayout     = m('deletePayout');
   })
 
     .service('accountService', function (api) {

@@ -69,10 +69,14 @@
               <td class="text-right">
                 <b>{{ ( -1 * payout.paymentInstruction.amount) | currency }}</b>
               </td>
+
               <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+
               <td ng-if="!payout.paid">
-                <a ng-click="processPayout(payout)">Payout now</a>
+                <a ng-click="processPayout(payout)">Payout now</a><br/>
+                <a ng-click="deletePayout(payout)">Delete</a><br/>
               </td>
+
             </tr>
           </tbody>
         </table>
