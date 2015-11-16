@@ -39,7 +39,7 @@
       <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
       <td>
         <span>{{ booking.approved }}</span><br/>
-        <a ng-if="booking.approved === 'OK'" ng-click="refund(booking)">Refund</a>
+        <a ng-if="booking.approved === 'OK'" ng-click="refundBooking(booking)">Refund</a>
       </td>
       <td>
         <span ng-if="b.trip.finalized" class="text-success">finalized</span>

@@ -132,14 +132,14 @@ angular.module('openwheels.trip.list')
     );
   };
 
-  $scope.refund = function refund (booking) {
+  $scope.refundBooking = function refundBooking (booking) {
     if (booking.approved !== 'OK') {
       alertService.addError('danger', 'Cannot refund that booking', 5000);
       return $log.debug('geen gefactureerde rit op contract type 60 (approved moet "OK")');
     }
     dialogService.showModal().then(function () {
       alertService.load();
-      paymentService.refund({ booking: booking.id }).then(function (result) {
+      paymentService.refundBooking({ booking: booking.id }).then(function (result) {
 
         /* update changes in scope */
         angular.extend(booking, result);
