@@ -166,6 +166,7 @@ angular.module('rpcServices', [])
     this.approve         = m('approve');
     this.disapprove      = m('disapprove');
     this.calculatePrice  = m('calculatePrice');
+    this.get             = m('get');
     this.getSent         = m('getSent');
     this.getReceived     = m('getReceived');
     this.getInvoiceGroup = m('getInvoiceGroup');
@@ -184,6 +185,8 @@ angular.module('rpcServices', [])
     this.getPayouts       = m('getPayouts');
     this.getPayments      = m('getPayments');
     this.processPayout    = m('processPayout');
+    this.deletePayout     = m('deletePayout');
+    this.refund           = m('refund');
   })
 
     .service('accountService', function (api) {

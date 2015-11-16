@@ -23,6 +23,7 @@
       <th ng-if="! $state.includes('root.person')">Person</th>
       <th ng-if="!$state.includes('root.person')">Email</th>
       <th>Approved</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -37,10 +38,11 @@
       <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
       <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
       <td>
-        <span>{{ booking.approved }}</span>
+        <span>{{ booking.approved }}</span><br/>
+        <a ng-if="booking.approved === 'OK'" ng-click="refund(booking)">Refund</a>
       </td>
       <td>
-        <span class="text-success" ng-if="b.trip.finalized">finalized</span>
+        <span ng-if="b.trip.finalized" class="text-success">finalized</span>
       </td>
     </tr>
   </tbody>
