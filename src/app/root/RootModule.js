@@ -5,7 +5,8 @@ angular.module('openwheels.root', [
 	'openwheels.root.alert',
 	'openwheels.root.settings',
 	'openwheels.root.footer',
-	'openwheels.phoneLog'
+	'openwheels.phoneLog',
+  'googlechart'
 ])
 
 	.config(function config($stateProvider) {
@@ -31,7 +32,46 @@ angular.module('openwheels.root', [
 				'bottom-right': {
 					templateUrl: 'phoneLog/phoneSlider.tpl.html',
 					controller: 'PhoneSliderController'
-				}
+				},
+        'main@': {
+          template: '<div google-chart style="height:600px; width:100%;"></div>',
+          controller: ['$scope', function ($scope, bookingStats) {
+            $scope.bookingStats = [['weekNr', 'rittenEigenAutos', 'rittenP2pAutos']];
+            for(var idx in bookingStats) {
+              $scope.bookingStats.push([bookingStats[idx].weekNr,
+                bookingStats[idx].rittenEigenAutos, bookingStats[idx].rittenP2pAutos]);
+            }
+          }],
+          resolve: {
+            bookingStats: ['authService', 'bookingService', function (authService, bookingService) {
+              return [{
+                weekNr: 33,
+                rittenEigenAutos: 2089,
+                rittenP2pAutos: 236
+              },
+              {
+                weekNr: 34,
+                rittenEigenAutos: 2340,
+                rittenP2pAutos: 258
+              },
+              {
+                weekNr: 35,
+                rittenEigenAutos: 2530,
+                rittenP2pAutos: 345
+              },
+              {
+                weekNr: 36,
+                rittenEigenAutos: 2492,
+                rittenP2pAutos: 306
+              },
+              {
+                weekNr: 37,
+                rittenEigenAutos: 2476,
+                rittenP2pAutos: 331
+              }];
+            }]
+          }
+        }
 			},
 			data: {pageTitle: 'Home'}
 		});

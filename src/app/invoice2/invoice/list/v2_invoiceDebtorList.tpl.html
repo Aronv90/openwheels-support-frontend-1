@@ -40,7 +40,7 @@
 
           <tr ng-repeat="invoice in invoices">
             <!-- invoice -->
-            <td>{{ invoice.id }}</td>
+            <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
 
             <!-- sender -->
             <td>{{ invoice.sender | fullname }}</td>

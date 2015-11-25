@@ -6,23 +6,12 @@
         <form class="form">
 
           <div class="form-group">
-            <label for="min">Minimum value €</label>
-            <input id="min" type="text" class="form-control" ng-model="params.minValue" />
+            <label>Filter</label>
+            <select ng-model="params.unchecked" class="form-control"
+              ng-options="(item ? 'Unchecked only' : 'Checked only') for item in [true, false]"></option>
+            <select>
           </div>
 
-          <div class="form-group">
-            <label for="max">Maximum value €</label>
-            <input id="max" type="text" class="form-control" ng-model="params.maxValue" />
-          </div>
-
-          <div class="form-group">
-            <label>Presets</label>
-            <select class="form-control" ng-options="preset as preset.label for preset in presets" ng-model="preset" ng-change="selectPreset(preset)">
-            </select>
-          </div>
-
-          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
-          <button class="btn btn-link" ng-click="clear()">Clear</button>
         </form>
       </div>
     </div>
@@ -38,6 +27,7 @@
           <thead>
             <tr>
               <th>Person</th>
+              <th>Name</th>
               <th>IBAN</th>
               <th>Approved</th>
             </tr>
@@ -49,6 +39,8 @@
                   {{ account.person | fullname }}
                 </a>
               </td>
+
+              <td>{{ account.lastName }}</td>
 
               <td>{{ account.iban }}</td>
 

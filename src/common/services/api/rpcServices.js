@@ -21,6 +21,7 @@ angular.module('rpcServices', [])
         this.alterPhoneWithPhoneId = m('alterPhoneWithPhoneId');
         this.removePhone = m('dropPhoneWithPhoneId');
         this.uncheckedLicenseStatus = m('uncheckedLicenseStatus');
+        this.addLicenseImages      = m('addLicenseImages');
         this.blocked = m('blocked');
         this.blockedLike = m('blockedLike');
         this.tobankCheck = m('tobankCheck');
@@ -79,6 +80,7 @@ angular.module('rpcServices', [])
         this.calculateCredit = m('calculateCredit');
         this.calculateDebt = m('calculateDebt');
         this.createVoucher = m('createVoucher');
+        this.recalculate = m('recalculate');
       })
 
     .service('resourceService', function (api) {
@@ -128,7 +130,7 @@ angular.module('rpcServices', [])
         this.disapprove = m('disapprove');
 
         this.checked = m('checked');
-        
+
         this.bookingWeekKPIData = m('bookingWeekKPIData');
       })
 
@@ -164,11 +166,14 @@ angular.module('rpcServices', [])
     this.approve         = m('approve');
     this.disapprove      = m('disapprove');
     this.calculatePrice  = m('calculatePrice');
+    this.get             = m('get');
     this.getSent         = m('getSent');
     this.getReceived     = m('getReceived');
     this.getInvoiceGroup = m('getInvoiceGroup');
     this.getDebtors      = m('getDebtors');
     this.getCreditors    = m('getCreditors');
+    this.create          = m('create');
+    this.alter           = m('alter');
   })
 
   .service('paymentService', function (api) {
@@ -180,6 +185,8 @@ angular.module('rpcServices', [])
     this.getPayouts       = m('getPayouts');
     this.getPayments      = m('getPayments');
     this.processPayout    = m('processPayout');
+    this.deletePayout     = m('deletePayout');
+    this.refundBooking    = m('refundBooking');
   })
 
     .service('accountService', function (api) {

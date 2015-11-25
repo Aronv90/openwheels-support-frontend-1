@@ -1,8 +1,18 @@
 <div class="row">
   <div class="col-md-7">
     <div ng-if="person.driverLicenseStatus" ><h3>Front</h3><div driver-license="person.id"></div></div>
-    <div ng-if="person.driverLicenseStatus"><h3>Back</h3><div driver-license="person.id + '/back'"></div></div>
+    <br><br>
+    <form>
+      <div class="form-group">
+        <input id="licenseFrontFile" type="file" />
+      </div>
+      
+      <button type="button" class="btn btn-primary" ng-click="startUpload()" ng-disabled="!images.front || isBusy">
+          <span class="fa fa-upload"></span> Upload
+      </button>
+    </form>
   </div>
+
   <div class="col-md-5">
     <div>
       <h2><i class="fa"

@@ -14,12 +14,17 @@ angular.module('flatObjectInterceptService', [])
           config.data.params.hasOwnProperty('newProps')
          )
       {
-
         // loop through the properties in newProps and check if they are objects with an id property
         angular.forEach(config.data.params.newProps, function(value, key){
-          if(typeof(value) === 'object' && value.hasOwnProperty('id')) {
+          /**
+           * Replace entities in newProps with their id
+           */
+          if(value && typeof(value) === 'object' && value.hasOwnProperty('id')) {
             config.data.params.newProps[key] = value.id;
           }
+          /**
+           * Replace empty strings with null
+           */
           if(value === ''){
             config.data.params.newProps[key] = null;
           }

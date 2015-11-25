@@ -10,6 +10,7 @@ angular.module('front.paths', [])
 
 .constant('FRONT_RENT', '/auto-huren')
 
+// deprecated:
 .constant('FRONT_SWITCHUSER', '?_als_gebruiker=')
 
 .constant('API_PATH', '/api/')

@@ -38,23 +38,20 @@
           <thead>
             <tr>
               <th>Person</th>
-              <th>Created</th>
               <th>Current value</th>
               <th>Initial value</th>
               <th>Paid</th>
               <th>Approved</th>
-              <th>Payout request</th>
               <th>ID</th>
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="voucher in vouchers">
+            <tr ng-repeat="voucher in vouchers | orderBy:'-paid'">
               <td>
                 <a ui-sref="root.person.show.summary({ personId: voucher.person.id })">
                   {{ voucher.person | fullname }}
                 </a>
               </td>
-              <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
               <td><b>{{ voucher.value | currency : voucher.currency === 'EUR' ? '€' : voucher.currency }}</b></td>
               <td>{{ voucher.initialValue | currency : voucher.currency === 'EUR' ? '€' : voucher.currency }}</td>
               <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
@@ -63,7 +60,6 @@
                   <i class="fa fa-exclamation-triangle fa-fw"></i>Not approved
                 </span>
               </td>
-              <td>{{ voucher.payoutRequest.id }}</td>
               <td><input type="text" ng-model="voucher.id" style="padding:0; margin:0; border: none" /></td>
             </tr>
           </tbody>
