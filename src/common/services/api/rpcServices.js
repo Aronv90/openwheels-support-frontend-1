@@ -218,6 +218,7 @@ angular.module('rpcServices', [])
         var m = function (name) { return api.createRpcMethod('boardcomputer.' + name ); };
         this.control = m('control');
         this.log = m('log');
+        this.tripdata = m('tripdata');
       })
 
     .service('conversationService', function (api) {

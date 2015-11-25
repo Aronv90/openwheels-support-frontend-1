@@ -4,7 +4,8 @@ angular.module('openwheels.resource', [
 	'openwheels.resource.show',
 	'openwheels.resource.edit',
 	'openwheels.resource.create',
-	'openwheels.resource.list'
+	'openwheels.resource.list',
+  'infinite-scroll'
 ])
 
 	.config(function config($stateProvider) {
@@ -193,6 +194,26 @@ angular.module('openwheels.resource', [
 					to = moment().add(1, 'week').format('YYYY-MM-DD HH:mm');
 					return boardcomputerService.log({resource: resource.id, from: from, to: to});
 				}]
+			}
+		});
+
+		/**
+		 * resource/:id/tripdata
+		 * @resolve {promise} resource
+		 */
+		$stateProvider.state('root.resource.show.tripdata', {
+			url: '/tripdata',
+			controller: 'ResourceShowTripdataController',
+			templateUrl: 'resource/show/tripdata/resource-show-tripdata.tpl.html',
+			data: {pageTitle: 'Resource Boardcomputer Tripdata'},
+			resolve: {
+//				records: ['resource', 'boardcomputerService', function (resource, boardcomputerService) {
+//					return boardcomputerService.tripdata({
+//            resource: resource.id,
+//            limit: 25,
+//            offset: 0
+//          });
+//				}]
 			}
 		});
 

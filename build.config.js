@@ -101,7 +101,8 @@ module.exports = {
             'vendor/ngAutocomplete/src/ngAutocomplete.js',
             'vendor/ng-file-upload/angular-file-upload.js',
             'vendor/ng-table/ng-table.js',
-            'vendor/angular-google-chart/ng-google-chart.js'
+            'vendor/angular-google-chart/ng-google-chart.js',
+            'vendor/ngInfiniteScroll/build/ng-infinite-scroll.js'
             //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
         ],
         css: [
