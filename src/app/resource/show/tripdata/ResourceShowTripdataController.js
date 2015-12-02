@@ -17,7 +17,7 @@ angular.module('openwheels.resource.show.tripdata', ['infinite-scroll'])
       loading = boardcomputerService.tripdata({
         resource: $scope.resource.id,
         limit: limit,
-        offset: offset + limit
+        offset: offset
       })
       .then(function (data) {
         loading = false;
