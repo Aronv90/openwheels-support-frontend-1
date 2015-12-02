@@ -9,7 +9,7 @@
         <th>eind odo</th>
       </tr>
       <tr ng-repeat="elm in records">
-          <td>{{elm.bookingId}} </td>
+          <td>{{elm.bookingId}} <a ng-click="showEditPopup(elm)"><i class="fa fa-pencil"></i></a></td>
           <td>{{elm.startDatetime}} </td>
           <td>{{elm.endDatetime}} </td>
           <td>{{elm.startOdometer}} </td>

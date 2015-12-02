@@ -1,0 +1,58 @@
+<div class="modal-content">
+
+  <div class="modal-header">
+    <button type="button" class="close" ng-click="close()">
+      <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title">
+      Trip Data
+    </h3>
+  </div>
+
+  <div class="modal-body">
+    <form class="form-horizontal">
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label">ID</label>
+        <div class="col-xs-10">
+          <div class="form-control-static">{{ entry.id }}</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-xs-2 control-label">Booking ID</label>
+        <div class="col-xs-10">
+          <input type="text" class="form-control" ng-model="entry.bookingId" />
+        </div>
+      </div>
+
+    </form>
+
+    <table class="table table-hover" ng-show="suggestedBookings.length > 0">
+      <thead>
+        <tr>
+          <th>Trip</th>
+          <th>Begin booking</th>
+          <th>End booking</th>
+          <th>Person</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="booking in suggestedBookings">
+
+          <td><a ng-click="entry.bookingId = booking.id">#{{ booking.id }}</a></td>
+
+          <td>{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+          <td>{{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+          <td>{{ booking.person.firstName }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-link" ng-click="close()">Cancel</button>
+    <button type="button" class="btn btn-primary" ng-click="save()">Save</button>
+  </div>
+</div>
