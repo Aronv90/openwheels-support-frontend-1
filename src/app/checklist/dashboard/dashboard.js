@@ -6,8 +6,8 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
       var list = result[0];
       var data = $scope.chartData.data = new window.google.visualization.DataTable();
       data.addColumn('number', 'week');
-      data.addColumn('number', 'eigen autos');
-      data.addColumn('number', 'pear 2 pear autos');
+      data.addColumn('number', 'own cars');
+      data.addColumn('number', 'peer2peer cars');
 
       list.forEach(function(item) {
         data.addRow([item['weekNr'], parseInt(item['rittenEigenAutos']), parseInt(item['rittenP2pAutosS'])]);
@@ -36,11 +36,11 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
     'type': 'AreaChart',
     'displayed': true,
     'options': {
-      'title': 'ritten per week',
+      'title': 'Trips per week',
       'isStacked': 'true',
       'displayExactValues': true,
       'vAxis': {
-        'title': 'Ritten',
+        'title': 'Trips',
         'gridlines': {
           'count': 5
         }
