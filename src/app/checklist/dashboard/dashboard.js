@@ -5,12 +5,12 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
   var populateRitten = function(result) {
       var list = result[0];
       var data = $scope.chartData.data = new window.google.visualization.DataTable();
-      data.addColumn('number', 'week');
+      data.addColumn('string', 'week');
       data.addColumn('number', 'own cars');
       data.addColumn('number', 'peer2peer cars');
 
       list.forEach(function(item) {
-        data.addRow([item['weekNr'], new Date(item['rittenEigenAutos']), new Date(item['rittenP2pAutosS'])]);
+        data.addRow([item['weekNr'], parseInt(item['rittenEigenAutos']), parseInt(item['rittenP2pAutosS'])]);
       });
     },
     doUpdate = function () {
