@@ -61,14 +61,16 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.ccom') }" ng-if="resource.boardcomputer === 'convadis'">
                     <a ui-sref="root.resource.show.ccom({ resourceId: resource.id })">CCOM</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktypes.indexOf('smartphone') !== -1">
+                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.boardcomputer !== -1">
                     <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Board PC</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') !== -1">
+                <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.boardcomputer">
                   <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boardcomputer Log</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
                     <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Rating ( {{ resource.ratings.length }} )</a>
+                <li ng-class="{ active: $state.includes('root.resource.show.tripdata') }">
+                    <a ui-sref="root.resource.show.tripdata({ resourceId: resource.id })">Tripdata</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
                     <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Revisions</a>

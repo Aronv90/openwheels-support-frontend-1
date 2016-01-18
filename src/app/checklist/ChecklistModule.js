@@ -20,13 +20,17 @@ angular.module('openwheels.checklist', [
 				}
 			}
 		});
-    
-    $stateProvider.state('ow-dashboard', {
-      parent: 'root.checklist',
-      url: '/dashboard',
-      controller: 'DashboardController',
-      templateUrl: 'checklist/dashboard/dashboard.tpl.html'
-    });
+
+		/**
+		 * checklist/dashboard
+		 */
+		$stateProvider.state('ow-dashboard', {
+	      parent: 'root.checklist',
+	      url: '/dashboard',
+	      controller: 'DashboardController',
+	      templateUrl: 'checklist/dashboard/dashboard.tpl.html',
+	      data: {pageTitle: 'Dashboard'}
+	    });
 
 		/**
 		 * checklist/driverlicense

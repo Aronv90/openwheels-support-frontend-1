@@ -31,7 +31,7 @@ angular.module('openwheels.person.show.vouchers', [])
 
   function getVouchers () {
     $scope.vouchers = null;
-    var promise = voucherService.search({ person: person.id });
+    var promise = voucherService.search({ person: person.id, minValue: 0 });
     promise.then(function (vouchers) {
       $scope.vouchers = vouchers;
     })

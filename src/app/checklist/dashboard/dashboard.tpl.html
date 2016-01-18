@@ -3,18 +3,20 @@
     <article class="col-md-6 panel panel-default card">
         <div class="card-body">
         <table class="table table-condensed">
-            <caption>ccome berichten {{unfinishedJobs.length}}</caption>
+            <caption>CComE messages {{unfinishedJobs.length}}</caption>
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>boeking #</th>
-                    <th>begin boeking</th>
+                    <th>Booking</th>
+                    <th>Begin booking</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in unfinishedJobs">
                     <td>{{item.id}}</td>
-                    <td>{{item.booking.id}}</td>
+                    <td>
+                        <a ui-sref="root.trip.show.summary({ tripId: item.booking.id })">#{{item.booking.id}}</a>
+                    </td>
                     <td>{{item.begin | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
                 </tr>
             </tbody>
@@ -29,19 +31,28 @@
     <article class="col-md-6 panel panel-default card">
         <div class="card-body">
         <table class="table table-condensed">
-            <caption>Rijbewijzen {{notActiveDrivers.length}}</caption>
+            <caption>Driver Licenses {{notActiveDrivers.length}}</caption>
             <thead>
                 <tr>
-                    <th>pr# </th>
-                    <th>e-mail</th>
-                    <th>begin boeking</th>
+                    <th>Provider</th>
+                    <th>Person</th>
+                    <th>Begin booking</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in notActiveDrivers">
                     <td>{{item.person.provider.id}}</td>
-                    <td>{{item.person.email}}</td>
-                    <td>{{item.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
+                    <td>
+                        <a ui-sref="root.person.show.summary({ personId: item.person.id })">{{item.person | fullname}}</a>
+                    </td>
+                    <td>
+                        <div ng-show="item.beginBooking">
+                            {{item.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}}
+                        </div>
+                        <div ng-hide="item.beginBooking">
+                            {{item.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}}
+                        </div>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -53,17 +64,19 @@
             <caption>Requested {{requested.length}}</caption>
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>autonaam</th>
-                    <th>naam huurder</th>
-                    <th>begin boeking</th>
+                    <th>Booking</th>
+                    <th>Person</th>
+                    <th>Resource</th>
+                    <th>Begin request</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="item in requested.slice().reverse() | limitTo:10">
-                    <td>{{item.id}}</td>
-                    <td>{{item.resource.alias}}</td>
+                    <td>
+                        <a ui-sref="root.trip.show.summary({ tripId: item.id })">#{{item.id}}</a>
+                    </td>
                     <td>{{item.person.firstName}}</td>
+                    <td>{{item.resource.alias}}</td>
                     <td>{{item.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
                 </tr>
             </tbody>

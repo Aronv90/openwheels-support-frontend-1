@@ -7,7 +7,8 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.boardcomputer',
   'openwheels.resource.show.ccom',
   'openwheels.resource.show.log',
-  'openwheels.resource.show.revisions'
+  'openwheels.resource.show.revisions',
+  'openwheels.resource.show.tripdata'
 ])
 
 .controller('ResourceShowController', function ($scope, $stateParams, $modal, alertService, dialogService, resourceService, resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {

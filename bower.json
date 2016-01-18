@@ -32,7 +32,8 @@
     "ngAutocomplete": "https://github.com/wpalahnuk/ngAutocomplete.git",
     "angular-bootstrap": "~0.9.0",
     "ng-table": "~0.3.2",
-    "angular-google-chart": "~0.0.11"
+    "angular-google-chart": "~0.0.11",
+    "ngInfiniteScroll": "~1.2.1"
   },
   "resolutions": {
     "angular": "1.3.11"
