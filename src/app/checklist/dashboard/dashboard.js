@@ -10,7 +10,7 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
       data.addColumn('number', 'peer2peer cars');
 
       list.forEach(function(item) {
-        data.addRow([item['weekNr'], parseInt(item['rittenEigenAutos']), parseInt(item['rittenP2pAutosS'])]);
+        data.addRow([item['weekNr'], new Date(item['rittenEigenAutos']), new Date(item['rittenP2pAutosS'])]);
       });
     },
     doUpdate = function () {
