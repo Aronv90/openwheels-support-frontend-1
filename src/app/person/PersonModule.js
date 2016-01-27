@@ -423,7 +423,7 @@ angular.module('openwheels.person', [
 					var personId = $stateParams.personId;
 					return contractService.forDriver({
 						person: personId,
-						onlyAcitve: false
+						onlyActive: false
 					});
 				}]
 			}
