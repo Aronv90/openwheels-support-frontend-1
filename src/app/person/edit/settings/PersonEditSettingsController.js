@@ -22,7 +22,7 @@ angular.module('openwheels.person.edit.data.settings', [])
 
     $scope.visibilityOptions = [
       {label: 'Public', value: 'public'},
-      {label: 'Rental relations', value: 'rentalRelationOnly'},
+      {label: 'Rental relations', value: 'rentalrelation_only'},
       {label: 'Members', value: 'members'},
       {label: 'None', value: 'none'}
     ];
