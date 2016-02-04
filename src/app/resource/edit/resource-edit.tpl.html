@@ -82,6 +82,24 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
+            <label for="color">Color</label>
+            <input type="text" id="color" name="color" class="form-control" ng-model="resource.color"
+                   placeholder="color">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="model">Number of Seats</label>
+            <select id="numberOfSeats" name="numberOfSeats" class="form-control" ng-model="resource.numberOfSeats"
+            ng-options="option.value as option.label for option in numberOfSeatsOptions" ng-disabled="disabledFields.numberOfSeats">
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
             <label for="fuelType">Fuel type</label>
             <select id="fuelType" class="form-control" ng-model="resource.fuelType"
                     ng-options="f.value as f.label for f in fuelTypeOptions">
@@ -95,6 +113,23 @@
             <input type="text" id="fuelCardCode" name="fuelCardCode" class="form-control"
                    ng-model="resource.fuelCardCode" placeholder="Fuel card code">
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="allowedArea">Allowed area</label>
+            <select id="allowedArea" name="allowedArea" class="form-control" ng-model="resource.allowedArea" null-if-empty
+                  ng-options="o.value as o.label for o in allowedAreaOptions">
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+            <label for="minimumAge">Minimum age</label>
+            <select id="minumumAge" name="minimumAge" class="form-control" ng-model="resource.minimumAge" null-if-empty
+              ng-options="o.value as o.label for o in minimumAgeOptions">
+            </select>
     </div>
 </div>
 
