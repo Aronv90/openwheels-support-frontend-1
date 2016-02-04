@@ -4,6 +4,7 @@
       <th>Provider</th>
       <th>Trip</th>
       <th>Request timeframe</th>
+      <th>Request update</th>
       <th>Person</th>
       <th>Number of bookings person</th>
       <th>Resource</th>
@@ -20,6 +21,9 @@
       <td class="booking__date--fw-calendar">
         {{ b.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}<br/>
         {{ b.endRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}
+      </td>
+      <td class="booking__date--fw-calendar">
+        {{ b.requestUpdate | amDateFormat:'DD-MM-YYYY | HH:mm' }}
       </td>
       <td>
         <a ui-sref="root.person.show.summary({ personId: b.person.id })">{{ b.person | fullname }}</a>
