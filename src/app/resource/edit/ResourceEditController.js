@@ -58,6 +58,38 @@ angular.module('openwheels.resource.edit', [])
       {label: 'Scooter', value: 'scooter'}
     ];
 
+    $scope.numberOfSeatsOptions = [
+      {value: 2   , label: '2'},
+      {value: 3   , label: '3'},
+      {value: 4   , label: '4'},
+      {value: 5   , label: '5'},
+      {value: 6   , label: '6'},
+      {value: 7   , label: '7'},
+      {value: 8   , label: '8'},
+      {value: 9   , label: '9'}
+    ];
+
+    $scope.allowedAreaOptions = (function () {
+      var options = [
+        { label: 'Europa', value: 'Europa' },
+        { label: 'Nederland', value: 'Nederland' }
+      ];
+      if (resource.providerId !== 21) {
+        options.push({ label: 'België', value: 'België' });
+      }
+      return options;
+    }());
+
+    $scope.minimumAgeOptions = (function () {
+      var options = [
+        { label: '', value: '' }
+      ];
+      for (var i = 18; i <= 40; i++) {
+        options.push({ label: i + '', value: i });
+      }
+      return options;
+    }());
+
     $scope.locktypeOptions = [
       {label: 'Chipcard', value: 'chipcard'},
       {label: 'Locker', value: 'locker'},
