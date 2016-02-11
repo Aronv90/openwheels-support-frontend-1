@@ -145,6 +145,24 @@ angular.module('openwheels.resource', [
 		});
 
 		/**
+		 * resource/:id/discount
+		 * @resolve {promise} resource
+		 */
+		$stateProvider.state('root.resource.show.discount', {
+			url: '/discount',
+			controller: 'ResourceShowDiscountController',
+			templateUrl: 'resource/show/discount/resource-show-discount.tpl.html',
+			data: {pageTitle: 'Resource discount'},
+			resolve: {
+				discounts: ['$stateParams', 'discountService', 'resource', function ($stateParams, discountService, resource) {
+					return discountService.search({
+						resource: resource.id
+					});
+				}]
+			}
+		});
+
+		/**
 		 * resource/:id/boardcomputer
 		 * @resolve {promise} resource
 		 */
@@ -158,23 +176,6 @@ angular.module('openwheels.resource', [
 					return;
 				}
 			}
-		});
-
-		/**
-		 * resource/:id/ccom
-		 * @resolve {promise} resource
-		 */
-		$stateProvider.state('root.resource.show.ccom', {
-			url: '/ccom',
-			controller: 'ResourceShowCcomController',
-			templateUrl: 'resource/show/ccom/resource-show-ccom.tpl.html',
-			data: {pageTitle: 'Resource CCOM'},
-			resolve: {
-				alarms: ['ccomService', 'resource', function (ccomService, resource) {
-					return ccomService.alarms({resource: resource.id, limit: 50});
-				}]
-			},
-			role: 'ROLE_PROVIDER_ADMIN'
 		});
 
 		/**

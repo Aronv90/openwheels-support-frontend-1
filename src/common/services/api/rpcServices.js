@@ -213,6 +213,15 @@ angular.module('rpcServices', [])
         this.disapprove       = m('disapprove');
       })
 
+    .service('discountService', function (api) {
+        var m = function (name) { return api.createRpcMethod('discount.' + name); };
+        this.search         = m('search');
+        this.create         = m('create');
+        this.apply          = m('apply');
+        this.disable        = m('disable');
+        this.get            = m('get');
+      })
+
     .service('incassoService', function (api) {
         var m = function (name) { return api.createRpcMethod('incasso.' + name ); };
         this.createIncasso = m('create');
