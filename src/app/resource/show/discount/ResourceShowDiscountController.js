@@ -9,8 +9,8 @@ angular.module('openwheels.resource.show.discount', [])
   $scope.params = {
     validFrom: $stateParams.validFrom || '',
     validUntil: $stateParams.validUntil || '',
-    multiple: $stateParams.multiple === 'true' || false,
-    global: $stateParams.global === 'true' || false
+    multiple: $stateParams.multiple === 'true' || 'false',
+    global: $stateParams.global === 'true' || 'false'
   };
 
   $scope.dateConfig = {
