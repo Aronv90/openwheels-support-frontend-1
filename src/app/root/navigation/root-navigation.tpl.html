@@ -52,11 +52,11 @@
           <li ng-class="{ active: $state.includes('root.trip.list.current') }">
             <a ui-sref="root.trip.list.current">Current</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.problem') }">
-            <a ui-sref="root.trip.list.problem">Problem</a>
+          <li ng-class="{ active: $state.includes('root.trip.list.jobs') }">
+            <a ui-sref="root.trip.list.jobs">Unfinished jobs</a>
           </li>
           <li ng-class="{ active: $state.includes('root.trip.list.disapproved') }">
-            <a ui-sref="root.trip.list.disapproved">Invalid Bookings</a>
+            <a ui-sref="root.trip.list.disapproved">Invalid bookings</a>
           </li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.trip.list.notactive') }">
             <a ui-sref="root.trip.list.notactive">Not active bookings</a>
@@ -72,7 +72,7 @@
             <a ui-sref="root.trip.list.returned-late">Returned late</a>
           </li>
           <li ng-class="{ active: $state.includes('root.trip.list.farfromhome') }">
-            <a ui-sref="root.trip.list.farfromhome">Far From Home</a>
+            <a ui-sref="root.trip.list.farfromhome">Far from home</a>
           </li>
 
         </ul>

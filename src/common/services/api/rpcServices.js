@@ -134,14 +134,6 @@ angular.module('rpcServices', [])
         this.bookingWeekKPIData = m('bookingWeekKPIData');
       })
 
-    .service('ccomService', function (api) {
-        var m = function (name) { return api.createRpcMethod('ccom.' + name ); };
-        this.alarms = m('alarms');
-        this.problemBookings = m('problemBookings');
-        this.log = m('log');
-        this.state = m('state');
-      })
-
     .service('invoiceService', function (api) {
         var m = function (name) { return api.createRpcMethod('invoice.' + name ); };
         this.get = m('get');

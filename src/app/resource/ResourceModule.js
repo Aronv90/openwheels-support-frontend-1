@@ -149,15 +149,19 @@ angular.module('openwheels.resource', [
 		 * @resolve {promise} resource
 		 */
 		$stateProvider.state('root.resource.show.discount', {
-			url: '/discount',
+			url: '/discount?validFrom&validUntil&global&multiple',
 			controller: 'ResourceShowDiscountController',
 			templateUrl: 'resource/show/discount/resource-show-discount.tpl.html',
 			data: {pageTitle: 'Resource discount'},
 			resolve: {
 				discounts: ['$stateParams', 'discountService', 'resource', function ($stateParams, discountService, resource) {
-					return discountService.search({
-						resource: resource.id
-					});
+					var params = {};
+					params.resource = resource.id;
+					if ($stateParams.validFrom) { params.validFrom = $stateParams.validFrom; }
+					if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
+					if ($stateParams.multiple) { params.multiple = $stateParams.multiple; }
+					if ($stateParams.global) { params.global = $stateParams.global; }
+					return discountService.search(params);
 				}]
 			}
 		});
