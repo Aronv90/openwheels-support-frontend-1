@@ -316,6 +316,9 @@ angular.module('openwheels.person', [
             }
           }
           return paymentService.getInvoiceGroups(params);
+        }],
+        accounts: ['$stateParams', 'account2Service', function ($stateParams, account2Service) {
+          return account2Service.search({person: $stateParams.personId, unchecked: null});
         }]
       }
     });
