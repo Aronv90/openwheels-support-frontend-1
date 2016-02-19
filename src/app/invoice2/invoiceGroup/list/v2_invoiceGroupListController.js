@@ -22,8 +22,6 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   $scope.ungroupedSentInvoicesTotal = calculateTotal(ungroupedSentInvoices);
   $scope.accounts = accounts;
 
-  console.log($scope.accounts);
-
   $scope.FRONT_BASE = settingsService.settings.server;
 
   function calculateTotal (invoices) {
