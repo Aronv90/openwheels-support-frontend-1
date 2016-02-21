@@ -11,14 +11,16 @@
             <tr>
               <th>Contract</th>
               <th>Contractor</th>
+              <th>Type</th>
               <th>Status</th>
-              <th class="text-right">Own risk</th>
+              <th>Own risk</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>{{ contract.id }}</td>
-              <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{ contract.contractor.firstName }} {{ contract.contractor.preposition }} {{ contract.contractor.surname }}</a> <span class="text-grey">{{ contract.contractor.id }}</span></td>
+              <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{ contract.contractor | fullname }}</a> <span class="text-grey">{{ contract.contractor.id }}</span></td>
+              <td>{{ contract.type.description }}</td>
               <td>{{ contract.status }}</td>
               <td>{{ contract.ownRiskWaiver }}</td>
             </tr>
