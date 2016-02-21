@@ -8,9 +8,25 @@ angular.module('openwheels.trip.show', [
   'openwheels.trip.show.revisions'
 ])
 
-.controller('TripShowController', function ($scope, $stateParams, alertService, bookingService, booking) {
+.controller('TripShowController', function ($scope, $modal, $stateParams, alertService, bookingService, booking) {
 
   $scope.booking = booking;
+  $scope.contract = null;
+
+  $scope.getContract = function (contract) {
+    $modal.open({
+      templateUrl: 'contract/show/contract-show.tpl.html',
+      controller: ['$scope', '$modalInstance', 'contractService', function ($scope, $modalInstance, contractService) {
+        contractService.get({
+          contract: contract
+        })
+        .then(function (contract) {
+          $scope.contract = contract;
+        });
+        $scope.close = $modalInstance.close;
+      }]
+    });
+  };
 
   $scope.approveBooking = function approveBooking() {
     bookingService.approve({booking: $scope.booking.id})
