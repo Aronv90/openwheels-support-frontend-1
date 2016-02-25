@@ -101,6 +101,11 @@ angular.module('rpcServices', [])
         this.removeProperty = m('remProperty');
       })
 
+    .service('ratingService', function (api) {
+        var m = function (name) { return api.createRpcMethod('rating.' + name ); };
+        this.getResourceRatings = m('getResourceRatings');
+      })
+
     .service('bookingService', function (api) {
         var m = function (name) { return api.createRpcMethod('booking.' + name ); };
         this.alterRequest = m('alterRequest');
