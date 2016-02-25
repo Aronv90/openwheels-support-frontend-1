@@ -70,7 +70,21 @@ angular.module('openwheels.resource', [
 		$stateProvider.state('root.resource.show.summary', {
 			url: '',
 			templateUrl: 'resource/show/summary/resource-show-summary.tpl.html',
-			controller: 'ResourceShowSummaryController'
+			controller: 'ResourceShowSummaryController',
+			resolve: {
+				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+					var startDate = moment().subtract('d', 1);
+					var endDate = moment().add('w', 1);
+
+					return bookingService.forResource({
+						resource: $stateParams.resourceId,
+						timeFrame: {
+							startDate: startDate.format('YYYY-MM-DD HH:mm'),
+							endDate: endDate.format('YYYY-MM-DD HH:mm')
+						}
+					});
+				}]
+			}
 		});
 
 		/**
