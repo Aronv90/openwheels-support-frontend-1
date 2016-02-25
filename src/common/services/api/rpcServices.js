@@ -104,6 +104,7 @@ angular.module('rpcServices', [])
     .service('ratingService', function (api) {
         var m = function (name) { return api.createRpcMethod('rating.' + name ); };
         this.getResourceRatings = m('getResourceRatings');
+        this.getDriverRatings = m('getDriverRatings');
       })
 
     .service('bookingService', function (api) {
