@@ -1,7 +1,7 @@
-<div class="alert alert-info" ng-show="!resource.ratings">
+<div class="alert alert-info" ng-show="!ratings">
   This resoure has not yet been rated
 </div>
-<div class="ratings" ng-show="resource.ratings">
+<div class="ratings" ng-show="ratings">
   <ul class="list-inline">
     <li><b>Satisfaction:</b> {{ (resource.rating_totals.satisfaction | percentage) || '-'}}</li>
     <li><b>Cleanliness:</b> <span ng-bind-html="(resource.rating_totals.cleanliness | ratingStars) || '-'"></span></li></li>
@@ -9,7 +9,7 @@
   </ul>
 
   <ul class="list-unstyled list-block">
-    <li ng-repeat="rating in resource.ratings">
+    <li ng-repeat="rating in ratings">
       <div class="media">
         <a class="pull-left" ui-sref="root.person.show.summary({personId: rating.sender.id })">
           <img class="media-object" ng-src="{{ rating.sender | personAvatar:'square' }}" alt="Rater">
@@ -19,11 +19,11 @@
         </div>
         <div class="media-body">
           <p>{{ rating.review || 'No review given'}}</p>
-          <a ui-sref="root.person.show.summary({personId: r.sender.id })">{{ r.sender | fullname }}</a>
+          <a ui-sref="root.person.show.summary({personId: rating.sender.id })">{{ r.sender | fullname }}</a>
             <ul class="list-inline">
               <li><span class="text-muted"><a ui-sref="root.person.show.summary({personId: rating.sender.id })">{{ rating.sender.firstName }}</a></span></li>
-              <li><span class="text-muted">Cleanliness:</span> <span ng-bind-html="(rating.cleanliness | ratingStars) || '-'"></span></li>
-              <li><span class="text-muted">Quality:</span> <span ng-bind-html="(rating.quality | ratingStars) || '-'"></span></li>
+              <li><span class="text-muted">Cleanliness:</span> <span ng-bind-html="(rating.cleanliness | ratingStars) || '-'" ng-show="rating.cleanliness"></span></li>
+              <li><span class="text-muted">Quality:</span> <span ng-bind-html="(rating.quality | ratingStars) || '-'" ng-show="rating.quality"></span></li>
               <li><span class="text-muted">{{ rating.created | amDateFormat:'DD-MM-YYYY | HH:mm' }}</span></li>
             </ul>
         </div>

@@ -80,7 +80,14 @@ angular.module('openwheels.resource', [
 		$stateProvider.state('root.resource.show.rating', {
 			url: '/rating',
 			templateUrl: 'resource/show/rating/resource-show-rating.tpl.html',
-			controller: 'ResourceShowRatingController'
+			controller: 'ResourceShowRatingController',
+			resolve: {
+				ratings: ['$stateParams', 'ratingService', 'resource', function ($stateParams, ratingService, resource) {
+					return ratingService.getResourceRatings({
+						resource: resource.id
+					});
+				}]
+			}
 		});
 
 		/**

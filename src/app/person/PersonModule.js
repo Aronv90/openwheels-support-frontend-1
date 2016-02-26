@@ -394,7 +394,14 @@ angular.module('openwheels.person', [
 			url: '/rating',
 			controller: 'PersonShowRatingController',
 			templateUrl: 'person/show/rating/person-show-rating.tpl.html',
-			data: {pageTitle: 'Person rating'}
+			data: {pageTitle: 'Person rating'},
+			resolve: {
+				ratings: ['$stateParams', 'ratingService', function ($stateParams, ratingService) {
+					return ratingService.getDriverRatings({
+						driver: $stateParams.personId
+					});
+				}]
+			}
 		});
 
 		/**

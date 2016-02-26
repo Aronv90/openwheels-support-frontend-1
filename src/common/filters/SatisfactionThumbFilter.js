@@ -9,7 +9,7 @@ angular.module('filters.satisfactionThumb', [])
       if(rating.satisfaction === 1) {
         satisfaction = '<i class="fa fa-thumbs-up text-success ' + size +'"></i>';
       } else if(rating.satisfaction === null) {
-        satisfaction = '<i class="fa fa-thumbs-up text-warning fa-rotate-90 ' + size +'"></i>';
+        satisfaction = '<i class="fa fa-thumbs-up text-muted fa-rotate-90 ' + size +'"></i>';
       } else {
         satisfaction = '<i class="fa fa-thumbs-down text-danger ' + size +'"></i>';
       }
