@@ -1,0 +1,35 @@
+<div class="modal-content">
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">&times;</button>
+        <h4 class="modal-title">Contract</h4>
+    </div>
+
+    <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Contract</th>
+              <th>Contractor</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Own risk</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ contract.id }}</td>
+              <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{ contract.contractor | fullname }}</a> <span class="text-grey">{{ contract.contractor.id }}</span></td>
+              <td>{{ contract.type.description }}</td>
+              <td>{{ contract.status }}</td>
+              <td>{{ contract.ownRiskWaiver }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="close()">Close</button>
+    </div>
+
+</div>

@@ -36,9 +36,8 @@
             <strong>Driver</strong> <a ui-sref="root.person.show.summary({personId: booking.person.id})">{{booking.person| fullname }}</a>
             <span class="text-grey">{{ booking.person.id }}</span>, {{booking.person.status}}, {{booking.person.email}}, {{booking.person.city}}
           </li>
-          <li>
-            <strong>Contract</strong> {{booking.contract.type.name}} <span class="text-grey">{{booking.contract.id}}</span>, {{booking.contract.status}}, <a ui-sref="root.person.show.summary({personId: booking.contract.contractor.id})">{{booking.contract.contractor | fullname}}</a>
-            <span class="text-grey">{{ booking.contract.contractor.id }}</span>, {{booking.contract.contractor.account.credit}}
+          <li> 
+            <strong>Contract</strong> <a ng-click="getContract(booking.contract.id)">{{booking.contract.id}}</a>
           </li>
         </ul>
       </div>
