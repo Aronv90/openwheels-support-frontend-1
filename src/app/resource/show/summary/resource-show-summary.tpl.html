@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-4">
-    <h5>Owner / Contact person</h5>
+    <h5><strong>Owner / Contact person</strong></h5>
     <table class="table table-condensed">
       <tbody>
         <tr>
@@ -24,13 +24,9 @@
   </div>
 
   <div class="col-md-4">
-  <h5>Resource</h5>
+  <h5><strong>Resource</strong></h5>
     <table class="table table-condensed">
       <tbody>
-        <tr>
-          <td>Brand en model</td>
-          <td>{{ resource.brand }} {{ resource.model }}</td>
-        </tr>
         <tr ng-class="{ 'text-danger': !resource.isActive }">
           <td>Active</td>
           <td>{{ resource.isActive }}</td>
@@ -42,14 +38,6 @@
         <tr ng-class="{ 'text-danger': !resource.isAvailableFriends }">
           <td>Avalability friends</td>
             <td>{{ resource.isAvailableFriends }}, confirmation {{ resource.isConfirmationRequiredFriends ? 'required' : 'not required' }}</td>
-        </tr>
-        <tr>
-          <td>Amount of seats</td>
-          <td>{{ resource.numberOfSeats }}</td>
-        </tr>
-        <tr>
-          <td>Fuel type</td>
-          <td>{{ resource.fuelType }}</td>
         </tr>
         <tr>
           <td>Fuel card code</td>
@@ -68,7 +56,7 @@
   </div>
 
   <div class="col-md-4">
-    <h5>Price</h5>
+    <h5><strong>Price</strong></h5>
     <table class="table table-condensed">
       <tbody>
         <tr>
@@ -99,3 +87,34 @@
     </table>
   </div>
 </div>
+
+<br>
+
+<div class="alert alert-info" ng-hide="bookings.length > 0">
+  No bookings found in this timeframe
+</div>
+<table class="table table-hover" ng-show="bookings.length > 0">
+  <thead>
+  <tr>
+    <th>Trip</th>
+    <th>Begin booking</th>
+    <th>End booking</th>
+    <th>Begin trip</th>
+    <th>Begin requested</th>
+    <th>Person</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr ng-repeat="booking in bookings | orderBy:'beginBooking':true">
+    <td><a ui-sref="root.trip.show.summary({ tripId: booking.id })">#{{ booking.id }}</a></td>
+    <td>{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td>{{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td>{{ booking.trip.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td>{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+    <td><a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person | fullname }}</a></td>
+    <td>
+      <span class="text-success" ng-if="booking.trip.finalized">finalized</span>
+    </td>
+  </tr>
+  </tbody>
+</table>

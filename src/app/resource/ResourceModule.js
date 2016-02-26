@@ -70,7 +70,21 @@ angular.module('openwheels.resource', [
 		$stateProvider.state('root.resource.show.summary', {
 			url: '',
 			templateUrl: 'resource/show/summary/resource-show-summary.tpl.html',
-			controller: 'ResourceShowSummaryController'
+			controller: 'ResourceShowSummaryController',
+			resolve: {
+				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+					var startDate = moment().subtract('d', 1);
+					var endDate = moment().add('w', 1);
+
+					return bookingService.forResource({
+						resource: $stateParams.resourceId,
+						timeFrame: {
+							startDate: startDate.format('YYYY-MM-DD HH:mm'),
+							endDate: endDate.format('YYYY-MM-DD HH:mm')
+						}
+					});
+				}]
+			}
 		});
 
 		/**
@@ -80,7 +94,14 @@ angular.module('openwheels.resource', [
 		$stateProvider.state('root.resource.show.rating', {
 			url: '/rating',
 			templateUrl: 'resource/show/rating/resource-show-rating.tpl.html',
-			controller: 'ResourceShowRatingController'
+			controller: 'ResourceShowRatingController',
+			resolve: {
+				ratings: ['$stateParams', 'ratingService', 'resource', function ($stateParams, ratingService, resource) {
+					return ratingService.getResourceRatings({
+						resource: resource.id
+					});
+				}]
+			}
 		});
 
 		/**
@@ -145,6 +166,28 @@ angular.module('openwheels.resource', [
 		});
 
 		/**
+		 * resource/:id/discount
+		 * @resolve {promise} resource
+		 */
+		$stateProvider.state('root.resource.show.discount', {
+			url: '/discount?validFrom&validUntil&global&multiple',
+			controller: 'ResourceShowDiscountController',
+			templateUrl: 'resource/show/discount/resource-show-discount.tpl.html',
+			data: {pageTitle: 'Resource discount'},
+			resolve: {
+				discounts: ['$stateParams', 'discountService', 'resource', function ($stateParams, discountService, resource) {
+					var params = {};
+					params.resource = resource.id;
+					if ($stateParams.validFrom) { params.validFrom = $stateParams.validFrom; }
+					if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
+					params.multiple = $stateParams.multiple === 'true' || null;
+					params.global = $stateParams.global === 'true' || null;
+					return discountService.search(params);
+				}]
+			}
+		});
+
+		/**
 		 * resource/:id/boardcomputer
 		 * @resolve {promise} resource
 		 */
@@ -158,23 +201,6 @@ angular.module('openwheels.resource', [
 					return;
 				}
 			}
-		});
-
-		/**
-		 * resource/:id/ccom
-		 * @resolve {promise} resource
-		 */
-		$stateProvider.state('root.resource.show.ccom', {
-			url: '/ccom',
-			controller: 'ResourceShowCcomController',
-			templateUrl: 'resource/show/ccom/resource-show-ccom.tpl.html',
-			data: {pageTitle: 'Resource CCOM'},
-			resolve: {
-				alarms: ['ccomService', 'resource', function (ccomService, resource) {
-					return ccomService.alarms({resource: resource.id, limit: 50});
-				}]
-			},
-			role: 'ROLE_PROVIDER_ADMIN'
 		});
 
 		/**

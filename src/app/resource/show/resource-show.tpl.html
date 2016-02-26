@@ -58,19 +58,20 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.trip') }">
                     <a ui-sref="root.resource.show.trip({ resourceId: resource.id })">Trips</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.ccom') }" ng-if="resource.boardcomputer === 'convadis'">
-                    <a ui-sref="root.resource.show.ccom({ resourceId: resource.id })">CCOM</a>
+                <li ng-class="{ active: $state.includes('root.resource.show.tripdata') }">
+                    <a ui-sref="root.resource.show.tripdata({ resourceId: resource.id })" ng-if="resource.boardcomputer">Tripdata</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.boardcomputer !== -1">
+                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktype === 'smartphone'">
                     <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Board PC</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.boardcomputer">
+                <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.locktype === 'smartphone'">
                   <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boardcomputer Log</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
-                    <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Rating ( {{ resource.ratings.length }} )</a>
-                <li ng-class="{ active: $state.includes('root.resource.show.tripdata') }">
-                    <a ui-sref="root.resource.show.tripdata({ resourceId: resource.id })">Tripdata</a>
+                    <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Ratings</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.discount') }">
+                    <a ui-sref="root.resource.show.discount({ resourceId: resource.id })">Discount</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
                     <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Revisions</a>

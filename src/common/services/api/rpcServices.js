@@ -101,6 +101,12 @@ angular.module('rpcServices', [])
         this.removeProperty = m('remProperty');
       })
 
+    .service('ratingService', function (api) {
+        var m = function (name) { return api.createRpcMethod('rating.' + name ); };
+        this.getResourceRatings = m('getResourceRatings');
+        this.getDriverRatings = m('getDriverRatings');
+      })
+
     .service('bookingService', function (api) {
         var m = function (name) { return api.createRpcMethod('booking.' + name ); };
         this.alterRequest = m('alterRequest');
@@ -132,14 +138,6 @@ angular.module('rpcServices', [])
         this.checked = m('checked');
 
         this.bookingWeekKPIData = m('bookingWeekKPIData');
-      })
-
-    .service('ccomService', function (api) {
-        var m = function (name) { return api.createRpcMethod('ccom.' + name ); };
-        this.alarms = m('alarms');
-        this.problemBookings = m('problemBookings');
-        this.log = m('log');
-        this.state = m('state');
       })
 
     .service('invoiceService', function (api) {
@@ -211,6 +209,15 @@ angular.module('rpcServices', [])
         this.search           = m('search');
         this.approve          = m('approve');
         this.disapprove       = m('disapprove');
+      })
+
+    .service('discountService', function (api) {
+        var m = function (name) { return api.createRpcMethod('discount.' + name); };
+        this.search         = m('search');
+        this.create         = m('create');
+        this.apply          = m('apply');
+        this.disable        = m('disable');
+        this.get            = m('get');
       })
 
     .service('incassoService', function (api) {

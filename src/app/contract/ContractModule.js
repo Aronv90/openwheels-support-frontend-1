@@ -4,7 +4,8 @@ angular.module('openwheels.contract', [
 	'openwheels.contract.create_edit',
 	'openwheels.contract.persons',
 	'openwheels.contract.type.list',
-	'openwheels.contract.type.show'
+	'openwheels.contract.type.show',
+	'openwheels.contract.show'
 ])
 	.config(function ($stateProvider) {
 
