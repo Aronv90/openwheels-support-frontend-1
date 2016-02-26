@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.edit.data.contact', [])
 
-.controller('PersonEditContactController', function ($scope, $timeout, dutchZipcodeService, personService, person) {
+.controller('PersonEditContactController', function ($scope, $timeout, dutchZipcodeService, personService, person, alertService) {
 
   var masterPerson = person;
 
@@ -11,12 +11,19 @@ angular.module('openwheels.person.edit.data.contact', [])
   };
 
   $scope.save = function () {
+    var newProps = difference(masterPerson, $scope.person);
     personService.alter({
       id: masterPerson.id,
-      newProps: difference(masterPerson, $scope.person)
-    }).then(function () {
-        masterPerson = $scope.person;
-        angular.extend(person, masterPerson);
+      newProps: newProps
+    })
+      .then(function (returnedPerson) {
+        angular.extend(person, returnedPerson);
+        masterPerson = returnedPerson;
+        alertService.add('success', 'Person Modified.', 2000);
+        $scope.cancel();
+      },
+      function (error) {
+        alertService.add('danger', 'Edit Person failed: ' + error.message, 5000);
         $scope.cancel();
       });
 
