@@ -1,0 +1,92 @@
+<div class="row">
+
+  <div class="col-sm-3">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <form class="form">
+
+          <div class="form-group">
+            <label for="validFrom">From</label>
+            <input type="text" id="validFrom" placeholder="Pick a date" class="form-control pickadate-input"
+                   ng-model="params.validFrom" pickadate="dateConfig">
+          </div>
+
+          <div class="form-group">
+            <label for="validUntil">Until</label>
+            <input type="text" id="validUntil" placeholder="Pick a date" class="form-control pickadate-input"
+                   ng-model="params.validUntil" pickadate="dateConfig">
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.global"> Global
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" ng-model="params.multiple"> Multiple
+              </label>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          <button class="btn btn-link" ng-click="clear()">Clear</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-9">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Discounts</h3>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Sender</th>
+              <th>Recipient</th>
+              <th>From</th>
+              <th>Until</th>
+              <th>Discount</th>
+              <th>Global</th>
+              <th>Multiple</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="discount in discounts">
+              <td>{{ discount.code }}</td>
+              <td>
+                <a ui-sref="root.person.show.summary({ personId: discount.sender.id })">
+                  {{ discount.sender | fullname }}
+                </a>
+              </td>
+              <td>
+                <a ui-sref="root.person.show.summary({ personId: discount.recipient.id })">
+                  {{ discount.recipient | fullname }}
+                </a>
+              </td>
+              <td>{{ discount.validFrom | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
+              <td>{{ discount.validUntil | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
+              <td class="text-right" ng-show="discount.amount">
+                <b>{{ ( -1 * discount.amount) | currency }}</b>
+              </td>
+              <td class="text-right" ng-show="discount.percentage">{{ discount.percentage / 100 | percentage }}</td>
+              <td>{{ discount.global }}</td>
+              <td>{{ discount.multiple }}</td>
+              <td ng-if="!payout.paid">
+                <a ng-click="disableDiscount(discount)">Disable</a><br/>
+              </td>
+
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

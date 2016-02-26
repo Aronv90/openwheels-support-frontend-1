@@ -7,9 +7,12 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   $state,
   $stateParams,
   settingsService,
+  alertService,
+  account2Service,
   invoiceGroups,
   ungroupedReceivedInvoices,
-  ungroupedSentInvoices
+  ungroupedSentInvoices,
+  accounts
   ) {
 
   $scope.invoiceGroups = invoiceGroups;
@@ -17,6 +20,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   $scope.ungroupedReceivedInvoicesTotal = calculateTotal(ungroupedReceivedInvoices);
   $scope.ungroupedSentInvoices = ungroupedSentInvoices;
   $scope.ungroupedSentInvoicesTotal = calculateTotal(ungroupedSentInvoices);
+  $scope.accounts = accounts;
 
   $scope.FRONT_BASE = settingsService.settings.server;
 
@@ -34,6 +38,32 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
     });
     return hasError ? null : sum;
   }
+
+  /* approve an account */
+  $scope.approve = function (account) {
+    alertService.load($scope);
+    account2Service.approve({
+      person: account.person.id,
+      iban: account.iban
+    })
+    .then(function () {
+      account.approved = true;
+    })
+    .catch(alertService.addError).finally(alertService.loaded);
+  };
+
+  /* disapprove an account */
+  $scope.disapprove = function (account) {
+    alertService.load($scope);
+    account2Service.disapprove({
+      person: account.person.id,
+      iban: account.iban
+    })
+    .then(function () {
+      account.approved = false;
+    })
+    .catch(alertService.addError).finally(alertService.loaded);
+  };
 
   $scope.params = (function () {
     var p = {
