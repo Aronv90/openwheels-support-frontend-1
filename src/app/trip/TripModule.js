@@ -5,8 +5,6 @@ angular.module('openwheels.trip.show.overview', []);
 angular.module('openwheels.trip', [
 	'openwheels.trip.list',
 	'openwheels.trip.show',
-	'openwheels.trip.show.ccomlog',
-	'openwheels.trip.show.ccomstate',
 	'openwheels.trip.create',
 	'openwheels.trip.show.overview'
 ])
@@ -142,29 +140,6 @@ angular.module('openwheels.trip', [
 				}]
 			},
 			role: 'ROLE_PROVIDER_ADMIN'
-		});
-
-		/**
-		 * trip/
-		 * @resolve {promise} booking
-		 */
-		$stateProvider.state('root.trip.list.problem', {
-			url: '/problem',
-			controller: 'TripListController',
-			templateUrl: 'trip/list/trip-list--problem.tpl.html',
-			data: {pageTitle: 'Trip list - Problem'},
-			resolve: {
-				bookings: ['ccomService', function (ccomService) {
-					var bookings = [];
-					return ccomService.problemBookings().then(function (response) {
-						angular.forEach(response, function (problem) {
-							bookings.push(problem.booking);
-						});
-						return bookings;
-					});
-				}]
-			},
-			role: 'ROLE_ADMIN'
 		});
 
 		/**
@@ -308,42 +283,6 @@ angular.module('openwheels.trip', [
 					from = booking.beginBooking;
 					to = booking.endBooking;
 					return boardcomputerService.log({resource: booking.resource.id, from: from, to: to});
-				}]
-			},
-			role: 'ROLE_PROVIDER_ADMIN'
-		});
-
-		/**
-		 * trip/:id/ccomlog
-		 * @resolve {promise} trip, from parent
-		 * @resolve {promise} overview
-		 */
-		$stateProvider.state('root.trip.show.ccomlog', {
-			url: '/ccomlog',
-			controller: 'TripShowLogBookingController',
-			templateUrl: 'trip/show/boardcomputer/log/trip-show-log-booking.tpl.html',
-			data: {pageTitle: 'CCOM Log'},
-			resolve: {
-				logs: ['ccomService', 'booking', function (ccomService, booking) {
-					return ccomService.log({booking: booking.id});
-				}]
-			},
-			role: 'ROLE_PROVIDER_ADMIN'
-		});
-
-		/**
-		 * trip/:id/ccomstate
-		 * @resolve {promise} trip, from parent
-		 * @resolve {promise} overview
-		 */
-		$stateProvider.state('root.trip.show.ccomstate', {
-			url: '/ccomstate',
-			controller: 'TripShowStateBookingController',
-			templateUrl: 'trip/show/boardcomputer/state/trip-show-state-booking.tpl.html',
-			data: {pageTitle: 'CCOM State'},
-			resolve: {
-				states: ['ccomService', 'booking', function (ccomService, booking) {
-					return ccomService.state({booking: booking.id});
 				}]
 			},
 			role: 'ROLE_PROVIDER_ADMIN'
