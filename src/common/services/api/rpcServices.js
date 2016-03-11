@@ -279,4 +279,10 @@ angular.module('rpcServices', [])
         var m = function (name) { return api.createRpcMethod('mailingrule.' + name ); };
         this.get = m('getRulesAsArray');
       })
+      
+    .service('storedqueryService', function(api){
+        var m = function (name) { return api.createRpcMethod('storedquery.' + name ); };
+        this.all = m('all');
+        this.execute = m('execute');
+      })
 ;

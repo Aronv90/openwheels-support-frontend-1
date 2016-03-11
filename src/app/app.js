@@ -73,7 +73,8 @@ angular.module('openwheels', [
 	'flatObjectInterceptService',
 	'settingsService',
 	'transactionService',
-	'DutchZipcodeService'
+	'DutchZipcodeService',
+  'openwheels.querytool'
 ])
 
 	.config(function myAppConfig($stateProvider, $urlRouterProvider) {
