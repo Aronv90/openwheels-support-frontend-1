@@ -285,5 +285,6 @@ angular.module('rpcServices', [])
         this.all = m('all');
         this.execute = m('execute');
         this.alter = m('alter');
+        this.create = m('create');
       })
 ;

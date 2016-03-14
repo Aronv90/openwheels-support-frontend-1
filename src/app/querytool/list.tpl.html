@@ -5,6 +5,9 @@
             <li class="list-group-item" ng-repeat="item in queries">
                 <a ui-sref="root.querytool.execute({query: item.id})">{{item.name}}</a>
             </li>
+            <li class="list-group-item">
+                <a ui-sref="root.querytool.create()">nieuwe query</a>
+            </li>
         </ul>
     </div>
     <article class="col-md-10 panel panel-default card">

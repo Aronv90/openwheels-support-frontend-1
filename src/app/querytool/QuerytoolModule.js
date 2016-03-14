@@ -18,6 +18,11 @@ angular.module('openwheels.querytool', [])
       }]
     }
   });
+  $stateProvider.state('root.querytool.create', {
+    url: '/create',
+    templateUrl: 'querytool/create.tpl.html',
+    controller: 'QueryCreateController'
+  });
   $stateProvider.state('root.querytool.execute', {
     url: '/:query',
     templateUrl: 'querytool/execute.tpl.html',
@@ -26,6 +31,27 @@ angular.module('openwheels.querytool', [])
 })
 .controller('QueryListController', function($scope, storedqueryService, $log, queries) {
   $scope.queries = queries;
+})
+.controller('QueryCreateController', function($scope, storedqueryService, $log, queries, alertService, $state) {
+  $scope.current = {
+    type: 'dql',
+    renderas: 'default'
+  };
+  $scope.save = function(data) {
+    storedqueryService.create({
+      name: data.name,
+      query: data.query,
+      otherProps: {
+        type: data.type,
+        renderas: data.renderas
+      }
+    }).then(function(query) {
+      queries.push(query);
+      $state.go('root.querytool.execute', {query: query.id});
+    },function (error) {
+      alertService.add('danger', error.message, 5000);
+    });
+  };
 })
 .controller('QueryExecuteController', function($scope, storedqueryService, $stateParams, $log, queries, alertService) {
   var current = queries.find(elem => elem.id === parseInt($stateParams.query));
