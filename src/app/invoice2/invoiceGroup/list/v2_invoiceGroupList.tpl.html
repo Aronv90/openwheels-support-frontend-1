@@ -148,7 +148,7 @@
             <td class="text-right">{{ invoice.total | currency }}</td>
           </tr>
           <tr>
-            <td colspan="4"><b>Total</b></td>
+            <td colspan="5"><b>Total</b></td>
             <td class="text-right">
               <strong>{{ ungroupedReceivedInvoicesTotal | currency }}</strong>
             </td>
@@ -184,9 +184,17 @@
             <td class="text-right">{{ invoice.total | currency }}</td>
           </tr>
           <tr>
-            <td colspan="4"><b>Total</b></td>
+            <td colspan="5"><b>Total</b></td>
             <td class="text-right">
               <strong>{{ ungroupedSentInvoicesTotal | currency }}</strong>
+            </td>
+          </tr>
+          <tr ng-if="ungroupedSentInvoices.length > 0">
+            <td colspan="5"></td>
+            <td class="text-right">
+              <button type="button" class="btn btn-primary" ng-click="payoutInvoices()">
+                Alles uitbetalen
+              </button>
             </td>
           </tr>
         </table>

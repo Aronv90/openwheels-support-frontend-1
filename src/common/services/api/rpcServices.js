@@ -162,30 +162,32 @@ angular.module('rpcServices', [])
 
   .service('invoice2Service', function (api) {
     var m = function (name) { return api.createRpcMethod('invoice2.' + name ); };
-    this.approve         = m('approve');
-    this.disapprove      = m('disapprove');
-    this.calculatePrice  = m('calculatePrice');
-    this.get             = m('get');
-    this.getSent         = m('getSent');
-    this.getReceived     = m('getReceived');
-    this.getInvoiceGroup = m('getInvoiceGroup');
-    this.getDebtors      = m('getDebtors');
-    this.getCreditors    = m('getCreditors');
-    this.create          = m('create');
-    this.alter           = m('alter');
+    this.approve                    = m('approve');
+    this.disapprove                 = m('disapprove');
+    this.calculatePrice             = m('calculatePrice');
+    this.get                        = m('get');
+    this.getSent                    = m('getSent');
+    this.getReceived                = m('getReceived');
+    this.getInvoiceGroup            = m('getInvoiceGroup');
+    this.getDebtors                 = m('getDebtors');
+    this.getCreditors               = m('getCreditors');
+    this.create                     = m('create');
+    this.alter                      = m('alter');
+    this.createSenderInvoiceGroup   = m('createSenderInvoiceGroup');
   })
 
   .service('paymentService', function (api) {
     var m = function (name) { return api.createRpcMethod('payment.' + name); };
-    this.pay              = m('pay');
-    this.payBooking       = m('payBooking');
-    this.payInvoiceGroup  = m('payInvoiceGroup');
-    this.getInvoiceGroups = m('getInvoiceGroups');
-    this.getPayouts       = m('getPayouts');
-    this.getPayments      = m('getPayments');
-    this.processPayout    = m('processPayout');
-    this.deletePayout     = m('deletePayout');
-    this.refundBooking    = m('refundBooking');
+    this.pay                    = m('pay');
+    this.payBooking             = m('payBooking');
+    this.payInvoiceGroup        = m('payInvoiceGroup');
+    this.getInvoiceGroups       = m('getInvoiceGroups');
+    this.getPayouts             = m('getPayouts');
+    this.getPayments            = m('getPayments');
+    this.processPayout          = m('processPayout');
+    this.deletePayout           = m('deletePayout');
+    this.refundBooking          = m('refundBooking');
+    this.payoutInvoiceGroup     = m('payoutInvoiceGroup');
   })
 
     .service('accountService', function (api) {
