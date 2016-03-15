@@ -54,7 +54,7 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
   };
 })
 .controller('QueryExecuteController', function($scope, storedqueryService, $stateParams, $log, queries, alertService) {
-  var current = queries.find(elem => elem.id === parseInt($stateParams.query)),
+  var current = queries.find(function (elem) {return elem.id === parseInt($stateParams.query); }),
     limit = 20,
     displayRows = function (data) {
       $scope.data = data.result;
