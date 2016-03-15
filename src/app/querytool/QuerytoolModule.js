@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('openwheels.querytool', [])
+angular.module('openwheels.querytool', ['ui.bootstrap'])
 .config(function ($stateProvider) {
   $stateProvider.state('root.querytool', {
     url: '/querytool',
@@ -24,7 +24,7 @@ angular.module('openwheels.querytool', [])
     controller: 'QueryCreateController'
   });
   $stateProvider.state('root.querytool.execute', {
-    url: '/:query',
+    url: '/:query?page',
     templateUrl: 'querytool/execute.tpl.html',
     controller: 'QueryExecuteController'
   });
@@ -54,46 +54,67 @@ angular.module('openwheels.querytool', [])
   };
 })
 .controller('QueryExecuteController', function($scope, storedqueryService, $stateParams, $log, queries, alertService) {
-  var current = queries.find(elem => elem.id === parseInt($stateParams.query));
-  $scope.current = {};
-  angular.extend($scope.current, current);
-    
-  storedqueryService.execute({storedquery: $stateParams.query}).then(function (data) {
-    $scope.data = data;
-  }, function (error) {
-    $scope.error_message = error.message;
-  });
-  
-  $scope.save = function(id, data) {
-    $scope.data = {};
-    delete $scope.error_message;
-    storedqueryService.alter({
-      storedquery: id,
-      newProps: {
-        query: data.query,
-        name: data.name,
-        type: data.type,
-        renderas: data.renderas
+  var current = queries.find(elem => elem.id === parseInt($stateParams.query)),
+    limit = 20,
+    displayRows = function (data) {
+      $scope.data = data.result;
+      $scope.pages = [];
+      for(var i = 0; i < data.total / limit; i++) {
+        $scope.pages.push({query: current.id, page: i });
       }
-    }).then(function (query) {
-      alertService.add('success', 'The query was saved successful', 2000);
+    },
+    displayError = function (error) {
+      $scope.error_message = error.message;
+    },
+    updateCurrent = function(query) {
       current.name = query.name;
       current.query = query.query;
       current.type = query.type;
       current.renderas = query.renderas;
-      angular.extend($scope.current, current);
       
+      return query;
+    },
+    executeQuery = function(query) {
+      $scope.data = {};
+      delete $scope.error_message;
+      
+      $scope.current = {};
+      angular.extend($scope.current, query);
+      
+      return storedqueryService.execute({
+        storedquery: $stateParams.query,
+        offset: $stateParams.page * limit,
+        limit: limit
+      });
+    },
+    alterQuery = function(id, data) {
+      $scope.data = {};
+      delete $scope.error_message;
+      return storedqueryService.alter({
+        storedquery: id,
+        newProps: {
+          query: data.query,
+          name: data.name,
+          type: data.type,
+          renderas: data.renderas
+        }
+      });
+    };
+    
+  executeQuery(current)
+  .then(displayRows, displayError);
+  
+  $scope.save = function(id, data) {
+    alterQuery(id, data)
+    .then(function (query) {
+      updateCurrent(query);
+      alertService.add('success', 'The query was saved successful', 2000);
       return query;
     }, function (error) {
       alertService.add('danger', error.message, 5000);
-      angular.extend($scope.current, current);
       return current;
-    }).then(function (query) {
-      return storedqueryService.execute({storedquery: query.id});
-    }).then(function (data) {
-      $scope.data = data;
-    }, function (error) {
-      $scope.error_message = error.message;
-    });
+    })
+    .then(executeQuery)
+    .then(displayRows, displayError);
   };
 });
