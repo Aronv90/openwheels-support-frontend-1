@@ -47,6 +47,11 @@
       <td>{{ voucher.currency }} {{ voucher.initialValue }}</td>
       <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
       <td>{{ voucher.id }}</td>
+      <td ng-if="!voucher.payments.length">
+        <button class="btn btn-default btn-xs" ng-click="deleteVoucher(voucher)">
+          <i class="fa fa-trash-o fa-lg"></i>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
