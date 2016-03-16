@@ -56,6 +56,11 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
 .controller('QueryExecuteController', function($scope, storedqueryService, $stateParams, $log, queries, alertService) {
   var current = queries.find(function (elem) {return elem.id === parseInt($stateParams.query); }),
     limit = 20,
+    templateResolver = {
+      default: 'querytool/renderas/table.tpl.html',
+      resource: 'querytool/renderas/resource.tpl.html',
+      person: 'querytool/renderas/person.tpl.html'
+    },
     displayRows = function (data) {
       $scope.data = data.result;
       $scope.pages = [];
@@ -104,6 +109,13 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
   executeQuery(current)
   .then(displayRows, displayError);
   
+  $scope.template = templateResolver;
+  $scope.template_name = [];
+  for(var key in templateResolver) {
+    if(templateResolver.hasOwnProperty(key)) {
+      $scope.template_name.push(key);
+    }
+  }
   $scope.save = function(id, data) {
     alterQuery(id, data)
     .then(function (query) {

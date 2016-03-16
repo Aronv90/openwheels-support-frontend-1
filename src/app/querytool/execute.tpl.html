@@ -13,6 +13,11 @@
                 <select id="type" class="form-control" ng-model="current.type" ng-options="o as o for o in ['dql', 'sql']"></select>
             </div>
             <div class="form-group">
+                <label for="renderas">Render as</label>
+                <select id="renderas" class="form-control" ng-model="current.renderas" 
+                        ng-options="key for key in template_name"></select>
+            </div>
+            <div class="form-group">
                 <label for="query">Query</label>
                 <textarea id="query" class="form-control" rows="3" ng-model="current.query"></textarea>
             </div>
@@ -23,18 +28,7 @@
 
 <div class="alert alert-warning" ng-if="error_message">Query error: {{error_message}} </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th ng-repeat="(key, value) in data[0]">{{key}}</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="row in data">
-            <td ng-repeat="field in row">{{field}}</td>
-        </tr>
-    </tbody>
-</table>
+<div ng-include="template[current.renderas]"></div>
 
 <nav ng-if="pages.length > 1">
     <ul class="pagination">
