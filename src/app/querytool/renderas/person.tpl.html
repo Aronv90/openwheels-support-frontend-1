@@ -4,7 +4,7 @@
             <img class="img-responsive media-object img-square" ng-src="{{ person | personAvatar:'square' }}">
         </div>
         <div class="col-md-8">
-            {{ person | fullname }} {{ person.id }}, provider {{ person.provider.id }} <b>{{ person.provider.name }}</b>
+            <a ui-sref="root.person.show({ personId: person.id })">{{ person | fullname }}</a> {{ person.id }}, provider {{ person.provider.id }} <b>{{ person.provider.name }}</b>
         
             <ul class="list-inline">
               <li><i class="fa fa-user"></i> {{ person.status }}</li>
