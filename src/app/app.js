@@ -13,7 +13,6 @@ angular.module('openwheels', [
 	'google-maps',
 	'LocalStorageModule',
 	'pascalprecht.translate',
-	'headroom',
 	'ngAutocomplete',
 	'angularFileUpload',
 	'jsonrpc',
