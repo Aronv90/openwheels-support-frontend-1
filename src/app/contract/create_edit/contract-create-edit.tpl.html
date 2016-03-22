@@ -22,6 +22,10 @@
                 <label for="maxDrivers">Max Drivers</label>
                 <input name="maxDrivers" id="maxDrivers" class="form-control" type="number" ng-model="contract.maxDrivers" />
             </div>
+            
+            <div class="checkbox" ng-show="contract.id">
+                <label for="multiBooking"><input name="multiBooking" id="multiBooking" type="checkbox" ng-model="contract.multiBooking" /> Tegelijk tijdige boekingen toestaan</label>
+            </div>
 
             <div class="form-group" ng-show="contract.id">
                 <label for="ownRiskWaiver">Own Risk Waiver</label>
