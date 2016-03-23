@@ -29,7 +29,12 @@ angular.module('openwheels.checklist', [
 	      url: '/dashboard',
 	      controller: 'DashboardController',
 	      templateUrl: 'checklist/dashboard/dashboard.tpl.html',
-	      data: {pageTitle: 'Dashboard'}
+	      data: {pageTitle: 'Dashboard'},
+        resolve: {
+          queries: ['dashboardqueryService', function (dashboardqueryService) {
+              return dashboardqueryService.all();
+            }]
+        }
 	    });
 
 		/**

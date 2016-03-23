@@ -343,4 +343,12 @@ angular.module('rpcServices', [])
       this.alter = m('alter');
       this.create = m('create');
     })
+    .service('dashboardqueryService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('dashboardquery.' + name);
+      };
+      this.all = m('all');
+      this.alter = m('alter');
+      this.create = m('create');
+    })
     ;
