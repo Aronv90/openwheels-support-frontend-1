@@ -17,6 +17,9 @@
                 <select id="renderas" class="form-control" ng-model="current.renderas" 
                         ng-options="key for key in template_name"></select>
             </div>
+            <div class="checkbox" >
+                <label><input type="checkbox" ng-model="current.hide"> query niet in lijst tonen</label>
+            </div>
             <div class="form-group">
                 <label for="query">Query</label>
                 <textarea id="query" class="form-control" rows="3" ng-model="current.query"></textarea>

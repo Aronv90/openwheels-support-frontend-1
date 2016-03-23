@@ -3,7 +3,8 @@
     <article class="panel panel-default card" ng-repeat="query in queries" ng-if="query.total > 0">
         <div class="card-body">
             <table class="table table-condensed">
-                <caption>{{query.title}} totaal:{{query.total}}</caption>
+                <caption> <a ui-sref="root.querytool.execute({query: query.id})">
+                        {{query.title}} totaal:{{query.total}}</a> </caption>
                 <thead>
                     <tr>
                         <th ng-repeat="(key, val) in query.result[0]">{{key}}</th>

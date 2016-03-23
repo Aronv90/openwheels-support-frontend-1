@@ -59,7 +59,8 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
     templateResolver = {
       default: 'querytool/renderas/table.tpl.html',
       resource: 'querytool/renderas/resource.tpl.html',
-      person: 'querytool/renderas/person.tpl.html'
+      person: 'querytool/renderas/person.tpl.html',
+      boeking: 'querytool/renderas/booking.tpl.html'
     },
     displayRows = function (data) {
       $scope.data = data.result;
@@ -75,6 +76,7 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
       current.name = query.name;
       current.query = query.query;
       current.type = query.type;
+      current.hide = query.hide;
       current.renderas = query.renderas;
       
       return query;
@@ -101,6 +103,7 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
           query: data.query,
           name: data.name,
           type: data.type,
+          hide: data.hide,
           renderas: data.renderas
         }
       });

@@ -44,6 +44,7 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
             return result;
           });
           return {
+            id: query.query.id,
             total: data.total,
             result: result,
             title: query.title
