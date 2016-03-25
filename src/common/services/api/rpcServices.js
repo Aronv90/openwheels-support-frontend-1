@@ -200,6 +200,7 @@ angular.module('rpcServices', [])
       this.getCreditors = m('getCreditors');
       this.create = m('create');
       this.alter = m('alter');
+      this.createRecipientInvoiceGroup = m('createRecipientInvoiceGroup');
     })
 
     .service('paymentService', function (api) {
@@ -210,6 +211,7 @@ angular.module('rpcServices', [])
       this.payBooking = m('payBooking');
       this.payInvoiceGroup = m('payInvoiceGroup');
       this.getInvoiceGroups = m('getInvoiceGroups');
+      this.payoutInvoiceGroup = m('payoutInvoiceGroup');
       this.getPayouts = m('getPayouts');
       this.getPayments = m('getPayments');
       this.processPayout = m('processPayout');
