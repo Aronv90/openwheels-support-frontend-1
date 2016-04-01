@@ -6,7 +6,8 @@ angular.module('openwheels.person', [
 	'openwheels.person.create',
 	'openwheels.person.search',
 	'openwheels.person.edit.data',
-	'openwheels.person.rentalcheck'
+	'openwheels.person.rentalcheck',
+  'openwheels.person.show.payouts'
 ])
 
 	.config(function ($stateProvider) {
@@ -421,6 +422,17 @@ angular.module('openwheels.person', [
 			controller: 'PersonShowVouchersController',
 			templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
 			data: {pageTitle: 'Person Vouchers'},
+		});
+
+		/* Payouts */
+		$stateProvider.state('root.person.show.payouts', {
+			url: '/payouts',
+			controller: 'PersonShowPayoutsController',
+			templateUrl: 'person/show/payouts/payouts.tpl.html',
+			data: {pageTitle: 'Person Payouts'},
+      resolve: {payouts: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
+        return paymentService.getPayouts({person: $stateParams.personId});
+      }]}
 		});
 
 		$stateProvider.state('root.person.show.revisions', {
