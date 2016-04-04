@@ -353,4 +353,16 @@ angular.module('rpcServices', [])
       this.alter = m('alter');
       this.create = m('create');
     })
+    .service('queryreportService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('queryreport.' + name);
+      };
+      this.all = m('all');
+      this.alter = m('alter');
+      this.create = m('create');
+      this.get = m('get');
+      this.execute = m('execute');
+      this.addQuery = m('addQuery');
+      this.remQuery = m('remQuery');
+    })
     ;
