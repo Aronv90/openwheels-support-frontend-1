@@ -43,8 +43,8 @@
   <tbody>
     <tr ng-repeat="voucher in vouchers">
       <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
-      <td><b>{{ voucher.currency }} {{ voucher.value }}</b></td>
-      <td>{{ voucher.currency }} {{ voucher.initialValue }}</td>
+      <td><b>{{ voucher.currency }} {{ voucher.value | number:2 }}</b></td>
+      <td>{{ voucher.currency }} {{ voucher.initialValue | number:2 }}</td>
       <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
       <td>{{ voucher.id }}</td>
       <td ng-if="!voucher.payments.length">
