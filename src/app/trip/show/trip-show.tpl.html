@@ -28,8 +28,11 @@
             class="text-muted" >{{ booking.trip.odoBegin }}km - {{ booking.trip.odoEnd }}km</span>
             <b>finalized:</b> {{ booking.trip.finalized || '-' }}
           </li>
-          <li ng-if="! (booking.trip.odoBegin && booking.trip.begin)">
+          <li ng-if="! (booking.trip.odoBegin || booking.trip.begin)">
             <i class="fa fa-clock-o"></i> <strong>Trip</strong> No trip set
+          </li>
+          <li ng-if="booking.trip.odoBegin || booking.trip.begin"">
+            <i class="fa fa-clock-o"></i> <strong>Chipcard</strong> <a ui-sref="root.person.show.chipcards({personId: booking.person.id})">{{ booking.trip.userChip }}</a>
           </li>
           <li>&nbsp;</li>
           <li>
