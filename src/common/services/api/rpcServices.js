@@ -87,17 +87,16 @@ angular.module('rpcServices', [])
     })
 
     .service('voucherService', function (api) {
-      var m = function (name) {
-        return api.createRpcMethod('voucher.' + name);
-      };
-      this.get = m('get');
-      this.search = m('search');
-      this.calculateRequiredCredit = m('calculateRequiredCredit');
-      this.calculateCredit = m('calculateCredit');
-      this.calculateDebt = m('calculateDebt');
-      this.createVoucher = m('createVoucher');
-      this.recalculate = m('recalculate');
-    })
+        var m = function (name) { return api.createRpcMethod('voucher.' + name ); };
+        this.get = m('get');
+        this.search = m('search');
+        this.calculateRequiredCredit = m('calculateRequiredCredit');
+        this.calculateCredit = m('calculateCredit');
+        this.calculateDebt = m('calculateDebt');
+        this.createVoucher = m('createVoucher');
+        this.deleteVoucher = m('deleteVoucher');
+        this.recalculate = m('recalculate');
+      })
 
     .service('resourceService', function (api) {
       var m = function (name) {
@@ -185,39 +184,35 @@ angular.module('rpcServices', [])
       this.alterInvoiceLine = m2('alterInvoiceRule');
     })
 
-    .service('invoice2Service', function (api) {
-      var m = function (name) {
-        return api.createRpcMethod('invoice2.' + name);
-      };
-      this.approve = m('approve');
-      this.disapprove = m('disapprove');
-      this.calculatePrice = m('calculatePrice');
-      this.get = m('get');
-      this.getSent = m('getSent');
-      this.getReceived = m('getReceived');
-      this.getInvoiceGroup = m('getInvoiceGroup');
-      this.getDebtors = m('getDebtors');
-      this.getCreditors = m('getCreditors');
-      this.create = m('create');
-      this.alter = m('alter');
-      this.createRecipientInvoiceGroup = m('createRecipientInvoiceGroup');
-    })
+  .service('invoice2Service', function (api) {
+    var m = function (name) { return api.createRpcMethod('invoice2.' + name ); };
+    this.approve                    = m('approve');
+    this.disapprove                 = m('disapprove');
+    this.calculatePrice             = m('calculatePrice');
+    this.get                        = m('get');
+    this.getSent                    = m('getSent');
+    this.getReceived                = m('getReceived');
+    this.getInvoiceGroup            = m('getInvoiceGroup');
+    this.getDebtors                 = m('getDebtors');
+    this.getCreditors               = m('getCreditors');
+    this.create                     = m('create');
+    this.alter                      = m('alter');
+    this.createSenderInvoiceGroup   = m('createSenderInvoiceGroup');
+  })
 
-    .service('paymentService', function (api) {
-      var m = function (name) {
-        return api.createRpcMethod('payment.' + name);
-      };
-      this.pay = m('pay');
-      this.payBooking = m('payBooking');
-      this.payInvoiceGroup = m('payInvoiceGroup');
-      this.getInvoiceGroups = m('getInvoiceGroups');
-      this.payoutInvoiceGroup = m('payoutInvoiceGroup');
-      this.getPayouts = m('getPayouts');
-      this.getPayments = m('getPayments');
-      this.processPayout = m('processPayout');
-      this.deletePayout = m('deletePayout');
-      this.refundBooking = m('refundBooking');
-    })
+  .service('paymentService', function (api) {
+    var m = function (name) { return api.createRpcMethod('payment.' + name); };
+    this.pay                    = m('pay');
+    this.payBooking             = m('payBooking');
+    this.payInvoiceGroup        = m('payInvoiceGroup');
+    this.getInvoiceGroups       = m('getInvoiceGroups');
+    this.getPayouts             = m('getPayouts');
+    this.getPayments            = m('getPayments');
+    this.processPayout          = m('processPayout');
+    this.deletePayout           = m('deletePayout');
+    this.refundBooking          = m('refundBooking');
+    this.payoutInvoiceGroup     = m('payoutInvoiceGroup');
+  })
 
     .service('accountService', function (api) {
       var m = function (name) {

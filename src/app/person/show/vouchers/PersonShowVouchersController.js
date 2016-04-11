@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.show.vouchers', [])
 
-.controller('PersonShowVouchersController', function ($q, $modal, $scope, alertService, voucherService, person) {
+.controller('PersonShowVouchersController', function ($q, $modal, $scope, alertService, voucherService, person, dialogService) {
 
   $scope.person = person;
   $scope.vouchers = null;
@@ -112,6 +112,25 @@ angular.module('openwheels.person.show.vouchers', [])
     .then(getRequiredValue)
     .catch(alertService.addError)
     .finally(alertService.loaded);
+  };
+
+  $scope.deleteVoucher = function (voucher) {
+    dialogService.showModal().then(function () {
+      alertService.load();
+      voucherService.deleteVoucher({ voucher: voucher.id })
+      .then(function (result) {
+        alertService.add('success', 'Ok', 5000);
+
+        /* update changes in $scope */
+        var index = $scope.vouchers.indexOf(voucher);
+        if (index >= 0) {
+          $scope.vouchers.splice(index, 1);
+        }
+
+      })
+      .catch(alertService.addError)
+      .finally(alertService.loaded);
+    });
   };
 
 });

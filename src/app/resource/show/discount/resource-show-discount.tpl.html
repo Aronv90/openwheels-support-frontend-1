@@ -54,6 +54,7 @@
               <th>Until</th>
               <th>Discount</th>
               <th>Global</th>
+              <th>GlobalCharge</th>
               <th>Multiple</th>
             </tr>
           </thead>
@@ -62,21 +63,20 @@
               <td>{{ discount.code }}</td>
               <td>
                 <a ui-sref="root.person.show.summary({ personId: discount.sender.id })">
-                  {{ discount.sender | fullname }}
+                  {{ discount.sender.firstName }}
                 </a>
               </td>
               <td>
                 <a ui-sref="root.person.show.summary({ personId: discount.recipient.id })">
-                  {{ discount.recipient | fullname }}
+                  {{ discount.recipient.firstName }}
                 </a>
               </td>
-              <td>{{ discount.validFrom | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
+              <td>{{ discount.validFrom | amDateFormat : 'DD-MM-YY' }}</td>
               <td>{{ discount.validUntil | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
-              <td class="text-right" ng-show="discount.amount">
-                <b>{{ ( -1 * discount.amount) | currency }}</b>
-              </td>
+              <td class="text-right" ng-show="discount.amount">{{ ( -1 * discount.amount) | currency }}</td>
               <td class="text-right" ng-show="discount.percentage">{{ discount.percentage / 100 | percentage }}</td>
               <td>{{ discount.global }}</td>
+              <td>{{ discount.globalCharge }}</td>
               <td>{{ discount.multiple }}</td>
               <td ng-if="!payout.paid">
                 <a ng-click="disableDiscount(discount)">Disable</a><br/>

@@ -14,8 +14,8 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   ungroupedSentInvoices,
   accounts,
   invoice2Service,
-  $log,
-  paymentService
+  paymentService,
+  API_DATE_FORMAT
   ) {
 
   $scope.invoiceGroups = invoiceGroups;
@@ -64,6 +64,31 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
     })
     .then(function () {
       account.approved = false;
+    })
+    .catch(alertService.addError).finally(alertService.loaded);
+  };
+
+  // 1) verzamel invoices
+  // 2) verzoek om uitbetaling verzamelfactuur
+  $scope.payoutInvoices = function () {
+    alertService.load($scope);
+    invoice2Service.createSenderInvoiceGroup({ person: $stateParams.personId }).then(function (invoiceGroup) {
+      $scope.ungroupedSentInvoices.length = 0;
+      $scope.invoiceGroups = $scope.invoiceGroups || [];
+      $scope.invoiceGroups.push(invoiceGroup);
+      return $scope.payoutInvoiceGroup(invoiceGroup);
+    })
+    .catch(alertService.addError).finally(alertService.loaded);
+  };
+
+  // verzoek om uitbetaling verzamelfactuur
+  $scope.payoutInvoiceGroup = function (invoiceGroup) {
+    alertService.load($scope);
+    return paymentService.payoutInvoiceGroup({ invoiceGroup: invoiceGroup.id }).then(function (result) {
+      // add fake payout request
+      invoiceGroup.payoutRequest = {
+        created: moment().format(API_DATE_FORMAT)
+      };
     })
     .catch(alertService.addError).finally(alertService.loaded);
   };
