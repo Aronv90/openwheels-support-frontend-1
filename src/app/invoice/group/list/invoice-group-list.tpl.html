@@ -1,7 +1,6 @@
 <div ng-show="$state.includes('root.person')">
-  <h3>Rekeningnummer: {{ invoiceGroups[0].person.accounts[0].rekeningnummer || "onbekend" }}
-    <small>{{ invoiceGroups[0].person.accounts[0].id }}</small>
-    <span class="pull-right">IBAN: {{ invoiceGroups[0].person.accounts[0].iban || "onbekend" }}</span></h3>
+    <h3>IBAN: {{ invoiceGroups[0].person.accounts[0].iban || "onbekend" }}
+    <small>{{ invoiceGroups[0].person.accounts[0].id }}</small></h3>
   <ul class="list-inline">
     <li><strong>Saldo:</strong> {{ invoiceGroups[0].person.accounts[0].saldo | currency }}</li>
     <li><strong>Credit:</strong> {{ invoiceGroups[0].person.accounts[0].credit | currency }}</li>
