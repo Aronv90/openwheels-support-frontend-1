@@ -219,7 +219,7 @@
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search person"
                ng-model="selectedPerson"
-               typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)"
+               typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br>Provider ' + person.provider.id + '</small></p>') for person in searchPersons($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectPerson()"
                typeahead-input-formatter="formatPerson($model)">
       </div>
@@ -228,7 +228,7 @@
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search resource"
                ng-model="selectedResource"
-               typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '</small></p>') for resource in searchResources($viewValue)"
+               typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectResource()"
                typeahead-input-formatter="formatResource($model)">
       </div>
