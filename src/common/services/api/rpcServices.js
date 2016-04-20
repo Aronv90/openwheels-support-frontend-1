@@ -339,6 +339,8 @@ angular.module('rpcServices', [])
       this.execute = m('execute');
       this.alter = m('alter');
       this.create = m('create');
+      this.mute = m('mute');
+      this.unmuted = m('unmuted');
     })
     .service('dashboardqueryService', function (api) {
       var m = function (name) {

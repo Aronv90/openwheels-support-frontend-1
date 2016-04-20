@@ -10,7 +10,8 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
           $q,
           storedqueryService,
           queries,
-          $log
+          $log,
+          $modal
         ) {
   var populateRitten = function(result) {
       var list = result[0];
@@ -32,14 +33,17 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
     },
     doUpdate = function () {
       var queryResults = queries.map(function (query) {
-        var data = storedqueryService.execute({
+        var data = storedqueryService.unmuted({
           storedquery: query.query.id,
           limit: 5
         }).then(function (data) {
           var result = data.result.map(function(row) {
             var result = {};
-            for(var key in query.fieldmap) {
-              result[key] = resolveDot(row, query.fieldmap[key]);
+            for(var i in query.fieldmap) {
+              if(query.fieldmap[i].key) {
+                result._key = resolveDot(row, query.fieldmap[i].path);
+              }
+              result[query.fieldmap[i].title] = resolveDot(row, query.fieldmap[i].path);
             }
             return result;
           });
@@ -47,7 +51,8 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
             id: query.query.id,
             total: data.total,
             result: result,
-            title: query.title
+            title: query.title,
+            column: query.fieldmap.map(function (x) { return x.title; })
           };
         });
         return data;
@@ -75,6 +80,35 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
       ]).then(populateRitten);
     };
     
+  $scope.snooze = function (query, key, row) {
+    $modal.open({
+      templateUrl: 'checklist/dashboard/snoze.tpl.html',
+      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+        $scope.snooze = function (timeout) {
+          storedqueryService.mute({
+            storedquery: query,
+            key: key,
+            until: timeout
+          });
+          row._class = 'warning';
+          $modalInstance.dismiss();
+        };
+        $scope.close = function () {
+          $modalInstance.dismiss();
+        };
+      }]
+    });
+  };
+  $scope.done = function (query, key, row) {
+    row._class = 'success';
+    storedqueryService.mute({
+      storedquery: query,
+      key: key
+    }).then(function(x) {
+      $log.log(x);
+    });
+  };
+  
   //queries.forEach($log.log);
   $scope.chartData = {
     'type': 'AreaChart',

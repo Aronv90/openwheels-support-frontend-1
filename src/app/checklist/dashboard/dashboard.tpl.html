@@ -2,17 +2,24 @@
 <section class="col-md-6">
     <article class="panel panel-default card" ng-repeat="query in queries" ng-if="query.total > 0">
         <div class="card-body">
-            <table class="table table-condensed">
+            <table class="table table-condensed table-hover">
                 <caption> <a ui-sref="root.querytool.execute({query: query.id})">
-                        {{query.title}} totaal:{{query.total}}</a> </caption>
+                    {{query.title}} totaal:{{query.total}}</a> </caption>
                 <thead>
                     <tr>
-                        <th ng-repeat="(key, val) in query.result[0]">{{key}}</th>
+                        <th ng-repeat="key in query.column">{{key}}</th>
+                        <td class="snooze"> </td>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr ng-repeat="row in query.result">
-                        <td ng-repeat="val in row">{{val}}</td>
+                    <tr ng-repeat="row in query.result" class="{{row._class}}">
+                        <td ng-repeat="key in query.column">{{row[key]}}</td>
+                        <td> 
+                            <a ng-click="snooze(query.id, row._key, row)" class="btn btn-warning btn-xs btn-round-hover">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i></a>
+                            <a ng-click="done(query.id, row._key, row)" class="btn btn-success btn-xs btn-round-hover">
+                                <i class="fa fa-check" aria-hidden="true"></i> </a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
