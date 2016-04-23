@@ -1,0 +1,108 @@
+<div class="modal-content">
+    <form name="discountCreateForm" ng-submit="save(discount)">
+
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
+            <h4 class="modal-title">Create Discount</h4>
+        </div>
+
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="resource">Resource</label>
+            <form class="navbar-form navbar-left" role="search">
+              <div class="form-group">
+                <input type="text" class="form-control input-sm typeahead" placeholder="Search resource"
+                       ng-model="discount.resource"
+                       typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+                       typeahead-min-length="3" typeahead-input-formatter="formatResource($model)">
+              </div>
+            </form>
+          </div>
+
+          <div class="form-group">
+            <label for="sender">Sender</label>
+            <input find-person model="discount.sender" id="sender" name="sender" />
+          </div>
+
+          <div class="form-group">
+            <label for="recipient">Person (optional)</label>
+            <input find-person model="discount.recipient" id="recipient" name="recipient" />
+          </div>
+
+          <div class="form-group">
+            <div class="row">
+              <div class="col-xs-6">
+                <label for="from">From (optional)</label>
+                <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                       ng-model="discount.from" pickadate="dateConfig">
+              </div>
+
+              <div class="col-xs-6">
+                <label for="until">Until (optional)</label>
+                <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                       ng-model="discount.until" pickadate="dateConfig">
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="amount">Amount</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">€</span>
+                        <input type="text" smart-float id="amount" name="amount" class="form-control"
+                               ng-model="discount.amount" required placeholder="amount" ng-disabled="discount.percentage">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="hourRate">Percentage</label>
+
+                    <div class="input-group">
+                        <span class="input-group-addon">%</span>
+                        <input type="text" smart-float id="percentage" name="percentage" class="form-control"
+                               ng-model="discount.percentage" required placeholder="percentage" ng-disabled="discount.amount">
+                    </div>
+                </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="discount.multiple"> Multiple
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="discount.global" ng-disabled="discount.globalCharge"> Global
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-xs-4">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" ng-model="discount.globalCharge" ng-disabled="discount.global"> GlobalCharge
+                    </label>
+                </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
+            <button type="submit" class="btn btn-primary" ng-click="save()">Submit</button>
+        </div>
+
+    </form>
+</div>
