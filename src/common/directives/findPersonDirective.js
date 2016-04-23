@@ -35,7 +35,7 @@ angular.module('findperson', [])
         attrs.$set('class', 'form-control input-sm typeahead');
         attrs.$set('placeholder', 'Search person');
         attrs.$set('typeahead', 'person as (\'<p>\' + (person|fullname) + \' [\' + person.id + \']' +
-          '<br><small>\' + person.city + \'<br>\' + person.email + \'</small></p>\') ' +
+          '<br><small>\' + person.city + \'<br>\' + person.email + \'<br>Provider \' + person.provider.id + \'</small></p>\') ' +
           'for person in searchPersons($viewValue)');
         attrs.$set('typeaheadMinLength', 3);
         attrs.$set('ngModel', 'model');

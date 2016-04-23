@@ -2,7 +2,7 @@
 
 angular.module('openwheels.resource.show.discount', [])
 
-.controller( 'ResourceShowDiscountController', function ($location, $state, $stateParams, $scope, dialogService, alertService, discountService, discounts) {
+.controller( 'ResourceShowDiscountController', function ($location, $modal, $state, $stateParams, $scope, dialogService, alertService, discountService, discounts) {
 
   $scope.discounts = discounts;
 
@@ -32,6 +32,24 @@ angular.module('openwheels.resource.show.discount', [])
 
   $scope.clear = function () {
     $location.search({});
+  };
+
+  $scope.createDiscount = function (resource) {
+    $modal.open({
+      templateUrl: 'resource/show/discount/create/discount-create-edit.tpl.html',
+      windowClass: 'modal--xl',
+      controller: 'DiscountCreateController',
+      resolve: {
+        resource: function () {
+          return resource;
+        }
+      }
+    })
+    .result.then(function (returnedDiscount) {
+      $scope.discounts.push(returnedDiscount);
+    })
+    .catch(alertService.addError)
+    .finally(alertService.loaded);
   };
 
   $scope.disableDiscount = function (discount) {
