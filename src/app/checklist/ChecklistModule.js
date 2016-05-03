@@ -85,4 +85,19 @@ angular.module('openwheels.checklist', [
 			role: 'ROLE_ADMIN'
 		});
 
+		/**
+		 * checklist/:queryid
+		 */
+		$stateProvider.state('root.checklist.generic', {
+			url: '/{queryid:int}',
+			controller: ['$scope', 'query', function ($scope, query) {$scope.query = query; }],
+			templateUrl: 'checklist/generic/generic.tpl.html',
+			data: {pageTitle: 'Checklist'},
+			resolve: {
+        query: ['$stateParams', 'dashboardqueryService', function ($stateParams, dashboardqueryService) {
+            return dashboardqueryService.get({query: $stateParams.queryid});
+          }]
+			},
+			role: 'ROLE_ADMIN'
+		});
 	});

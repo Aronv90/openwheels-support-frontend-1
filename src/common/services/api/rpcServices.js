@@ -349,6 +349,7 @@ angular.module('rpcServices', [])
       this.all = m('all');
       this.alter = m('alter');
       this.create = m('create');
+      this.get = m('get');
     })
     .service('queryreportService', function (api) {
       var m = function (name) {
