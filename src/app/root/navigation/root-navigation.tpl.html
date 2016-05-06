@@ -184,6 +184,9 @@
           <li ng-class="{ active: $state.includes('ow-dashboard') }">
             <a ui-sref="ow-dashboard">Dashboard</a>
           </li>
+          <li ui-sref-active="active" ng-repeat="item in checklists"> 
+            <a ui-sref="root.checklist.generic({queryid: item.id})">{{item.title}}</a>
+          </li>
         </ul>
       </li>
     </ul>

@@ -342,13 +342,14 @@ angular.module('rpcServices', [])
       this.mute = m('mute');
       this.unmuted = m('unmuted');
     })
-    .service('dashboardqueryService', function (api) {
+    .service('checklistService', function (api) {
       var m = function (name) {
-        return api.createRpcMethod('dashboardquery.' + name);
+        return api.createRpcMethod('checklist.' + name);
       };
       this.all = m('all');
       this.alter = m('alter');
       this.create = m('create');
+      this.get = m('get');
     })
     .service('queryreportService', function (api) {
       var m = function (name) {
