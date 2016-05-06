@@ -31,8 +31,8 @@ angular.module('openwheels.checklist', [
 	      templateUrl: 'checklist/dashboard/dashboard.tpl.html',
 	      data: {pageTitle: 'Dashboard'},
         resolve: {
-          queries: ['dashboardqueryService', function (dashboardqueryService) {
-              return dashboardqueryService.all();
+          queries: ['checklistService', function (checklistService) {
+              return checklistService.all();
             }]
         }
 	    });
@@ -94,8 +94,8 @@ angular.module('openwheels.checklist', [
 			templateUrl: 'checklist/generic/generic.tpl.html',
 			data: {pageTitle: 'Checklist'},
 			resolve: {
-        query: ['$stateParams', 'dashboardqueryService', function ($stateParams, dashboardqueryService) {
-            return dashboardqueryService.get({query: $stateParams.queryid});
+        query: ['$stateParams', 'checklistService', function ($stateParams, checklistService) {
+            return checklistService.get({query: $stateParams.queryid});
           }]
 			},
 			role: 'ROLE_ADMIN'
