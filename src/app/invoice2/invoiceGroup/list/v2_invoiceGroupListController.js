@@ -131,8 +131,15 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   };
 
   $scope.refresh = function () {
-    $state.go($state.current.name, $scope.params);
+    $state.go($state.current.name, $scope.params, {reload: true});
   };
+  
+  $scope.createGroup = function (user) {
+    alertService.load($scope, 'Bundeling invoices');
+    invoice2Service.createRecipientInvoiceGroup({person: user, positiveOnly: false})
+    .then($scope.refresh);
+  };
+  
 
 })
 ;

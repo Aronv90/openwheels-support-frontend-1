@@ -49,7 +49,8 @@ angular.module('openwheels.contract.create_edit', [])
 							status: contract.status,
 							type: contract.type.id,
 							maxDrivers: contract.maxDrivers,
-							ownRiskWaiver: contract.ownRiskWaiver
+							ownRiskWaiver: contract.ownRiskWaiver,
+              multiBooking: contract.multiBooking
 						}
 					})
 						.then(function (contract) {

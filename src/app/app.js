@@ -13,7 +13,6 @@ angular.module('openwheels', [
 	'google-maps',
 	'LocalStorageModule',
 	'pascalprecht.translate',
-	'headroom',
 	'ngAutocomplete',
 	'angularFileUpload',
 	'jsonrpc',
@@ -73,7 +72,8 @@ angular.module('openwheels', [
 	'flatObjectInterceptService',
 	'settingsService',
 	'transactionService',
-	'DutchZipcodeService'
+	'DutchZipcodeService',
+  'openwheels.querytool'
 ])
 
 	.config(function myAppConfig($stateProvider, $urlRouterProvider) {

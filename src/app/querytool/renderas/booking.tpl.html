@@ -1,0 +1,36 @@
+<ul class="list-group">
+<li class="list-group-item" ng-repeat="booking in data">
+    
+      <a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person | fullname }}</a> in
+      <a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }} ({{ booking.resource.registrationPlate}})</a>
+      ritnr: <a ui-sref="root.trip.show.summary({tripId: booking.id})">{{ booking.id }}</a>
+    <div class="row">
+        <div class="col-sm-8">
+        <ul class="list-unstyled">
+          <li>
+            <i class="fa fa-clock-o"></i>
+            <strong>Booking</strong>
+              {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}} Tot: {{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}}
+              <b>status:</b>
+              <span
+                ng-class="{ 'text-success': booking.status === 'accepted', 'text-warning': booking.status === 'requested', 'text-danger': booking.status === 'cancelled' }">{{ booking.status || '?' }}</span>
+            <b>approved:</b> {{ booking.approved || '-' }}
+          </li>
+
+          <li ng-class="{'text-danger': booking.beginRequested}">
+            <i class="fa fa-clock-o"></i> <strong>Request</strong>
+            <span ng-if="booking.beginRequested">{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}} Tot: {{ booking.endRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}}</span>
+            <span ng-if="! booking.beginRequested">No current request</span>
+          </li>
+          <li>
+            <strong>Driver</strong> <a ui-sref="root.person.show.summary({personId: booking.person.id})">{{booking.person| fullname }}</a>
+            <span class="text-grey">{{ booking.person.id }}</span>, {{booking.person.status}}, {{booking.person.email}}, {{booking.person.city}}
+          </li>
+          <li> 
+            <strong>Contract</strong> <a ng-click="getContract(booking.contract.id)">{{booking.contract.id}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+</li>
+</ul>

@@ -1,0 +1,22 @@
+<ul class="list-group">
+<li class="list-group-item" ng-repeat="resource in data">
+    <div class="row">
+        <div class="col-md-1">
+            <img class="img-responsive media-object img-square" ng-src="{{ resource.pictures[0] | resourceAvatar:'small' }}">
+        </div>
+        <div class="col-md-8">
+            <a ui-sref="root.resource.show({ resourceId: resource.id }">{{ resource.alias}}</a>
+            <span class="lead text-muted">({{ resource.registrationPlate}})</span>
+            van <a ui-sref="root.person.show({ personId: resource.ownerId })">{{ resource.owner.firstName}}</a>
+            {{ resource.id}}
+            <ul class="list-inline">
+                <li>{{ resource.isActive ? 'Active' : 'Inactive' }}</li>
+                <li><i class="fa fa-calendar"></i> {{ resource.created | amDateFormat:'DD-MM-YYYY' }}</li>
+                <li><i class="fa fa-map-marker"></i> {{ resource.location}}, {{ resource.city}}</li>
+                <li><i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Available for others' : 'Not available for others'}}</li>
+                <li><i class="fa fa-gear"></i> {{ resource.fuelType}}</li>
+            </ul>
+        </div>
+    </div>
+</li>
+</ul>

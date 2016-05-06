@@ -1,0 +1,28 @@
+<p ng-if="!data">de data wordt geladen</p>
+<section ng-repeat="query in data">
+    <h3>{{query.title}} <small>{{query.result.length}} records 
+            [ <a ng-click="remFromReport(report.id, query.id)">verwijder</a> |
+            <a ui-sref="root.querytool.execute({query: query.id})">bewerk</a> ]</small></h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th ng-repeat="(key, value) in query.result[0]">{{key}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in query.result">
+                <td ng-repeat="field in row">{{field}}</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</section>
+<section>
+    <form class="form-inline" ng-submit="addToReport(report.id, toadd.id)">
+        <div class="form-group">
+            <select ng-options="item.name for item in queries" 
+                    ng-model="toadd" class="form-control"></select>
+        </div>
+        <input type="submit" value="add to report" class="btn btn-success" ng-disabled="!toadd">
+    </form>
+</section>

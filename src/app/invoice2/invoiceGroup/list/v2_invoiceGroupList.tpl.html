@@ -100,7 +100,7 @@
             <td>
               {{ elm.paid | amDateFormat: 'DD-MM-YYYY' }}
               <span ng-if="!elm.paid" class="text-danger">
-                <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
+                  <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
               </span>
             </td>
 
@@ -126,7 +126,11 @@
 
     <div ng-if="$state.includes('root.person')" class="panel panel-default card">
       <div class="panel-body">
-        <h3>Ungrouped received invoices</h3>
+          <h3>
+              Ungrouped received invoices 
+              <button class="btn btn-default" ng-click="createGroup(person.id)">bundle</button>
+          </h3> 
+          
 
         <table class="table">
           <thead>

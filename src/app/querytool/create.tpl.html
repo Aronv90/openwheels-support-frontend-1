@@ -1,0 +1,15 @@
+<form ng-submit="save(current)">
+    <div class="form-group" >
+      <label for="name">Query naam</label>
+      <input id="name" class="form-control" ng-model="current.name" >
+    </div>
+    <div class="form-group">
+      <label for="type">Query type</label>
+      <select id="type" class="form-control" ng-model="current.type" ng-options="o as o for o in ['dql', 'sql']"></select>
+    </div>
+    <div class="form-group">
+        <label for="query">Query</label>
+        <textarea id="query" class="form-control" rows="3" ng-model="current.query"></textarea>
+    </div>
+    <input type="submit" class="btn btn-default" value="opslaan"> 
+</form>

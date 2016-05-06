@@ -1,0 +1,19 @@
+<ul class="list-group">
+    <li class="list-group-item row" ng-repeat="person in data"> 
+        <div class="col-md-1">
+            <img class="img-responsive media-object img-square" ng-src="{{ person | personAvatar:'square' }}">
+        </div>
+        <div class="col-md-8">
+            <a ui-sref="root.person.show({ personId: person.id })">{{ person | fullname }}</a> {{ person.id }}, provider {{ person.provider.id }} <b>{{ person.provider.name }}</b>
+        
+            <ul class="list-inline">
+              <li><i class="fa fa-user"></i> {{ person.status }}</li>
+              <li><i class="fa fa-calendar"></i> {{ person.created | amDateFormat:'DD-MM-YYYY' }}</li>
+              <li><a href="mailto:{{person.email}}"><i class="fa fa-envelope"></i></a> {{ person.email }}</li>
+              <li><i class="fa fa-mobile-phone"></i> <span ng-repeat="phone in person.phoneNumbers | limitTo: 2">{{ phone.number }}<span ng-if="!$last">, </span></span></li>
+              <li><i class="fa fa-home"></i> {{ person.streetName }} {{ person.streetNumber }}, {{person.zipcode}} {{ person.city }}</li>
+              <li><i class="fa fa-calendar-o"></i> {{ person.dateOfBirth | amDateFormat:'DD-MM-YYYY' }}</li>
+            </ul>
+        </div>
+    </li>
+</ul>

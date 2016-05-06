@@ -1,6 +1,38 @@
 
-<section class="row">
-    <article class="col-md-6 panel panel-default card">
+<section class="col-md-6">
+    <article class="panel panel-default card" ng-repeat="query in queries" ng-if="query.total > 0">
+        <div class="card-body">
+            <table class="table table-condensed table-hover">
+                <caption> <a ui-sref="root.querytool.execute({query: query.id})">
+                    {{query.title}} totaal:{{query.total}}</a> </caption>
+                <thead>
+                    <tr>
+                        <th ng-repeat="key in query.column">{{key}}</th>
+                        <td class="snooze"> </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="row in query.result" class="{{row._class}}">
+                        <td ng-repeat="key in query.column">{{row[key]}}</td>
+                        <td> 
+                            <a ng-click="snooze(query.id, row._key, row)" class="btn btn-warning btn-xs btn-round-hover">
+                                <i class="fa fa-clock-o" aria-hidden="true"></i></a>
+                            <a ng-click="done(query.id, row._key, row)" class="btn btn-success btn-xs btn-round-hover">
+                                <i class="fa fa-check" aria-hidden="true"></i> </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+
+</section>
+<section class="col-md-6">
+    <article class="">
+        <div google-chart chart="chartData" style="height:20em"> </div>
+    </article>
+    
+    <article class="panel panel-default card" ng-if="unfinishedJobs.length > 0">
         <div class="card-body">
         <table class="table table-condensed">
             <caption>CComE messages {{unfinishedJobs.length}}</caption>
@@ -23,12 +55,7 @@
         </table>
         </div>
     </article>
-    <article class="col-md-6">
-        <div google-chart chart="chartData" style="height:20em"> </div>
-    </article>
-</section>
-<section class="row">
-    <article class="col-md-6 panel panel-default card">
+    <article class=" panel panel-default card" ng-if="notActiveDrivers.length > 0">
         <div class="card-body">
         <table class="table table-condensed">
             <caption>Driver Licenses {{notActiveDrivers.length}}</caption>
@@ -58,7 +85,8 @@
         </table>
         </div>
     </article>
-    <article class="col-md-6 panel panel-default card">
+    
+    <article class="panel panel-default card" ng-if="requested.length > 0">
         <div class="card-body">
         <table class="table table-condensed">
             <caption>Requested {{requested.length}}</caption>
