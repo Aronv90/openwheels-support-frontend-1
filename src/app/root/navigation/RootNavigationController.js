@@ -11,10 +11,10 @@ angular.module('openwheels.root.navigation', [])
     personService,
     resourceService,
     authService,
-    dashboardqueryService
+    checklistService
   ) {
 
-    dashboardqueryService.all().then(function (data) {
+    checklistService.all().then(function (data) {
       $scope.checklists = data;
     });
 		/**
