@@ -2,8 +2,21 @@
 
 angular.module('openwheels.root.navigation', [])
 
-	.controller('RootNavigationController', function ($scope, $rootScope, $state, $stateParams, $filter,
-																	  personService, resourceService, authService) {
+	.controller('RootNavigationController', function (
+    $scope,
+    $rootScope,
+    $state,
+    $stateParams,
+    $filter,
+    personService,
+    resourceService,
+    authService,
+    checklistService
+  ) {
+
+    checklistService.all().then(function (data) {
+      $scope.checklists = data;
+    });
 		/**
 		 * Typeahead Person
 		 */

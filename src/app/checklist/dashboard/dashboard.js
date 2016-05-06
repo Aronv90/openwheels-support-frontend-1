@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('openwheels.checklist.dashboard', ['googlechart'])
+angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.checklist.directive'])
 .controller('DashboardController', function (
           $scope,
           bookingService,
@@ -10,7 +10,8 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
           $q,
           storedqueryService,
           queries,
-          $log
+          $log,
+          $modal
         ) {
   var populateRitten = function(result) {
       var list = result[0];
@@ -23,40 +24,14 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
         data.addRow([item['weekNr'], parseInt(item['rittenEigenAutos']), parseInt(item['rittenP2pAutosS'])]);
       });
     },
-    resolveDot = function (row, resolveto) {
+    /*resolveDot = function (row, resolveto) {
       var elms = resolveto.split('.');
       for(var i in elms) {
         row = row[elms[i]];
       }
       return row;
-    },
+    },*/
     doUpdate = function () {
-      var queryResults = queries.map(function (query) {
-        var data = storedqueryService.execute({
-          storedquery: query.query.id,
-          limit: 5
-        }).then(function (data) {
-          var result = data.result.map(function(row) {
-            var result = {};
-            for(var key in query.fieldmap) {
-              result[key] = resolveDot(row, query.fieldmap[key]);
-            }
-            return result;
-          });
-          return {
-            id: query.query.id,
-            total: data.total,
-            result: result,
-            title: query.title
-          };
-        });
-        return data;
-      });
-      
-      $q.all(queryResults).then(function(result) {
-        $scope.queries = result;
-      });
-      
       bookingService.futureByNotActiveDriver().then(function (list) {
         $scope.notActiveDrivers = list;
       });
@@ -74,8 +49,8 @@ angular.module('openwheels.checklist.dashboard', ['googlechart'])
         googleChartApiPromise
       ]).then(populateRitten);
     };
+  $scope.queries = queries;
     
-  //queries.forEach($log.log);
   $scope.chartData = {
     'type': 'AreaChart',
     'displayed': true,
