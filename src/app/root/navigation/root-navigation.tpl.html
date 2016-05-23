@@ -120,7 +120,7 @@
             <a ui-sref="root.invoice2.account.list">Accounts</a>
           </li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoiceGroup.list') }">
-            <a ui-sref="root.invoice2.invoiceGroup.list">Invoice groups</a>
+            <a ui-sref="root.invoice2.invoiceGroup.list({max: 50})">Invoice groups</a>
           </li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoice.debtors-list') }">
             <a ui-sref="root.invoice2.invoice.debtors-list">Debtors</a>

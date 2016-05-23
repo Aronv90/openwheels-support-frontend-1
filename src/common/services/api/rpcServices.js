@@ -210,6 +210,7 @@ angular.module('rpcServices', [])
     this.getPayments            = m('getPayments');
     this.processPayout          = m('processPayout');
     this.deletePayout           = m('deletePayout');
+    this.payoutVoucher          = m('payoutVoucher');
     this.refundBooking          = m('refundBooking');
     this.payoutInvoiceGroup     = m('payoutInvoiceGroup');
   })
