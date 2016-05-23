@@ -33,21 +33,24 @@
 <table class="table">
   <thead>
     <tr>
+      <th>ID</th>
       <th>Created</th>
+      <th>Paid</th>
       <th>Current value</th>
       <th>Initial value</th>
-      <th>Paid</th>
-      <th>ID</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="voucher in vouchers">
+    <tr ng-repeat="voucher in vouchers | orderBy: '-created'">
+      <td>{{ voucher.id }}</td>
       <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
+      <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
       <td><b>{{ voucher.currency }} {{ voucher.value | number:2 }}</b></td>
       <td>{{ voucher.currency }} {{ voucher.initialValue | number:2 }}</td>
-      <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
-      <td>{{ voucher.id }}</td>
-      <td ng-if="!voucher.payments.length">
+      <td ng-if="!voucher.payoutRequest && voucher.value > 0.1"><a href="" ng-click="payoutVoucher(voucher)">Payout</a></td>
+      <td ng-if="voucher.payoutRequest && !voucher.payoutRequest.paid">Payout requested</td>
+      <td ng-if="voucher.payoutRequest && voucher.payoutRequest.paid">Payout accepted</td>
+      <td ng-if="!voucher.payments.length  && !voucher.payoutRequest">
         <button class="btn btn-default btn-xs" ng-click="deleteVoucher(voucher)">
           <i class="fa fa-trash-o fa-lg"></i>
         </button>

@@ -8,9 +8,6 @@
           <div class="form-group">
             <label for="gateway">Gateway</label>
             <input id="gateway" type="text" class="form-control" ng-model="params.gateway" />
-            <select class="pull-right" style="margin-top: 3px" ng-model="params.gateway" ng-options="key as name for (key, name) in gatewayNames">
-              <option value="">Select:</option>
-            </select>
           </div>
 
           <div class="form-group">
@@ -25,12 +22,14 @@
 
           <div class="form-group">
             <label for="startDate">From</label>
-            <input id="startDate" type="text" class="form-control" ng-model="params.startDate" />
+            <input type="text" id="startDate" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="params.startDate" pickadate="dateConfig">
           </div>
 
           <div class="form-group">
             <label for="endDate">Until</label>
-            <input id="endDate" type="text" class="form-control" ng-model="params.endDate" />
+            <input type="text" id="endDate" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="params.endDate" pickadate="dateConfig">
           </div>
 
           <div class="form-group">
@@ -70,11 +69,11 @@
               <td>{{ payment.paymentInstruction.createdAt | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
               <td>{{ payment.paymentInstruction.updatedAt | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
               <td>
-                {{ payment.invoiceGroup.person | fullname }}<br/>
+                <a ui-sref="root.person.show.invoiceGroupV2.list({ personId: payment.invoiceGroup.person.id })">{{ payment.invoiceGroup.person | fullname }}</a>
                 <a ui-sref="root.invoice2.invoiceGroup.show({ invoiceGroupId: payment.invoiceGroup.id })">{{ payment.invoiceGroup.id }}</a>
               </td>
               <td>
-                {{ payment.voucher.person | fullname }}<br/>
+                <a ui-sref="root.person.show.invoiceGroupV2.list({ personId: payment.voucher.person.id })">{{ payment.voucher.person | fullname }}</a>
                 <a ui-sref="root.person.show.vouchers({ personId: payment.voucher.person.id })">{{ payment.voucher.id }}</a>
               </td>
               <td>{{ payment.paymentInstruction.amount | currency : payment.paymentInstruction.currency === 'EUR' ? '€' : payment.paymentInstruction.currency }}</td>

@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.show.vouchers', [])
 
-.controller('PersonShowVouchersController', function ($q, $modal, $scope, alertService, voucherService, person, dialogService) {
+.controller('PersonShowVouchersController', function ($q, $modal, $scope, alertService, voucherService, person, dialogService, paymentService) {
 
   $scope.person = person;
   $scope.vouchers = null;
@@ -110,6 +110,17 @@ angular.module('openwheels.person.show.vouchers', [])
 
     voucherService.recalculate({ person: person.id })
     .then(getRequiredValue)
+    .catch(alertService.addError)
+    .finally(alertService.loaded);
+  };
+
+  $scope.payoutVoucher = function (voucher) {
+    alertService.load();
+    
+    paymentService.payoutVoucher({ voucher: voucher.id })
+    .then(function (result) {
+      return getVouchers();
+    })
     .catch(alertService.addError)
     .finally(alertService.loaded);
   };
