@@ -13,6 +13,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   ungroupedReceivedInvoices,
   ungroupedSentInvoices,
   invoice2Service,
+  accounts,
   paymentService,
   API_DATE_FORMAT
   ) {
@@ -22,6 +23,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   $scope.ungroupedReceivedInvoicesTotal = calculateTotal(ungroupedReceivedInvoices);
   $scope.ungroupedSentInvoices = ungroupedSentInvoices;
   $scope.ungroupedSentInvoicesTotal = calculateTotal(ungroupedSentInvoices);
+  $scope.accounts = accounts;
 
   $scope.FRONT_BASE = settingsService.settings.server;
 
