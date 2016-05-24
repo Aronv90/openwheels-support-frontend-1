@@ -21,13 +21,13 @@
 
           <div class="form-group">
             <label for="from">From</label>
-            <input type="text" id="from" placeholder="Pick a date" class="form-control pickadate-input"
+            <input type="text" id="from" placeholder="pick a date" class="form-control pickadate-input"
                    ng-model="params.from" pickadate="dateConfig">
           </div>
 
           <div class="form-group">
             <label for="until">Until</label>
-            <input type="text" id="until" placeholder="Pick a date" class="form-control pickadate-input"
+            <input type="text" id="until" placeholder="pick a date" class="form-control pickadate-input"
                    ng-model="params.until" pickadate="dateConfig">
           </div>
 
@@ -42,7 +42,10 @@
 
     <div class="panel panel-default card">
       <div class="panel-body">
-        <h3>Invoice groups</h3>
+        <h3>
+          Invoice groups
+          <a ui-sref="root.invoice2.invoice.create" class="btn btn-default" ng-if="$state.includes('root.person')">Create invoice</a>
+        </h3>
 
         <table class="table table-condensed table-hover table-invoice">
 
@@ -128,7 +131,7 @@
       <div class="panel-body">
           <h3>
               Ungrouped received invoices 
-              <button class="btn btn-default" ng-click="createGroup(person.id)">bundle</button>
+              <button class="btn btn-default" ng-click="createGroup(person.id)">Bundle</button>
           </h3> 
           
 

@@ -8,7 +8,6 @@ angular.module('openwheels.invoice2.payment.list', [])
 
   var gatewayNames = $scope.gatewayNames = {
     'paynl_gateway_mywheels': 'MyWheels',
-    'paynl_gateway_anwb': 'ANWB',
     'voucher': 'Voucher',
   };
 
@@ -22,9 +21,21 @@ angular.module('openwheels.invoice2.payment.list', [])
 
   $scope.presets = [
     { label: gatewayNames['voucher'], params: { gateway: 'voucher' } },
-    { label: gatewayNames['paynl_gateway_mywheels'], params: { gateway: 'paynl_gateway_mywheels' } },
-    { label: gatewayNames['paynl_gateway_anwb'], params: { gateway: 'paynl_gateway_anwb' } },
+    { label: gatewayNames['paynl_gateway_mywheels'], params: { gateway: 'paynl_gateway_mywheels' } }
   ];
+
+  $scope.dateConfig = {
+    //model
+    modelFormat: 'YYYY-MM-DD',
+    formatSubmit: 'yyyy-mm-dd',
+
+    //view
+    viewFormat: 'DD-MM-YYYY',
+    format: 'dd-mm-yyyy',
+
+    //options
+    selectMonths: true
+  };
 
   $scope.selectPreset = function (preset) {
     $location.search(preset.params);

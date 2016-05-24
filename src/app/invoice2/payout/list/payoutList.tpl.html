@@ -17,12 +17,14 @@
 
           <div class="form-group">
             <label for="startDate">From</label>
-            <input id="startDate" type="text" class="form-control" ng-model="params.startDate" />
+            <input type="text" id="startDate" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="params.startDate" pickadate="dateConfig">
           </div>
 
           <div class="form-group">
             <label for="endDate">Until</label>
-            <input id="endDate" type="text" class="form-control" ng-model="params.endDate" />
+            <input type="text" id="endDate" placeholder="pick a date" class="form-control pickadate-input"
+                   ng-model="params.endDate" pickadate="dateConfig">
           </div>
 
           <div class="form-group">

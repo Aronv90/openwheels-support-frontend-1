@@ -12,8 +12,8 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   invoiceGroups,
   ungroupedReceivedInvoices,
   ungroupedSentInvoices,
-  accounts,
   invoice2Service,
+  accounts,
   paymentService,
   API_DATE_FORMAT
   ) {

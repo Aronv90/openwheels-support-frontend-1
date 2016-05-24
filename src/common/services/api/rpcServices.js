@@ -186,18 +186,19 @@ angular.module('rpcServices', [])
 
   .service('invoice2Service', function (api) {
     var m = function (name) { return api.createRpcMethod('invoice2.' + name ); };
-    this.approve                    = m('approve');
-    this.disapprove                 = m('disapprove');
-    this.calculatePrice             = m('calculatePrice');
-    this.get                        = m('get');
-    this.getSent                    = m('getSent');
-    this.getReceived                = m('getReceived');
-    this.getInvoiceGroup            = m('getInvoiceGroup');
-    this.getDebtors                 = m('getDebtors');
-    this.getCreditors               = m('getCreditors');
-    this.create                     = m('create');
-    this.alter                      = m('alter');
-    this.createSenderInvoiceGroup   = m('createSenderInvoiceGroup');
+    this.approve                      = m('approve');
+    this.disapprove                   = m('disapprove');
+    this.calculatePrice               = m('calculatePrice');
+    this.get                          = m('get');
+    this.getSent                      = m('getSent');
+    this.getReceived                  = m('getReceived');
+    this.getInvoiceGroup              = m('getInvoiceGroup');
+    this.getDebtors                   = m('getDebtors');
+    this.getCreditors                 = m('getCreditors');
+    this.create                       = m('create');
+    this.alter                        = m('alter');
+    this.createSenderInvoiceGroup     = m('createSenderInvoiceGroup');
+    this.createRecipientInvoiceGroup  = m('createRecipientInvoiceGroup');
   })
 
   .service('paymentService', function (api) {
@@ -210,6 +211,7 @@ angular.module('rpcServices', [])
     this.getPayments            = m('getPayments');
     this.processPayout          = m('processPayout');
     this.deletePayout           = m('deletePayout');
+    this.payoutVoucher          = m('payoutVoucher');
     this.refundBooking          = m('refundBooking');
     this.payoutInvoiceGroup     = m('payoutInvoiceGroup');
   })

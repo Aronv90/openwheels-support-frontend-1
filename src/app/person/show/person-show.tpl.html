@@ -39,7 +39,7 @@
     <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
       <ul class="nav navbar-nav">
         <li ng-class="{ active: $state.includes('root.person.show.data') }">
-          <a ui-sref=".data.personal">Gegevens</a>
+          <a ui-sref=".data.personal">Data</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.trip') }">
           <a ui-sref=".trip">Trips</a>
@@ -48,13 +48,17 @@
         <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }">
           <a ui-sref=".invoice-group.list">Verzamelfacturen</a>
         </li>
-
+        <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }">
+          <a ui-sref=".transaction.list">Transactions</a>
+        </li>
         <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }">
           <a ui-sref=".invoiceGroupV2.list">Invoice</a>
         </li>
-
-        <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }">
-          <a ui-sref=".transaction.list">Transactions</a>
+        <li ng-class="{ active: $state.includes('root.person.show.vouchers') }">
+          <a ui-sref=".vouchers">Vouchers</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.payouts') }">
+          <a ui-sref=".payouts">Payouts</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.contracts') }">
           <a ui-sref=".contracts">Contracts</a>
@@ -70,12 +74,6 @@
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.badges') }">
           <a ui-sref=".badges">Badges ( {{ person.badges.length }} )</a>
-        </li>
-        <li ng-class="{ active: $state.includes('root.person.show.vouchers') }">
-          <a ui-sref=".vouchers">Vouchers</a>
-        </li>
-        <li ng-class="{ active: $state.includes('root.person.show.payouts') }">
-          <a ui-sref=".payouts">Payouts</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.actions') }">
           <a ui-sref=".actions">Actions</a>
