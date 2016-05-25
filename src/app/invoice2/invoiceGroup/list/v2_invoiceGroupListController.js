@@ -15,6 +15,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   invoice2Service,
   accounts,
   paymentService,
+  voucherService,
   API_DATE_FORMAT
   ) {
 
@@ -93,6 +94,23 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
     .catch(alertService.addError).finally(alertService.loaded);
   };
 
+  // verzoek om verzamelfactuur als voucher uit te betalen
+  $scope.payoutToVoucher = function (invoiceGroup) {
+    alertService.load($scope);
+    return voucherService.payoutToVoucher({ group: invoiceGroup.id }).then(function (result) {
+      // set invoiceGroup to paid
+      invoiceGroup.paid = moment().format(API_DATE_FORMAT);
+    })
+    .catch(alertService.addError).finally(alertService.loaded);
+  };
+  
+  // bundle alle ontvangen invoice lines tot een invoiceGroup
+  $scope.createRecipientGroup = function (user) {
+    alertService.load($scope, 'Bundeling invoices');
+    invoice2Service.createRecipientInvoiceGroup({person: user, positiveOnly: false})
+    .then($scope.refresh);
+  };
+
   $scope.params = (function () {
     var p = {
       status: $stateParams.status || '',
@@ -133,13 +151,5 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   $scope.refresh = function () {
     $state.go($state.current.name, $scope.params, {reload: true});
   };
-  
-  $scope.createGroup = function (user) {
-    alertService.load($scope, 'Bundeling invoices');
-    invoice2Service.createRecipientInvoiceGroup({person: user, positiveOnly: false})
-    .then($scope.refresh);
-  };
-  
 
-})
-;
+});
