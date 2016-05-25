@@ -47,8 +47,19 @@ angular.module('openwheels.invoice2.invoice.edit', [])
   function alterInvoice (invoice) {
     alertService.load();
 
-    invoice2Service.alter({ invoice: invoice.id, newProps: invoice }).then(function () {
-      $scope.form.$setPristine();
+    invoice2Service.alter({
+      invoice: invoice.id,
+      newProps: {
+        description: invoice.description,
+        price: invoice.price,
+        quantity: invoice.quantity,
+        recipient: invoice.recipient.id,
+        sender: invoice.sender.id,
+        taxRate: invoice.taxRate,
+        type: invoice.type
+      }
+    })
+    .then(function () {
       alertService.add('success', 'Saved', 5000);
     })
     .catch(function (err) {
