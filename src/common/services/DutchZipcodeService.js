@@ -15,7 +15,7 @@ angular.module('DutchZipcodeService', [])
     // Use HTTPS API if website itself is also secure.
     // Otherwise, some browsers might complain about insecure content.
     if ('https:' === document.location.protocol) {
-      return 'https://pro6pp.appspot.com/v1';
+      return 'https://api.pro6pp.nl/v1';
     } else {
       return 'http://api.pro6pp.nl/v1';
     }

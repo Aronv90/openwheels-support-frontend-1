@@ -96,6 +96,7 @@ angular.module('rpcServices', [])
         this.createVoucher = m('createVoucher');
         this.deleteVoucher = m('deleteVoucher');
         this.recalculate = m('recalculate');
+        this.payoutToVoucher = m('payoutToVoucher');
       })
 
     .service('resourceService', function (api) {

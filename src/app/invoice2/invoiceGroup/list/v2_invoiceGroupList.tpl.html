@@ -53,13 +53,13 @@
           <tr>
             <th colspan="2">Invoice group</th>
             <th ng-if="!$state.includes('root.person')">Person</th>
-            <th>Type</th>
             <th>Date</th>
             <th>Expires</th>
             <th class="text-center">Sent / received</th>
             <th>Paid</th>
             <th>Approved</th>
             <th class="text-right">Total</th>
+            <th>Payout</th>
           </tr>
           </thead>
 
@@ -77,11 +77,6 @@
             <!-- person -->
             <td ng-if="!$state.includes('root.person')">
               <a ui-sref="root.person.show.invoiceGroupV2.list({ personId: elm.person.id })">{{ elm.person | fullname }}</a>
-            </td>
-
-            <!-- type -->
-            <td>
-              {{ elm.type }}
             </td>
 
             <!-- date -->
@@ -102,7 +97,7 @@
             <!-- paid -->
             <td>
               {{ elm.paid | amDateFormat: 'DD-MM-YYYY' }}
-              <span ng-if="!elm.paid" class="text-danger">
+              <span ng-if="!elm.paid && elm.total !== 0" class="text-danger">
                   <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
               </span>
             </td>
@@ -119,6 +114,16 @@
               {{ elm.total | currency }}
             </td>
 
+            <!-- payout invoiceGroup -->
+            <td ng-if="elm.total < 0">
+              <span ng-if="elm.payoutRequest && !elm.paid" class="text-muted">Requested</span>
+              <a href="" ng-if="!elm.payoutRequest && !elm.paid" ng-click="payoutInvoiceGroup(elm)">Payout now<br/></a>
+              <a href="" ng-if="!elm.payoutRequest && !elm.paid" ng-click="payoutToVoucher(elm)">Make voucher<br/></a>
+              <div ng-if="elm.paid" class="text-success text-center"><i class="fa fa-check"></i></div>
+            </td>
+
+            <td ng-if="elm.total >= 0"></td>
+
           </tr>
         </table>
 
@@ -129,12 +134,8 @@
 
     <div ng-if="$state.includes('root.person')" class="panel panel-default card">
       <div class="panel-body">
-          <h3>
-              Ungrouped received invoices 
-              <button class="btn btn-default" ng-click="createGroup(person.id)">Bundle</button>
-          </h3> 
+        <h3>Ungrouped received invoices</h3> 
           
-
         <table class="table">
           <thead>
             <tr>
@@ -158,6 +159,14 @@
             <td colspan="5"><b>Total</b></td>
             <td class="text-right">
               <strong>{{ ungroupedReceivedInvoicesTotal | currency }}</strong>
+            </td>
+          </tr>
+          <tr ng-if="ungroupedReceivedInvoices.length > 0">
+            <td colspan="5"></td>
+            <td class="text-right">
+              <button type="button" class="btn btn-primary" ng-click="createRecipientGroup(person.id)">
+                Bundle
+              </button>
             </td>
           </tr>
         </table>
