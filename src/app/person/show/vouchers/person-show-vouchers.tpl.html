@@ -38,6 +38,7 @@
       <th>Paid</th>
       <th>Current value</th>
       <th>Initial value</th>
+      <th>Payout</th>
     </tr>
   </thead>
   <tbody>
@@ -47,9 +48,12 @@
       <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
       <td><b>{{ voucher.currency }} {{ voucher.value | number:2 }}</b></td>
       <td>{{ voucher.currency }} {{ voucher.initialValue | number:2 }}</td>
-      <td ng-if="!voucher.payoutRequest && voucher.value > 0.1"><a href="" ng-click="payoutVoucher(voucher)">Payout</a></td>
-      <td ng-if="voucher.payoutRequest && !voucher.payoutRequest.paid">Payout requested</td>
-      <td ng-if="voucher.payoutRequest && voucher.payoutRequest.paid">Payout accepted</td>
+      <td ng-if="!voucher.payoutRequest && voucher.value >= 0.1"><a href="" ng-click="payoutVoucher(voucher)">Payout</a></td>
+      <td ng-if="voucher.payoutRequest && !voucher.payoutRequest.paid" class="text-muted">Requested</td>
+      <td ng-if="voucher.payoutRequest.paid" class="text-success text-center">
+        <i class="fa fa-check"></i>
+      </td>
+      <td ng-if="!voucher.payoutRequest && voucher.value < 0.1"></td>
       <td ng-if="!voucher.payments.length  && !voucher.payoutRequest">
         <button class="btn btn-default btn-xs" ng-click="deleteVoucher(voucher)">
           <i class="fa fa-trash-o fa-lg"></i>
