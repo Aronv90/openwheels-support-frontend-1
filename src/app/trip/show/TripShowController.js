@@ -8,10 +8,18 @@ angular.module('openwheels.trip.show', [
   'openwheels.trip.show.revisions'
 ])
 
-.controller('TripShowController', function ($scope, $modal, $stateParams, alertService, bookingService, booking) {
+.controller('TripShowController', function ($scope, $modal, $stateParams, alertService, bookingService, booking, settingsService, FRONT_RENT, API_DATE_FORMAT) {
 
   $scope.booking = booking;
   $scope.contract = null;
+
+  var startDate = moment((booking.beginBooking ? booking.beginBooking : booking.beginRequested), API_DATE_FORMAT);
+  var endDate = moment((booking.endBooking ? booking.endBooking : booking.endRequested), API_DATE_FORMAT);
+
+  // datetime format for parameters in URL
+  var URL_DATE_TIME_FORMAT = 'YYMMDDHHmm';
+
+  $scope.frontAlternatives = settingsService.settings.server + FRONT_RENT + '?start=' + moment(startDate).format(URL_DATE_TIME_FORMAT) + '&end=' + moment(endDate).format(URL_DATE_TIME_FORMAT) + '&lat=' + booking.resource.latitude + '&lng=' + booking.resource.longitude + (booking.resource.boardcomputer ? '&smartwheels=true' : '');
 
   $scope.getContract = function (contract) {
     $modal.open({
