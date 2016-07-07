@@ -42,6 +42,7 @@ angular.module('rpcServices', [])
       };
       this.unfinishedJobs = m('unfinishedJobs');
       this.getState = m('getState');
+      this.sendBooking = m('sendBooking');
     })
 
     .service('phonecallService', function (api) {

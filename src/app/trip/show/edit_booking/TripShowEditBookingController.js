@@ -2,7 +2,7 @@
 
 angular.module('openwheels.trip.show.edit_booking', [])
 
-.controller('TripShowEditBookingController', function ($scope, booking, bookingService, alertService) {
+.controller('TripShowEditBookingController', function ($scope, booking, ccomeService, bookingService, alertService) {
   //scope
   $scope.booking = booking;
 
@@ -32,11 +32,7 @@ angular.module('openwheels.trip.show.edit_booking', [])
     interval: 15
   };
 
-
-
   $scope.saveBooking = function() {
-
-
     bookingService.alterRequest({
       id: $scope.booking.id,
       timeFrame: {
@@ -98,7 +94,7 @@ angular.module('openwheels.trip.show.edit_booking', [])
     });
   };
 
-  $scope.approveBooking = function approveBooking() {
+  $scope.approveBooking = function() {
     bookingService.approve({booking: $scope.booking.id})
       .then(
       function (booking) {
@@ -111,7 +107,7 @@ angular.module('openwheels.trip.show.edit_booking', [])
     );
   };
 
-  $scope.disapproveBooking = function disapproveBooking() {
+  $scope.disapproveBooking = function() {
     bookingService.disapprove({booking: $scope.booking.id})
       .then(
       function (booking) {
@@ -120,6 +116,18 @@ angular.module('openwheels.trip.show.edit_booking', [])
       },
       function (error) {
         alertService.add('warning', 'Disapproving booking failed.', 5000);
+      }
+    );
+  };
+
+  $scope.sendBooking = function() {
+    ccomeService.sendBooking({booking: $scope.booking.id})
+      .then(
+      function (booking) {
+        alertService.add('success', 'Booking send to boardcompuer.', 5000);
+      },
+      function (error) {
+        alertService.add('warning', 'Booking couldn\'t be send to boardcomputer', 5000);
       }
     );
   };
