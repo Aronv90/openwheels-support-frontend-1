@@ -48,8 +48,17 @@
           </button>
         </span>
       </div>
+
+      <div>
+        <span class="pull-right">
+          <button class="btn btn-info" ng-if="booking.resource.boardcomputer === 'ccome'" ng-click="sendBooking()">
+            Resend booking to boardcomputer
+          </button> 
+        </span>        
+      </div>
     </form>
   </div>
+
   <div class="col-sm-6">
     <h4 class="booking__timeframe__title" ng-class="{ 'request--isActive': isRequest() }">Request</h4>
 
