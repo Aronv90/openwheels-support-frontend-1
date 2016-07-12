@@ -5,6 +5,7 @@
       <th>Booking timeframe</th>
       <th>Person</th>
       <th>Resource</th>
+      <th>Remark</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +26,8 @@
       </td>
       <td>
         <a ui-sref="root.resource.show.summary({ resourceId: b.resource.id })">{{ b.resource.alias }}</a>
+      </td>      <td>
+        {{ b.person.remark }}
       </td>
       <td>
         <span class="text-success" ng-if="b.trip.finalized">finalized</span>
