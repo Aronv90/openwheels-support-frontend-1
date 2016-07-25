@@ -1,5 +1,6 @@
 <div class="alert alert-danger" ng-if="! isFinished()"><b>Pas op!</b> Deze boeking is nog niet voorbij. Gebruik het scherm <a ui-sref="^.edit_booking">Edit booking</a> om de boeking te verlengen of te stoppen.</div>
 <div class="row">
+
   <div class="col-sm-6">
     <h4 class="booking__timeframe__title" ng-class="{ 'booking--isActive': isBooking() }">Booking</h4>
     <form name="bookingBooking">
@@ -35,7 +36,7 @@
       <div class="form-group">
         <label for="remarkRequester">Remark requester</label>
         <textarea id="remarkRequester" name="remarkRequester" class="form-control" ng-model="booking.remarkRequester"
-                  placeholder="Remark requester"></textarea>
+          placeholder="Remark requester"></textarea>
       </div>
 
       <div class="form-group">
@@ -44,6 +45,7 @@
 
     </form>
   </div>
+
   <div class="col-sm-6">
     <h4 class="booking__timeframe__title" ng-class="{ 'trip--isActive': isTrip() }">Trip</h4>
     <form name="bookingTrip">
@@ -88,6 +90,51 @@
         <button class="btn btn-default" ng-click="setTrip()">Save Trip</button>
       </div>
     </form>
-</div>
+  </div>
+  <div class="col-sm-6" >
+    <h4 class="booking__timeframe__title">Declarations (tankbonnen)</h4>
+    <form name="declarations" ng-submit="addDeclaration()" ng-if="contract.type.canHaveDeclaration">
+      <div class="form-group">
+        <div class="row" >
+          <div class="col-sm-12">
+            <label>Add new declaration</label>
+          </div>
+          <div ng-if="!booking.declarations || booking.declarations.length < 5">
+            <div class="col-sm-6">
+              <input ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" type="number" step="0.01" max="200" min="0.01" class="form-control" ng-model="declaration.amount" placeholder="Amount">
+            </div>
+            <div class="col-sm-6">
+              <file-input reset="noreset" type="file" class="form-control" on-change="fileChanged" name="declarationfile">
+            </div>
+          </div>
+          <div ng-if="booking.declarations.length >= 5">
+            <div class="col-sm-12">
+              <p>
+                You can not add more than 5 declarations}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-12">
+            <label>Added declarations</label>
+          </div>
+          <div ng-if="!booking.declarations || booking.declarations.length == 0" class="col-xs-6">
+            No declarations yet.
+          </div>
+          <div ng-repeat="declaration in booking.declarations" class="col-xs-6">
+            <button class="btn btn-link" ng-click="openModal(declaration)">{{declaration.amount | currency}}</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <button type="submit" ng-disabled="declarations.$invalid" class="btn btn-default">Add Declaration</button>
+      </div>
+    </form>
+    <div ng-if="!contract.type.canHaveDeclaration">
+      <p>This car can not have declarations, since the contract type does not support declarations</p>
+    </div>
+  </div>
 
 </div>

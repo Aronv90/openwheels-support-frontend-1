@@ -1,5 +1,5 @@
 <div class="panel panel-default card">
-  <div class="panel-heading">
+<div class="panel-heading">
     <h3 class="card__title">
       <a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person | fullname }}</a> in
       <a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }} ({{ booking.resource.registrationPlate}})</a>
@@ -31,7 +31,7 @@
           <li ng-if="! (booking.trip.odoBegin || booking.trip.begin)">
             <i class="fa fa-clock-o"></i> <strong>Trip</strong> No trip set
           </li>
-          <li ng-if="booking.trip.odoBegin || booking.trip.begin"">
+          <li ng-if="booking.trip.odoBegin || booking.trip.begin">
             <i class="fa fa-clock-o"></i> <strong>Chipcard</strong> <a ui-sref="root.person.show.chipcards({personId: booking.person.id})">{{ booking.trip.userChip }}</a>
           </li>
           <li>&nbsp;</li>
