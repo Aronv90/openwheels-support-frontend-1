@@ -143,5 +143,21 @@ angular.module('openwheels.person.show.vouchers', [])
       .finally(alertService.loaded);
     });
   };
+  
+  $scope.deletePayments = function(voucher) {
+    
+    dialogService.showModal().then(function () {
+      alertService.load();
+      voucherService.removePayments({ voucher: voucher.id })
+      .then(function (result) {
+        alertService.add('success', 'Ok', 5000);
+        voucher.payments = result.payments;
+        voucher.value = result.value;
+
+      })
+      .catch(alertService.addError)
+      .finally(alertService.loaded);
+    });
+  };
 
 });

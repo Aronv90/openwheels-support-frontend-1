@@ -97,6 +97,7 @@ angular.module('rpcServices', [])
         this.calculateDebt = m('calculateDebt');
         this.createVoucher = m('createVoucher');
         this.deleteVoucher = m('deleteVoucher');
+        this.removePayments = m('removePayments');
         this.recalculate = m('recalculate');
         this.payoutToVoucher = m('payoutToVoucher');
       })
