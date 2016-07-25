@@ -61,6 +61,7 @@ angular.module('rpcServices', [])
       this.create = m('create');
       this.allTypes = m('allTypes');
       this.forDriver = m('forDriver');
+      this.forBooking = m('forBooking');
       this.forContractor = m('forContractor');
       this.addPerson = m('addPerson');
       this.removePerson = m('removePerson');
@@ -333,6 +334,14 @@ angular.module('rpcServices', [])
         return api.createRpcMethod('mailingrule.' + name);
       };
       this.get = m('getRulesAsArray');
+    })
+
+    .service('declarationService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('declaration.' + name);
+      };
+      this.forBooking = m('forBooking');
+      this.create = m('create');
     })
 
     .service('storedqueryService', function (api) {
