@@ -57,10 +57,12 @@ angular.module('openwheels.checklist.directive', [])
     intervalHandle = $interval(doUpdate, $scope.query.refresh * 1000);
     
   $scope.show = function () {
-    $log.log('hide if null', $scope.hideIfNull);
-    
     if(!$scope.hideIfNull) {
       return true;
+    }
+    
+    if(!$scope.result) {
+      return false;
     }
     
     return $scope.result.total > 0;
