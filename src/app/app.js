@@ -45,6 +45,7 @@ angular.module('openwheels', [
 	'sortableColumn',
 	'driverLicense',
 	'showIfUserHasRole',
+	'fileInputDirective',
 
 	// custom filters
 	'filters.getByPropertyFilter',

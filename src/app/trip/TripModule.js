@@ -227,7 +227,22 @@ angular.module('openwheels.trip', [
 					return bookingService.get({
 						id: bookingId
 					});
-				}]
+				}],
+        contract: ['$stateParams', 'authService', 'contractService', function ($stateParams, authService, contractService) {
+          return authService.me()
+          .then(function(me) {
+            return contractService.forBooking({
+              booking: $stateParams.tripId
+            });
+          })
+          .then(function(contract) {
+            contract.type.canHaveDeclaration = false;
+            if(contract.type.id === 60 || contract.type.id === 62) {
+              contract.type.canHaveDeclaration = true;
+            }
+            return contract;
+          });
+        }]
 			},
 			role: 'ROLE_PROVIDER_ADMIN'
 		});
