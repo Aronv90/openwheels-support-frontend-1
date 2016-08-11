@@ -99,19 +99,12 @@
           <div class="col-sm-12">
             <label>Add new declaration</label>
           </div>
-          <div ng-if="!booking.declarations || booking.declarations.length < 5">
+          <div>
             <div class="col-sm-6">
-              <input ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" type="number" step="0.01" max="200" min="0.01" class="form-control" ng-model="declaration.amount" placeholder="Amount">
+              <input ng-pattern="/^-?[0-9]+(\.[0-9]{1,2})?$/" type="number" step="0.01" max="200" min="-200" class="form-control" ng-model="declaration.amount" placeholder="Amount">
             </div>
             <div class="col-sm-6">
               <file-input reset="noreset" type="file" class="form-control" on-change="fileChanged" name="declarationfile">
-            </div>
-          </div>
-          <div ng-if="booking.declarations.length >= 5">
-            <div class="col-sm-12">
-              <p>
-                You can not add more than 5 declarations}
-              </p>
             </div>
           </div>
         </div>
