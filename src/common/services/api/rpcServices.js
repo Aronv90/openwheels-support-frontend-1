@@ -59,6 +59,7 @@ angular.module('rpcServices', [])
       this.get = m('get');
       this.alter = m('alter');
       this.create = m('create');
+      this.requestContract = m('requestContract');
       this.allTypes = m('allTypes');
       this.forDriver = m('forDriver');
       this.forContractor = m('forContractor');
