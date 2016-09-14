@@ -42,16 +42,7 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
         googleChartApiPromise
       ]).then(populateRitten);
     };
-  //$scope.queries = queries;
-  $scope.leftQueries = [];
-  $scope.rightQueries = [];
-  for(var i=0; i <= queries.length; i++) {
-    if(i % 2) {
-      $scope.leftQueries.push(queries[i]);
-    } else {
-      $scope.rightQueries.push(queries[i]);
-    }
-  }
+  $scope.queries = queries;
     
   $scope.chartData = {
     'type': 'AreaChart',

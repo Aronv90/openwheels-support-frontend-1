@@ -1,6 +1,6 @@
 
 <section class="col-md-6">
-    <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in rightQueries"> </snoozablechecklist>
+    <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in queries | filter:{ column: 0}"> </snoozablechecklist>
 </section>
 <section class="col-md-6">
     <article class="">
@@ -32,5 +32,5 @@
     </article>
     
 
-    <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in leftQueries"> </snoozablechecklist>
+    <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in queries| filter:{ column: 1}"> </snoozablechecklist>
 </section>
