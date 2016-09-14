@@ -32,7 +32,10 @@ angular.module('openwheels.checklist', [
 	      data: {pageTitle: 'Dashboard'},
         resolve: {
           queries: ['checklistService', function (checklistService) {
-              return checklistService.all();
+              return checklistService.all()
+                  .then(function (lists) {
+                    return lists.filter(function(item) { return item.onDashboard; });
+                  });
             }]
         }
 	    });
