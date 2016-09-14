@@ -76,6 +76,7 @@ angular.module('openwheels.checklist.directive', [])
     $modal.open({
       templateUrl: 'checklist/dashboard/snoze.tpl.html',
       controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+        $scope.isMorning = moment().isBefore(moment('12', 'HH'));
         $scope.snooze = function (timeout) {
           storedqueryService.mute({
             storedquery: query,
