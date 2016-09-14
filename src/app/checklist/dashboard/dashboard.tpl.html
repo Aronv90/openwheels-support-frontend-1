@@ -1,6 +1,6 @@
 
 <section class="col-md-6">
-    <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in queries"> </snoozablechecklist>
+    <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in rightQueries"> </snoozablechecklist>
 </section>
 <section class="col-md-6">
     <article class="">
@@ -30,60 +30,7 @@
         </table>
         </div>
     </article>
-    <article class=" panel panel-default card" ng-if="notActiveDrivers.length > 0">
-        <div class="card-body">
-        <table class="table table-condensed">
-            <caption>Driver Licenses {{notActiveDrivers.length}}</caption>
-            <thead>
-                <tr>
-                    <th>Provider</th>
-                    <th>Person</th>
-                    <th>Begin booking</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in notActiveDrivers">
-                    <td>{{item.person.provider.id}}</td>
-                    <td>
-                        <a ui-sref="root.person.show.summary({ personId: item.person.id })">{{item.person | fullname}}</a>
-                    </td>
-                    <td>
-                        <div ng-show="item.beginBooking">
-                            {{item.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm'}}
-                        </div>
-                        <div ng-hide="item.beginBooking">
-                            {{item.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}}
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-    </article>
     
-    <article class="panel panel-default card" ng-if="requested.length > 0">
-        <div class="card-body">
-        <table class="table table-condensed">
-            <caption>Requested {{requested.length}}</caption>
-            <thead>
-                <tr>
-                    <th>Booking</th>
-                    <th>Person</th>
-                    <th>Resource</th>
-                    <th>Begin request</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in requested.slice().reverse() | limitTo:10">
-                    <td>
-                        <a ui-sref="root.trip.show.summary({ tripId: item.id })">#{{item.id}}</a>
-                    </td>
-                    <td>{{item.person.firstName}}</td>
-                    <td>{{item.resource.alias}}</td>
-                    <td>{{item.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-    </article>
+
+    <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in leftQueries"> </snoozablechecklist>
 </section>

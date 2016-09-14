@@ -32,13 +32,6 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
       return row;
     },*/
     doUpdate = function () {
-      bookingService.futureByNotActiveDriver().then(function (list) {
-        $scope.notActiveDrivers = list;
-      });
-
-      bookingService.requested().then(function(list) {
-        $scope.requested = list;
-      });
 
       ccomeService.unfinishedJobs().then(function(list){
         $scope.unfinishedJobs = list;
@@ -49,7 +42,16 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
         googleChartApiPromise
       ]).then(populateRitten);
     };
-  $scope.queries = queries;
+  //$scope.queries = queries;
+  $scope.leftQueries = [];
+  $scope.rightQueries = [];
+  for(var i=0; i <= queries.length; i++) {
+    if(i % 2) {
+      $scope.leftQueries.push(queries[i]);
+    } else {
+      $scope.rightQueries.push(queries[i]);
+    }
+  }
     
   $scope.chartData = {
     'type': 'AreaChart',
