@@ -19,7 +19,14 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     { label: 'Providerboete', value: 'provider_penalty' },
     { label: 'Administratiekosten', value: 'administration_costs' },
     { label: 'Abonnement VGA', value: 'subscription_vga' },
-
+    { label: 'Boekingskosten huurder', value: 'reserveer_kosten' },
+    { label: 'Boekingskosten verhuurder', value: 'dag_owner_fee_kosten' },
+    { label: 'Afkoop eigen risico', value: 'afkoop' },
+    { label: 'Huur (alleen credit)', value: 'huur_kosten' },
+    { label: 'Brandstof (geen tankbon)', value: 'brandstof_kosten' },
+    { label: 'Kilometer (alleen credit)', value: 'kilometer_kosten' },
+    { label: 'Ritverzekering', value: 'verzekering_kosten' },
+    { label: 'Beheerdersvergoeding', value: 'beheerdersvergoeding' },
     { label: 'Other', value: 'custom' }
   ];
 

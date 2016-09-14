@@ -59,6 +59,11 @@
           <i class="fa fa-trash-o fa-lg"></i>
         </button>
       </td>
+      <td ng-if="voucher.payments.length  && !voucher.payoutRequest">
+        <button class="btn btn-default btn-xs" ng-click="deletePayments(voucher)">
+          <i class="fa fa-chain-broken fa-lg"></i>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

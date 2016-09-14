@@ -7,7 +7,8 @@ angular.module('openwheels.person', [
 	'openwheels.person.search',
 	'openwheels.person.edit.data',
 	'openwheels.person.rentalcheck',
-  'openwheels.person.show.payouts'
+  'openwheels.person.show.payouts',
+  'openwheels.contract.request'
 ])
 
 	.config(function ($stateProvider) {

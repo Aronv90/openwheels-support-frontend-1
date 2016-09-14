@@ -2,10 +2,23 @@
 
 angular.module('openwheels.trip.show.admin', [])
 
-  .controller('TripShowAdminController', function ($scope, $q, booking, driverContracts, bookingService, alertService) {
+  .controller('TripShowAdminController', function ($scope, $q, booking, driverContracts,
+                                                   bookingService, alertService, declarationService, contract, $modal) {
     //scope
     var masterBooking = booking;
+
+    loadDeclarations();
+    function loadDeclarations() {
+      declarationService.forBooking({booking: booking.id})
+      .then(function(res) {
+        masterBooking.declarations = res;
+        $scope.booking.declarations= res;
+      });
+    }
+
     $scope.booking = angular.copy(masterBooking);
+    $scope.contract = contract;
+    $scope.declaration = {};
     $scope.driverContracts = driverContracts;
 
     $scope.dateConfig = {
@@ -32,6 +45,63 @@ angular.module('openwheels.trip.show.admin', [])
 
       //options
       interval: 5
+    };
+
+
+    $scope.openModal = function (declaration) {
+      $modal.open({
+        animation: $scope.animationsEnabled,
+        templateUrl: 'trip/show/admin/modal.tpl.html',
+        controller: function($scope, $modalInstance, declaration) {
+          $scope.ok = function () {
+            $modalInstance.close();
+          };
+          $scope.declaration = declaration;
+        },
+        size: 'lg',
+        resolve: {
+          declaration: function () {
+            return declaration;
+          }
+        }
+      });
+    };
+
+    $scope.toggleAnimation = function () {
+      $scope.animationsEnabled = !$scope.animationsEnabled;
+    };
+
+
+    $scope.addDeclaration = function() {
+      if($scope.declaration && $scope.declaration.amount) {
+        if(!$scope.declaration.file) {
+          alertService.add('danger', 'Je moet de foto/scan van de tankbon nog toevoegen');
+          return;
+        }
+        alertService.load();
+        var params = {
+          booking : $scope.booking.id,
+          description: '',
+          amount: $scope.declaration.amount,
+        };
+
+        declarationService.create(params, {image: $scope.declaration.file})
+        .then(function (results) {
+          alertService.add('success', 'Declaration successfuly added', 5000);
+          $scope.booking.declarations.unshift(results);
+          $scope.declaration = {};
+        })
+        .catch(function (err) {
+          alertService.addError(err);
+        })
+        .finally(function () {
+          alertService.loaded();
+        });
+      }
+    };
+
+    $scope.fileChanged = function(file) {
+      $scope.declaration.file = file;
     };
 
     $scope.saveBooking = function () {
