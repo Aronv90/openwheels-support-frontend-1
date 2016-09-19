@@ -31,7 +31,10 @@ angular.module('openwheels.checklist.directive', [])
             if(query.fieldmap[i].key) {
               result._key = resolveDot(row, query.fieldmap[i].path);
             }
-            result[query.fieldmap[i].title] = resolveDot(row, query.fieldmap[i].path);
+            result[query.fieldmap[i].title] = {
+              link: query.fieldmap[i].link,
+              value: resolveDot(row, query.fieldmap[i].path)
+            };
           }
           return result;
         });
@@ -46,7 +49,7 @@ angular.module('openwheels.checklist.directive', [])
     return data;
   };
 })
-.controller('SnoozablechecklistController', function ($scope, $log, storedqueryService, $modal, $interval, resolveMutingQuery) {
+.controller('SnoozablechecklistController', function ($scope, $log, storedqueryService, $modal, $interval, resolveMutingQuery, $state) {
   var doUpdate = function () {
       $log.debug('timer gone off, querieng');
       resolveMutingQuery($scope.query, $scope.limit)
@@ -100,6 +103,29 @@ angular.module('openwheels.checklist.directive', [])
     }).then(function(x) {
       $log.log(x);
     });
+  };
+  
+  $scope.execute = function(obj) {
+    if(obj.link === 'person') {
+      $log.debug('linking to person '  + obj.value);
+      $state.go('root.person.show.summary', {personId: obj.value});
+      return;
+    }
+    if(obj.link === 'personInvs') {
+      $log.debug('linking to person invoises '  + obj.value);
+      $state.go('root.person.show.invoiceGroupV2.list', {personId: obj.value});
+      return;
+    }
+    if(obj.link === 'booking') {
+      $log.debug('linking to booking '  + obj.value);
+      $state.go('root.trip.show', {tripId: obj.value});
+      return;
+    }
+    if(obj.link === 'resource') {
+      $log.debug('linking to resource '  + obj.value);
+      $state.go('root.resource.show.summary', {resourceId: obj.value});
+      return;
+    }
   };
   
   doUpdate();

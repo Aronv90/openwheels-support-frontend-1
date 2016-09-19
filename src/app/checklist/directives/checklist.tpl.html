@@ -13,7 +13,12 @@
     </thead>
     <tbody>
         <tr ng-repeat="row in result.result" class="{{row._class}}">
-            <td ng-repeat="key in result.column">{{row[key]}}</td>
+            <td ng-repeat="key in result.column"> 
+                <span ng-if="!row[key].link">{{row[key].value}}</span> 
+                <a ng-if="row[key].link" href="" ng-click="execute(row[key])">
+                    {{row[key].value}}
+                </a> 
+            </td>
             <td> 
                 <a ng-click="snooze(result.id, row._key, row)" class="btn btn-warning btn-xs btn-round-hover">
                     <i class="fa fa-clock-o" aria-hidden="true"></i></a>
