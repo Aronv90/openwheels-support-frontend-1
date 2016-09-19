@@ -118,7 +118,7 @@ angular.module('openwheels.checklist.directive', [])
     }
     if(obj.link === 'booking') {
       $log.debug('linking to booking '  + obj.value);
-      $state.go('root.trip.show', {tripId: obj.value});
+      $state.go('root.trip.show.summary', {tripId: obj.value});
       return;
     }
     if(obj.link === 'resource') {
