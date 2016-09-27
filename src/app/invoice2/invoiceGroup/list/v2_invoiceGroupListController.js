@@ -43,6 +43,19 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
     return hasError ? null : sum;
   }
 
+  $scope.removeInvoiceGroup = function(id) {
+    alertService.load();
+    alertService.closeAll();
+    invoice2Service.removeInvoiceGroup({invoiceGroup: id})
+    .then(function(res) {
+      $scope.invoiceGroups = _.without($scope.invoiceGroups, _.findWhere($scope.invoiceGroups, {
+          id: id 
+      }));
+    })
+    .catch(alertService.addError).finally(alertService.loaded);
+
+  };
+
   /* approve an account */
   $scope.approve = function (account) {
     alertService.load($scope);
