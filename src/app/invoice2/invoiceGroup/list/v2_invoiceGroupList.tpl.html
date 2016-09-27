@@ -68,7 +68,7 @@
             <td>
               <a ng-href="{{ FRONT_BASE }}/verzamelfactuur/{{ elm.id }}.pdf" target="_blank">
                 <i class="fa fa-external-link"></i></a>
-              <button ui-tooltip="Ongroepeer" ng-if="!elm.paid" ng-click="removeInvoiceGroup(elm.id)" title="Ongroepeer" class="btn btn-xs btn-link"><i class="fa fa-fw fa-expand"></i></button>
+              <button ng-if="!elm.paid" ng-click="removeInvoiceGroup(elm.id)" title="Ongroepeer deze verzamelfactuur" class="btn btn-xs btn-link"><i class="fa fa-fw fa-expand"></i></button>
             </td>
 
             <td>
