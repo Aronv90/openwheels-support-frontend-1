@@ -5,8 +5,8 @@
     </div>
     <div class="modal-body">
         <div class="btn-group-vertical" role="group" aria-label="...">
-            <button type="button" class="btn btn-default" ng-click="snooze('12:00')">afternoon</button>
-            <button type="button" class="btn btn-default" ng-click="snooze('nex day 8:00')">tomorow</button>
+            <button ng-if="isMorning" type="button" class="btn btn-default" ng-click="snooze('12:00')">afternoon</button>
+            <button type="button" class="btn btn-default" ng-click="snooze('next day 8:00')">tomorow</button>
             <button type="button" class="btn btn-default" ng-click="snooze('next monday 8:00')">next week</button>
             <button type="button" class="btn btn-default" ng-click="close()">cancel</button>
         </div>

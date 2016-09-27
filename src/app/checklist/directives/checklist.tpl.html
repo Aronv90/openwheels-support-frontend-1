@@ -1,6 +1,10 @@
 <article class="panel panel-default card" ng-if="show()" >
 <table class="table table-condensed table-hover">
-    <caption> <h4>{{result.title}} <small>totaal:{{result.total}}</small></h4> </caption>
+    <caption> <h4>{{result.title}} 
+            <small>totaal:{{result.total}}
+                <a class="btn btn-default btn-xs" ui-sref="root.querytool.execute({query:result.id})"><i class="fa fa-cog" aria-hidden="true"></i></a>
+            </small>
+        </h4> </caption>
     <thead>
         <tr>
             <th ng-repeat="key in result.column">{{key}}</th>
