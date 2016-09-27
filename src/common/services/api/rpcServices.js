@@ -204,6 +204,7 @@ angular.module('rpcServices', [])
     this.alter                        = m('alter');
     this.createSenderInvoiceGroup     = m('createSenderInvoiceGroup');
     this.createRecipientInvoiceGroup  = m('createRecipientInvoiceGroup');
+    this.removeInvoiceGroup           = m('removeInvoiceGroup');
   })
 
   .service('paymentService', function (api) {
