@@ -14,7 +14,7 @@
               <div class="form-group">
                 <input type="text" class="form-control input-sm typeahead" placeholder="Search resource"
                        ng-model="discount.resource"
-                       typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+                       uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
                        typeahead-min-length="3" typeahead-input-formatter="formatResource($model)">
               </div>
             </form>

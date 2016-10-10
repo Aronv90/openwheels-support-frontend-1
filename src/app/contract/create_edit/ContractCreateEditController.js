@@ -2,7 +2,7 @@
 
 angular.module('openwheels.contract.create_edit', [])
 
-	.controller('ContractCreateEditController', function ($scope, $filter, $q, $modalInstance, dialogService, contractService, contract, person, contractTypes) {
+	.controller('ContractCreateEditController', function ($scope, $filter, $q, $uibModalInstance, dialogService, contractService, contract, person, contractTypes) {
 
 		$scope.contract = contract;
 
@@ -20,7 +20,7 @@ angular.module('openwheels.contract.create_edit', [])
 		$scope.contractTypes = contractTypes;
 
 		$scope.dismiss = function () {
-			$modalInstance.dismiss();
+			$uibModalInstance.dismiss();
 		};
 
 		$scope.save = function (contract) {
@@ -54,13 +54,13 @@ angular.module('openwheels.contract.create_edit', [])
 						}
 					})
 						.then(function (contract) {
-							$modalInstance.close(contract);
+							$uibModalInstance.close(contract);
 						});
 				});
 			} else { // create
 				contractService.create({person: person.id, type: contract.type.id})
 					.then(function (contract) {
-						$modalInstance.close(contract);
+						$uibModalInstance.close(contract);
 					});
 			}
 		};

@@ -2,7 +2,7 @@
 
 angular.module('openwheels.bank.incasso.show', [])
 
-  .controller('BankIncassoShowController', function ($scope, $modal, $q, $filter, $timeout, ngTableParams, alertService, batch) {
+  .controller('BankIncassoShowController', function ($scope, $uibModal, $q, $filter, $timeout, ngTableParams, alertService, batch) {
     $scope.batch = batch;
 
     if (batch.rules) {

@@ -11,7 +11,7 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
           storedqueryService,
           queries,
           $log,
-          $modal
+          $uibModal
         ) {
   var populateRitten = function(result) {
       var list = result[0];

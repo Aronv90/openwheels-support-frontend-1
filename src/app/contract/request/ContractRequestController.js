@@ -2,16 +2,16 @@
 
 angular.module('openwheels.contract.request', [])
 
-	.controller('ContractRequestController', function ($scope, $filter, $q, $modalInstance, contract, contractTypes) {
+	.controller('ContractRequestController', function ($scope, $filter, $q, $uibModalInstance, contract, contractTypes) {
 		$scope.contracttype = null;
 		$scope.contractTypes = contractTypes;
 
 		$scope.dismiss = function () {
-			$modalInstance.dismiss();
+			$uibModalInstance.dismiss();
 		};
 
 		$scope.save = function (contracttype) {
-			$modalInstance.close({
+			$uibModalInstance.close({
         contractType: contracttype,
         contract: contract.id,
         person: contract.contractor.id
