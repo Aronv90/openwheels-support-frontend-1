@@ -1,0 +1,171 @@
+@color-trip:     #3db971;   
+@color-driver:   #e4c274;  
+@color-resource: #e84545;  
+@color-owner:    #6a81d4; 
+
+.box {
+  background-color: white;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.box__link {
+  color: white;
+}
+
+.box__title {
+  display: block;
+  width: 100%;
+  padding: 0.2em 0.6em 0.6em 0.6em;
+
+  & > h3 {
+    font-size: 1.3em;
+    margin: 0;
+    margin-top: 0.2em;
+    padding: 0;
+    color: white;
+    text-shadow: 0px 1px 1px rgba(150, 150, 150, 1);
+    white-space: nowrap;
+    overflow: ellipsis;
+  }
+
+  small {
+    color: #eee;
+    font-size: 1.0em;
+  }
+
+  &--trip {
+    background-color: @color-trip;
+  }
+
+  &--driver {
+    background-color: @color-driver;
+  }
+
+  &--resource {
+    background-color: @color-resource;
+  }
+
+  &--owner {
+    background-color: @color-owner;
+  }
+}
+
+.box__row {
+
+  &:first-child {
+    padding-top: 0.5em;
+  }
+
+  font-size: 0.9em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+}
+
+.box__divider {
+  height: 1px; 
+  background: #ebebeb;
+  float: left;
+  width: 94%;
+  margin-left:3%;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+}
+
+.box__sdata {
+  text-transform: uppercase;
+  font-family: monospace;
+  font-size: 0.8em;
+  white-space: nowrap;
+
+  &--whole-row {
+    padding-left: 0.5em;
+  }
+
+  &--green {
+    color: green;
+  }
+  
+  &--red {
+    color: red;
+  }
+
+  &--image {
+    padding-bottom: 1em;
+  }
+}
+
+.box__slabel {
+  padding-left: 0.5em;
+}
+
+.quickaction {
+  position: fixed;
+  left: 0px;
+  top: 70px;
+
+  &__toggler--hidden {
+    outline: none;
+    color: #333;
+    width: 50px;
+    display: block;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 10px;
+  }
+  
+  ul > li {
+    padding: 0;
+    margin: 5px 0;
+    border-radius: 100%;
+    display: block;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 50px;
+    height: 50px;
+  }
+  
+  ul > li:first-child {
+    margin-top: 0;
+  }
+
+  ul > li > span {
+    line-height: 50px;
+    text-align: center;
+    display: block;
+    color: white;
+    cursor: pointer;
+    font-size: 0.8em;
+  }
+
+  &__item--trip {
+    background: desaturate(@color-trip, 15);
+    border: 1px solid darken(@color-trip, 5);
+  }
+  &__item--trip:hover {
+    background: @color-trip;
+  }
+  &__item--driver {
+    background: desaturate(@color-driver, 15);
+    border: 1px solid darken(@color-driver, 5);
+  }
+  &__item--driver:hover {
+    background: @color-driver;
+  }
+  &__item--resource {
+    background: desaturate(@color-resource, 15);
+    border: 1px solid darken(@color-resource, 5);
+  }
+  &__item--resource:hover {
+    background: @color-resource;
+  }
+  &__item--owner {
+    background: desaturate(@color-owner, 15);
+    border: 1px solid darken(@color-owner, 5);
+  }
+  &__item--owner:hover {
+    background: @color-owner;
+  }
+}

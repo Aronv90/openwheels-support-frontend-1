@@ -1,5 +1,10 @@
 'use strict';
 
+window.plog = function(x) {
+  console.log('plog', x);
+  return x;
+};
+
 angular.module('openwheels', [
 
 	'ui.router',
@@ -17,6 +22,7 @@ angular.module('openwheels', [
 	'angularFileUpload',
 	'jsonrpc',
 	'ngTable',
+	'bookingDate',
 
 	'templates-app',
 	'templates-common',

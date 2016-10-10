@@ -237,7 +237,7 @@ angular.module('openwheels.trip', [
           })
           .then(function(contract) {
             contract.type.canHaveDeclaration = false;
-            if(contract.type.id === 60 || contract.type.id === 62) {
+            if(contract.type.id === 60 || contract.type.id === 62 || contract.type.id === 50) {
               contract.type.canHaveDeclaration = true;
             }
             return contract;
@@ -255,6 +255,45 @@ angular.module('openwheels.trip', [
 			url: '',
 			templateUrl: 'trip/show/summary/trip-show-summary.tpl.html',
 			controller: 'TripShowSummaryController'
+		});
+
+		/**
+		 * trip/:id/summary
+		 * @resolve {promise} trip, from parent
+		 */
+		$stateProvider.state('root.trip.dashboard', {
+			url: '/dashboard/:tripId',
+			templateUrl: 'trip/dashboard/trip-dashboard-overview.tpl.html',
+			controller: function($scope, booking, contract) {
+        $scope.booking = booking;
+        $scope.contract = contract;
+        console.log(booking);
+        console.log(contract);
+        console.log('test');
+      },
+			resolve: {
+				booking: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+					var bookingId = $stateParams.tripId;
+					return bookingService.get({
+						id: bookingId
+					});
+				}],
+        contract: ['$stateParams', 'authService', 'contractService', function ($stateParams, authService, contractService) {
+          return authService.me()
+          .then(function(me) {
+            return contractService.forBooking({
+              booking: $stateParams.tripId
+            });
+          })
+          .then(function(contract) {
+            contract.type.canHaveDeclaration = false;
+            if(contract.type.id === 60 || contract.type.id === 62 || contract.type.id === 50) {
+              contract.type.canHaveDeclaration = true;
+            }
+            return contract;
+          });
+        }]
+			},
 		});
 
 		/**

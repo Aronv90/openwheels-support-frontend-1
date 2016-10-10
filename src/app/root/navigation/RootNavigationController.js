@@ -30,7 +30,7 @@ angular.module('openwheels.root.navigation', [])
 		$scope.selectPerson = function () {
 			var personId = $scope.selectedPerson.id;
 			$scope.selectedPerson = undefined;
-			$state.go('root.person.show.summary', {personId: personId});
+			$state.go('root.person.show.trip', {personId: personId});
 		};
 
 		$scope.formatPerson = function ($model) {
