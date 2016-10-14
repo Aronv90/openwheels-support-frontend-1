@@ -3,6 +3,7 @@
 angular.module('openwheels.trip.show.overview', []);
 
 angular.module('openwheels.trip', [
+	'openwheels.trip.dashboard',
 	'openwheels.trip.list',
 	'openwheels.trip.show',
 	'openwheels.trip.create',
@@ -263,14 +264,8 @@ angular.module('openwheels.trip', [
 		 */
 		$stateProvider.state('root.trip.dashboard', {
 			url: '/dashboard/:tripId',
-			templateUrl: 'trip/dashboard/trip-dashboard-overview.tpl.html',
-			controller: function($scope, booking, contract) {
-        $scope.booking = booking;
-        $scope.contract = contract;
-        console.log(booking);
-        console.log(contract);
-        console.log('test');
-      },
+			templateUrl: 'trip/dashboard/trip-dashboard.tpl.html',
+      controller: 'TripDashboardController',
 			resolve: {
 				booking: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
 					var bookingId = $stateParams.tripId;

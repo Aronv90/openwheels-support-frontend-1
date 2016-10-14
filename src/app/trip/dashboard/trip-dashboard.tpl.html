@@ -111,20 +111,46 @@
 <div class="row row--padding-top">
   <div class="col-sm-6">
     <div class="box">
-      <div class="box__title box__title--driver"><h3>Facturen bestuurder</h3></div>
+      <div class="box__title box__title--driver">
+        <h3>Facturen bestuurder</h3>
+      </div>
       <div class="box__content">
-        <div class="row" ng-repeat="invoicesRenter as invoiceLine">
-          <div class="col-sm-4">{{invoiceLine.invoice.groupId}}</div>
-          <div class="col-sm-4"></div>
-          <div class="col-sm-4"></div>
+        <div class="row row--small-font">
+          <div class="col-sm-1">#</div>
+          <div class="col-sm-3">Omschrijving</div>
+          <div class="col-sm-3 text-right">Ber.</div>
+          <div class="col-sm-2 text-right">Totaal</div>
+          <div class="col-sm-2">ONTV/BET</div>
+        </div>
+        <div class="row row--small-font" ng-repeat="invoiceLine in invoicesRenter">
+          <div class="col-sm-1">{{invoiceLine.invoice.groupId}}</div>
+          <div class="col-sm-3">{{invoiceLine.description}}</div>
+          <div title="{{invoiceLine.quantity}} x {{invoiceLine.price}} = {{invoiceLine.total|currency}}" ng-class="{'neg': invoiceLine.total < 0}" class="col-sm-2 text-right number">{{invoiceLine.total | currency}}</div>
+          <div class="col-sm-2">{{invoiceLine.relationType === 'sent' ? 'ONTV' : 'BET'}}</div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-sm-6">
     <div class="box">
-      <div class="box__title box__title--owner"><h3>Facturen eigenaar</h3></div>
-      <div class="box__content">ed</div>
+      <div class="box__title box__title--owner">
+        <h3>Facturen eigenaar</h3>
+      </div>
+      <div class="box__content">
+        <div class="row row--small-font">
+          <div class="col-sm-1">#</div>
+          <div class="col-sm-3">Omschrijving</div>
+          <div class="col-sm-3 text-right">Ber.</div>
+          <div class="col-sm-2 text-right">Totaal</div>
+          <div class="col-sm-2">ONTV/BET</div>
+        </div>
+        <div class="row row--small-font" ng-repeat="invoiceLine in invoicesOwner">
+          <div class="col-sm-1" title="Verzamelfactuur #{{invoiceLine.invoice.groupId}}, deze factuur is {{invoiceLine.invoice.paid ? '' : 'nog niet '}}betaald}}">{{invoiceLine.invoice.groupId}}</div>
+          <div class="col-sm-3">{{invoiceLine.description}}</div>
+          <div title="{{invoiceLine.quantity}} x {{invoiceLine.price}} = {{invoiceLine.total|currency}}" ng-class="{'neg': invoiceLine.total < 0}" class="col-sm-2 text-right number">{{invoiceLine.total | currency}}</div>
+          <div class="col-sm-2">{{invoiceLine.relationType === 'sent' ? 'ONTV' : 'BET'}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
