@@ -104,11 +104,15 @@ module.exports = {
             'vendor/ng-table/dist/ng-table.js',
             'vendor/angular-google-chart/ng-google-chart.js',
             'vendor/ng-infinite-scroll-npm-is-better-than-bower/build/ng-infinite-scroll.js',
+            'vendor/angular-material/angular-material.js',
+            'vendor/angular-animate/angular-animate.js',
+            'vendor/angular-aria/angular-aria.min.js',
             //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
         ],
         css: [
           'vendor/ng-table/ng-table.css',
-          'vendor/openwheels-ui-components/dist/css/openwheels-ui-components.css'
+          'vendor/openwheels-ui-components/dist/css/openwheels-ui-components.css',
+          'vendor/angular-material/angular-material.css'
         ],
         assets: [
             'vendor/font-awesome/fonts/*'

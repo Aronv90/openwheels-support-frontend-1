@@ -10,6 +10,14 @@ angular.module('rpcServices', [])
       this.get = m('get');
     })
 
+    .service('remarkService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('remark.' + name);
+      };
+      this.add = m('add');
+      this.forBooking = m('forBooking');
+    })
+
     .service('personService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('person.' + name);

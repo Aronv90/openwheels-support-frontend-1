@@ -5,10 +5,18 @@ window.plog = function(x) {
   return x;
 };
 
+window.plogl = function(label) {
+  return function(x) {
+    console.log(label, x);
+    return x;
+  };
+};
+
 angular.module('openwheels', [
 
   'ui.router',
   'ui.bootstrap',
+  'ngMaterial',
   'angularMoment',
   'ngDragDrop',
   'ngProgress',
@@ -22,6 +30,7 @@ angular.module('openwheels', [
   'jsonrpc',
   'ngTable',
   'bookingDate',
+
 
   'templates-app',
   'templates-common',
@@ -51,6 +60,7 @@ angular.module('openwheels', [
   'driverLicense',
   'showIfUserHasRole',
   'fileInputDirective',
+  'sameHeightDirective',
 
   // custom filters
   'filters.getByPropertyFilter',

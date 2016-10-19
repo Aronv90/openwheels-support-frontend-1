@@ -11,7 +11,33 @@
   font-size: .85em;
 }
 
-.neg {
+.row--hoverable:hover {
+  background: #efefef;
+}
+
+.row--invoice-heading {
+  font-size: 0.9em;
+  padding-bottom: 0.4em;
+  padding-top: 0.4em;
+  margin-bottom: 0.4em;
+  font-weight: bold;
+  border-bottom: 1px solid #ccc;
+}
+
+.row--invoice-line {
+  padding: 0.1em 0;
+}
+
+.row--no-margin {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.fa--muted {
+  color: #dedede;
+}
+
+.neg, .warn {
   color: red;
 }
 
@@ -22,7 +48,12 @@
 .box {
   background-color: white;
   box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.1);
-  min-height: 17em;
+  min-height: 19em;
+  overflow: hidden;
+
+  &--small {
+    min-height: 1em;
+  }
 }
 
 .box__link {
@@ -42,7 +73,7 @@
     color: white;
     text-shadow: 0px 1px 1px rgba(150, 150, 150, 1);
     white-space: nowrap;
-    overflow: ellipsis;
+    text-overflow: ellipsis;
   }
 
   small {
@@ -65,10 +96,13 @@
   &--owner {
     background-color: @color-owner;
   }
+
+  &--remarks {
+    background-color: @chatcolor;
+  }
 }
 
 .box__row {
-
   &:first-child {
     padding-top: 0.5em;
   }
@@ -89,9 +123,7 @@
 }
 
 .box__sdata {
-  text-transform: uppercase;
-  font-family: monospace;
-  font-size: 0.8em;
+  font-size: 0.9em;
   white-space: nowrap;
 
   &--whole-row {
@@ -108,11 +140,13 @@
 
   &--image {
     padding-bottom: 1em;
+    width: 100%;
   }
 }
 
 .box__slabel {
   padding-left: 0.5em;
+  white-space: nowrap;
 }
 
 .quickaction {
@@ -185,4 +219,109 @@
   &__item--owner:hover {
     background: @color-owner;
   }
+}
+
+.relcon {
+  position: relative;
+}
+
+@chatcolor: #ce5d5d;
+.chat {
+  bottom: 0;
+  position: fixed;
+
+  &__form {
+    background-color: @chatcolor;
+    padding-bottom: 14px;
+    padding-top: 14px;
+    margin-top: 1em;
+    width: 100%;
+  }
+
+  &__button {
+    background-color: @chatcolor;
+    border-radius: 1px;
+    border: 1px solid white;
+    color: white;
+    height: 30px;
+    margin: 0;
+    padding: 4px 8px;
+    border-left: none;
+    display: block;
+    float: left;
+
+    &--active {
+      background-color: darken(@chatcolor, 15);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  &__inp-buttons {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &__message-inp {
+    border-radius: 1px;
+    border: 1px solid transparent;
+    color: #333;
+    margin: 0;
+    padding: 4px 270px 4px 4px;
+    width: 100%;
+
+    &:focus {
+      border: 1px solid white;
+      outline-color: lighten(@chatcolor, 15);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.remark {
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+
+  &:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+
+  &:nth-child(odd) {
+    background-color: #f9f9f9;
+  }
+
+  &__date {
+    display: block;
+  }
+
+  &__person {
+    display: block;
+    padding-left: .4em;
+
+    &--system {
+      text-align: right;
+      color: #888;
+    }
+  }
+
+  &__message {
+    display: block;
+    min-height: 3em;
+    border-left: 1px solid #444;
+    padding-left: 1em;
+    padding-right: 1em;
+
+    &--system {
+      color: #888;
+    }
+  }
+
+  &__follow-up {
+    border-left: 1px solid #444;
+    min-height: 3em;
+  }
+
 }

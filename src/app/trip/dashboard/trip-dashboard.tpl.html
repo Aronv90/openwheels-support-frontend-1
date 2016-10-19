@@ -1,5 +1,6 @@
 <div class="row">
-  <div class="col-sm-3">
+
+  <div class="col-md-3 col-sm-6">
     <div class="box">
       <div class="box__title box__title--trip">
         <small>Trip #{{booking.id}}</small>
@@ -7,38 +8,43 @@
       </div>
       <div class="box__content">
         <div class="row box__row">
-          <div class="col-sm-6"><span class="box__slabel">Status</span></div>
-          <div class="col-sm-6"><span class="box__sdata">{{booking.status}}</span></div>
+          <div class="col-xs-6"><span class="box__slabel">Status</span></div>
+          <div class="col-xs-6"><span class="box__sdata">{{booking.status}}</span></div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-6"><span class="box__slabel">Approved</span></div>
-          <div class="col-sm-6"><span class="box__sdata" ng-class="{'box__sdata--green': booking.approved=='OK', 'box__sdata--red': booking.approved == 'BUY_VOUCHER' || booking.approved == 'INSPECT' || booking.approved == 'TO_BE_PAID'}">{{booking.approved}}</span></div>
+          <div class="col-xs-6"><span class="box__slabel">Approved</span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-class="{'box__sdata--green': booking.approved=='OK', 'box__sdata--red': booking.approved == 'BUY_VOUCHER' || booking.approved == 'INSPECT' || booking.approved == 'TO_BE_PAID'}">{{booking.approved}}</span></div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-6"><span class="box__slabel">Finalized + KM</span></div>
-          <div class="col-sm-6"><span class="box__sdata">{{booking.trip.finalized ? 'Ja' : 'Nee'}}, <span>{{booking.trip.odoEnd ? booking.trip.odoEnd - booking.trip.odoBegin : '-' }}KM</span></span></div>
+          <div class="col-xs-6"><span class="box__slabel">Finalized + KM</span></div>
+          <div class="col-xs-6"><span class="box__sdata">{{booking.trip.finalized ? 'Ja' : 'Nee'}}, <span>{{booking.trip.odoEnd ? booking.trip.odoEnd - booking.trip.odoBegin : '-' }}KM</span></span></div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-12">
+          <div class="col-xs-6"><span class="box__slabel">Contracttype</span></div>
+          <div class="col-xs-6"><span class="box__sdata">{{contract.type.name}}</span></div>
+        </div>
+        <div class="row box__row">
+          <div class="col-xs-12">
             <div class="box__divider"></div>
           </div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-12"><span class="box__slabel">Req. boeking datum:</span></div>
-          <div class="col-sm-12"><span class="box__sdata box__sdata--whole-row"><span ng-if="!booking.beginRequested">-</span><booking-date ng-if="booking.beginRequested" type="requested" booking="booking"></booking-date></span></div>
+          <div class="col-xs-12"><span class="box__slabel">Req. boeking datum:</span></div>
+          <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row"><span ng-if="!booking.beginRequested">-</span><booking-date ng-if="booking.beginRequested" type="requested" booking="booking"></booking-date></span></div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-12"><span class="box__slabel">Boeking datum:</span></div>
-          <div class="col-sm-12"><span class="box__sdata box__sdata--whole-row"><span ng-if="!booking.beginBooking">-</span><booking-date ng-if="booking.beginBooking" booking="booking" type="booking"></booking-date></span></div>
+          <div class="col-xs-12"><span class="box__slabel">Boeking datum:</span></div>
+          <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row"><span ng-if="!booking.beginBooking">-</span><booking-date ng-if="booking.beginBooking" booking="booking" type="booking"></booking-date></span></div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-12"><span class="box__slabel">Trip datum:</span></div>
-          <div class="col-sm-12"><span class="box__sdata box__sdata--whole-row"><span ng-if="!booking.trip.begin">-</span><booking-date ng-if="booking.trip.begin" booking="booking" type="trip"></booking-date></span></div>
+          <div class="col-xs-12"><span class="box__slabel">Trip datum:</span></div>
+          <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row"><span ng-if="!booking.trip.begin">-</span><booking-date ng-if="booking.trip.begin" booking="booking" type="trip"></booking-date></span></div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-3">
+  </div> <!--/ first box, trip -->
+
+  <div class="col-md-3 col-sm-6">
     <div class="box">
       <div class="box__title box__title--driver">
         <small>Bestuurder #{{booking.person.id}}, provider #{{booking.person.provider.id}} <a ui-sref="root.person.show.summary({personId: booking.person.id})" class="pull-right box__link">Meer</a></small>
@@ -46,26 +52,29 @@
       </div>
       <div class="box__content">
         <div class="row">
-          <div class="col-sm-10">
+          <div class="col-xs-7">
             <div class="row box__row">
-              <div class="col-sm-6"><span class="box__slabel">Status</span></div>
-              <div class="col-sm-6"><span class="box__sdata box__sdata--small">{{booking.person.status}}</span></div>
+              <div class="col-xs-6"><span class="box__slabel">Status</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small">{{booking.person.status}}</span></div>
             </div>
             <div class="row box__row">
-              <div class="col-sm-6"><span class="box__slabel">Rijbewijs</span></div>
-              <div class="col-sm-6"><span class="box__sdata box__sdata--small" ng-class="{'box__sdata--red': booking.person.driverLicenseStatus != 'ok'}">{{booking.person.driverLicenseStatus}} <a ui-sref="root.person.show.data.driverlicense({personId: booking.person.id})">Check</a></span></div>
+              <div class="col-xs-6"><span class="box__slabel">Rijbewijs</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small" ng-class="{'box__sdata--red': booking.person.driverLicenseStatus != 'ok'}">{{booking.person.driverLicenseStatus}} <a ui-sref="root.person.show.data.driverlicense({personId: booking.person.id})">Check</a></span></div>
             </div>
           </div>
-          <div class="col-sm-2"><img class="pull-right box__sdata box__sdata--image" ng-src="/person/{{booking.person.id}}/90/90/profile.png"></div>
+          <div class="col-xs-5"><img class="pull-right box__sdata box__sdata--image" ng-src="/person/{{booking.person.id}}/90/90/profile.png"></div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-3"><span class="box__slabel">Email</span></div>
-          <div class="col-sm-9"><span title="{{booking.person.email}}" class="box__sdata box__sdata--small">{{booking.person.email}}</span></div>
+          <div class="col-xs-4"><span class="box__slabel">Email</span></div>
+          <div class="col-xs-8"><span title="{{booking.person.email}}" class="box__sdata box__sdata--small">{{booking.person.email}}</span></div>
+          <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.person.created}}</span></div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-3">
+  </div> <!--/ second box, driver -->
+
+  <div class="col-md-3 col-sm-6">
     <div class="box">
       <div class="box__title box__title--owner">
         <small>Eigenaar #{{booking.resource.owner.id}}, provider #{{booking.resource.owner.provider.id}} <a ui-sref="root.person.show.summary({personId: booking.resource.owner.id})" class="pull-right box__link">Meer</a></small>
@@ -73,22 +82,25 @@
       </div>
       <div class="box__content">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-xs-7">
             <div class="row box__row">
-              <div class="col-sm-6"><span class="box__slabel">Status</span></div>
-              <div class="col-sm-6"><span class="box__sdata box__sdata--small">{{booking.resource.owner.status}}</span></div>
+              <div class="col-xs-6"><span class="box__slabel">Status</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small">{{booking.resource.owner.status}}</span></div>
             </div>
           </div>
-          <div class="col-sm-6"><img class="pull-right box__sdata box__sdata--image" ng-src="/person/{{booking.resource.owner.id}}/90/90/profile.png"></div>
+          <div class="col-xs-5"><img class="pull-right box__sdata box__sdata--image" ng-src="/person/{{booking.resource.owner.id}}/90/90/profile.png"></div>
         </div>
         <div class="row box__row">
-          <div class="col-sm-3"><span class="box__slabel">Email</span></div>
-          <div class="col-sm-9"><span title="{{booking.resource.owner.email}}" class="box__sdata box__sdata--small">{{booking.resource.owner.email}}</span></div>
+          <div class="col-xs-4"><span class="box__slabel">Email</span></div>
+          <div class="col-xs-8"><span title="{{booking.resource.owner.email}}" class="box__sdata box__sdata--small">{{booking.resource.owner.email}}</span></div>
+          <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.owner.created}}</span></div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="col-sm-3">
+  </div> <!--/ third box, owner -->
+
+  <div class="col-md-3 col-sm-6">
     <div class="box">
       <div class="box__title box__title--resource">
         <small>Auto #{{booking.resource.id}} <a ui-sref="root.resource.show.summary({resourceId: booking.resource.id})" class="pull-right box__link">Meer</a></small>
@@ -96,64 +108,151 @@
       </div>
       <div class="box__content">
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-xs-7">
             <div class="row box__row">
-              <div class="col-sm-6"><span class="box__slabel">Vloot</span></div>
-              <div class="col-sm-6"><span class="box__sdata box__sdata--small">{{booking.resource.fleet.id}}</span></div>
+              <div class="col-xs-6"><span class="box__slabel">Kenteken</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small" title="{{booking.resource.registrationPlate}}">{{booking.resource.registrationPlate || '-'}}</span></div>
+              <div class="col-xs-6"><span class="box__slabel">Vloot</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small">{{booking.resource.fleet.id}}</span></div>
+              <div class="col-xs-6"><span class="box__slabel">Actief</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small" ng-class="{warn: !booking.resource.isActive}">{{booking.resource.isActive ? 'Ja' : 'Nee'}}</span></div>
             </div>
           </div>
-          <div class="col-sm-6"><img class="pull-right box__sdata box__sdata--image" ng-src="{{booking.resource.pictures[0] | resourceAvatar:'small' }}"></div>
+          <div class="col-xs-5">
+            <img class="pull-right box__sdata box__sdata--image" ng-src="{{booking.resource.pictures[0] | resourceAvatar:'small' }}">
+          </div>
+        </div>
+        <div class="row box__row">
+          <div class="col-xs-5"><span class="box__slabel">Huurprijs</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.price.hourRate}}/h + {{booking.price.dayRateTotal}}/d + {{booking.price.kilometerRate}}/km</span> </div>
+          <div class="col-xs-5"><span class="box__slabel">Brandstof</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.refuelByRenter ? 'Zelf tanken' : booking.price.fuelPerKilometer+ '/km' + (booking.price.kmFree ? ', 100KM gratis' : '')}}</span></div>
+          <div class="col-xs-5"><span class="box__slabel">Merk</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.brand + ', ' + booking.resource.model}}</span></div>
+          <div class="col-xs-5"><span class="box__slabel">Besck. vrienden</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableFriends ? 'Ja' : 'Nee'}} {{booking.resource.isConfirmationRequiredFriends ? ', bevestiging nodig' : ', geen bev'}}</span></div>
+          <div class="col-xs-5"><span class="box__slabel">Besch. overig</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableOthers ? 'Ja': 'Nee'}} {{booking.resource.isConfirmationRequiredOthers ? ', bevestiging nodig' : ', geen bev'}}</span></div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div><!-- /fourth box, car/resource -->
+
+</div><!-- /first row containing 4 boxes -->
+
 <div class="row row--padding-top">
+
   <div class="col-sm-6">
     <div class="box">
       <div class="box__title box__title--driver">
         <h3>Facturen bestuurder</h3>
       </div>
       <div class="box__content">
-        <div class="row row--small-font">
-          <div class="col-sm-1">#</div>
-          <div class="col-sm-3">Omschrijving</div>
-          <div class="col-sm-3 text-right">Ber.</div>
-          <div class="col-sm-2 text-right">Totaal</div>
-          <div class="col-sm-2">ONTV/BET</div>
+        <div class="row row--small-font row--no-margin row--invoice-heading">
+          <div class="col-xs-1">#</div>
+          <div class="col-xs-5">Omschrijving</div>
+          <div class="col-xs-2 text-right">Totaal</div>
+          <div class="col-xs-2">Te ontv/bet</div>
+          <div class="col-xs-2">Status</div>
         </div>
-        <div class="row row--small-font" ng-repeat="invoiceLine in invoicesRenter">
-          <div class="col-sm-1">{{invoiceLine.invoice.groupId}}</div>
-          <div class="col-sm-3">{{invoiceLine.description}}</div>
-          <div title="{{invoiceLine.quantity}} x {{invoiceLine.price}} = {{invoiceLine.total|currency}}" ng-class="{'neg': invoiceLine.total < 0}" class="col-sm-2 text-right number">{{invoiceLine.total | currency}}</div>
-          <div class="col-sm-2">{{invoiceLine.relationType === 'sent' ? 'ONTV' : 'BET'}}</div>
+        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="invoiceLine in invoicesRenter">
+          <div ng-if="invoiceLine.invoice.id" class="col-xs-1">{{invoiceLine.invoice.id}}</div>
+          <div class="col-xs-5">{{invoiceLine.description}}</div>
+          <div title="{{invoiceLine.quantity}} x {{invoiceLine.price}} = {{invoiceLine.total|currency}}" ng-class="{'neg': invoiceLine.total < 0}" class="col-xs-2 text-right number">{{invoiceLine.total | currency}}</div>
+          <div class="col-xs-2">te {{invoiceLine.relationType === 'sent' ? 'ontv.' : 'bet.'}}</div>
+          <div class="col-xs-2">
+            <i ng-class="{'fa--muted': !invoiceLine.invoice.paid}" title="{{invoiceLine.invoice.paid ? '(uit)betaald' : 'Niet (uit)betaald'}}" class="fa fa-fw fa-money"></i>
+            <i ng-class="{'fa--muted': !invoiceLine.invoice.groupId}" title="{{invoiceLine.invoice.groupId ? 'Factuur onderdeel van verzamelfactuur '+invoiceLine.invoice.groupId : 'Factuur nog niet gebundeld'}}" class="fa fa-fw fa-expand"></i>
+          </div>
+        </div>
+        <div ng-if="!invoicesRenter || invoicesRenter.length == 0" class="row row--small-font">
+          <div class="col-xs-12 text-center">
+            Nog geen facturen
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </div> <!--/ first box, invoices driver-->
+
   <div class="col-sm-6">
     <div class="box">
       <div class="box__title box__title--owner">
         <h3>Facturen eigenaar</h3>
       </div>
       <div class="box__content">
-        <div class="row row--small-font">
-          <div class="col-sm-1">#</div>
-          <div class="col-sm-3">Omschrijving</div>
-          <div class="col-sm-3 text-right">Ber.</div>
-          <div class="col-sm-2 text-right">Totaal</div>
-          <div class="col-sm-2">ONTV/BET</div>
+        <div class="row row--small-font row--no-margin row--invoice-heading">
+          <div class="col-xs-1">#</div>
+          <div class="col-xs-5">Omschrijving</div>
+          <div class="col-xs-2 text-right">Totaal</div>
+          <div class="col-xs-2">Te ontv/bet</div>
+          <div class="col-xs-2">Status</div>
         </div>
-        <div class="row row--small-font" ng-repeat="invoiceLine in invoicesOwner">
-          <div class="col-sm-1" title="Verzamelfactuur #{{invoiceLine.invoice.groupId}}, deze factuur is {{invoiceLine.invoice.paid ? '' : 'nog niet '}}betaald}}">{{invoiceLine.invoice.groupId}}</div>
-          <div class="col-sm-3">{{invoiceLine.description}}</div>
-          <div title="{{invoiceLine.quantity}} x {{invoiceLine.price}} = {{invoiceLine.total|currency}}" ng-class="{'neg': invoiceLine.total < 0}" class="col-sm-2 text-right number">{{invoiceLine.total | currency}}</div>
-          <div class="col-sm-2">{{invoiceLine.relationType === 'sent' ? 'ONTV' : 'BET'}}</div>
+        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="invoiceLine in invoicesOwner">
+          <div ng-if="invoiceLine.invoice.id" class="col-xs-1">{{invoiceLine.invoice.id}}</div>
+          <div class="col-xs-5">{{invoiceLine.description}}</div>
+          <div title="{{invoiceLine.quantity}} x {{invoiceLine.price}} = {{invoiceLine.total|currency}}" ng-class="{'neg': invoiceLine.total < 0}" class="col-xs-2 text-right number">{{invoiceLine.total | currency}}</div>
+          <div class="col-xs-2">te {{invoiceLine.relationType === 'sent' ? 'ontv.' : 'bet.'}}</div>
+          <div class="col-xs-2">
+            <i ng-class="{'fa--muted': !invoiceLine.invoice.paid}" title="{{invoiceLine.invoice.paid ? '(uit)betaald op '+invoiceLine.invoice.paid : 'Niet (uit)betaald'}}" class="fa fa-fw fa-money"></i>
+            <i ng-class="{'fa--muted': !invoiceLine.invoice.groupId}" title="{{invoiceLine.invoice.groupId ? 'Factuur onderdeel van verzamelfactuur '+invoiceLine.invoice.groupId : 'Factuur nog niet gebundeld'}}" class="fa fa-fw fa-expand"></i>
+          </div>
+        </div>
+        <div ng-if="!invoicesOwner || invoicesOwner.length == 0" class="row row--small-font">
+          <div class="col-xs-12 text-center">
+            Nog geen facturen
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </div> <!--/ second box, invoices owner-->
+
+</div><!--/ second row, 2 invoice boxes -->
+
+<div class="row row--padding-top">
+  <div class="col-sm-12">
+    <div class="box box--small">
+      <div class="box__title box__title--remarks">
+        <h3>Opmerkingen, notities & overleg</h3>
+      </div>
+      <div class="box__content">
+
+        <div class="row remark" ng-if="remark.type == 'custom'" ng-repeat-start="remark in remarks">
+          <div class="col-xs-2">
+            <span class="remark__person">
+              {{remark.creator.firstName}}
+              <small class="remark__date">{{remark.created | amDateFormat:'DD-MM-YYYY HH:mm'}}</small>
+            </span>
+          </div>
+          <div class="col-xs-8">
+            <span class="remark__message">{{remark.message}}</span>
+          </div>
+          <div class="col-xs-2 remark__follow-up">
+            <span ng-if="remark.followUpDate">Follow-up: {{remark.followUpDate | amDateFormat:'DD-MM-YYYY'}}</span>
+          </div>
+        </div>
+
+        <div class="row remark" ng-if="remark.type == 'owner_called'">
+          <div class="col-xs-2">
+            <span class="remark__person remark__person--system">Systeem</span>
+          </div>
+          <div class="col-xs-10">
+            <span class="remark__message remark__message--system">De eigenaar heeft over deze trip gebeld op {{remark.created | amDateFormat:'DD-MM-YYYY HH:mm'}}</span>
+          </div>
+        </div>
+
+        <div class="row remark" ng-if="remark.type == 'driver_called'" ng-repeat-end>
+          <div class="col-xs-2">
+            <span class="remark__person remark__person--system">Systeem</span>
+          </div>
+          <div class="col-xs-10">
+            <span class="remark__message remark__message--system">De bestuurder heeft over deze trip gebeld op {{remark.created | amDateFormat:'DD-MM-YYYY HH:mm'}}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div> <!--/ first box, invoices driver-->
+</div><!-- / third row, remarks -->
 
 <div class="quickaction">
   <a ng-class="{'quickaction__toggler--hidden': hide, 'quickaction__toggler--shown' : !hide}" ng-click="hide=!hide" type="button" class="quickaction__toggler">
@@ -167,4 +266,22 @@
   </ul>
 </div>
 
-<!--<pre>{{booking.resource|json}}</pre>-->
+<div class="chat container">
+  <div class="row chat__form">
+      <form ng-submit="sendChat()">
+        <div class="col-sm-12">
+          <div class="relcon">
+            <input type="text" placeholder="Opmerkingen, notities en aantekeningen voor collega's" class="chat__message-inp" ng-model="chat.message">
+            <div class="chat__inp-buttons">
+              <button type="submit" class="chat__button" uib-tooltip="Verstuur (enter)" ng-disabled="chat.loading.message"><i class="fa fa-fw fa-paper-plane"></i></button>
+              <button type="button" ng-click="openTextEditorDialog()" class="chat__button" uib-tooltip="Toon groter tekstvlak" ><i class="fa fa-fw fa-expand"></i></button>
+              <button type="button" ng-class="{'chat__button--active': chat.date}" ng-click="openDatepickerDialog()" class="chat__button" uib-tooltip="Voeg follow-up datum toe" ><i class="fa fa-fw fa-calendar"></i></button>
+              <button type="button" ng-class="{'chat__button--active': chat.driverCalledFlag}" ng-click="sendDriverCalled()" ng-disabled="chat.loading.driver" class="chat__button" uib-tooltip="{{!chat.driverCalledFlag ? 'Voeg \'De bestuurder belde\' notitie toe' : 'Verwijder \'De bestuurder belde\' notitie'}}"><i class="fa fa-fw fa-phone"></i>Bestuuder</button>
+              <button type="button" ng-class="{'chat__button--active': chat.ownerCalledFlag}" ng-click="sendOwnerCalled()" ng-disabled="chat.loading.owner" class="chat__button" uib-tooltip="{{!chat.ownerCalledFlag ? 'Voeg \'De eigenaar belde\' notitie toe' : 'Verwijder \'De eigenaar belde\' notitie'}}" ><i class="fa fa-fw fa-phone"></i>Eigenaar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
