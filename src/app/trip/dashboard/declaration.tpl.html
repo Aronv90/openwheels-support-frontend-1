@@ -1,0 +1,41 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Voer tankbon in</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <div ng-if="!contract.supportsDeclarations" layout="column">
+         <p>Let op: deze rit is gereden op een contract dat geen tankbonnen ondersteunt. Wijzig eerst het contracttype en probeer het dan opnieuw.</p>
+      </div>
+      <form layout="column" name="declarationF">
+        <md-input-container flex>
+          <label>Bedrag</label>
+          <input type="number" max="200" name="amount" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" ng-required ng-model="declaration.amount" placeholder="Bedrag"/>
+          <div ng-messages="declarationF.amount.$error">
+            <div ng-message-exp="['required', 'min', 'max', 'pattern']">
+              Bedrag mag niet hoger dan 200 euro zijn en niet meer dan twee decimalen hebben.
+            </div>
+          </div>
+        </md-input-container>
+        <file-input on-change="fileChanged" flex></file-input>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Annuleren
+    </md-button>
+    <md-button ng-disabled="!declaration.amount || !declaration.image" class="md-primary md-raised" ng-click="done()">
+      Toevoegen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

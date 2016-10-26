@@ -178,7 +178,7 @@ angular.module('openwheels', [
   $rootScope.$stateParams = $stateParams;
 
   //set moment lang
-  $window.moment.lang('nl');
+  $window.moment.locale('nl');
 
   // loading route message
   $rootScope.$on('$stateChangeStart', function () {

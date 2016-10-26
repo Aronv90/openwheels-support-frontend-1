@@ -145,7 +145,7 @@
   <div class="col-sm-6">
     <div class="box">
       <div class="box__title box__title--driver">
-        <h3>Facturen bestuurder</h3>
+        <h3>Facturen bestuurder<small class="pull-right"><i class="fa fa-fw fa-chevron-right"></i></small></h3>
       </div>
       <div class="box__content">
         <div class="row row--small-font row--no-margin row--invoice-heading">
@@ -177,7 +177,7 @@
   <div class="col-sm-6">
     <div class="box">
       <div class="box__title box__title--owner">
-        <h3>Facturen eigenaar</h3>
+        <h3>Facturen eigenaar<small class="pull-right"><i class="fa fa-fw fa-chevron-right"></i></small></h3>
       </div>
       <div class="box__content">
         <div class="row row--small-font row--no-margin row--invoice-heading">
@@ -215,6 +215,12 @@
         <h3>Opmerkingen, notities & overleg</h3>
       </div>
       <div class="box__content">
+
+        <div class="row remark" ng-if="!remarks || remarks.length == 0">
+          <div class="col-sm-12">
+            <p>Nog geen notities toegevoegd</p>
+          </div>
+        </div>
 
         <div class="row remark" ng-if="remark.type == 'custom'" ng-repeat-start="remark in remarks">
           <div class="col-xs-2">
@@ -259,10 +265,12 @@
     <i ng-class="{'fa-chevron-right': hide, 'fa-chevron-left' : !hide}" class="fa fa-fw"></i> 
   </a>
   <ul ng-hide="hide">
-    <li class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Voeg boete toe voor bestuurder">Boete</span></li>
-    <li class="quickaction__item--driver"><span tooltip-placement="right" uib-tooltip="Stuur schade mails">Schade</span></li>
+    <li ng-click="addDeclaration()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Voeg tankbon aan deze boeking toe">TB</span></li>
+    <li ng-click="addKm()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM</span></li>
+    <li ng-click="notifyDamage()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Stuur schademails">Schade</span></li>
+<!--     <li class="quickaction__item--driver"><span tooltip-placement="right" uib-tooltip="Stuur schade mails">Schade</span></li>
     <li class="quickaction__item--resource"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verleng</span></li>
-    <li class="quickaction__item--owner"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verleng</span></li>
+    <li class="quickaction__item--owner"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verleng</span></li> -->
   </ul>
 </div>
 
@@ -273,11 +281,11 @@
           <div class="relcon">
             <input type="text" placeholder="Opmerkingen, notities en aantekeningen voor collega's" class="chat__message-inp" ng-model="chat.message">
             <div class="chat__inp-buttons">
-              <button type="submit" class="chat__button" uib-tooltip="Verstuur (enter)" ng-disabled="chat.loading.message"><i class="fa fa-fw fa-paper-plane"></i></button>
+              <button type="submit" class="chat__button" uib-tooltip="Verstuur (enter)" ng-disabled="chat.loading.message"><i ng-class="{'fa-spinner fa-spin': chat.loading.message, 'fa-paper-plane': !chat.loading.message}" class="fa fa-fw"></i></button>
               <button type="button" ng-click="openTextEditorDialog()" class="chat__button" uib-tooltip="Toon groter tekstvlak" ><i class="fa fa-fw fa-expand"></i></button>
               <button type="button" ng-class="{'chat__button--active': chat.date}" ng-click="openDatepickerDialog()" class="chat__button" uib-tooltip="Voeg follow-up datum toe" ><i class="fa fa-fw fa-calendar"></i></button>
-              <button type="button" ng-class="{'chat__button--active': chat.driverCalledFlag}" ng-click="sendDriverCalled()" ng-disabled="chat.loading.driver" class="chat__button" uib-tooltip="{{!chat.driverCalledFlag ? 'Voeg \'De bestuurder belde\' notitie toe' : 'Verwijder \'De bestuurder belde\' notitie'}}"><i class="fa fa-fw fa-phone"></i>Bestuuder</button>
-              <button type="button" ng-class="{'chat__button--active': chat.ownerCalledFlag}" ng-click="sendOwnerCalled()" ng-disabled="chat.loading.owner" class="chat__button" uib-tooltip="{{!chat.ownerCalledFlag ? 'Voeg \'De eigenaar belde\' notitie toe' : 'Verwijder \'De eigenaar belde\' notitie'}}" ><i class="fa fa-fw fa-phone"></i>Eigenaar</button>
+              <button type="button" ng-click="sendCalled('driver')" ng-disabled="chat.loading.driver" class="chat__button" uib-tooltip="{{!chat.driverCalledFlag ? 'Voeg \'De bestuurder belde\' notitie toe' : 'Verwijder \'De bestuurder belde\' notitie'}}"><i ng-class="{'fa-spinner fa-spin': chat.loading.driver, 'fa-phone': !chat.loading.driver}" class="fa fa-fw"></i> Bestuuder</button>
+              <button type="button" ng-click="sendCalled('owner')" ng-disabled="chat.loading.owner" class="chat__button" uib-tooltip="{{!chat.ownerCalledFlag ? 'Voeg \'De eigenaar belde\' notitie toe' : 'Verwijder \'De eigenaar belde\' notitie'}}" ><i ng-class="{'fa-spinner fa-spin': chat.loading.owner, 'fa-phone': !chat.loading.owner}" class="fa fa-fw"></i> Eigenaar</button>
             </div>
           </div>
         </div>
