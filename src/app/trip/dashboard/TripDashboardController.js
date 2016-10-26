@@ -152,7 +152,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.notifyDamage = function() {
     $mdDialog.show({
       controller: ['$scope', '$mdDialog', 'booking', 'contract', function($scope, $mdDialog, booking, contract) {
-        $scope.damage = {};
+        $scope.damage = {booking: booking.id, notifyDriver: false, notifyOwner: false};
         $scope.booking = booking;
         $scope.contract = contract;
         $scope.age = moment().diff(booking.person.dateOfBirth, 'years');
@@ -175,7 +175,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .then(function(res) {
       console.log(res);
-      return true;
+      return bookingService.addDamage(res);
     })
     .then(function(res) {
       return alertService.add('success', 'Schademails gestuurd', 6000);
