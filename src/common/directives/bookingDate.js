@@ -45,6 +45,6 @@ angular.module('bookingDate', [])
           $scope.end += end.format(' HH:mm');
         }
       },
-      template: '<span title="{{::startfull}}">{{::start}}</span><span ng-if="end" title="{{::endfull}}"> | {{::end}}</span>',
+      template: '<span title="{{startfull}}">{{start}}</span><span ng-if="end" title="{{endfull}}"> | {{end}}</span>',
     };
   });

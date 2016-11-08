@@ -10,11 +10,10 @@
   </md-toolbar>
 
   
-
   <md-dialog-content>
     <div class="md-dialog-content">
-      <div ng-if="!contract.supportsDeclarations" layout="column">
-         <p>Let op: deze rit is gereden op een contract dat geen tankbonnen ondersteunt. Wijzig eerst het contracttype en probeer het dan opnieuw.</p>
+      <div ng-if="!contract.type.canHaveDeclaration" layout="column">
+         <p class="text-danger">Let op: deze rit is gereden op een contract dat geen tankbonnen ondersteunt. Wijzig eerst het contracttype en probeer het dan opnieuw.</p>
       </div>
       <form layout="column" name="declarationF">
         <md-input-container flex>

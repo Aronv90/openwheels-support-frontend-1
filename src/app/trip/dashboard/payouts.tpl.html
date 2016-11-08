@@ -1,0 +1,54 @@
+<md-dialog flex="70" flex-sm="80">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Payouts ({{payouts.length}})</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Payout ID</th>
+            <th>Created</th>
+            <th>Invoice group</th>
+            <th>Voucher</th>
+            <th>Amount</th>
+            <th>Paid</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="payout in payouts">
+            <td>{{ payout.id}}</td>
+            <td>{{ payout.created | amDateFormat : 'DD-MM-YY' }}</td>
+            <td><a ui-sref="root.invoice2.invoiceGroup.show({ invoiceGroupId: payout.invoiceGroup.id })">{{ payout.invoiceGroup.id}}</a></td>
+            <td><a ui-sref="root.person.show.vouchers({ personId: payout.person.id })">{{ payout.voucher.id}}</a></td>
+            <td class="text-right">
+              <b>{{ (-1 * payout.paymentInstruction.amount) | currency}}</b>
+            </td>
+
+            <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+
+            <td ng-if="!payout.paid">
+              <a ng-click="processPayout(payout)">Payout now</a><br/>
+              <a ng-click="deletePayout(payout)">Delete</a><br/>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+      Sluiten
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

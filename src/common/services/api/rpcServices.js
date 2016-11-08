@@ -171,6 +171,7 @@ angular.module('rpcServices', [])
 
       this.checked = m('checked');
       this.addDamage = m('addDamage');
+      this.mailAgreement = m('mailAgreement');
 
       this.bookingWeekKPIData = m('bookingWeekKPIData');
     })
@@ -268,6 +269,13 @@ angular.module('rpcServices', [])
       this.apply = m('apply');
       this.disable = m('disable');
       this.get = m('get');
+    })
+
+    .service('discountUsageService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('discount_usage.' + name);
+      };
+      this.search = m('search');
     })
 
     .service('incassoService', function (api) {

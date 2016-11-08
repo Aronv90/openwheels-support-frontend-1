@@ -25,176 +25,159 @@
           <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
         </span>
       </dd>
+      <dt>Onbundel<dt><dd>
+      <span ng-if="!invoiceGroup.paid && invoiceGroup.total > 0">
+          <button ng-click="unbundle(invoiceGroup)" title="Onbundel deze verzamelfactuur"class="btn-link"><i class="fa fa-expand fa-fw" ></i></button>
+        </span>
+        <span ng-if="invoiceGroup.paid || invoiceGroup.total < 0">
+          <button title="Deze verzamelfactuur kan niet worden ontbundeld omdat deze al betaald is of omdat het een uitbetaal factuur betreft." disabled class="btn-link text-muted"><i class="fa fa-expand fa-fw" ></i></button>
+        </span>
+      </dd>
       <dt>Total<dt><dd><strong>{{ invoiceGroup.total | currency }}</strong></dd>
     </dl>
 
   </div>
 </div>
 
-
-<div class="panel panel-default card">
-    <div class="panel-heading">
-        <h3 class="card__title">Sent invoices</h3>
-    </div>
-    <div class="panel-body">
-
-        <div ng-repeat="invoice in invoiceGroup.sentInvoices">
-            <h4>
-              {{ invoice.description }}<br/>
-              <small>
-                ID: {{ invoice.id }};
-                Date: {{ invoice.date | amDateFormat: 'DD-MM-YYYY' }};
-                Recipient: <b><a ui-sref="root.person.show.summary({ personId: invoice.recipient.id })">{{ invoice.recipient | fullname }}</a></b>;
-                Trip: <b><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></b>
-              </small>
-            </h4>
-
-            <table class="table table-condensed table-hover table-invoice">
-                <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Type</th>
-                      <th>Description</th>
-                      <th class="text-right">Price</th>
-                      <th class="text-right">Qty</th>
-                      <th class="text-right">Tax rate</th>
-                      <th class="text-right">Total</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr ng-repeat="line in invoice.invoiceLines">
-                      <td>
-                        {{ line.id }}
-                      </td>
-
-                      <td>
-                        {{ line.type }}
-                      </td>
-
-                      <td>
-                        {{ line.description }}
-                      </td>
-
-                      <td class="text-right">
-                        {{ line.price | currency }}
-                      </td>
-
-                      <td class="text-right">
-                        {{ line.quantity }}
-                      </td>
-
-                      <td class="text-right">
-                        {{ line.taxRate }}
-                      </td>
-
-                      <td class="text-right">
-                        {{ line.total | currency }}
-                      </td>
-                    </tr>
-
-                    <tr class="table-invoice__total">
-                        <td colspan="2">&nbsp;</td>
-                        <td>Total</td>
-                        <td colspan="3">&nbsp;</td>
-                        <td class="table-invoice__price text-right">{{ invoice.total | currency }}</td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <br/>
-            <br/>
-
-        </div>
-
-    </div>
+<div class="panel panel-default card" ng-if="fromDashboard">
+  <div class="panel-heading" style="background-color: #80A8C7; color: white;">
+    <h5 class="no-margin no-padding card__title no-margin">
+      <a style="color: white;" ui-sref="root.trip.dashboard({tripId: trip})"><i class="fa fa-fw fa-arrow-left"></i> Terug naar dashboard</a>
+    </h5>
+  </div>
 </div>
 
 
+<div style="padding: 3em" class="panel panel-default card">
 
-<div class="panel panel-default card">
-    <div class="panel-heading">
-        <h3 class="card__title">Received invoices</h3>
-    </div>
-    <div class="panel-body">
+    <table class="table table-hover table-invoicegroup">
+      <tbody ng-if="grouped_invoices.owner && grouped_invoices.owner.length === undefined">
+        <tr class="category" ng-if="grouped_invoices.owner">
+          <td colspan="6">
+            Ritten in jouw auto's
+          </td>
+        </tr>
+        <tr class="heading" ng-if="grouped_invoices.owner">
+          <td colspan="2">Omschrijving</td>
+          <td><span class="pull-right">Aantal</span></td>
+          <td><span class="pull-right">Prijs</span></td>
+          <td><span class="pull-right">Opbrensten</span></td>
+          <td><span class="pull-right">Btw</span></td>
+        </tr>
+        <tr class="booking" ng-repeat-start="(booking_id, invoices) in grouped_invoices.owner">
+          <td colspan="6">
+            Rit op {{invoices.booking.beginBooking | amDateFormat:'DD-MM-YYYY'}} door {{invoices.booking.person.firstName}}
+          </td>
+        </tr>
+        <tr ng-repeat="invoiceLine in invoices.invoiceLines" class="invoiceline">
+          <td colspan="2">
+            {{ invoiceLine.description }} 
+          </td>
+          <td class="money"><span class="pull-right">{{ invoiceLine.quantity }}</span></td>
+          <td ng-if="invoiceLine.invoicetype == 'sent'" class="money">{{ invoiceLine.price|currency }}</td>
+          <td ng-if="invoiceLine.invoicetype == 'sent'" class="money">{{ invoiceLine.total|currency }}</td>
+          <td ng-if="invoiceLine.invoicetype != 'sent'" class="money">{{ -1 *invoiceLine.price|currency }}</td>
+          <td ng-if="invoiceLine.invoicetype != 'sent'" class="money">{{ -1 *invoiceLine.total|currency }}</td>
+          <td class="money"><span class="pull-right">{{ invoiceLine.taxRate }}%</span></td>
+        </tr>
+        <tr ng-repeat-end class="subtotal">
+          <td colspan="4">Subtotaal</td>
+          <td class="money">{{ (invoices.total | currency) }}</td>
+          <td colspan="1"></td>
+        </tr>
+      </tbody>
 
-        <div ng-repeat="invoice in invoiceGroup.receivedInvoices">
-            <h4>
-              {{ invoice.description }}<br/>
-              <small>
-                ID: {{ invoice.id }};
-                Date: {{ invoice.date | amDateFormat: 'DD-MM-YYYY' }};
-                Sender: <b><a ui-sref="root.person.show.summary({ personId: invoice.sender.id })">{{ invoice.sender | fullname }}</a></b>;
-                Trip: <b><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></b>
-              </small>
-            </h4>
-            <table class="table table-condensed table-hover table-invoice">
-                <thead>
-                    <tr>
-                      <th>ID</th>
-                      <th>Type</th>
-                      <th>Description</th>
-                      <th class="text-right">Price</th>
-                      <th class="text-right">Qty</th>
-                      <th class="text-right">Tax rate</th>
-                      <th class="text-right">Total</th>
-                    </tr>
-                </thead>
+      <tbody ng-if="grouped_invoices.renter && grouped_invoices.renter.length === undefined">
+        <tr class="category">
+          <td colspan="6">
+            Gemaakte ritten
+          </td>
+        </tr>
+        <tr class="heading">
+          <td colspan="2">Omschrijving</td>
+          <td><span class="pull-right">Aantal</span></td>
+          <td><span class="pull-right">Prijs</span></td>
+          <td><span class="pull-right">Kosten</span></td>
+          <td><span class="pull-right">Btw</span></td>
+        </tr>
+        <tr class="booking" ng-repeat-start="(booking_id, invoices) in grouped_invoices.renter">
+          <td colspan="6">
+            Rit op {{invoices.booking.beginBooking | amDateFormat:'DD-MM-YYYY'}} in {{invoices.booking.resource.alias}}
+          </td>
+        </tr>
+        <tr ng-repeat="invoiceLine in invoices.invoiceLines" class="invoiceline">
+          <td colspan="2">
+            {{ invoiceLine.description }} 
+          </td>
+          <td class="money"><span class="pull-right">{{ invoiceLine.quantity }}</span></td>
+          <td ng-if="invoiceLine.invoicetype == 'received'" class="money">{{invoiceLine.price|currency }}</td>
+          <td ng-if="invoiceLine.invoicetype == 'received'" class="money">{{invoiceLine.total|currency }}</td>
+          <td ng-if="invoiceLine.invoicetype != 'received'" class="money">{{-1*invoiceLine.price|currency }}</td>
+          <td ng-if="invoiceLine.invoicetype != 'received'" class="money">{{-1*invoiceLine.total|currency }}</td>
+          <td class="money"><span class="pull-right">{{ invoiceLine.taxRate }}%</span></td>
+        </tr>
+        <tr class="invoiceline remarks" ng-if="invoices.booking.remarkRequester">
+          <td colspan="2">
+            <strong>Opmerkingen:</strong>
+          </td>
+          <td colspan="4">
+            {{ invoices.booking.remarkRequester }}
+          </td>
+        </tr>
+        <tr ng-repeat-end class="subtotal">
+          <td colspan="4">Subtotaal</td>
+          <td class="money">{{invoices.total|currency }}</td>
+          <td colspan="1"></td>
+        </tr>
+      </tbody>
 
-                <tbody>
-                    <tr ng-repeat="line in invoice.invoiceLines">
-                      <td>
-                        {{ line.id }}
-                      </td>
+      <tbody ng-if="grouped_invoices.other && grouped_invoices.other.length === undefined">
+        <tr class="category">
+          <td colspan="6">
+            Overige posten
+          </td>
+        </tr>
+        <tr class="heading">
+          <td colspan="2">Omschrijving</td>
+          <td><span class="pull-right">Aantal</span></td>
+          <td><span class="pull-right">Prijs</span></td>
+          <td><span class="pull-right">Kosten</span></td>
+          <td><span class="pull-right">Btw</span></td>
+        </tr>
+        <tr ng-repeat="(booking_id, invoices) in grouped_invoices.other">
+          <tr ng-repeat="invoice in invoices">
+            <tr ng-repeat="invoiceLine in invoice.invoiceLines">
+              <tr class="invoiceline">
+                <td colspan="2">
+                  {{ invoiceLine.description }}
+                </td>
+                <td class="money"><span class="pull-right">{{invoiceLine.quantity}}</span></td>
+                <td class="money">{{invoiceLine.price|currency}}</td>
+                <td class="money">{{invoiceLine.total|currency}}</td>
+                <td class="money"><span class="pull-right">{{invoiceLine.taxRate}}%</span></td>
+              </tr>
+            </tr>
+          </tr>
+      </tbody>
 
-                      <td>
-                        {{ line.type }}
-                      </td>
+      <tbody>
+        <tr class="total">
+          <td>
+            <strong ng-if="invoiceGroup.total < 0">Totaal te ontvangen</strong>
+            <strong ng-if="invoiceGroup.total > 0">Totaal te betalen</strong>
+            <strong ng-if="invoiceGroup.total == 0">Totaal</strong>
+          </td>
+          <td>
+            (excl. btw <span class="money">{{ (invoiceGroup.total-invoiceGroup.totalTax|abs|currency) }}</span>,
+            btw <span class="money">{{ (invoiceGroup.totalTax|abs|currency) }}</span>)
+          </td>
+          <td></td>
+          <td></td>
+          <td colspan="1" class="money"><strong>{{invoiceGroup.total|abs|currency}}</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
 
-                      <td>
-                        {{ line.description }}
-                      </td>
+    </table>
 
-                      <td class="text-right">
-                        {{ line.price | currency }}
-                      </td>
-
-                      <td class="text-right">
-                        {{ line.quantity }}
-                      </td>
-
-                      <td class="text-right">
-                        {{ line.taxRate }}
-                      </td>
-
-                      <td class="text-right">
-                        {{ line.total | currency }}
-                      </td>
-                    </tr>
-
-                    <tr class="table-invoice__total">
-                        <td colspan="2">&nbsp;</td>
-                        <td>Total</td>
-                        <td colspan="3">&nbsp;</td>
-                        <td class="table-invoice__price text-right">{{ invoice.total | currency }}</td>
-                    </tr>
-
-                </tbody>
-            </table>
-            <br/>
-            <br/>
-
-        </div>
-
-    </div>
 </div>
-
-
-
-
-
-
-
-
-
-

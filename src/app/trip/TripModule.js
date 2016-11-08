@@ -287,7 +287,16 @@ angular.module('openwheels.trip', [
             }
             return contract;
           });
-        }]
+        }],
+				driverContracts: ['$stateParams', 'contractService', 'booking', function ($stateParams, contractService, booking) {
+					return contractService.forDriver({
+						person: booking.person.id
+					}).then(function (contracts) {
+            // why is this line --v here?
+						//contracts.unshift({id: 50076, contractor: {firstName: 'Wheels4All'}, type: {name: ''}});
+						return contracts;
+					});
+				}]
 			},
 		});
 

@@ -1,10 +1,23 @@
 'use strict';
 
+/** debug functions, to log results of promises */
+
+// Example:
+// a()
+// .then(doSomething)
+// .then(plog)
+// .then(doSomethingElse)
+// .then(plogl('with label'))
+// .catch(doCatch)
+// .finally(cleanUp)
+
+// log promise
 window.plog = function(x) {
-  console.log('plog', x);
+  console.log(x);
   return x;
 };
 
+// log promise with label
 window.plogl = function(label) {
   return function(x) {
     console.log(label, x);
@@ -177,17 +190,22 @@ angular.module('openwheels', [
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 
+
+
   //set moment lang
   $window.moment.locale('nl');
+
+  $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+    $state.previous = fromState;
+
+    $rootScope.previousState = fromState;
+    $rootScope.previousStateParams = fromParams;
+    alertService.loaded();
+  });
 
   // loading route message
   $rootScope.$on('$stateChangeStart', function () {
     alertService.load('info', 'loading...');
-  });
-
-  // loading route message
-  $rootScope.$on('$stateChangeSuccess', function () {
-    alertService.loaded();
   });
 
   // alert api errors on state change error

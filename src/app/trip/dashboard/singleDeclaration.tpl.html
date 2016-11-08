@@ -1,0 +1,24 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>{{declaration.amount | currency }}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <img ng-src="{{:: '../declaration/' + declaration.image}}" alt="Tankbon" style="width: 90%; margin-left: 5%;">
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
