@@ -32,13 +32,6 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
       return row;
     },*/
     doUpdate = function () {
-      bookingService.futureByNotActiveDriver().then(function (list) {
-        $scope.notActiveDrivers = list;
-      });
-
-      bookingService.requested().then(function(list) {
-        $scope.requested = list;
-      });
 
       ccomeService.unfinishedJobs().then(function(list){
         $scope.unfinishedJobs = list;
