@@ -9,7 +9,7 @@
       <div class="box__content">
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Status</span></div>
-          <div class="col-xs-6"><span class="box__sdata">{{booking.status}}</span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-class="{'text-danger': booking.status != 'accepted'}">{{booking.status}}</span></div>
         </div>
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Approved</span></div>
@@ -407,6 +407,7 @@
     <li ng-click="mailAgreement()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Mail huurovereenkomst">HuurO</span></li>
     <li ng-click="applyDiscount()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Voeg kortingscode toe">Kort</span></li>
     <li ng-click="switchContract()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Wissel van contract">Contr</span></li>
+    <li ng-click="resendBoardcomputer()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Stuur boeking naar boordcomputer">CCOME</span></li>
   </ul>
 </div>
 

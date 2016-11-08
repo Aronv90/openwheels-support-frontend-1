@@ -27,7 +27,7 @@
       </dd>
       <dt>Onbundel<dt><dd>
       <span ng-if="!invoiceGroup.paid && invoiceGroup.total > 0">
-          <button ng-click="unbundle(invoiceGroup)" title="Onbundel deze verzamelfactuur"class="btn-link"><i class="fa fa-expand fa-fw" ></i></button>
+          <button ng-click="unbundle(invoiceGroup)" title="Onbundel deze verzamelfactuur" class="btn-link"><i class="fa fa-expand fa-fw" ></i></button>
         </span>
         <span ng-if="invoiceGroup.paid || invoiceGroup.total < 0">
           <button title="Deze verzamelfactuur kan niet worden ontbundeld omdat deze al betaald is of omdat het een uitbetaal factuur betreft." disabled class="btn-link text-muted"><i class="fa fa-expand fa-fw" ></i></button>

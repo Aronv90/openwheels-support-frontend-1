@@ -30,6 +30,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.driverContracts = driverContracts;
   $scope.declarations = [];
   $scope.friends = [];
+  $scope.remarks = [];
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
@@ -40,7 +41,6 @@ angular.module('openwheels.trip.dashboard', [])
   if(lastTrips.length > 10) {
     lastTrips = lastTrips.slice(0, 10);
   }
-
   localStorageService.set('dashboard.last_trips', lastTrips);
 
   if(booking.resource.isAvailableFriends) {
@@ -567,7 +567,7 @@ angular.module('openwheels.trip.dashboard', [])
     $window.scrollTo(0, 0);
     $mdDialog.show({
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
-        $scope.agreement = {toDriver: true, toOwner: false, booking: booking.id};
+        $scope.agreement = {toDriver: true, toOwner: false, toMe: false, booking: booking.id};
         $scope.done = function() {
           $mdDialog.hide($scope.agreement);
         };
