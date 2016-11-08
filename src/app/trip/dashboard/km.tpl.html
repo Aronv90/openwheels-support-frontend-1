@@ -1,0 +1,53 @@
+<md-dialog flex="50" flex-sm="70">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Aanpassen KM standen</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+          <form layout="row" name="kmF">
+            <md-input-container flex>
+              <label>Beginstand</label>
+              <input type="number" name="start" step="1" ng-model="km.odoBegin" placeholder="Beginstand" ng-required>
+              <div ng-messages="kmF.start.$error">
+                <div ng-message-exp="['required']">
+                  Beginstand is verplicht
+                </div>
+              </div>
+            </md-input-container>
+            <div flex></div>
+            <md-input-container flex>
+              <label>Eindstand</label>
+              <input type="number" name="end" step="1" ng-model="km.odoEnd" placeholder="Eindstand" ng-required>
+              <div ng-messages="kmF.end.$error">
+                <div ng-message-exp="['required']">
+                  Eindstand is verplicht
+                </div>
+              </div>
+            </md-input-container>
+          </form>
+          <div layout="column">
+            <p>Afstand: {{km.odoEnd - km.odoBegin}}km</p>
+          </div>
+      </div>
+    </md-dialog-content>
+
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Annuleren
+      </md-button>
+      <md-button class="md-primary md-raised" ng-click="done()">
+        Opslaan
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

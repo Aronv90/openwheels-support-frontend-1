@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice.incasso', [])
 
-.controller('InvoiceIncassoDialogController', function ($scope, $modalInstance, incassoService, alertService, incassoOptions) {
+.controller('InvoiceIncassoDialogController', function ($scope, $uibModalInstance, incassoService, alertService, incassoOptions) {
   var dateConfig = {
     //model
     modelFormat: 'YYYY-MM-DD HH:mm',
@@ -50,7 +50,7 @@ angular.module('openwheels.invoice.incasso', [])
 
 
   $scope.dismiss = function () {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 
   $scope.save = function (params) {

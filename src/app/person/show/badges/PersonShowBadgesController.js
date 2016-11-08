@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.show.badges', ['openwheels.person.show.badges.create_edit'])
 
-  .controller('PersonShowBadgesController', function ($scope, $filter, $modal, alertService, dialogService, personService, person) {
+  .controller('PersonShowBadgesController', function ($scope, $filter, $uibModal, alertService, dialogService, personService, person) {
     $scope.person = person;
 
     $scope.removeBadge = function (badge) {
@@ -28,7 +28,7 @@ angular.module('openwheels.person.show.badges', ['openwheels.person.show.badges.
         newBadge = true;
         badge = {};
       }
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'person/show/badges/create_edit/person-show-badges-create-edit.tpl.html',
         windowClass: 'modal--xl',
         controller: 'PersonShowBadgesCreateEditController',

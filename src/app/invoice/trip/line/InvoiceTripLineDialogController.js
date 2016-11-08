@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice.trip.line', [])
 
-.controller('InvoiceTripLineDialogController', function ($scope, $modalInstance, invoiceService, invoiceSenders, invoiceLine, person) {
+.controller('InvoiceTripLineDialogController', function ($scope, $uibModalInstance, invoiceService, invoiceSenders, invoiceLine, person) {
   console.log(person);
   $scope.invoiceLine = invoiceLine;
   $scope.invoiceSenders = invoiceSenders;
@@ -13,7 +13,7 @@ angular.module('openwheels.invoice.trip.line', [])
   ];
 
   $scope.dismiss = function () {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 
   $scope.save = function (invoiceLine, invoiceId) {
@@ -31,14 +31,14 @@ angular.module('openwheels.invoice.trip.line', [])
         }
       })
       .then(function (result) {
-        $modalInstance.close(result);
+        $uibModalInstance.close(result);
       });
     } else {
       invoiceService.createInvoiceLine({
         invoice: invoiceId,
         otherProps: invoiceLine
       }).then(function (result) {
-          $modalInstance.close(result);
+          $uibModalInstance.close(result);
         });
     }
   };

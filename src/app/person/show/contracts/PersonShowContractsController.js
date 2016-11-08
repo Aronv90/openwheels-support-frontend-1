@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.show.contracts', [])
 
-  .controller('PersonShowContractsController', function ($scope, $log, $filter, $modal, contractService, person, contracts ) {
+  .controller('PersonShowContractsController', function ($scope, $log, $filter, $uibModal, contractService, person, contracts ) {
     $scope.contracts = contracts;
 
     var getContractTypes;
@@ -11,7 +11,7 @@ angular.module('openwheels.person.show.contracts', [])
     };
 
     $scope.showPersons = function(contract) {
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'contract/persons/contract-persons.tpl.html',
         windowClass: 'modal--xl',
         controller: 'ContractPersonsController',
@@ -27,7 +27,7 @@ angular.module('openwheels.person.show.contracts', [])
     };
 
     $scope.upgrade = function (contract) {
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'contract/request/contract-request.tpl.html',
         windowClass: 'modal--xl',
         controller: 'ContractRequestController',
@@ -67,7 +67,7 @@ angular.module('openwheels.person.show.contracts', [])
         newContract = true;
         contract = {};
       }
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'contract/create_edit/contract-create-edit.tpl.html',
         windowClass: 'modal--xl',
         controller: 'ContractCreateEditController',

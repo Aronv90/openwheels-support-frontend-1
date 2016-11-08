@@ -2,7 +2,7 @@
 
 angular.module('openwheels.resource.show.discount.create', [])
 
-	.controller('DiscountCreateController', function ($scope, $modalInstance, alertService, discountService, resourceService, resource) {
+	.controller('DiscountCreateController', function ($scope, $uibModalInstance, alertService, discountService, resourceService, resource) {
 
 		$scope.discount = {};
 		$scope.discount.resource = resource;
@@ -40,7 +40,7 @@ angular.module('openwheels.resource.show.discount.create', [])
 		};
 
 		$scope.dismiss = function () {
-			$modalInstance.dismiss();
+			$uibModalInstance.dismiss();
 		};
 
 		$scope.save = function () {
@@ -58,7 +58,7 @@ angular.module('openwheels.resource.show.discount.create', [])
 				globalCharge: $scope.discount.globalCharge
 			})
 			.then(function (result) {
-				$modalInstance.close(result);
+				$uibModalInstance.close(result);
 			})
 			.catch(alertService.addError)
 			.finally(alertService.loaded);

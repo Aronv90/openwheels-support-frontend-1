@@ -12,12 +12,12 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.tripdata'
 ])
 
-.controller('ResourceShowController', function ($scope, $stateParams, $modal, alertService, dialogService, resourceService, resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {
+.controller('ResourceShowController', function ($scope, $stateParams, $uibModal, alertService, dialogService, resourceService, resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {
   $scope.resource = resource;
   $scope.frontResources = settingsService.settings.server + FRONT_RENT + '/' + ( resource.city ? resource.city : 'onbekend' ) + '/' + resource.id + '/wijzigen' + FRONT_SWITCHUSER;
 
   $scope.bookResource = function(resource){
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'trip/create/trip-create.tpl.html',
       windowClass: 'modal--xl',
       controller: 'TripCreateController',

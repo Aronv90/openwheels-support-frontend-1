@@ -2,13 +2,13 @@
 
 angular.module('openwheels.person.show.badges.create_edit', [])
 
-  .controller('PersonShowBadgesCreateEditController', function ($scope, $filter, $q, $modalInstance, dialogService, alertService, personService, badge, person) {
+  .controller('PersonShowBadgesCreateEditController', function ($scope, $filter, $q, $uibModalInstance, dialogService, alertService, personService, badge, person) {
 
     $scope.badge = badge;
     $scope.person = person;
 
     $scope.dismiss = function () {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.save = function (badge) {
@@ -18,7 +18,7 @@ angular.module('openwheels.person.show.badges.create_edit', [])
           name: badge.name
         })
         .then(function (badge) {
-          $modalInstance.close(badge);
+          $uibModalInstance.close(badge);
           alertService.add('success', 'badge edited.', 2000);
         },
         function(error) {
@@ -29,7 +29,7 @@ angular.module('openwheels.person.show.badges.create_edit', [])
       } else { // create
         personService.addBadge({person: person.id, name: badge.name })
           .then(function ( badge ) {
-            $modalInstance.close( badge );
+            $uibModalInstance.close( badge );
             alertService.add('success', 'badge created.', 2000);
           },
           function(error) {

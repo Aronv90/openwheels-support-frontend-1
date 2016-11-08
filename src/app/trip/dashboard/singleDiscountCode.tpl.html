@@ -1,0 +1,76 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Kortingscode {{discount.code}}</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content layout-padding>
+    <table class="table">
+      <tr>
+        <td><strong>Code:</strong></td>
+        <td class="text-right">{{ discount.code }}</td>
+      </tr>
+      <tr>
+        <td><strong>Korting:</strong></td>
+        <td class="text-right">
+          <span ng-if="discount.percentage">{{ discount.percentage | number:0 }}%</span>
+          <span ng-if="discount.amount">{{ discount.amount | currency }}</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Aangemaakt op:</strong></td>
+        <td class="text-right">{{ discount.created | amDateFormat:'DD-MM-YY' }}</td>
+      </tr>
+      <tr>
+        <td><strong>Verstrekker</strong></td>
+        <td class="text-right">{{ discount.sender.firstName + ' ' + discount.sender.lastName}}</td>
+      </tr>
+      <tr>
+      <tr>
+        <td><strong>Geldig vanaf:</strong></td>
+        <td class="text-right">{{ discount.validFrom | amDateFormat:'DD-MM-YY' }}</td>
+      </tr>
+      <tr>
+        <td><strong>Geldig t/m:</strong></td>
+        <td class="text-right">{{ discount.validUntil | amDateFormat:'DD-MM-YY' }}</td>
+      </tr>
+      <tr>
+        <td><strong>Aantal keer gebruikt:</strong></td>
+        <td class="text-right">{{ discount.usage.length }}</td>
+      </tr>
+      <tr>
+        <td><strong>Meerdere malen te gebruiken:</strong></td>
+        <td class="text-right">
+          <span ng-if="discount.multiple">Ja</span>
+          <span ng-if="!discount.multiple">Nee</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Global</strong></td>
+        <td class="text-right">
+          <span ng-if="discount.global">Ja</span>
+          <span ng-if="!discount.global">Nee</span>
+        </td>
+      </tr>
+      <tr>
+        <td><strong>Global charge</strong></td>
+        <td class="text-right">
+          <span ng-if="discount.globalCharge">Ja</span>
+          <span ng-if="!discount.globalCharge">Nee</span>
+        </td>
+      </tr>
+    </table>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

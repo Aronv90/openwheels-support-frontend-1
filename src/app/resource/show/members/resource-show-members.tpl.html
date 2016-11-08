@@ -2,7 +2,7 @@
   <label for="searchPerson">Add new person to members</label>
   <div class="input-group">
     <span class="input-group-addon"><i class="fa fa-search"></i></span>
-    <input id="searchPerson" type="text" class="form-control typeahead" placeholder="Search person" ng-model="searchPerson" typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)" typeahead-min-length="3" typeahead-input-formatter="formatPerson($model)" typeahead-wait-ms="250" required>
+    <input id="searchPerson" type="text" class="form-control typeahead" placeholder="Search person" ng-model="searchPerson" uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)" typeahead-min-length="3" typeahead-input-formatter="formatPerson($model)" typeahead-wait-ms="250" required>
   </div>
 
 </div>

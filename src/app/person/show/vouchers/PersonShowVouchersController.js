@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.show.vouchers', [])
 
-.controller('PersonShowVouchersController', function ($q, $modal, $scope, alertService, voucherService, person, dialogService, paymentService) {
+.controller('PersonShowVouchersController', function ($q, $uibModal, $scope, alertService, voucherService, person, dialogService, paymentService) {
 
   $scope.person = person;
   $scope.vouchers = null;
@@ -20,11 +20,11 @@ angular.module('openwheels.person.show.vouchers', [])
   }
 
   $scope.showRequiredValueDetails = function (requiredValue) {
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'person/show/vouchers/requiredValuePopup.tpl.html',
-      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+      controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
         $scope.requiredValue = requiredValue;
-        $scope.close = $modalInstance.close;
+        $scope.close = $uibModalInstance.close;
       }]
     });
   };
