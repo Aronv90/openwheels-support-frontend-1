@@ -3,7 +3,7 @@
 angular.module('openwheels.invoice.group.show', [
 ])
 
-.controller( 'InvoiceGroupShowController', function( $scope, $modal, dialogService, $filter, invoiceGroup, personService, accountService, invoiceService, alertService, settingsService, FRONT_USER_INVOICEGROUP ) {
+.controller( 'InvoiceGroupShowController', function( $scope, $uibModal, dialogService, $filter, invoiceGroup, personService, accountService, invoiceService, alertService, settingsService, FRONT_USER_INVOICEGROUP ) {
   if(!invoiceGroup){
     return console.log('error, no invoiceGroup');
   }
@@ -12,7 +12,7 @@ angular.module('openwheels.invoice.group.show', [
 
   //create payment modal
   $scope.createPayment = function (groupId) {
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'invoice/payment/invoice-payment-dialog.tpl.html',
       windowClass: 'modal--xl',
       controller: 'InvoicePaymentDialogController',
@@ -36,7 +36,7 @@ angular.module('openwheels.invoice.group.show', [
     paymentCopy.group = groupId;
     paymentCopy.amount = parseFloat(paymentCopy.total);
 
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'invoice/payment/invoice-payment-dialog.tpl.html',
       windowClass: 'modal--xl',
       controller: 'InvoicePaymentDialogController',
@@ -82,7 +82,7 @@ angular.module('openwheels.invoice.group.show', [
     };
 
     var showInvoiceModal = function() {
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'invoice/line/invoice-line-dialog.tpl.html',
         windowClass: 'modal--xl',
         controller: 'InvoiceLineDialogController',
@@ -117,7 +117,7 @@ angular.module('openwheels.invoice.group.show', [
     invoiceLineCopy.btwPercent = invoiceLine.btw_percent;
     invoiceLineCopy.receiverId = invoiceGroup.invoiceGroup.person.id;
 
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'invoice/line/invoice-line-dialog.tpl.html',
       windowClass: 'modal--xl',
       controller: 'InvoiceLineDialogController',

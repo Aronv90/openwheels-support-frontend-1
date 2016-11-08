@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice.payment.dialog', [])
 
-.controller('InvoicePaymentDialogController', function ($scope, $filter, $modalInstance, accountService, personService, payment, person) {
+.controller('InvoicePaymentDialogController', function ($scope, $filter, $uibModalInstance, accountService, personService, payment, person) {
 
   $scope.payment = payment;
 
@@ -28,7 +28,7 @@ angular.module('openwheels.invoice.payment.dialog', [])
   };
 
   $scope.dismiss = function () {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 
   $scope.save = function (payment) {
@@ -39,7 +39,7 @@ angular.module('openwheels.invoice.payment.dialog', [])
         total: payment.amount
       })
       .then(function () {
-        $modalInstance.close(payment);
+        $uibModalInstance.close(payment);
       });
     } else {
       getAccount(person)
@@ -54,7 +54,7 @@ angular.module('openwheels.invoice.payment.dialog', [])
         });
       })
       .then(function (result) {
-        $modalInstance.close(result);
+        $uibModalInstance.close(result);
       });
     }
   };

@@ -8,7 +8,7 @@ angular.module('openwheels.trip.show', [
   'openwheels.trip.show.revisions'
 ])
 
-.controller('TripShowController', function ($scope, $modal, $stateParams, alertService, bookingService, booking, settingsService, FRONT_RENT, API_DATE_FORMAT) {
+.controller('TripShowController', function ($scope, $uibModal, $stateParams, alertService, bookingService, booking, settingsService, FRONT_RENT, API_DATE_FORMAT) {
 
   $scope.booking = booking;
   $scope.contract = null;
@@ -22,16 +22,16 @@ angular.module('openwheels.trip.show', [
   $scope.frontAlternatives = settingsService.settings.server + FRONT_RENT + '?start=' + moment(startDate).format(URL_DATE_TIME_FORMAT) + '&end=' + moment(endDate).format(URL_DATE_TIME_FORMAT) + '&lat=' + booking.resource.latitude + '&lng=' + booking.resource.longitude + (booking.resource.boardcomputer ? '&smartwheels=true' : '');
 
   $scope.getContract = function (contract) {
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'contract/show/contract-show.tpl.html',
-      controller: ['$scope', '$modalInstance', 'contractService', function ($scope, $modalInstance, contractService) {
+      controller: ['$scope', '$uibModalInstance', 'contractService', function ($scope, $uibModalInstance, contractService) {
         contractService.get({
           contract: contract
         })
         .then(function (contract) {
           $scope.contract = contract;
         });
-        $scope.close = $modalInstance.close;
+        $scope.close = $uibModalInstance.close;
       }]
     });
   };

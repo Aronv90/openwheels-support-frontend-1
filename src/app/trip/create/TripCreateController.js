@@ -2,7 +2,7 @@
 
 angular.module('openwheels.trip.create', [])
 
-  .controller('TripCreateController', function ($scope, $filter, $q, $modalInstance, $state, dialogService,
+  .controller('TripCreateController', function ($scope, $filter, $q, $uibModalInstance, $state, dialogService,
                                                 alertService, bookingService, contractService, resource, person) {
 
     $scope.dateConfig = {
@@ -37,7 +37,7 @@ angular.module('openwheels.trip.create', [])
     $scope.booking.riskReduction = false;
 
     $scope.dismiss = function () {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.onSelectPerson = function(person) {
@@ -58,7 +58,7 @@ angular.module('openwheels.trip.create', [])
         riskReduction: $scope.booking.riskReduction
       })
         .then(function (booking) {
-          $modalInstance.close(booking); //
+          $uibModalInstance.close(booking); //
           alertService.add('success', 'Booking created.', 4000);
           $state.go('root.trip.show.summary', {tripId: booking.id});
         },

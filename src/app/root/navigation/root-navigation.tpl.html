@@ -13,7 +13,7 @@
     <ul class="nav navbar-nav">
       <li show-if-user-has-role="ROLE_PROVIDER_ADMIN"
           ng-class="{ dropdown: true, active: $state.includes('root.person') }">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Person <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Person <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a ui-sref="root.person.create">Add person</a></li>
           <li><a ui-sref="root.person.search">Advanced search</a></li>
@@ -29,7 +29,7 @@
     </ul>
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
       <li ng-class="{ dropdown: true, active: $state.includes('root.resource') }">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Resource <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Resource <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a ui-sref="root.resource.create">Add resource</a></li>
         </ul>
@@ -37,7 +37,7 @@
     </ul>
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
       <li ng-class="{ dropdown: true, active: $state.includes('root.trip') }">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Trip <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Trip <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li>
             <form ng-submit="followTripId(tripId)" ng-click="stopPropagation($event)">
@@ -77,10 +77,25 @@
         </ul>
       </li>
     </ul>
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+      <li>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown"><strong class="caret"></strong></span>
+        <ul class="dropdown-menu">
+          <li ng-repeat="booking in previousDashboard">
+            <a ui-sref="root.trip.dashboard({tripId: booking.id})">
+              <strong><small>#{{booking.id}} </small>{{booking.person.firstName + ' ' + booking.person.lastName}}</strong>
+              <br><small>{{booking.resource.alias}}</small>
+              <small ng-if="booking.beginBooking"><br><booking-date booking="booking" type="booking"></booking-date></small>
+              <small ng-if="!booking.beginBooking"><br><booking-date booking="booking" type="requested"></booking-date></small>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
 
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li ng-class="{ dropdown: true, active: $state.includes('root.invoice') }">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bill <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Bill <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li ng-class="{ active: $state.includes('root.invoice.group.list') }">
             <a ui-sref="root.invoice.group.list">Verzamelfacturen</a>
@@ -105,8 +120,8 @@
           <!-- <li ng-class="{ active: $state.includes('root.invoice.account.list') }">
             <a ui-sref="root.invoice.account.list" >Rekeningen</a>
           </li> -->
-          <!-- <li><a href="#">Transactions</a></li>
-          <li><a href="#">Invoices</a></li> -->
+          <!-- <li><a href="">Transactions</a></li>
+          <li><a href="">Invoices</a></li> -->
         </ul>
       </li>
     </ul>
@@ -147,7 +162,7 @@
 
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li class="dropdown" ng-class="{ active: $state.includes('root.bank') }">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bank <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Bank <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li ng-class="{ active: $state.includes('root.bank.transaction.import') }">
             <a ui-sref="root.bank.transaction.import">Import Transactions</a>
@@ -170,7 +185,7 @@
     </ul>
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
       <li class="dropdown" ng-class="{ active: $state.includes('root.checklist') }">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Checklists <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Checklists <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li ng-class="{ active: $state.includes('root.checklist.driverlicense') }">
             <a ui-sref="root.checklist.driverlicense">Driver License</a>
@@ -192,7 +207,7 @@
     </ul>
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li class="dropdown" ng-class="{ active: $state.includes('root.report') }">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lists <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Lists <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li ng-class="{ active: $state.includes('root.report.report1') }">
             <a ui-sref="root.report.report1">Report 1</a>
@@ -224,7 +239,7 @@
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search person"
                ng-model="selectedPerson"
-               typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br>Provider ' + person.provider.id + '</small></p>') for person in searchPersons($viewValue)"
+               uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br>Provider ' + person.provider.id + '</small></p>') for person in searchPersons($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectPerson()"
                typeahead-input-formatter="formatPerson($model)">
       </div>
@@ -233,7 +248,7 @@
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search resource"
                ng-model="selectedResource"
-               typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+               uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectResource()"
                typeahead-input-formatter="formatResource($model)">
       </div>
@@ -248,13 +263,13 @@
     </ul>
     <ul class="nav navbar-nav">
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li ng-if="user.isAuthenticated">
             <a ng-click="logOut()">Log out</a>
           </li>
           <li ng-class="{ active: $state.includes('root.settings') }">
-            <a href="#" ui-sref="root.settings">Settings</a>
+            <a href="" ui-sref="root.settings">Settings</a>
           </li>
         </ul>
       </li>

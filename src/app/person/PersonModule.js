@@ -130,7 +130,8 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						cancelled: true
-					});
+					})
+          .then(window.plog);
 				}]
 			}
 		});

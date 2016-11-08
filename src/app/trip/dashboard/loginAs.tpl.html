@@ -1,0 +1,34 @@
+<md-dialog flex-gt-xs="50" flex-xs="80">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Login als gebruiker</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <ul>
+        <li>Kopier link (Ctrl-C)</li>
+        <li>Open prive venster</li>
+        <li>Plak en login</li>
+      </ul>
+      <form layout="row">
+        <md-input-container flex>
+          <label>URL</label>
+          <input type="text" readonly md-autofocus owm-select-on-focus ng-value="frontDashboard + person.email" >
+        </md-input-container>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

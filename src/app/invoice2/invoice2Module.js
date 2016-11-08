@@ -74,7 +74,8 @@ angular.module('openwheels.invoice2', [
     resolve: {
       invoiceGroup: ['$stateParams', 'invoice2Service', function ($stateParams, invoice2Service) {
         var params = {
-          invoiceGroup: $stateParams.invoiceGroupId
+          invoiceGroup: $stateParams.invoiceGroupId,
+          groupByBooking: true,
         };
         return invoice2Service.getInvoiceGroup(params);
       }]

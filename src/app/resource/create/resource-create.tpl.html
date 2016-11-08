@@ -12,7 +12,7 @@
                 <label for="owner">Owner</label>
                 <input name="owner" id="owner" type="text" class="form-control input-sm typeahead" placeholder="Search person"
                        ng-model="resource.owner"
-                       typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)"
+                       uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)"
                        typeahead-min-length="3"
                        typeahead-input-formatter="formatPerson($model)">
             </div>

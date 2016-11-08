@@ -2,17 +2,17 @@
 
 angular.module('openwheels.bank.transaction.link', [])
 
-  .controller('BankTransactionLinkController', function ($scope, $modalInstance, $q, $filter, ngTableParams, bankService, alertService, transaction) {
+  .controller('BankTransactionLinkController', function ($scope, $uibModalInstance, $q, $filter, ngTableParams, bankService, alertService, transaction) {
     $scope.transaction = transaction;
 
     $scope.dismiss = function () {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.link = function(person, transaction) {
       bankService.link({id: transaction.id, person: transaction.account.person.id }).then(
         function(){
-          $modalInstance.close(transaction);
+          $uibModalInstance.close(transaction);
           bankService.rematch({transaction: transaction.id});
           alertService.add('success', 'Transaction ' + transaction.id +  ' linked to:  ' + $filter('fullname')(transaction.account.person) + '.', 4000);
         },
