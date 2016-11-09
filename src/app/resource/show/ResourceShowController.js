@@ -12,7 +12,7 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.tripdata'
 ])
 
-.controller('ResourceShowController', function ($scope, $stateParams, $modal, 
+.controller('ResourceShowController', function ($scope, $stateParams, $uibModal, 
   alertService, dialogService, resourceService, resource, settingsService, 
   FRONT_RENT, FRONT_SWITCHUSER) {
   $scope.resource = resource;
@@ -26,7 +26,7 @@ angular.module('openwheels.resource.show', [
   }); 
 
   $scope.bookResource = function(resource){
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'trip/create/trip-create.tpl.html',
       windowClass: 'modal--xl',
       controller: 'TripCreateController',
@@ -78,7 +78,7 @@ angular.module('openwheels.resource.show', [
     });
   };
   
-    $scope.rmParkingpermit = function(permits) {
+  $scope.rmParkingpermit = function(permits) {
     dialogService.showModal({}, {
       closeButtonText: 'Cancel',
       actionButtonText: 'OK',
