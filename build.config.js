@@ -74,7 +74,8 @@ module.exports = {
             'vendor/underscore.string/lib/underscore.string.js',
             'vendor/angular/angular.js',
             'vendor_custom/angular-locale/angular-locale_nl-nl.js',
-            'vendor/angular-local-storage/angular-local-storage.js',
+            'vendor/angular-local-storage/dist/angular-local-storage.js',
+            'vendor/angular-simple-logger/dist/angular-simple-logger.js',
             'vendor/angular-uuid/uuid.js',
             'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
             'vendor/placeholders/angular-placeholders-0.0.1-SNAPSHOT.min.js',
@@ -92,22 +93,26 @@ module.exports = {
             'vendor/bootstrap/js/dropdown.js',
             'vendor/angular-moment/angular-moment.js',
             'vendor/angular-dragdrop/src/angular-dragdrop.js',
-            'vendor/ngprogress/build/ngProgress.js',
+            'vendor/ngprogress/build/ngprogress.js',
             'vendor/angular-percentage-filter/percentage.js',
             'vendor/angular-google-maps/dist/angular-google-maps.js',
             'vendor/angular-translate/angular-translate.js',
             'vendor/headroom.js/dist/headroom.js',
             'vendor/headroom.js/dist/angular.headroom.js',
             'vendor/ngAutocomplete/src/ngAutocomplete.js',
-            'vendor/ng-file-upload/angular-file-upload.js',
-            'vendor/ng-table/ng-table.js',
+            'vendor/ng-file-upload/ng-file-upload.js',
+            'vendor/ng-table/dist/ng-table.js',
             'vendor/angular-google-chart/ng-google-chart.js',
-            'vendor/ngInfiniteScroll/build/ng-infinite-scroll.js'
+            'vendor/ng-infinite-scroll-npm-is-better-than-bower/build/ng-infinite-scroll.js',
+            'vendor/angular-material/angular-material.js',
+            'vendor/angular-animate/angular-animate.js',
+            'vendor/angular-aria/angular-aria.min.js',
             //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
         ],
         css: [
           'vendor/ng-table/ng-table.css',
-          'vendor/openwheels-ui-components/dist/css/openwheels-ui-components.css'
+          'vendor/openwheels-ui-components/dist/css/openwheels-ui-components.css',
+          'vendor/angular-material/angular-material.css'
         ],
         assets: [
             'vendor/font-awesome/fonts/*'

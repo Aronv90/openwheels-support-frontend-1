@@ -7,7 +7,8 @@ add bower.json /data/backoffice/
 run npm install -g grunt-cli bower && npm install && bower install --allow-root
 
 add . /data/backoffice/
-#run grunt dist-dev write-config:compile_dir
+# run grunt dist-dev write-config:compile_dir
 
+# volume /data/backoffice/bin
 expose 35729 9000
-cmd grunt server
+CMD grunt server

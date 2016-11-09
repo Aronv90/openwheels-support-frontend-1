@@ -2,7 +2,7 @@
 
 angular.module('openwheels.bank.incasso.list', [])
 
-  .controller('BankIncassoListController', function ($scope, $modal, $q, $filter, $timeout, ngTableParams, alertService, incassos, settingsService) {
+  .controller('BankIncassoListController', function ($scope, $uibModal, $q, $filter, $timeout, ngTableParams, alertService, incassos, settingsService) {
     $scope.front_base = settingsService.settings.server;
 
 //    $timeout(

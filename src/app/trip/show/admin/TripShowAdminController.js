@@ -3,7 +3,7 @@
 angular.module('openwheels.trip.show.admin', [])
 
   .controller('TripShowAdminController', function ($scope, $q, booking, driverContracts,
-                                                   bookingService, alertService, declarationService, contract, $modal) {
+                                                   bookingService, alertService, declarationService, contract, $uibModal) {
     //scope
     var masterBooking = booking;
 
@@ -49,12 +49,12 @@ angular.module('openwheels.trip.show.admin', [])
 
 
     $scope.openModal = function (declaration) {
-      $modal.open({
+      $uibModal.open({
         animation: $scope.animationsEnabled,
         templateUrl: 'trip/show/admin/modal.tpl.html',
-        controller: function($scope, $modalInstance, declaration) {
+        controller: function($scope, $uibModalInstance, declaration) {
           $scope.ok = function () {
-            $modalInstance.close();
+            $uibModalInstance.close();
           };
           $scope.declaration = declaration;
         },

@@ -11,7 +11,8 @@ angular.module('openwheels.root.navigation', [])
     personService,
     resourceService,
     authService,
-    checklistService
+    checklistService,
+    localStorageService
   ) {
 
     checklistService.all().then(function (data) {
@@ -30,7 +31,7 @@ angular.module('openwheels.root.navigation', [])
 		$scope.selectPerson = function () {
 			var personId = $scope.selectedPerson.id;
 			$scope.selectedPerson = undefined;
-			$state.go('root.person.show.summary', {personId: personId});
+			$state.go('root.person.show.trip', {personId: personId});
 		};
 
 		$scope.formatPerson = function ($model) {
@@ -40,6 +41,15 @@ angular.module('openwheels.root.navigation', [])
 			}
 			return inputLabel;
 		};
+
+
+    $scope.previousDashboard = localStorageService.get('dashboard.last_trips');
+    $scope.$on('LocalStorageModule.notification.setitem', function(event, data)  {
+      if(data.key === 'dashboard.last_trips') {
+        $scope.previousDashboard = localStorageService.get('dashboard.last_trips');
+      }
+    });
+
 
 		/**
 		 * Typeahead Resource

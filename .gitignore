@@ -9,7 +9,7 @@
 .project
 .settings
 bin
-build
+/build
 Capfile
 config
 node_modules

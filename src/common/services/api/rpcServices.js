@@ -10,6 +10,14 @@ angular.module('rpcServices', [])
       this.get = m('get');
     })
 
+    .service('remarkService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('remark.' + name);
+      };
+      this.add = m('add');
+      this.forBooking = m('forBooking');
+    })
+
     .service('personService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('person.' + name);
@@ -167,6 +175,8 @@ angular.module('rpcServices', [])
       this.disapprove = m('disapprove');
 
       this.checked = m('checked');
+      this.addDamage = m('addDamage');
+      this.mailAgreement = m('mailAgreement');
 
       this.bookingWeekKPIData = m('bookingWeekKPIData');
     })
@@ -264,6 +274,13 @@ angular.module('rpcServices', [])
       this.apply = m('apply');
       this.disable = m('disable');
       this.get = m('get');
+    })
+
+    .service('discountUsageService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('discount_usage.' + name);
+      };
+      this.search = m('search');
     })
 
     .service('incassoService', function (api) {

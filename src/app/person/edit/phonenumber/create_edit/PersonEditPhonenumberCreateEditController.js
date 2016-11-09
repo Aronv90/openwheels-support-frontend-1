@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('openwheels.person.edit.data.phonenumber.create_edit', [])
-  .controller('PersonEditPhonenumberCreateEditController', function ($scope, $modalInstance, personService,
+  .controller('PersonEditPhonenumberCreateEditController', function ($scope, $uibModalInstance, personService,
                                                                      phone, person) {
 
     $scope.phone = phone;
@@ -13,7 +13,7 @@ angular.module('openwheels.person.edit.data.phonenumber.create_edit', [])
     ];
 
     $scope.dismiss = function () {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.save = function (phone) {
@@ -26,7 +26,7 @@ angular.module('openwheels.person.edit.data.phonenumber.create_edit', [])
             confidential: phone.confidential
           }
         }).then(function (result) {
-          $modalInstance.close(result);
+          $uibModalInstance.close(result);
         });
       } else {
         personService.addPhoneWithPersonId({
@@ -35,7 +35,7 @@ angular.module('openwheels.person.edit.data.phonenumber.create_edit', [])
           type: phone.type,
           confidential: phone.confidential
         }).then(function (result) {
-          $modalInstance.close(result);
+          $uibModalInstance.close(result);
         });
       }
     };

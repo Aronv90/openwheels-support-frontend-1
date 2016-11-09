@@ -43,7 +43,7 @@
               <div ng-hide="invoiceLine.id" class="form-group">
                   <label for="sender">Sender</label>
                   <select class="form-control" id="sender" name="sender" ng-model="invoiceId"
-                          ng-options="i.id as i.sender.firstName for i in invoiceSenders | unique:'sender'">
+                          ng-options="i.id as i.sender.firstName for i in invoiceSenders">
                   </select>
               </div>
 

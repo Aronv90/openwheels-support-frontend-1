@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice.line.dialog', [])
 
-.controller('InvoiceLineDialogController', function ($scope, $filter, $modalInstance, invoiceService, personService, invoiceLine, person) {
+.controller('InvoiceLineDialogController', function ($scope, $filter, $uibModalInstance, invoiceService, personService, invoiceLine, person) {
 
   $scope.invoiceLine = invoiceLine;
   $scope.btwOptions = [
@@ -55,7 +55,7 @@ angular.module('openwheels.invoice.line.dialog', [])
   };
 
   $scope.dismiss = function () {
-    $modalInstance.dismiss();
+    $uibModalInstance.dismiss();
   };
 
   $scope.save = function (invoiceLine) {
@@ -72,7 +72,7 @@ angular.module('openwheels.invoice.line.dialog', [])
         }
       })
       .then(function () {
-        $modalInstance.close(invoiceLine);
+        $uibModalInstance.close(invoiceLine);
       });
     } else {
       invoiceService.createGeneric({
@@ -83,7 +83,7 @@ angular.module('openwheels.invoice.line.dialog', [])
         btw: invoiceLine.btwPercent
       })
       .then(function (result) {
-        $modalInstance.close(result);
+        $uibModalInstance.close(result);
       });
     }
   };

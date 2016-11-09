@@ -2,7 +2,7 @@
 
 angular.module('openwheels.contract.persons', [])
 
-.controller('ContractPersonsController', function ($scope, $filter, $modalInstance, dialogService, alertService,
+.controller('ContractPersonsController', function ($scope, $filter, $uibModalInstance, dialogService, alertService,
                                                    contractService, personService, contract, person) {
 
     $scope.contract = contract;
@@ -35,7 +35,7 @@ angular.module('openwheels.contract.persons', [])
     };
 
     $scope.dismiss = function () {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.addPerson = function (newPerson) {

@@ -2,7 +2,7 @@
 
 angular.module('openwheels.mailer.list', [])
 
-	.controller('MailerListController', function ($scope, $filter, conversations, $modal, conversationService, ngTableParams) {
+	.controller('MailerListController', function ($scope, $filter, conversations, $uibModal, conversationService, ngTableParams) {
 
 		$scope.$watch('filter.$', function () {
 			$scope.tableParams.reload();
@@ -39,7 +39,7 @@ angular.module('openwheels.mailer.list', [])
 		$scope.showMessage = function (conversation) {
 			conversationService.getSingle({conversation: conversation.id})
 				.then(function (fullConversation) {
-					$modal.open({
+					$uibModal.open({
 							windowClass: 'modal--xl',
 							template: '<div class="modal-content">' +
 											'<iframe width="750px" height="800px" iframe-contents="conversation.message"></iframe>' +
