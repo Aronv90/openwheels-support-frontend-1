@@ -27,6 +27,8 @@
           </div>
           <div class="col-md-1">
             <button class="btn btn-xl" ng-click="bookResource(resource)">Book Resource</button>
+            <button ng-if="resource.fleet.id == 5 && permits.length == 0" class="btn btn-info" ng-click="addParkingpermit(resource)">parking permit</button>
+            <button ng-if="permits.length > 0" class="btn btn-warning" ng-click="rmParkingpermit(permits)">parking permit (&times;)</button>
           </div>
           <div class="col-md-2">
               <i class="fa fa-trash-o fa-4x  pull-right" ng-click="removeResource(resource)"></i>

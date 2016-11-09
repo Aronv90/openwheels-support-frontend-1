@@ -43,7 +43,7 @@ angular.module('rpcServices', [])
       this.removeBadge = m('removeBadge');
       this.enableGoogle2steps = m('enableGoogle2steps');
     })
-
+    
     .service('ccomeService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('ccome.' + name);
@@ -129,6 +129,11 @@ angular.module('rpcServices', [])
       this.removeMember = m('removeMember');
       this.addProperty = m('addProperty');
       this.removeProperty = m('remProperty');
+      
+      this.createParkingpermit = m('createParkingpermit');
+      this.alterParkingpermit = m('alterParkingpermit');
+      this.removeParkingpermit = m('removeParkingpermit');
+      this.getParkingpermits = m('getParkingpermits');
     })
 
     .service('ratingService', function (api) {
