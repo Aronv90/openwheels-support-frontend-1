@@ -26,7 +26,7 @@ angular.module('openwheels.resource.show', [
   }); 
 
   $scope.bookResource = function(resource){
-    $uibModal.open({
+    $modal.open({
       templateUrl: 'trip/create/trip-create.tpl.html',
       windowClass: 'modal--xl',
       controller: 'TripCreateController',
