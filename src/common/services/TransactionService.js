@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('transactionService', [])
-  .factory('transactionService', function ($upload,settingsService,API_PATH, api) {
+  .factory('transactionService', function (Upload, settingsService, API_PATH, api) {
     return {upload: function upload(file) {
-      return $upload.upload({
+      return Upload.upload({
         url: settingsService.settings.server + API_PATH + 'mutupload',
-        file: file,
+        data: {file: file},
         headers: {'Authorization': api.createAuthHeader()}
       });
     }};
