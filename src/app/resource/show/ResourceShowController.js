@@ -12,7 +12,7 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.tripdata'
 ])
 
-.controller('ResourceShowController', function ($scope, $stateParams, $modal, 
+.controller('ResourceShowController', function ($scope, $stateParams, $uibModal, 
   alertService, dialogService, resourceService, resource, settingsService, 
   FRONT_RENT, FRONT_SWITCHUSER) {
   $scope.resource = resource;
