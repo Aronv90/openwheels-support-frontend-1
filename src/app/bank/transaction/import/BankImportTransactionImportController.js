@@ -2,7 +2,7 @@
 
 angular.module('openwheels.bank.transaction.import', [])
 
-  .controller('BankTransactionImportController', function ($scope, $q, $upload, transactionService, alertService) {
+  .controller('BankTransactionImportController', function ($scope, transactionService, alertService) {
     var file;
 
     $scope.onFileSelect = function ($files) {
