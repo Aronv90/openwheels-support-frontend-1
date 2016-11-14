@@ -22,7 +22,7 @@ angular.module('openwheels.trip.dashboard', [])
     }
   };
 })
-.controller('TripDashboardController', function ($scope, booking, contract, invoice2Service, $q, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, driverContracts, $state, $timeout, localStorageService) {
+.controller('TripDashboardController', function ($scope, booking, contract, invoice2Service, $q, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
 
   /* INIT  */
   $scope.booking = booking;
@@ -770,6 +770,26 @@ angular.module('openwheels.trip.dashboard', [])
     ;
   };
 
+  $scope.resendBoardcomputer = function() {
+    var confirm = $mdDialog.confirm()
+    .title('Wil je de boeking opnieuw naar de boordcomputer verzenden?')
+    .textContent('Weet je zeker dat je deze boeking opnieuw naar de boordcomputer wilt laten verzenden?')
+    .ok('Ja')
+    .cancel('Nee');
+
+    $mdDialog.show(confirm)
+    .then(function(res) {
+      return ccomeService.sendBooking({booking: $scope.booking.id})
+      .then(function(res) {
+        alertService.add('success', 'Booking send to boardcompuer.', 5000);
+      })
+      .catch(function(err) {
+        alertService.add('warning', 'Booking couldn\'t be send to boardcomputer', 5000);
+      });
+    })
+    ;
+  };
+
   $scope.openTextEditorDialog = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -802,6 +822,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     ;
   };
+
 
   function generateTimes() {
     var times = [];
