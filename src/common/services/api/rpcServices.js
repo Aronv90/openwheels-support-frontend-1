@@ -157,6 +157,7 @@ angular.module('rpcServices', [])
       this.stop = m('stop');
       this.cancel = m('cancel');
       this.setTrip = m('setTrip');
+      this.finishTrip = m('finishTrip');
       this.contract = m('contract');
 
       this.strangeKms = m('strangeKms');
