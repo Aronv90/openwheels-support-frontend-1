@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.show.chipcards', ['openwheels.person.show.chipcards.create_edit'])
 
-  .controller('PersonShowChipcardsController', function ($scope, $filter, $modal, alertService, dialogService, chipcardService, person, chipcards, fish) {
+  .controller('PersonShowChipcardsController', function ($scope, $filter, $uibModal, alertService, dialogService, chipcardService, person, chipcards, fish) {
     $scope.chipcards = chipcards;
     $scope.fish = fish;
     $scope.person = person;
@@ -97,7 +97,7 @@ angular.module('openwheels.person.show.chipcards', ['openwheels.person.show.chip
         newChipcard = true;
         chipcard = {};
       }
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'person/show/chipcards/create_edit/person-show-chipcards-create-edit.tpl.html',
         windowClass: 'modal--xl',
         controller: 'PersonShowChipcardsCreateEditController',

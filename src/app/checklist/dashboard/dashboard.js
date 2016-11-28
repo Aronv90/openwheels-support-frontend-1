@@ -11,7 +11,7 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
           storedqueryService,
           queries,
           $log,
-          $modal
+          $uibModal
         ) {
   var populateRitten = function(result) {
       var list = result[0];
@@ -32,13 +32,6 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
       return row;
     },*/
     doUpdate = function () {
-      bookingService.futureByNotActiveDriver().then(function (list) {
-        $scope.notActiveDrivers = list;
-      });
-
-      bookingService.requested().then(function(list) {
-        $scope.requested = list;
-      });
 
       ccomeService.unfinishedJobs().then(function(list){
         $scope.unfinishedJobs = list;

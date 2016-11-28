@@ -10,6 +10,14 @@ angular.module('rpcServices', [])
       this.get = m('get');
     })
 
+    .service('remarkService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('remark.' + name);
+      };
+      this.add = m('add');
+      this.forBooking = m('forBooking');
+    })
+
     .service('personService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('person.' + name);
@@ -35,7 +43,7 @@ angular.module('rpcServices', [])
       this.removeBadge = m('removeBadge');
       this.enableGoogle2steps = m('enableGoogle2steps');
     })
-
+    
     .service('ccomeService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('ccome.' + name);
@@ -121,6 +129,11 @@ angular.module('rpcServices', [])
       this.removeMember = m('removeMember');
       this.addProperty = m('addProperty');
       this.removeProperty = m('remProperty');
+      
+      this.createParkingpermit = m('createParkingpermit');
+      this.alterParkingpermit = m('alterParkingpermit');
+      this.removeParkingpermit = m('removeParkingpermit');
+      this.getParkingpermits = m('getParkingpermits');
     })
 
     .service('ratingService', function (api) {
@@ -144,6 +157,7 @@ angular.module('rpcServices', [])
       this.stop = m('stop');
       this.cancel = m('cancel');
       this.setTrip = m('setTrip');
+      this.finishTrip = m('finishTrip');
       this.contract = m('contract');
 
       this.strangeKms = m('strangeKms');
@@ -162,6 +176,8 @@ angular.module('rpcServices', [])
       this.disapprove = m('disapprove');
 
       this.checked = m('checked');
+      this.addDamage = m('addDamage');
+      this.mailAgreement = m('mailAgreement');
 
       this.bookingWeekKPIData = m('bookingWeekKPIData');
     })
@@ -259,6 +275,13 @@ angular.module('rpcServices', [])
       this.apply = m('apply');
       this.disable = m('disable');
       this.get = m('get');
+    })
+
+    .service('discountUsageService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('discount_usage.' + name);
+      };
+      this.search = m('search');
     })
 
     .service('incassoService', function (api) {

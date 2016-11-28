@@ -37,7 +37,7 @@
             ng-options="p.id as (p|fullname) for p in favoritePersonOptions"></select>
           </div>
           <div class="col-xs-8">
-            <input type="text" class="form-control typeahead col-xs-9" placeholder="Search sender" ng-model="ahead.selectedSender" typeahead="person as ('<p>[' + person.id + '] ' + (person|fullname) + '<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)" typeahead-min-length="3" typeahead-on-select="selectSender($item)" typeahead-input-formatter="formatPerson($model)" typeahead-wait-ms="250" typeahead-editable="true">
+            <input type="text" class="form-control typeahead col-xs-9" placeholder="Search sender" ng-model="ahead.selectedSender" uib-typeahead="person as ('<p>[' + person.id + '] ' + (person|fullname) + '<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)" typeahead-min-length="3" typeahead-on-select="selectSender($item)" typeahead-input-formatter="formatPerson($model)" typeahead-wait-ms="250" typeahead-editable="true">
           </div>
         </div>
       </div>
@@ -50,7 +50,7 @@
             ng-options="p.id as (p|fullname) for p in favoritePersonOptions"></select>
           </div>
           <div class="col-xs-8">
-            <input type="text" class="form-control typeahead col-xs-9" placeholder="Search receiver" ng-model="ahead.selectedReceiver" typeahead="person as ('<p>[' + person.id + '] ' + (person|fullname) + '<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)" typeahead-min-length="3" typeahead-on-select="selectReceiver($item)" typeahead-input-formatter="formatPerson($model)" typeahead-wait-ms="250" typeahead-editable="true">
+            <input type="text" class="form-control typeahead col-xs-9" placeholder="Search receiver" ng-model="ahead.selectedReceiver" uib-typeahead="person as ('<p>[' + person.id + '] ' + (person|fullname) + '<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)" typeahead-min-length="3" typeahead-on-select="selectReceiver($item)" typeahead-input-formatter="formatPerson($model)" typeahead-wait-ms="250" typeahead-editable="true">
           </div>
         </div>
       </div>

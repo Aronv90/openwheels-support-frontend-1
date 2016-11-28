@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice.trip.show', [])
 
-.controller('InvoiceTripShowController', function ($scope, $modal, $filter, $stateParams, overview, invoiceService, settingsService, FRONT_TRIP_OVERVIEW, FRONT_SWITCHUSER) {
+.controller('InvoiceTripShowController', function ($scope, $uibModal, $filter, $stateParams, overview, invoiceService, settingsService, FRONT_TRIP_OVERVIEW, FRONT_SWITCHUSER) {
 
   $scope.overview = overview;
   $scope.frontTripOverview = settingsService.settings.server + FRONT_TRIP_OVERVIEW + '/' + $stateParams.tripId;
@@ -35,7 +35,7 @@ angular.module('openwheels.invoice.trip.show', [])
 
   //create invoice line modal
   $scope.createInvoiceLine = function () {
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'invoice/trip/line/invoice-trip-line-dialog.tpl.html',
       windowClass: 'modal--xl',
       controller: 'InvoiceTripLineDialogController',
@@ -59,7 +59,7 @@ angular.module('openwheels.invoice.trip.show', [])
   $scope.alterInvoiceLine = function (invoiceLine, $index) {
     var invoiceLineCopy = angular.copy(invoiceLine);
 
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'invoice/trip/line/invoice-trip-line-dialog.tpl.html',
       windowClass: 'modal--xl',
       controller: 'InvoiceTripLineDialogController',

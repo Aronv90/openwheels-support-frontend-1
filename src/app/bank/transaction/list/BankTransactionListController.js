@@ -2,7 +2,7 @@
 
 angular.module('openwheels.bank.transaction.list', [])
 
-  .controller('BankTransactionListController', function ($scope, $timeout, $state, $stateParams, $modal, $q, $filter, ngTableParams, bankService, alertService, transactions) {
+  .controller('BankTransactionListController', function ($scope, $timeout, $state, $stateParams, $uibModal, $q, $filter, ngTableParams, bankService, alertService, transactions) {
     $scope.$watch('filter.$', function () {
       $timeout(
         function(){
@@ -67,7 +67,7 @@ angular.module('openwheels.bank.transaction.list', [])
     };
 
     $scope.linkPerson = function linkPerson(transaction){
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'bank/transaction/link/bank-transaction-link.tpl.html',
         windowClass: 'modal--xl',
         controller: 'BankTransactionLinkController',

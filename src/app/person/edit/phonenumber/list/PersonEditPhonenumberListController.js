@@ -2,7 +2,7 @@
 
 angular.module('openwheels.person.edit.data.phonenumber.list', [])
 
-  .controller('PersonEditPhonenumberListController', function ($scope, $modal, $q, alertService, personService, person) {
+  .controller('PersonEditPhonenumberListController', function ($scope, $uibModal, $q, alertService, personService, person) {
 
     $scope.phoneNumbers = person.phoneNumbers;
 
@@ -18,7 +18,7 @@ angular.module('openwheels.person.edit.data.phonenumber.list', [])
     $scope.createEditPhone = function (phone) {
       var newPhone = false;
       if(!phone) { newPhone = true; phone = {}; }
-      $modal.open({
+      $uibModal.open({
         templateUrl: 'person/edit/phonenumber/create_edit/person-edit-phone-create_edit.tpl.html',
         windowClass: 'modal--xl',
         controller: 'PersonEditPhonenumberCreateEditController',

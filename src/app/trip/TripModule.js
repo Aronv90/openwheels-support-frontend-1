@@ -3,6 +3,7 @@
 angular.module('openwheels.trip.show.overview', []);
 
 angular.module('openwheels.trip', [
+	'openwheels.trip.dashboard',
 	'openwheels.trip.list',
 	'openwheels.trip.show',
 	'openwheels.trip.create',
@@ -237,7 +238,7 @@ angular.module('openwheels.trip', [
           })
           .then(function(contract) {
             contract.type.canHaveDeclaration = false;
-            if(contract.type.id === 60 || contract.type.id === 62) {
+            if(contract.type.id === 60 || contract.type.id === 62 || contract.type.id === 50) {
               contract.type.canHaveDeclaration = true;
             }
             return contract;
@@ -255,6 +256,48 @@ angular.module('openwheels.trip', [
 			url: '',
 			templateUrl: 'trip/show/summary/trip-show-summary.tpl.html',
 			controller: 'TripShowSummaryController'
+		});
+
+		/**
+		 * trip/:id/summary
+		 * @resolve {promise} trip, from parent
+		 */
+		$stateProvider.state('root.trip.dashboard', {
+			url: '/dashboard/:tripId',
+			templateUrl: 'trip/dashboard/trip-dashboard.tpl.html',
+      controller: 'TripDashboardController',
+			resolve: {
+				booking: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+					var bookingId = $stateParams.tripId;
+					return bookingService.get({
+						id: bookingId
+					});
+				}],
+        contract: ['$stateParams', 'authService', 'contractService', function ($stateParams, authService, contractService) {
+          return authService.me()
+          .then(function(me) {
+            return contractService.forBooking({
+              booking: $stateParams.tripId
+            });
+          })
+          .then(function(contract) {
+            contract.type.canHaveDeclaration = false;
+            if(contract.type.id === 60 || contract.type.id === 62 || contract.type.id === 50) {
+              contract.type.canHaveDeclaration = true;
+            }
+            return contract;
+          });
+        }],
+				driverContracts: ['$stateParams', 'contractService', 'booking', function ($stateParams, contractService, booking) {
+					return contractService.forDriver({
+						person: booking.person.id
+					}).then(function (contracts) {
+            // why is this line --v here?
+						//contracts.unshift({id: 50076, contractor: {firstName: 'Wheels4All'}, type: {name: ''}});
+						return contracts;
+					});
+				}]
+			},
 		});
 
 		/**

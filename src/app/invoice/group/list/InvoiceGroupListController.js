@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('openwheels.invoice.group.list', [])
+angular.module('openwheels.invoice.group.list', ['ngDragDrop'])
 
-  .controller('InvoiceGroupListController', function ($window, $modal, $q, $scope, $state, $stateParams, $filter, dialogService,
+  .controller('InvoiceGroupListController', function ($window, $uibModal, $q, $scope, $state, $stateParams, $filter, dialogService,
 																		FRONT_USER_INVOICEGROUP, settingsService, invoiceGroups, accountService, invoiceService, alertService) {
     $scope.moveMutation = function (test, ui, invoiceGroupId) {
       var paymentId = ui.draggable.prop('id');

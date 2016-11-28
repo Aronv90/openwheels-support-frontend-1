@@ -1,2 +1,2 @@
-<alert class="text-center" ng-show="loader" type="loader.type"><i class="fa fa-spin fa-2x fa-fw fa-spinner"></i> {{loader.msg}}</alert>
-<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+<div uib-alert class="text-center" ng-show="loader" ng-class="'alert-' + (loader.type || 'warning')"><i class="fa fa-spin fa-2x fa-fw fa-spinner"></i> {{loader.msg}}</div>
+<div uib-alert ng-repeat="alert in alerts" ng-class="'alert-' + (alert.type || 'warning')" close="closeAlert($index)">{{alert.msg}}</div>

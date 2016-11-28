@@ -2,7 +2,7 @@
 
 angular.module('driverLicense', [])
 
-	.directive('driverLicense', function ($q, $filter, $compile, $modal, settingsService, FRONT_DRIVERLICENSE) {
+	.directive('driverLicense', function ($q, $filter, $compile, $uibModal, settingsService, FRONT_DRIVERLICENSE) {
 		return {
 			restrict: 'A',
 			scope: {driverLicense: '='},
@@ -22,12 +22,12 @@ angular.module('driverLicense', [])
 				};
 
 				scope.open = function (photo) {
-					$modal.open({
+					$uibModal.open({
 						template: '<img ng-click="dismiss()" src="' + photo + '">',
 						windowClass: 'modal--driverlicense',
-						controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+						controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
 							$scope.dismiss = function () {
-								$modalInstance.dismiss();
+								$uibModalInstance.dismiss();
 							};
 						}]
 					});

@@ -1,0 +1,54 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Stuur schademails</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div class="md-dialog-content">
+      <p>
+        Geef in de onderstaande lijst aan wat het eigen risico van de bestuurder is en wie er schade mails moet ontvangen. Let op: je moet zelf opzoeken of deze persoon al eerder schade heeft gereden.
+      </p>
+      <p>
+        Leeftijd: {{age}}<br>
+        Contracttype: {{contract.type.name}}<br>
+        Eigen risico verlaagd/afgekocht: {{booking.riskReduction ? 'Ja': 'Nee'}}
+      </p>
+      <form layout="row" name="damageF">
+        <div layout="column">  
+          <p>Het eigenrisico bedraagt</p>
+          <md-radio-group ng-model="damage.ownRisk">
+            <md-radio-button value="0">€0</md-radio-button>
+            <md-radio-button value="250">€250</md-radio-button>
+            <md-radio-button value="500" ng-disabled="age >= 25 && booking.riskReduction">€500</md-radio-button>
+          </md-radio-group>
+        </div>
+        <div flex></div>
+        <div layout="column">
+          <p>Wie moet er een mail krijgen?</p>
+          <md-checkbox ng-model="damage.notifyDriver" aria-label="Bestuurder">
+            Bestuurder
+          </md-checkbox>
+          <md-checkbox ng-model="damage.notifyOwner" aria-label="Eigenaar">
+            Eigenaar
+        </md-checkbox>
+      </div>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Annuleren
+    </md-button>
+    <md-button class="md-primary md-raised" ng-disabled="!damage.notifyOwner && !damage.notifyDriver" ng-click="done()">
+      Stuur mail(s)
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

@@ -1,0 +1,41 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Verstuur huurovereenkomst</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content">
+      <h3>
+        Mail de huurovereenkomst
+      </h3>
+      <p>Wie moet de huurovereenkomst krijgen?</p>
+      <form>
+        <md-checkbox ng-model="agreement.toDriver" aria-label="Bestuurder">
+          Bestuurder
+        </md-checkbox>
+        <md-checkbox ng-model="agreement.toOwner" aria-label="Eigenaar">
+          Eigenaar
+        </md-checkbox>
+        <md-checkbox ng-model="agreement.toMe" aria-label="Mijzelf">
+          Mijzelf
+        </md-checkbox>
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+    <md-button ng-disabled="!agreement.toDriver && !agreement.toOwner" class="md-primary md-raised" ng-click="done()">
+      Versturen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

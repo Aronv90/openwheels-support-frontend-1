@@ -2,13 +2,13 @@
 
 angular.module('openwheels.person.show.chipcards.create_edit', [])
 
-  .controller('PersonShowChipcardsCreateEditController', function ($scope, $filter, $q, $modalInstance, dialogService, alertService, chipcardService, chipcard, person) {
+  .controller('PersonShowChipcardsCreateEditController', function ($scope, $filter, $q, $uibModalInstance, dialogService, alertService, chipcardService, chipcard, person) {
 
     $scope.chipcard = chipcard;
     $scope.person = person;
 
     $scope.dismiss = function () {
-      $modalInstance.dismiss();
+      $uibModalInstance.dismiss();
     };
 
     $scope.save = function (chipcard) {
@@ -21,7 +21,7 @@ angular.module('openwheels.person.show.chipcards.create_edit', [])
           }
         })
         .then(function (chipcard) {
-          $modalInstance.close(chipcard);
+          $uibModalInstance.close(chipcard);
           $scope.chipcard = chipcard;
           alertService.add('success', 'Chipcard edited.', 2000);
         },
@@ -37,7 +37,7 @@ angular.module('openwheels.person.show.chipcards.create_edit', [])
           description: chipcard.description
         })
         .then(function (chipcard) {
-          $modalInstance.close(chipcard);
+          $uibModalInstance.close(chipcard);
           $scope.chipcard = chipcard;
           alertService.add('success', 'Chipcard created.', 2000);
         },

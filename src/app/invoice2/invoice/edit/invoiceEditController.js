@@ -82,7 +82,7 @@ angular.module('openwheels.invoice2.invoice.edit', [])
 
     if (params.sender) { params.sender = params.sender.id; }
     if (params.recipient) { params.recipient = params.recipient.id; }
-    if (params.booking) { params.booking = params.booking.id; }
+    if (params.booking) { params.booking = params.booking; }
 
     alertService.load();
 

@@ -2,7 +2,7 @@
 
 angular.module('openwheels.resource.show.tripdata', ['infinite-scroll'])
 
-.controller('ResourceShowTripdataController', function ($modal, $scope, $log, API_DATE_FORMAT,
+.controller('ResourceShowTripdataController', function ($uibModal, $scope, $log, API_DATE_FORMAT,
   alertService, boardcomputerService, resource) {
 
   var loading = false,
@@ -30,12 +30,12 @@ angular.module('openwheels.resource.show.tripdata', ['infinite-scroll'])
   };
 
   $scope.showEditPopup = function (record) {
-    $modal.open({
+    $uibModal.open({
       templateUrl: 'resource/show/tripdata/popup.tpl.html',
-      controller: ['$scope', '$modalInstance', 'bookingService', function ($scope, $modalInstance, bookingService) {
+      controller: ['$scope', '$uibModalInstance', 'bookingService', function ($scope, $uibModalInstance, bookingService) {
 
         $scope.entry = angular.copy(record);
-        $scope.close = $modalInstance.close;
+        $scope.close = $uibModalInstance.close;
         $scope.suggestedBookings = [];
 
         loadSuggestedBookings();
@@ -51,7 +51,7 @@ angular.module('openwheels.resource.show.tripdata', ['infinite-scroll'])
           // })
           // .then(function (altered) {
           //   angular.extend(record, $scope.entry);
-          //   $modalInstance.close();
+          //   $uibModalInstance.close();
           // })
           // .catch(function (err) {
           //   alertService.add('danger', error.message, 5000);
