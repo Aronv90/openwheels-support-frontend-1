@@ -176,21 +176,25 @@ angular.module('openwheels.resource', [
 			data: {pageTitle: 'Resource discount'},
 			resolve: {
 				discounts: ['$stateParams', 'discountService', 'resource', function ($stateParams, discountService, resource) {
-					var params = {};
-					params.resource = resource.id;
-					if ($stateParams.validFrom) { params.validFrom = $stateParams.validFrom; }
-					if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
-					params.multiple = $stateParams.multiple === 'true' || null;
-					params.global = $stateParams.global === 'true' || null;
-					return discountService.search(params);
+          var params = {};
+          params.resource = resource.id;
+          if($stateParams.validFrom) {
+            params.validFrom = $stateParams.validFrom;
+          }
+          if($stateParams.validUntil) {
+            params.validUntil = $stateParams.validUntil;
+          }
+          params.multiple = $stateParams.multiple === 'true' || null;
+          params.global = $stateParams.global === 'true' || null;
+          return discountService.search(params);
 				}]
 			}
 		});
 
 		/**
-		 * resource/:id/boardcomputer
-		 * @resolve {promise} resource
-		 */
+     * resource/:id/boardcomputer
+     * @resolve {promise} resource
+     */
 		$stateProvider.state('root.resource.show.boardcomputer', {
 			url: '/boardcomputer',
 			controller: 'ResourceShowBoardcomputerController',
@@ -204,9 +208,9 @@ angular.module('openwheels.resource', [
 		});
 
 		/**
-		 * resource/:id/log
-		 * @resolve {promise} resource
-		 */
+     * resource/:id/log
+     * @resolve {promise} resource
+     */
 		$stateProvider.state('root.resource.show.log', {
 			url: '/log',
 			controller: 'ResourceShowLogController',

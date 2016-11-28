@@ -79,6 +79,7 @@ angular.module('openwheels.trip.dashboard', [])
       });
     }
   };
+  $scope.open(5);
 
   $scope.isOpen = function(id) {
     if(sections[id]) {
