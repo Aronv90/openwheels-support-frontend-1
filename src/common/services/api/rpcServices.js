@@ -36,6 +36,7 @@ angular.module('rpcServices', [])
       this.addLicenseImages = m('addLicenseImages');
       this.blocked = m('blocked');
       this.blockedLike = m('blockedLike');
+      this.similar = m('similar');
       this.tobankCheck = m('tobankCheck');
       this.ownerNotActive = m('ownerNotActive');
       this.addBadge = m('addBadge');

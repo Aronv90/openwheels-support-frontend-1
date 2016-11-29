@@ -2,9 +2,10 @@
 
 angular.module('openwheels.person.edit.data.driverlicense', [])
 
-  .controller('PersonEditDriverlicenseController', function ($scope, alertService, personService,  person, blockedLike) {
+  .controller('PersonEditDriverlicenseController', function ($scope, alertService, personService,  person, blockedLike, similar) {
     $scope.person = angular.copy(person);
 		$scope.blockedLike = blockedLike;
+		$scope.similar = similar;
 
 		$scope.moderateLicense = function (person, status, block) {
 			var newProps;
