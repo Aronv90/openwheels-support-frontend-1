@@ -78,7 +78,7 @@ angular.module('openwheels.resource.show', [
     });
   };
   
-    $scope.rmParkingpermit = function(permits) {
+  $scope.rmParkingpermit = function(permits) {
     dialogService.showModal({}, {
       closeButtonText: 'Cancel',
       actionButtonText: 'OK',
