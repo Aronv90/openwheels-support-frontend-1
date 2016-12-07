@@ -45,6 +45,9 @@
       <div class="panel-body">
         <h3>Discounts</h3>
         <button class="btn" ng-click="createDiscount(resource)">Create Discount</button>
+        <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
+        <p class="btn"> {{curPage}} </p>
+        <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
         <table class="table">
           <thead>
             <tr>
