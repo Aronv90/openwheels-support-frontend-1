@@ -36,6 +36,7 @@ angular.module('rpcServices', [])
       this.addLicenseImages = m('addLicenseImages');
       this.blocked = m('blocked');
       this.blockedLike = m('blockedLike');
+      this.similar = m('similar');
       this.tobankCheck = m('tobankCheck');
       this.ownerNotActive = m('ownerNotActive');
       this.addBadge = m('addBadge');
@@ -43,7 +44,7 @@ angular.module('rpcServices', [])
       this.removeBadge = m('removeBadge');
       this.enableGoogle2steps = m('enableGoogle2steps');
     })
-
+    
     .service('ccomeService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('ccome.' + name);
@@ -129,6 +130,11 @@ angular.module('rpcServices', [])
       this.removeMember = m('removeMember');
       this.addProperty = m('addProperty');
       this.removeProperty = m('remProperty');
+      
+      this.createParkingpermit = m('createParkingpermit');
+      this.alterParkingpermit = m('alterParkingpermit');
+      this.removeParkingpermit = m('removeParkingpermit');
+      this.getParkingpermits = m('getParkingpermits');
     })
 
     .service('ratingService', function (api) {
@@ -152,6 +158,7 @@ angular.module('rpcServices', [])
       this.stop = m('stop');
       this.cancel = m('cancel');
       this.setTrip = m('setTrip');
+      this.finishTrip = m('finishTrip');
       this.contract = m('contract');
 
       this.strangeKms = m('strangeKms');

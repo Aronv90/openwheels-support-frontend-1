@@ -2,9 +2,18 @@
 
 angular.module('openwheels.person.edit.data.driverlicense', [])
 
-  .controller('PersonEditDriverlicenseController', function ($scope, alertService, personService,  person, blockedLike) {
+  .controller('PersonEditDriverlicenseController', function ($scope, alertService, personService,  person, blockedLike, similar, account) {
     $scope.person = angular.copy(person);
+    $scope.person.account = account;
 		$scope.blockedLike = blockedLike;
+		$scope.similar = _.map(similar, function(similar) {
+      if(_.findWhere(similar.accounts, {iban: $scope.person.account.iban})) {
+        similar.ibanmatch = $scope.person.account.iban;
+      } else {
+        similar.ibanmatch = false;
+      }
+      return similar;
+    });
 
 		$scope.moderateLicense = function (person, status, block) {
 			var newProps;

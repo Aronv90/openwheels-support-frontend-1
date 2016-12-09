@@ -20,6 +20,13 @@ angular.module('openwheels.trip.show.admin', [])
     $scope.contract = contract;
     $scope.declaration = {};
     $scope.driverContracts = driverContracts;
+    
+    if(booking.trip.odoEnd - booking.trip.odoBegin > 0) {
+      $scope.enableFinalize = true;
+    }
+    if(!booking.trip.odoEnd && !booking.trip.odoBegin) {
+      $scope.enableFinalize = true;
+    }
 
     $scope.dateConfig = {
       //model
@@ -143,6 +150,19 @@ angular.module('openwheels.trip.show.admin', [])
         odoBegin: $scope.booking.trip.odoBegin,
         odoEnd: $scope.booking.trip.odoEnd
         //timeframe
+      }).then(function (booking) {
+        angular.extend($scope.booking.trip, booking.trip);
+        $scope.enableFinalize = booking.trip.odoEnd - booking.trip.odoBegin > 0;
+        //(trip.odoEnd - trip.odoBegin > 0);
+        alertService.add('success', 'Trip set', 2000);
+      }, function (error) {
+        alertService.add('danger', error.message, 5000);
+      });
+    };
+    
+    $scope.finalize = function () {
+      bookingService.finishTrip({
+        booking: $scope.booking.id
       }).then(function (trip) {
         angular.extend($scope.booking.trip, trip);
         alertService.add('success', 'Trip set', 2000);

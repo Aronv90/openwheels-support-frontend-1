@@ -130,8 +130,7 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						cancelled: true
-					})
-          .then(window.plog);
+					});
 				}]
 			}
 		});
@@ -553,17 +552,16 @@ angular.module('openwheels.person', [
 			resolve: {
 				blockedLike: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
 					var personId = $stateParams.personId;
-					if(authService.userHasRole('ROLE_ADMIN')){
-						return personService.blockedLike({
-							person: personId
-						});
-					}else{
-						var deferred = $q.defer();
-						deferred.resolve([]);
-						return deferred.promise;
-					}
-				}
-				],
+          return personService.blockedLike({
+            person: personId
+          });
+				}],
+				similar: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
+					var personId = $stateParams.personId;
+          return personService.similar({
+            person: personId
+          });
+				}],
 				account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
 					return accountService.get({
 						person: $stateParams.personId
