@@ -175,19 +175,18 @@ angular.module('openwheels.resource', [
 			templateUrl: 'resource/show/discount/resource-show-discount.tpl.html',
 			data: {pageTitle: 'Resource discount'},
 			resolve: {
-				discounts: ['$stateParams', 'discountService', 'resource', function ($stateParams, discountService, resource) {
-          var params = {};
-          params.resource = resource.id;
-          if($stateParams.validFrom) {
-            params.validFrom = $stateParams.validFrom;
-          }
-          if($stateParams.validUntil) {
-            params.validUntil = $stateParams.validUntil;
-          }
-          params.multiple = $stateParams.multiple === 'true' || null;
-          params.global = $stateParams.global === 'true' || null;
-          return discountService.search(params);
-				}]
+				discounts: ['$stateParams', 'discountService', 'resource', 'perPage', function ($stateParams, discountService, resource, perPage) {
+					var params = {};
+					params.resource = resource.id;
+					if ($stateParams.validFrom) { params.validFrom = $stateParams.validFrom; }
+					if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
+					params.multiple = $stateParams.multiple === 'true' || null;
+					params.global = $stateParams.global === 'true' || null;
+          params.limit = perPage;
+          params.offset = 0;
+					return discountService.search(params);
+				}],
+        perPage: function(){ return 20;},
 			}
 		});
 

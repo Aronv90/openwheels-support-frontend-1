@@ -2,9 +2,45 @@
 
 angular.module('openwheels.resource.show.discount', [])
 
-.controller( 'ResourceShowDiscountController', function ($location, $uibModal, $state, $stateParams, $scope, dialogService, alertService, discountService, discounts) {
+.controller( 'ResourceShowDiscountController', function ($location, $uibModal, $state, $stateParams, $scope, dialogService, alertService, discountService, discounts, perPage) {
 
-  $scope.discounts = discounts;
+  $scope.curPage = 1;
+  $scope.perPage = perPage;
+  handleDiscounts(discounts);
+
+  function handleDiscounts(discounts) {
+    $scope.discounts = discounts.result;
+    $scope.lastPage = Math.ceil(discounts.total / $scope.perPage);
+  }
+
+  function buildParams() {
+    var params = {};
+    params.resource = $stateParams.resource;
+    if ($stateParams.validFrom) { params.validFrom = $stateParams.validFrom; }
+    if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
+    params.multiple = $stateParams.multiple === 'true' || null;
+    params.global = $stateParams.global === 'true' || null;
+
+    return params;
+  }
+
+  $scope.nextPage = function() {
+    discountService.search(_.extend(buildParams(), {limit: $scope.perPage, offset: $scope.curPage * $scope.perPage}))
+    .then(function(discounts) {
+      handleDiscounts(discounts);
+      $scope.curPage = $scope.curPage + 1;
+    });
+  };
+
+  $scope.prevPage = function() {
+    discountService.search(_.extend(buildParams(), {limit: $scope.perPage, offset: ($scope.curPage - 2) * $scope.perPage}))
+    .then(function(discounts) {
+      handleDiscounts(discounts);
+      $scope.curPage = $scope.curPage - 1;
+    });
+  };
+
+  
 
   $scope.params = {
     validFrom: $stateParams.validFrom || '',
