@@ -1,4 +1,28 @@
 <div class="row">
+  <div class="col-sm-12" ng-show="!showNoticeOwner && booking.resource.owner.remark" style="padding-bottom: .5em;">
+    <div class="notice notice--owner">
+      <div ng-class="{'notice--single-line': !noticeOwner}" class="no-outline" ng-click="noticeOwner=!noticeOwner" >
+        <strong>Remark eigenaar:</strong>
+        <br ng-if="noticeOwner">
+        {{booking.resource.owner.remark}}
+      </div>
+      <span ng-click="showNoticeOwner=!showNoticeOwner" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
+    </div>
+  </div>
+
+  <div class="col-sm-12" ng-show="!showNoticeDriver && booking.person.remark" style="padding-bottom: .5em;">
+    <div class="notice notice--driver">
+      <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
+      <strong>Remark bestuurder:</strong>
+      <br ng-if="noticeDriver">
+      {{booking.person.remark}}
+      </div>
+      <span ng-click="showNoticeDriver=!showNoticeDriver" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
+    </div>
+  </div>
+</div>
+
+<div class="row">
 
   <div class="col-md-3 col-sm-6">
     <div class="box box--min-height">
@@ -70,6 +94,17 @@
         <div class="row box__row">
           <div class="col-xs-4"><span class="box__slabel">Email</span></div>
           <div class="col-xs-8"><span title="{{booking.person.email}}" class="box__sdata box__sdata--small">{{booking.person.email}}</span></div>
+          <div class="col-xs-4" ng-if="booking.person.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
+          <div class="col-xs-8" ng-if="booking.person.phoneNumbers.length > 0">
+            <span class="box__sdata box__sdata--small">{{booking.person.phoneNumbers[0].number}} <span ng-click="phoneNumbers.showDriver=!phoneNumbers.showDriver" class="no-outline pull-right" ng-show="booking.person.phoneNumbers.length > 1">{{booking.person.phoneNumbers.length -1}} meer{{showMore}} </span> </span>
+
+            <span ng-if="phoneNumbers.showDriver">
+              <span ng-repeat="phone in booking.person.phoneNumbers" ng-if="!$first" class="box__sdata box__sdata--small">
+                <br>{{phone.number}}
+              </span>
+            </span>
+          </div>
+
           <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
           <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.person.created}}</span></div>
         </div>
@@ -118,23 +153,19 @@
         <div class="row box__row">
           <div class="col-xs-4"><span class="box__slabel">Email</span></div>
           <div class="col-xs-8"><span title="{{booking.resource.owner.email}}" class="box__sdata box__sdata--small">{{booking.resource.owner.email}}</span></div>
+          <div class="col-xs-4" ng-if="booking.resource.owner.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
+          <div class="col-xs-8" ng-if="booking.resource.owner.phoneNumbers.length > 0">
+            <span class="box__sdata box__sdata--small">{{booking.resource.owner.phoneNumbers[0].number}} <span ng-click="phoneNumbers.showOwner=!phoneNumbers.showOwner" class="no-outline pull-right" ng-show="booking.resource.owner.phoneNumbers.length > 1">{{booking.resource.owner.phoneNumbers.length -1}} meer </span> </span>
+
+            <span ng-if="phoneNumbers.showOwner">
+              <span ng-repeat="phone in booking.resource.owner.phoneNumbers" ng-if="!$first" class="box__sdata box__sdata--small">
+                <br>{{phone.number}}
+              </span>
+            </span>
+          </div>
+
           <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
           <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.owner.created}}</span></div>
-        </div>
-        <div class="row box__row">
-          <div class="col-xs-12">
-            <div class="box__divider"></div>
-          </div>
-        </div>
-        <div class="row box__row">
-          <div class="col-xs-4"><span class="box__slabel">Credit</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{requiredCreditOwn.credit | currency}}<button class="btn-link pull-right no-outline" ng-click="openVouchers(booking.resource.owner)" style="padding-right: 1em;">vouchers</button></span></div>
-          <div class="col-xs-4"><span class="box__slabel">Debt</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{requiredCreditOwn.debt | currency}}<button class="btn-link pull-right no-outline" ng-click="openPayouts(booking.resource.owner)" style="padding-right: 1em;">payouts</button></span></div>
-          <div class="col-xs-4"><span class="box__slabel" title="Bedrag nodig voor aankomende boekingen ({{requiredCreditOwn.bookings.length}} boeking(en))">Boekingen</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{requiredCreditOwn.sub_total | currency}}</span></div>
-          <div class="col-xs-4"><span class="box__slabel"><strong>Totaal nodig</strong></span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{requiredCreditOwn.total | currency}}</span></div>
         </div>
       </div>
     </div>
@@ -169,14 +200,14 @@
           <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.refuelByRenter ? 'Zelf tanken' : booking.price.fuelPerKilometer+ '/km' + (booking.price.kmFree ? ', 100KM gratis' : '')}}</span></div>
           <div class="col-xs-5"><span class="box__slabel">Merk</span></div>
           <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.brand + ', ' + booking.resource.model}}</span></div>
-          <div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor vrienden?">Besck. vrienden</span></div>
-          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableFriends ? 'Ja' : 'Nee'}} {{booking.resource.isConfirmationRequiredFriends ? ', bevestiging nodig' : ', geen bev'}}</span></div>
-          <div class="col-xs-5"><span class="box__slabel" ng-if="booking.resource.isAvailableFriends" title="Is de bestuurder een vriend van de auto?">Is best. vriend?</span></div>
-          <div class="col-xs-7"><span class="box__sdata box__sdata--small" ng-if="booking.resource.isAvailableFriends">{{isFriend ? 'Ja' : 'NEE'}}</span></div>
-          <div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor anderen?">Besch. overig</span></div>
-          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableOthers ? 'Ja': 'Nee'}} {{booking.resource.isConfirmationRequiredOthers ? ', bevestiging nodig' : ', geen bev'}}</span></div>
+          <!--<div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor vrienden?">Besck. vrienden</span></div>-->
+          <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableFriends ? 'Ja' : 'Nee'}} {{booking.resource.isConfirmationRequiredFriends ? ', bevestiging nodig' : ', geen bev'}}</span></div>-->
+          <!--<div class="col-xs-5"><span class="box__slabel" ng-if="booking.resource.isAvailableFriends" title="Is de bestuurder een vriend van de auto?">Is best. vriend?</span></div>-->
+          <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small" ng-if="booking.resource.isAvailableFriends">{{isFriend ? 'Ja' : 'NEE'}}</span></div>-->
+          <!--<div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor anderen?">Besch. overig</span></div>-->
+          <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableOthers ? 'Ja': 'Nee'}} {{booking.resource.isConfirmationRequiredOthers ? ', bevestiging nodig' : ', geen bev'}}</span></div>-->
           <div class="col-xs-5"><span class="box__slabel" title="Locatie">Locatie</span></div>
-          <div class="col-xs-7"><span class="box__sdata box__sdata--small" title="{{booking.resource.location}}">{{booking.resource.location}}</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small" title="{{booking.resource.location + ', ' + booking.resource.city}}">{{booking.resource.location}}<br>{{booking.resource.city}}</span></div>
         </div>
       </div>
     </div>
@@ -189,7 +220,7 @@
   <div class="col-sm-6">
     <div class="box">
       <div class="box__title box__title--driver">
-        <h3>Facturen bestuurder<small class="pull-right text-white no-outline" ng-click="open(1)"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(1), 'fa-chevron-right': !isOpen(1)}"></i></small></h3>
+        <h3 ng-click="open(1)" class="no-outline" >Facturen bestuurder<small class="pull-right text-white no-outline" ng-click="open(1)"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(1), 'fa-chevron-right': !isOpen(1)}"></i></small></h3>
       </div>
       <div class="box__content" ng-if="isLoading(1)">
         <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
@@ -347,7 +378,7 @@
       <div class="box__content" ng-if="isLoading(5)">
         <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
       </div>
-      <div class="box__content" ng-if="isOpen(5)">
+      <div class="" ng-if="isOpen(5)">
 
         <div class="row remark" ng-if="!remarks || remarks.length == 0">
           <div class="col-xs-12">
@@ -402,7 +433,7 @@
   <ul ng-hide="hide">
     <li ng-click="addDeclaration()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Voeg tankbonnen toe">TB</span></li>
     <li ng-click="addKm()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM</span></li>
-    <li ng-click="notifyDamage()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Stuur schademails">Schade</span></li>
+    <!--    <li ng-click="notifyDamage()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Stuur schademails">Schade</span></li>-->
     <li ng-click="changeTimes()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verleng</span></li>
     <li ng-click="mailAgreement()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Mail huurovereenkomst">HuurO</span></li>
     <li ng-click="applyDiscount()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Voeg kortingscode toe">Kort</span></li>

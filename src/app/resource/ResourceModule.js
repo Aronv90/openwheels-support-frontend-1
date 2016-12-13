@@ -191,9 +191,9 @@ angular.module('openwheels.resource', [
 		});
 
 		/**
-		 * resource/:id/boardcomputer
-		 * @resolve {promise} resource
-		 */
+     * resource/:id/boardcomputer
+     * @resolve {promise} resource
+     */
 		$stateProvider.state('root.resource.show.boardcomputer', {
 			url: '/boardcomputer',
 			controller: 'ResourceShowBoardcomputerController',
@@ -207,9 +207,9 @@ angular.module('openwheels.resource', [
 		});
 
 		/**
-		 * resource/:id/log
-		 * @resolve {promise} resource
-		 */
+     * resource/:id/log
+     * @resolve {promise} resource
+     */
 		$stateProvider.state('root.resource.show.log', {
 			url: '/log',
 			controller: 'ResourceShowLogController',
