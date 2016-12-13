@@ -43,6 +43,8 @@ angular.module('openwheels.trip.dashboard', [])
   }
   localStorageService.set('dashboard.last_trips', lastTrips);
 
+  /*
+  // niet langer nodig
   if(booking.resource.isAvailableFriends) {
     resourceService.getMembers({resource: booking.resource.id})
     .then(function(res) {
@@ -50,16 +52,21 @@ angular.module('openwheels.trip.dashboard', [])
       $scope.isFriend = _.findWhere(res, {id: booking.person.id}) !== undefined;
     });
   }
+  */
 
 
   voucherService.calculateRequiredCredit({person: booking.person.id})
   .then(function(res) {
     $scope.requiredCredit = res;
   });
+
+  /*
+  // niet langer nodig
   voucherService.calculateRequiredCredit({person: booking.resource.owner.id})
   .then(function(res) {
     $scope.requiredCreditOwn = res;
   });
+  */
 
 
   /* Section support */

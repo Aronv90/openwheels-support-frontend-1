@@ -34,11 +34,8 @@ angular.module('bookingDate', [])
         $scope.start += start.format(' HH:mm');
 
         if(!now.isSame(end)) { // if end is undefined, it will be the same as now
-          $scope.end = '';
           $scope.endfull = end.format('DD-MM-YYYY HH:mm');
-          if(end.day() !== start.day() || start.month() !== end.month()) {
-            $scope.end += end.format('DD-MM');
-          }
+          $scope.end = end.format('DD-MM');
           if(end.year() !== start.year()) {
             $scope.end += end.format('-YYYY');
           }
