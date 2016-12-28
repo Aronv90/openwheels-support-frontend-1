@@ -90,7 +90,7 @@
   </div>
 
   <div class="form-group">
-    <label for="companyName">Is company? & name</label>
+    <label for="companyName">Is company name?</label>
 
     <div class="input-group">
       <span class="input-group-addon">
@@ -111,7 +111,7 @@
 
   <div class="form-group">
     <label for="remark">Remark</label>
-    <textarea id="remark" class="form-control" ng-model="person.remark" placeholder="Remark"></textarea>
+    <textarea id="remark" class="form-control" ng-model="person.remark" placeholder="Remark" rows="6"></textarea>
   </div>
 
   <div class="form-group">
@@ -121,22 +121,20 @@
   </div>
 
   <div class="form-group">
-    <label for="twitterUid">Twitter uid</label>
+    <label for="twitterUid">Twitter (twitter.com/)</label>
     <input type="text" id="twitterUid" class="form-control" ng-model="person.twitterUid" placeholder="Twitter uid">
   </div>
 
   <div class="form-group">
-    <label for="linkedinUid">Linked in uid</label>
+    <label for="linkedinUid">LinkedIn (linkedin.com/in/)</label>
     <input type="text" id="linkedinUid" class="form-control" ng-model="person.linkedinUid"
            placeholder="Linked in uid">
   </div>
 
   <div class="form-group">
     <label for="about">About</label>
-    <textarea id="about" class="form-control" ng-model="person.about" placeholder="About"></textarea>
+    <textarea id="about" class="form-control" ng-model="person.about" placeholder="About" rows="5"></textarea>
   </div>
-
-
 
   <div class="form-group">
     <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>

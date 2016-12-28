@@ -13,16 +13,16 @@
       <div class="media-body">
         <div>
           <a ui-sref="root.resource.show.summary({resourceId: r.id })">{{ r.alias }}</a>
-          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }">{{ r.isActive ? 'Active' : 'Inactive' }}</span>
+          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }"> {{ r.isActive ? 'Active' : 'Inactive' }}</span>
         </div>
         <div>{{ r.brand }} {{ r.model }}</div>
         <div><i class="fa fa-map-marker fa-fw"></i> {{ r.location }}, {{ r.city }}</div>
         <ul class="list-inline">
           <li>
-            <i class="fa fa-user fa-fw"></i> <a ui-sref="root.person.show.summary({personId: r.ownerId })">{{ person | fullname }}</a>
+            <i class="fa fa-user fa-fw"></i> <a ui-sref="root.person.show.summary({personId: r.owner.id })">{{ r.owner.firstName }} {{ r.owner.surname }}</a>
           </li>
-          <li ng-show="r.contactPersonId">
-            <i class="fa fa-user fa-fw"></i> contact <a ui-sref="root.person.show.summary({personId: r.contactPersonId })">{{ person | fullname }}</a>
+          <li ng-show="r.contactPerson.id">
+            <i class="fa fa-user fa-fw"></i> <a ui-sref="root.person.show.summary({personId: r.contactPerson.id })">{{ person | fullname }}</a>
           </li>
         </div>
       </div>
@@ -31,5 +31,5 @@
 </ul>
 
 <div ng-show="resources.length > 4">
-  <pagination total-items="200" page="params.page" on-select-page="setPage(page)" rotate="false"></pagination>
+  <pagination total-items="125" page="params.page" on-select-page="setPage(page)" rotate="false"></pagination>
 </div>
