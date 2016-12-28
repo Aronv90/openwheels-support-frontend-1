@@ -155,7 +155,7 @@
             <a ui-sref="root.invoice2.payment.list">Payments</a>
           </li>
           <li ng-class="{ active: $state.includes('root.invoice2.payout.list') }">
-            <a ui-sref="root.invoice2.payout.list">Payouts</a>
+            <a ui-sref="root.invoice2.payout.list({gateway: 'paynl_gateway_mywheels', state: 'unpaid'})">Payouts</a>
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoice.create') }">
