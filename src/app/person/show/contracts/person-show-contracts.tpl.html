@@ -21,7 +21,7 @@
         </td>
         <td>{{ contract.id }}</td>
         <td>{{ contract.type.name }}</td>
-        <td>{{ contract.status }}</td>
+        <td ng-class="{'bg-success': contract.status == 'active', 'text-muted': contract.status == 'blocked' || contract.status == 'ended'}">{{ contract.status }}</td>
         <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{ contract.contractor.firstName }} {{ contract.contractor.surname }}</a></td>
         <td>{{ contract.maxDrivers }}</td>
         <td>{{ contract.ownRiskWaiver }}</td>

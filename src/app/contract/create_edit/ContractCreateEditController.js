@@ -5,6 +5,25 @@ angular.module('openwheels.contract.create_edit', [])
 	.controller('ContractCreateEditController', function ($scope, $filter, $q, $uibModalInstance, dialogService, contractService, contract, person, contractTypes) {
 
 		$scope.contract = contract;
+    $scope.provider = person.provider.id;
+    $scope.showAll = true;
+
+    var allContractTypes = angular.copy(contractTypes);
+		$scope.contractTypes = contractTypes;
+
+    $scope.changeShowAll = function(val) {
+      $scope.showAll = val;
+      if(val) {
+        $scope.contractTypes = allContractTypes;
+      } else {
+        $scope.contractTypes = _.filter(allContractTypes, function(contract) {
+            return ([60, 62, 63, 64, 65, 66, 67].indexOf(contract.id) >= 0);
+        });
+      }
+    };
+    if($scope.provider === 1) {
+      $scope.changeShowAll(false);
+    }
 
 		$scope.statuses = [
 			{label: 'Active', value: 'active'},
@@ -17,7 +36,6 @@ angular.module('openwheels.contract.create_edit', [])
 			value: 'booking'
 		}, {label: 'Per Month', value: 'month'}];
 
-		$scope.contractTypes = contractTypes;
 
 		$scope.dismiss = function () {
 			$uibModalInstance.dismiss();
