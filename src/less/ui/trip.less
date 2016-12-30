@@ -357,3 +357,25 @@ table.table-invoicegroup tr.subtotal > td { font-size: 1.1em; font-weight: bold;
 .money {
   text-align: right;
 }
+
+.notice {
+  color: white;
+  padding: .4em;
+  padding-right: 2em;
+  position: relative;
+
+  &--single-line {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+
+  &--owner {
+    background-color: @color-owner;
+  }
+
+  &--driver {
+    background-color: @color-driver;
+  }
+}

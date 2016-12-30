@@ -27,6 +27,7 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     { label: 'Kilometer (alleen credit)', value: 'kilometer_kosten' },
     { label: 'Ritverzekering', value: 'verzekering_kosten' },
     { label: 'Beheerdersvergoeding', value: 'beheerdersvergoeding' },
+    { label: 'Inleg', value: 'inleg_rente' },
     { label: 'Other', value: 'custom' }
   ];
 

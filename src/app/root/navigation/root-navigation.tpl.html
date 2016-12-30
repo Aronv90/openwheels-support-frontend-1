@@ -79,14 +79,19 @@
     </ul>
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
       <li>
-        <a href="" class="dropdown-toggle" data-toggle="dropdown"><strong class="caret"></strong></span>
+        <a href="" title="Recent bekeken ritten" class="dropdown-toggle" data-toggle="dropdown"><strong class="caret"></strong></span>
         <ul class="dropdown-menu">
-          <li ng-repeat="booking in previousDashboard">
+          <li ng-repeat="booking in previousDashboard" ng-if="previousDashboard">
             <a ui-sref="root.trip.dashboard({tripId: booking.id})">
               <strong><small>#{{booking.id}} </small>{{booking.person.firstName + ' ' + booking.person.lastName}}</strong>
               <br><small>{{booking.resource.alias}}</small>
               <small ng-if="booking.beginBooking"><br><booking-date booking="booking" type="booking"></booking-date></small>
               <small ng-if="!booking.beginBooking"><br><booking-date booking="booking" type="requested"></booking-date></small>
+            </a>
+          </li>
+          <li ng-if="!previousDashboard">
+            <a href="">
+              <strong>Geen recent bekeken ritten</strong>
             </a>
           </li>
         </ul>
@@ -150,7 +155,7 @@
             <a ui-sref="root.invoice2.payment.list">Payments</a>
           </li>
           <li ng-class="{ active: $state.includes('root.invoice2.payout.list') }">
-            <a ui-sref="root.invoice2.payout.list">Payouts</a>
+            <a ui-sref="root.invoice2.payout.list({gateway: 'paynl_gateway_mywheels', state: 'unpaid'})">Payouts</a>
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoice.create') }">

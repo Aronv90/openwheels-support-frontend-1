@@ -22,7 +22,7 @@ angular.module('openwheels.trip.dashboard', [])
     }
   };
 })
-.controller('TripDashboardController', function ($scope, booking, contract, invoice2Service, $q, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, driverContracts, $state, $timeout, localStorageService) {
+.controller('TripDashboardController', function ($scope, booking, contract, invoice2Service, $q, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
 
   /* INIT  */
   $scope.booking = booking;
@@ -43,6 +43,8 @@ angular.module('openwheels.trip.dashboard', [])
   }
   localStorageService.set('dashboard.last_trips', lastTrips);
 
+  /*
+  // niet langer nodig
   if(booking.resource.isAvailableFriends) {
     resourceService.getMembers({resource: booking.resource.id})
     .then(function(res) {
@@ -50,22 +52,28 @@ angular.module('openwheels.trip.dashboard', [])
       $scope.isFriend = _.findWhere(res, {id: booking.person.id}) !== undefined;
     });
   }
+  */
 
 
   voucherService.calculateRequiredCredit({person: booking.person.id})
   .then(function(res) {
     $scope.requiredCredit = res;
   });
+
+  /*
+  // niet langer nodig
   voucherService.calculateRequiredCredit({person: booking.resource.owner.id})
   .then(function(res) {
     $scope.requiredCreditOwn = res;
   });
+  */
 
 
   /* Section support */
   var sections = {};
 
   $scope.open = function(id) {
+    console.log(id);
     if(sections[id]) {
       sections[id].open = !sections[id].open;
     } else {
@@ -79,6 +87,7 @@ angular.module('openwheels.trip.dashboard', [])
       });
     }
   };
+  $scope.open(5);
 
   $scope.isOpen = function(id) {
     if(sections[id]) {
@@ -770,6 +779,26 @@ angular.module('openwheels.trip.dashboard', [])
     ;
   };
 
+  $scope.resendBoardcomputer = function() {
+    var confirm = $mdDialog.confirm()
+    .title('Wil je de boeking opnieuw naar de boordcomputer verzenden?')
+    .textContent('Weet je zeker dat je deze boeking opnieuw naar de boordcomputer wilt laten verzenden?')
+    .ok('Ja')
+    .cancel('Nee');
+
+    $mdDialog.show(confirm)
+    .then(function(res) {
+      return ccomeService.sendBooking({booking: $scope.booking.id})
+      .then(function(res) {
+        alertService.add('success', 'Booking send to boardcompuer.', 5000);
+      })
+      .catch(function(err) {
+        alertService.add('warning', 'Booking couldn\'t be send to boardcomputer', 5000);
+      });
+    })
+    ;
+  };
+
   $scope.openTextEditorDialog = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -802,6 +831,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     ;
   };
+
 
   function generateTimes() {
     var times = [];
