@@ -73,6 +73,7 @@ angular.module('openwheels.trip.dashboard', [])
   var sections = {};
 
   $scope.open = function(id) {
+    console.log(id);
     if(sections[id]) {
       sections[id].open = !sections[id].open;
     } else {
