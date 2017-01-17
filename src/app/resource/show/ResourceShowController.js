@@ -63,13 +63,16 @@ angular.module('openwheels.resource.show', [
   };
   
   $scope.addParkingpermit = function(resource) {
-    dialogService.showModal({}, {
+    dialogService.showModal({
+      templateUrl: 'resource/show/parkingpermit.tpl.html'
+    }, {
       closeButtonText: 'Cancel',
       actionButtonText: 'OK',
       headerText: 'Are you sure?',
-      bodyText: 'Do you really want to create a parking permit for  ' + resource.alias + '?'
-    }).then(function (){
-      return resourceService.createParkingpermit({resource: resource.id});
+      bodyText: 'Do you really want to create a parking permit for  ' + resource.alias + '?',
+      cities: ['Den Haag', 'Rijswijk', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Utrecht']
+    }).then(function (city){
+      return resourceService.createParkingpermit({resource: resource.id, city: city});
     }).then(function (permit) {
       alertService.add('success', 'Parkingpermit created.', 2000);
       $scope.permits.push(permit);
