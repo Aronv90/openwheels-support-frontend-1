@@ -36,13 +36,27 @@
       </li>
     </ul>
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
-      <li ng-class="{ dropdown: true, active: $state.includes('root.trip') }">
+      <li id="triproot" ng-class="{ dropdown: true, active: $state.includes('root.trip') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Trip <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li>
             <form ng-submit="followTripId(tripId)" ng-click="stopPropagation($event)">
               <input ng-model="tripId" class="form-control" placeholder="Jump to trip id" style="width: 90%; margin: 5px 5% 0 5%;" />
             </form>
+          </li>
+          <li class="divider"></li>
+          <li ng-repeat="booking in previousDashboard|limitTo:2" ng-if="previousDashboard">
+            <a ui-sref="root.trip.dashboard({tripId: booking.id})">
+              <strong><small>#{{booking.id}} </small>{{booking.person.firstName + ' ' + booking.person.lastName}}</strong>
+              <br><small>{{booking.resource.alias}}</small>
+              <small ng-if="booking.beginBooking"><br><booking-date booking="booking" type="booking"></booking-date></small>
+              <small ng-if="!booking.beginBooking"><br><booking-date booking="booking" type="requested"></booking-date></small>
+            </a>
+          </li>
+          <li ng-if="!previousDashboard">
+            <a href="">
+              <strong>Geen recent bekeken ritten</strong>
+            </a>
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.trip.list.requested') }">
@@ -73,30 +87,10 @@
           <li ng-class="{ active: $state.includes('root.trip.list.farfromhome') }">
             <a ui-sref="root.trip.list.farfromhome">Far from home</a>
           </li>
-
         </ul>
       </li>
     </ul>
-    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
-      <li>
-        <a href="" title="Recent bekeken ritten" class="dropdown-toggle" data-toggle="dropdown"><strong class="caret"></strong></span>
-        <ul class="dropdown-menu">
-          <li ng-repeat="booking in previousDashboard" ng-if="previousDashboard">
-            <a ui-sref="root.trip.dashboard({tripId: booking.id})">
-              <strong><small>#{{booking.id}} </small>{{booking.person.firstName + ' ' + booking.person.lastName}}</strong>
-              <br><small>{{booking.resource.alias}}</small>
-              <small ng-if="booking.beginBooking"><br><booking-date booking="booking" type="booking"></booking-date></small>
-              <small ng-if="!booking.beginBooking"><br><booking-date booking="booking" type="requested"></booking-date></small>
-            </a>
-          </li>
-          <li ng-if="!previousDashboard">
-            <a href="">
-              <strong>Geen recent bekeken ritten</strong>
-            </a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    
 
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li ng-class="{ dropdown: true, active: $state.includes('root.invoice') }">
@@ -133,9 +127,15 @@
 
     <!-- INVOICE MODULE VERSION 2 -->
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
-      <li ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
+      <li id="invoiceroot" ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Invoice <b class="caret"></b></a>
         <ul class="dropdown-menu">
+          <li>
+            <form ng-submit="followInvoiceGroupId(invoiceGroupId)" ng-click="stopPropagation($event)">
+              <input ng-model="invoiceGroupId" class="form-control" placeholder="Jump to invoicegroup id" style="width: 90%; margin: 5px 5% 0 5%;" />
+            </form>
+          </li>
+          <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.invoice2.account.list') }">
             <a ui-sref="root.invoice2.account.list">Accounts</a>
           </li>
@@ -201,7 +201,7 @@
           <li ng-class="{ active: $state.includes('root.checklist.bankcheck') }">
             <a ui-sref="root.checklist.bankcheck">Bank not verified</a>
           </li>
-          <li ng-class="{ active: $state.includes('ow-dashboard') }">
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('ow-dashboard') }">
             <a ui-sref="ow-dashboard">Dashboard</a>
           </li>
           <li ui-sref-active="active" ng-repeat="item in checklists"> 
