@@ -8,10 +8,21 @@ angular.module('openwheels.trip.show', [
   'openwheels.trip.show.revisions'
 ])
 
-.controller('TripShowController', function ($scope, $uibModal, $stateParams, alertService, bookingService, booking, settingsService, FRONT_RENT, API_DATE_FORMAT) {
+.controller('TripShowController', function ($scope, $uibModal, $stateParams, alertService, bookingService, booking, settingsService, FRONT_RENT, API_DATE_FORMAT, localStorageService) {
 
   $scope.booking = booking;
   $scope.contract = null;
+
+  var lastTrips = localStorageService.get('dashboard.last_trips');
+  if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
+    lastTrips = [];
+  }
+  lastTrips.unshift(booking);
+  lastTrips = _.uniq(lastTrips, function(booking) { return booking.id; });
+  if(lastTrips.length > 10) {
+    lastTrips = lastTrips.slice(0, 10);
+  }
+  localStorageService.set('dashboard.last_trips', lastTrips);
 
   var startDate = moment((booking.beginBooking ? booking.beginBooking : booking.beginRequested), API_DATE_FORMAT);
   var endDate = moment((booking.endBooking ? booking.endBooking : booking.endRequested), API_DATE_FORMAT);
