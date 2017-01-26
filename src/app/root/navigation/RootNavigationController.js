@@ -110,12 +110,22 @@ angular.module('openwheels.root.navigation', [])
 		};
 
 		$scope.tripId = '';
+		$scope.invoiceGroupId = '';
 
 		$scope.followTripId = function (tripId) {
 			if (tripId) {
 				$state.go('root.trip.show.summary', { tripId: tripId });
+        angular.element('#triproot').removeClass('open');
+        $scope.tripId = '';
 			} else {
 				$state.go('root');
+			}
+		};
+		$scope.followInvoiceGroupId = function (id) {
+			if (id) {
+				$state.go('root.invoice2.invoiceGroup.show', { invoiceGroupId: id });
+        angular.element('#invoiceroot').removeClass('open');
+        $scope.invoiceGroupId = '';
 			}
 		};
 	})
