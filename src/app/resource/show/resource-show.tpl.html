@@ -25,12 +25,23 @@
               <li><i class="fa fa-gear"></i> {{ resource.fuelType}}</li>
             </ul>
           </div>
-          <div class="col-md-1">
-            <button class="btn btn-xl" ng-click="bookResource(resource)">Book Resource</button>
-            <button ng-if="resource.fleet.id == 5 && permits.length == 0" class="btn btn-info" ng-click="addParkingpermit(resource)">parking permit</button>
-            <button ng-if="permits.length > 0" class="btn btn-warning" ng-click="rmParkingpermit(permits)">parking permit (&times;)</button>
-          </div>
           <div class="col-md-2">
+            <button class="btn btn-xl" ng-click="bookResource(resource)">Book Resource</button>
+
+            <div id="resourceParkingpermit">
+              <button ng-if="resource.fleet.id == 5 && permits.length == 0" class="btn btn-info" ng-click="createParkingPermit(resource)">
+                <i class="fa fa-plus"></i> create parking permit
+              </button>
+              <button ng-if="resource.fleet.id == 5 && permits.length > 0" class="btn btn-warning" ng-click="removeParkingPermit(permits)">
+                <i class="fa fa-times"></i> remove parking permit
+              </button>
+              <button ng-if="resource.fleet.id == 5 && permits.length > 0" class="btn btn-warning" ng-click="updateParkingPermit(permits)">
+                <i class="fa fa-edit"></i> alter parking permit
+              </button>
+            </div>
+
+          </div>
+          <div class="col-md-1">
               <i class="fa fa-trash-o fa-4x  pull-right" ng-click="removeResource(resource)"></i>
           </div>
         </div>
