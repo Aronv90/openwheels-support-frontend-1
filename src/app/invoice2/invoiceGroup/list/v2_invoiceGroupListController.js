@@ -86,7 +86,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   // 2) verzoek om uitbetaling verzamelfactuur
   $scope.payoutInvoices = function () {
     alertService.load($scope);
-    invoice2Service.createSenderInvoiceGroup({ person: $stateParams.personId }).then(function (invoiceGroup) {
+    invoice2Service.createSenderInvoiceGroup({ person: $stateParams.personId, closeOtherInvoices: true }).then(function (invoiceGroup) {
       $scope.ungroupedSentInvoices.length = 0;
       $scope.invoiceGroups = $scope.invoiceGroups || [];
       $scope.invoiceGroups.push(invoiceGroup);

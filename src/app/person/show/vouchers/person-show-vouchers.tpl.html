@@ -2,7 +2,7 @@
   <form name="form" class="form-inline">
     <label>Create a voucher (€)</label>
     <div class="form-group">
-      <input type="number" class="form-control" ng-model="voucherValue" required min="1" max="100" />
+      <input type="number" class="form-control" ng-model="voucherValue" required min="1" max="500" />
     </div>
     <button type="button" class="btn btn-default" ng-disabled="!voucherValue" ng-click="createVoucher(voucherValue)">
       Ok

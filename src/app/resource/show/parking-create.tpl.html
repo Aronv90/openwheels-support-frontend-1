@@ -1,0 +1,19 @@
+
+<div ng-show="modalOptions.headerText" class="modal-header">
+  <h4 class="modal-title">{{modalOptions.headerText}}</h4>
+</div>
+<div class="modal-body">
+  {{modalOptions.bodyText}} 
+  
+  <div>In stad: 
+	<select ng-model="city">
+      <option ng-repeat="x in modalOptions.cities">{{x}}</option>
+	</select> 
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-link"
+          data-ng-click="modalOptions.close()">{{modalOptions.closeButtonText}}</button>
+  <button class="btn btn-primary"
+          data-ng-click="modalOptions.ok(city);">{{modalOptions.actionButtonText}}</button>
+</div>
