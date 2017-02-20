@@ -17,7 +17,7 @@ angular.module('openwheels.contract.create_edit', [])
         $scope.contractTypes = allContractTypes;
       } else {
         $scope.contractTypes = _.filter(allContractTypes, function(contract) {
-            return ([60, 62, 63, 64, 65, 66, 67].indexOf(contract.id) >= 0);
+            return ([60, 62, 63, 64, 65, 66, 67, 75].indexOf(contract.id) >= 0);
         });
       }
     };

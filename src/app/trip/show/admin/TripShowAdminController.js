@@ -165,7 +165,7 @@ angular.module('openwheels.trip.show.admin', [])
         booking: $scope.booking.id
       }).then(function (trip) {
         angular.extend($scope.booking.trip, trip);
-        alertService.add('success', 'Trip set', 2000);
+        alertService.add('success', 'Trip afgesloten', 2000);
       }, function (error) {
         alertService.add('danger', error.message, 5000);
       });
