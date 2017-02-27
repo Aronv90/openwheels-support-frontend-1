@@ -11,10 +11,10 @@
     <li ng-class="{ active: $state.includes('root.person.show.data.phonenumbers') }">
         <a ui-sref="root.person.show.data.phonenumbers({ personId: person.id })">Phones</a>
     </li>
-    <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.account') }">
+    <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.account') }">
         <a ui-sref="root.person.show.data.account({ personId: person.id })">Account</a>
     </li>
-    <li ng-class="{ active: $state.includes('root.person.show.data.driverlicense') }">
+    <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.driverlicense') }">
       <a ui-sref="root.person.show.data.driverlicense({ personId: person.id })">Driver License</a>
     </li>
     <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.rentalcheck') }">
