@@ -7,6 +7,9 @@ angular.module('driverLicense', [])
 			restrict: 'A',
 			scope: {driverLicense: '='},
 			link: function (scope, elem) {
+
+        scope.rot = 0;
+
 				var isValidImageUrl = function (url) {
 					var d = $q.defer();
 					var img = new Image();
@@ -23,8 +26,9 @@ angular.module('driverLicense', [])
 
 				scope.open = function (photo) {
 					$uibModal.open({
-						template: '<img ng-click="dismiss()" src="' + photo + '">',
+						template: '<img ng-style="{transform: \'rotate(\'+rot+\'deg)\'}" ng-click="dismiss()" src="' + photo + '">',
 						windowClass: 'modal--driverlicense',
+            scope: scope,
 						controller: ['$scope', '$uibModalInstance', function ($scope, $uibModalInstance) {
 							$scope.dismiss = function () {
 								$uibModalInstance.dismiss();
@@ -40,7 +44,7 @@ angular.module('driverLicense', [])
 					function (validImage) {
 						var template;
 						if (validImage) {
-							template = '<img style="cursor:pointer; max-width: 100%;" ng-click="open(driverLicenseUrl)" src="' + scope.driverLicenseUrl + '">';
+							template = '<img ng-style="{transform: \'rotate(\'+rot+\'deg)\'}" style="transition: all 200ms; cursor:pointer; max-width: 100%;" ng-click="open(driverLicenseUrl)" src="' + scope.driverLicenseUrl + '"><div style="margin-top: 1em;text-align: center"><button class="no-outline btn btn-link" ng-click="rot = rot - 90"><i class="fa fa-undo"></i></button>draai<button style="outline: none" class="btn btn-link" ng-click="rot = rot + 90"><i class="fa fa-repeat"></i></button></div>';
 						} else {
 							template = '<a href="' + scope.driverLicenseUrl + '" target=_blank>Download license</a>';
 						}
