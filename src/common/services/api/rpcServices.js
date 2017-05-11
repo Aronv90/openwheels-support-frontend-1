@@ -302,6 +302,7 @@ angular.module('rpcServices', [])
       this.control = m('control');
       this.log = m('log');
       this.tripdata = m('tripdata');
+      this.currentLocation = m('currentLocation');
     })
 
     .service('conversationService', function (api) {
