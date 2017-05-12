@@ -56,6 +56,21 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
 
   };
 
+  $scope.createSenderGroup = function(userId) {
+    alertService.load($scope);
+    invoice2Service.createSenderInvoiceGroup({ person: $stateParams.personId })
+    .then(function (invoiceGroup) {
+      if(invoiceGroup !== null) {
+        $scope.ungroupedSentInvoices.length = 0;
+        $scope.invoiceGroups = $scope.invoiceGroups || [];
+        $scope.invoiceGroups.push(invoiceGroup);
+      }
+      return;
+    })
+    .catch(alertService.addError)
+    .finally(alertService.loaded);
+  };
+
   /* approve an account */
   $scope.approve = function (account) {
     alertService.load($scope);

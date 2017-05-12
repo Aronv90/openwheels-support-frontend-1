@@ -208,11 +208,14 @@
               <strong>{{ ungroupedSentInvoicesTotal | currency }}</strong>
             </td>
           </tr>
-          <tr ng-if="ungroupedSentInvoices.length > 0">
+          <tr>
             <td colspan="5"></td>
             <td class="text-right">
+              <button type="button" class="btn btn-primary" ng-click="createSenderGroup(person.id)">
+                Bundle
+              </button>
               <button type="button" class="btn btn-primary" ng-click="payoutInvoices()">
-                Alles uitbetalen
+                Bundle + uitbetalen
               </button>
             </td>
           </tr>
