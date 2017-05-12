@@ -64,6 +64,38 @@
           <div class="col-xs-12"><span class="box__slabel">Trip datum:</span></div>
           <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row"><span ng-if="!booking.trip.begin">-</span><booking-date ng-if="booking.trip.begin" booking="booking" type="trip"></booking-date></span></div>
         </div>
+        <div class="row box__row">
+          <div class="col-xs-12">
+            <div class="box__divider"></div>
+          </div>
+        </div>
+        <div class="row box__row" ng-if="contract.type.id === 60">
+          <div class="col-xs-12">
+            <span class="box__slabel">
+            Extra personen:
+            </span>
+          </div>
+        </div>
+        <div class="row box__row" ng-if="extraPersons.length === 0">
+          <div class="col-xs-12" >
+            <small class="box__slabel">
+              Geen extra personen toegevoegd
+            </small>
+          </div>
+        </div>
+        <div class="row box__row box__row--hover" ng-repeat="person in extraPersons"ng-if="extraPersons.length > 0">
+          <div class="col-xs-10" >
+            <span class="box__slabel">
+              {{person.firstName ? person.firstName : person.email}}
+            </span>
+          </div>
+          <div class="col-xs-2">
+            <span class="box__slabel">
+              <i ng-click="removeDriver(booking.id, person.email)" class="fa fa-close"></i>
+            </span>
+          </div>
+        </div>
+
       </div>
     </div>
   </div> <!--/ first box, trip -->

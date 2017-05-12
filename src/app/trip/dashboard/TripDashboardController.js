@@ -31,6 +31,8 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.declarations = [];
   $scope.friends = [];
   $scope.remarks = [];
+  $scope.extraPersons = [];
+  
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
@@ -42,6 +44,21 @@ angular.module('openwheels.trip.dashboard', [])
     lastTrips = lastTrips.slice(0, 10);
   }
   localStorageService.set('dashboard.last_trips', lastTrips);
+
+
+  if(contract.type.id === 60) {
+    bookingService.driversForBooking({booking: booking.id})
+    .then(function(res) {
+      $scope.extraPersons = res;
+    });
+
+    $scope.removeDriver = function(bookingId, personEmail) {
+      bookingService.removeDriver({booking: bookingId, email: personEmail})
+      .then(function(res) {
+        $scope.extraPersons = res;
+      });
+    };
+  }
 
   /*
   // niet langer nodig
@@ -73,7 +90,6 @@ angular.module('openwheels.trip.dashboard', [])
   var sections = {};
 
   $scope.open = function(id) {
-    console.log(id);
     if(sections[id]) {
       sections[id].open = !sections[id].open;
     } else {

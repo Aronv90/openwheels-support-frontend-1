@@ -180,6 +180,9 @@ angular.module('rpcServices', [])
       this.addDamage = m('addDamage');
       this.mailAgreement = m('mailAgreement');
 
+      this.driversForBooking = m('driversForBooking');
+      this.removeDriver = m('removeDriver');
+
       this.bookingWeekKPIData = m('bookingWeekKPIData');
     })
 
