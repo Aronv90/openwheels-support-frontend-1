@@ -161,13 +161,19 @@ angular.module('openwheels.trip.show.admin', [])
     };
     
     $scope.finalize = function () {
+      $scope.finalizing = true;
       bookingService.finishTrip({
         booking: $scope.booking.id
-      }).then(function (trip) {
+      })
+      .then(function (trip) {
         angular.extend($scope.booking.trip, trip);
         alertService.add('success', 'Trip afgesloten', 2000);
-      }, function (error) {
+      })
+      .catch(function(error) {
         alertService.add('danger', error.message, 5000);
+      })
+      .finally(function() {
+        $scope.finalizing = false;
       });
     };
 

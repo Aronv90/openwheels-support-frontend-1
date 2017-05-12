@@ -180,6 +180,9 @@ angular.module('rpcServices', [])
       this.addDamage = m('addDamage');
       this.mailAgreement = m('mailAgreement');
 
+      this.driversForBooking = m('driversForBooking');
+      this.removeDriver = m('removeDriver');
+
       this.bookingWeekKPIData = m('bookingWeekKPIData');
     })
 
@@ -302,6 +305,7 @@ angular.module('rpcServices', [])
       this.control = m('control');
       this.log = m('log');
       this.tripdata = m('tripdata');
+      this.currentLocation = m('currentLocation');
     })
 
     .service('conversationService', function (api) {

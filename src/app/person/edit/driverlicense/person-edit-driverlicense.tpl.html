@@ -68,12 +68,11 @@
           <th>Address</th>
           <th>Email</th>
         </tr>
-        <tr ng-repeat="blockedPerson in blockedLike" ui-sref="root.person.show.summary({personId: blockedPerson.id})"
-            style="cursor:pointer;">
-          <td>{{blockedPerson | fullname}}</td>
-          <td>{{blockedPerson.dateOfBirth | amDateFormat:'DD-MM-YYYY' }}</td>
-          <td>{{blockedPerson.zipcode}} {{blockedPerson.streetNumber}}</td>
-          <td>{{blockedPerson.email}}</td>
+        <tr ng-repeat="blockedPerson in blockedLike" ui-sref="root.person.show.summary({personId: blockedPerson.id})" style="cursor:pointer;">
+          <td ng-class="{'bg-danger': person.surname && blockedPerson.surname == person.surname}">{{blockedPerson | fullname}}</td>
+          <td ng-class="{'bg-danger': person.dateOfBirth && blockedPerson.dateOfBirth == person.dateOfBirth}">{{blockedPerson.dateOfBirth | amDateFormat:'DD-MM-YYYY' }}</td>
+          <td ng-class="{'bg-danger': person.zipcode && blockedPerson.zipcode == person.zipcode}">{{blockedPerson.zipcode}} {{blockedPerson.streetNumber}}</td>
+          <td ng-class="{'bg-danger': person.driverLicenseNumber && blockedPerson.driverLicenseNumber == person.driverLicenseNumber}">{{blockedPerson.email}}</td>
         </tr>
       </table>
     </div>
@@ -84,12 +83,23 @@
     <div class="row">&nbsp;</div>
     <form name="form">
       <div class="form-group">
-        <label for="driverLicenseNumber">Driver license number:</label>
-        <div class="input-group">
+        <div class="form-group">
+          <label for="driverLicenseNumber">Driver license number:</label>
           <input name="driverLicenseNumber" id="driverLicenseNumber" type="text" class="form-control" ng-model="person.driverLicenseNumber" />
-          <span class="input-group-btn">
-            <button class="btn btn-default" ng-disabled="!form.$dirty" ng-click="saveDriverLicenseNumber()">Save</button>
-          </span>
+        </div>
+        <div class="form-group">
+          <label for="driverLicenseDate">Verloopdatum:</label>
+          <div>
+          <input move-next-on-maxlength maxlength="2" ng-blur="driverLicenseDate1 = prefix(driverLicenseDate1)" ng-model="driverLicenseDate1" class="form-control" placeholder="DD" style="width: 4em; display: inline-block; " name="driverLicenseDate1" ng-keyup="format($event)" type="text" ></input>
+          <span>-</span>
+          <input move-next-on-maxlength maxlength="2" ng-blur="driverLicenseDate2 = prefix(driverLicenseDate2)"  ng-model="driverLicenseDate2" class="form-control" placeholder="MM" style="width: 4em; display: inline-block;" name="driverLicenseDate2" ng-keyup="format($event)" type="text" ></input>
+          <span>-</span>
+          <input maxlength="4" class="form-control" ng-blur="hasFocus = false" ng-focus="hasFocus = true" ng-model="driverLicenseDate3" ng-blur="" placeholder="YYYY" style="width: 8em; display: inline-block;" name="driverLicenseDate3" ng-keyup="format($event)" type="text" ></input>
+          </div>
+          <p ng-if="form.driverLicenseDate3.$touched && !hasFocus"><span ng-if="notValidDate()">Datum is nog niet in het goede formaat (dd-mm-YYYY) of ongeldig</span></p>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default" ng-disabled="!form.$dirty || !person.driverLicenseNumber || notValidDate()" ng-click="saveDriverLicenseData()">Save</button>
         </div>
       </div>
       <button type="button" class="btn btn-success" ng-click="moderateLicense(person, 'ok')" ng-disabled="form.$invalid">OK</button>

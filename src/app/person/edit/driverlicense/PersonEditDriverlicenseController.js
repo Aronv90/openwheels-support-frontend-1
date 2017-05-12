@@ -1,7 +1,21 @@
 'use strict';
 
 angular.module('openwheels.person.edit.data.driverlicense', [])
-
+	.directive('moveNextOnMaxlength', function() {
+		return {
+			restrict: 'A',
+			link: function($scope, element) {
+				element.on('input', function(e) {
+					if(window.parseInt(element.val().length) === window.parseInt(element.attr('maxlength'))) {
+						var $nextElement = element.next().next();
+						if($nextElement.length) {
+							$nextElement[0].focus();
+						}
+					}
+				});
+			}
+		};
+	})
   .controller('PersonEditDriverlicenseController', function ($scope, alertService, personService,  person, blockedLike, similar, account) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
@@ -14,6 +28,42 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       }
       return similar;
     });
+
+    function getMoment() {
+      var value = window.parseInt($scope.driverLicenseDate1)+'-'+window.parseInt($scope.driverLicenseDate2)+'-'+window.parseInt($scope.driverLicenseDate3);
+      var re = /\d{1,2}-\d{1,2}-\d{4}/;
+      if(value.match(re)) {
+        return window.moment(value, 'D-M-YYYY', true);
+      }
+      return null;
+    }
+
+    $scope.prefix = function(value) {
+      if(value.length === 1) {
+        value = '0'+value;
+      }
+      return value;
+    };
+
+    function parseDate() {
+      if($scope.person.drivingLicenseValidUntil) {
+        var moment = window.moment($scope.person.drivingLicenseValidUntil, 'YYYY-MM-DD HH:mm');
+        $scope.driverLicenseDate1 = moment.format('DD');
+        $scope.driverLicenseDate2 = moment.format('MM');
+        $scope.driverLicenseDate3 = moment.format('YYYY');
+      }
+    }
+    parseDate();
+
+    $scope.notValidDate = function() {
+      var moment = getMoment();
+      if(moment) {
+        if(moment.isBetween('1995-01-01', '2050-01-01')) {
+          return !moment.isValid();
+        }
+      }
+      return true;
+    };
 
 		$scope.moderateLicense = function (person, status, block) {
 			var newProps;
@@ -36,10 +86,15 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
         newProps.driverLicenseNumber = $scope.person.driverLicenseNumber || '';
       }
 
+      if(getDriverLicenseDate()) {
+        newProps.drivingLicenseValidUntil = getDriverLicenseDate();
+      }
+
 			personService.alter({id: person.id, newProps: newProps}).then(
         function(returnedPerson){
           $scope.person = returnedPerson;
           angular.extend(person, returnedPerson);
+          parseDate();
           $scope.form.$setPristine();
 
           var msg = returnedPerson.driverLicenseStatus === 'ok' ? 'Driver license approved' : 'Driver license dismissed';
@@ -90,22 +145,36 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       });
     };
 
-    $scope.saveDriverLicenseNumber = function () {
+    function getDriverLicenseDate() {
+      var moment = getMoment();
+      if(moment && moment.isValid()) {
+        return moment.format('YYYY-MM-DD');
+      }
+      return null;
+    }
+
+    $scope.saveDriverLicenseData = function () {
+      var newProps = {
+        driverLicenseNumber: $scope.person.driverLicenseNumber || '',
+      };
+      if(getDriverLicenseDate()) {
+        newProps.drivingLicenseValidUntil = getDriverLicenseDate();
+      }
+
       alertService.load();
       personService.alter({
         id: person.id,
-        newProps: {
-          driverLicenseNumber: $scope.person.driverLicenseNumber || ''
-        }
+        newProps: newProps
       })
       .then(function (returnedPerson) {
         $scope.person = returnedPerson;
         angular.extend(person, returnedPerson);
+        parseDate();
         $scope.form.$setPristine();
-        alertService.add('success', 'Driver license number saved', 3000);
+        alertService.add('success', 'Driver license data saved', 3000);
       })
       .catch(function (err) {
-        alertService.add('danger', 'Error saving driver license number', 4000);
+        alertService.add('danger', 'Error saving driver license data', 4000);
       })
       .finally(function () {
         alertService.loaded();
