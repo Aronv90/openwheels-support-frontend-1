@@ -1,3 +1,10 @@
+<div style="margin-bottom: 1em;">
+  <button class="btn btn-sm btn-primary" ng-click="getCurrentLocation()">Huidige locatie</button>
+  <span style="margin-left: 1em" ng-if="curLoc.lat">
+    <a ng-href="https://www.google.nl/maps/search/{{curLoc.lat}},%20{{curLoc.lng}}" target="_blank">{{curLoc.lat}}, {{curLoc.lng}}</a>
+    <small style="margin-left: 1em" title="{{curLoc.date | date:'mediumDate'}}  {{curLoc.date | date:'mediumTime'}}" am-time-ago="curLoc.date"></small>
+  </span>
+</div>
 <table class="table table-striped">
   <tr>
     <th>Date</th>
@@ -6,7 +13,7 @@
     <th>Message</th>
     <th>User</th>
   </tr>
-  <tr ng-repeat="log in logs">
+  <tr ng-repeat="log in logs | orderBy:'-date'">
     <td>{{log.date}}</td>
     <td>{{log.extra.action}}</td>
     <td>{{log.extra.actionType}}</td>
