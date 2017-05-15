@@ -14,7 +14,10 @@ angular.module('openwheels.resource.show.boardcomputer', [])
       if(result === 'error') {
         return alertService.add('danger', result, 5000);
       }
-      alertService.add('success', 'Boardcomputer opened door and enabled start', 3000);
+      if(result.isNewlyCreated === false) {
+        return alertService.add('success', 'Auto is bezig te openen', 3000);
+      }
+      return alertService.add('success', 'Auto wordt geopend', 3000);
     }, function(error) {
       alertService.add('danger', error.message, 5000);
     });
@@ -30,7 +33,10 @@ angular.module('openwheels.resource.show.boardcomputer', [])
       if(result === 'error') {
         return alertService.add('danger', result, 5000);
       }
-      alertService.add('success', 'Boardcomputer closed door and disabled start', 3000);
+      if(result.isNewlyCreated === false) {
+        return alertService.add('success', 'Auto is bezig te sluiten', 3000);
+      }
+      return alertService.add('success', 'Auto wordt gesloten', 3000);
     }, function(error) {
       alertService.add('danger', error.message, 5000);
     });
