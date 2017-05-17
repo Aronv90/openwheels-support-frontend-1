@@ -258,6 +258,12 @@
                typeahead-input-formatter="formatResource($model)">
       </div>
     </form>
+
+    <div show-if-user-has-role="ROLE_ADMIN" style="float:left;line-height:40px;">
+      <div style="float:left;padding-right:8px;line-height:38px;">Limit:</div>
+        <input type="checkbox" ng-model="limit" checked="true">
+    </div>
+
     <ul class="nav navbar-nav">
       <li ng-if="user.isAuthenticated">
         <a href="/#/person/{{user.identity.id}}">{{user.identity.firstName}} {{user.identity.surname}}</a>
