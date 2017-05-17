@@ -15,32 +15,36 @@ angular.module('openwheels.root.navigation', [])
     localStorageService
   ) {
 
+	$rootScope.limit = false;
+
     checklistService.all().then(function (data) {
       $scope.checklists = data;
     });
-		/**
-		 * Typeahead Person
-		 */
+
+	/**
+	 * Typeahead Person
+	 */
+	$scope.selectedPerson = undefined;
+	$scope.searchPersons = function ($viewValue) {
+		return personService.search({
+			search: $viewValue,
+			limit: $rootScope.limit
+		});
+	};
+
+	$scope.selectPerson = function () {
+		var personId = $scope.selectedPerson.id;
 		$scope.selectedPerson = undefined;
-		$scope.searchPersons = function ($viewValue) {
-			return personService.search({
-				search: $viewValue
-			});
-		};
+		$state.go('root.person.show.trip', {personId: personId});
+	};
 
-		$scope.selectPerson = function () {
-			var personId = $scope.selectedPerson.id;
-			$scope.selectedPerson = undefined;
-			$state.go('root.person.show.trip', {personId: personId});
-		};
-
-		$scope.formatPerson = function ($model) {
-			var inputLabel = '';
-			if ($model) {
-				inputLabel = $filter('fullname')($model) + ' [' + $model.id + ']';
-			}
-			return inputLabel;
-		};
+	$scope.formatPerson = function ($model) {
+		var inputLabel = '';
+		if ($model) {
+			inputLabel = $filter('fullname')($model) + ' [' + $model.id + ']';
+		}
+		return inputLabel;
+	};
 
 
     $scope.previousDashboard = localStorageService.get('dashboard.last_trips');
@@ -57,7 +61,8 @@ angular.module('openwheels.root.navigation', [])
 		$scope.selectedResource = undefined;
 		$scope.searchResources = function ($viewValue) {
 			return resourceService.select({
-				search: $viewValue
+				search: $viewValue,
+				limit: $rootScope.limit
 			});
 		};
 
