@@ -219,7 +219,7 @@ angular.module('openwheels.resource', [
 				logs: ['resource', 'boardcomputerService', function (resource, boardcomputerService) {
 					var from;
 					var to;
-					from = moment().subtract(3, 'week').format('YYYY-MM-DD HH:mm');
+					from = moment().subtract(1, 'week').format('YYYY-MM-DD HH:mm');
 					to = moment().add(1, 'week').format('YYYY-MM-DD HH:mm');
 					return boardcomputerService.log({resource: resource.id, from: from, to: to});
 				}]
