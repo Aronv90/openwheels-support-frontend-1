@@ -22,7 +22,7 @@ angular.module('openwheels.trip.dashboard', [])
     }
   };
 })
-.controller('TripDashboardController', function ($scope, booking, contract, invoice2Service, $q, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
+.controller('TripDashboardController', function ($scope, booking, contract, invoice2Service, $q, revisionsService, settingsService, FRONT_RENT, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
 
   /* INIT  */
   $scope.booking = booking;
@@ -103,7 +103,7 @@ angular.module('openwheels.trip.dashboard', [])
       });
     }
   };
-  $scope.open(5);
+  $scope.open(6);
 
   $scope.isOpen = function(id) {
     if(sections[id]) {
@@ -134,6 +134,9 @@ angular.module('openwheels.trip.dashboard', [])
       return initDiscountScope();
     }
     if(id === 5) {
+      return initRevisionsScope();
+    }
+    if(id === 6) {
       return initRemarksScope();
     }
 
@@ -158,6 +161,25 @@ angular.module('openwheels.trip.dashboard', [])
     });
   }
 
+  function initRevisionsScope() {
+    return revisionsService.revisions({
+      id   : booking.id,
+      type : 'OpenWheels\\ApiBundle\\Entity\\Booking'
+    })
+    .then(function (bookingRevisions) {
+      $scope.revisions = bookingRevisions;
+      revisionsService.revisions({
+        id   : booking.id,
+        type : 'OpenWheels\\ApiBundle\\Entity\\Trip'
+      })
+      .then(function (tripRevisions) {
+        for (var i=0; i<tripRevisions.length; i++){
+            $scope.revisions.push(tripRevisions[i]);
+        }
+        console.log($scope.revisions);
+      });
+    });
+  }
 
   $scope.openDeclaration = function(declaration) {
     $window.scrollTo(0, 0);
@@ -813,6 +835,15 @@ angular.module('openwheels.trip.dashboard', [])
       });
     })
     ;
+  };
+
+  $scope.alternatives = function() {
+    var startDate = moment((booking.beginBooking ? booking.beginBooking : booking.beginRequested), API_DATE_FORMAT);
+    var endDate = moment((booking.endBooking ? booking.endBooking : booking.endRequested), API_DATE_FORMAT);
+
+    // datetime format for parameters in URL
+    var URL_DATE_TIME_FORMAT = 'YYMMDDHHmm';
+    $window.location.href = settingsService.settings.server + FRONT_RENT + '?start=' + moment(startDate).format(URL_DATE_TIME_FORMAT) + '&end=' + moment(endDate).format(URL_DATE_TIME_FORMAT) + '&lat=' + booking.resource.latitude + '&lng=' + booking.resource.longitude + (booking.resource.boardcomputer ? '&smartwheels=true' : '');
   };
 
   $scope.openTextEditorDialog = function() {

@@ -16,6 +16,8 @@
       <tr>
         <th>Date</th>
         <th>Changes</th>
+        <th>Begin booking</th>
+        <th>End booking</th>
         <th>Updated by</th>
       </tr>
     </thead>
@@ -26,6 +28,8 @@
         <span ng-if="revision.action==='create'">Created</span>
         <span ng-if="revision.action==='update'">{{ revision.data | json }}</span>
       </td>
+      <td class="nowrap">{{ revision.data.beginBooking.date | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
+      <td class="nowrap">{{ revision.data.endBooking.date | amDateFormat:'DD-MM-YY HH:mm' }}</td>
       <td>{{ revision.username }}</td>
     </tr>
     </tbody>

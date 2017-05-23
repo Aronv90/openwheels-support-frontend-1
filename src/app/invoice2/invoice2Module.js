@@ -226,8 +226,8 @@ angular.module('openwheels.invoice2', [
         var maxValue = parseFloat($stateParams.maxValue);
         if (!isNaN(minValue)) { params.minAmount = minValue; }
         if (!isNaN(maxValue)) { params.maxAmount = maxValue; }
-        var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract('months', 1);
-        var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add('months', 1);
+        var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
+        var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(1, 'months');
         if (startDate || endDate) {
           params.timeFrame = {
             startDate: startDate.format('YYYY-MM-DD HH:mm'),
@@ -259,8 +259,8 @@ angular.module('openwheels.invoice2', [
         var params = {};
         if ($stateParams.gateway) { params.gateway = $stateParams.gateway; }
         if ($stateParams.state) { params.state = $stateParams.state; }
-        var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract('months', 1);
-        var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add('months', 1);
+        var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
+        var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(1, 'months');
         if (startDate || endDate) {
           params.timeFrame = {
             startDate: startDate.format('YYYY-MM-DD HH:mm'),
