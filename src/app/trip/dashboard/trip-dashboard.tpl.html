@@ -1,4 +1,26 @@
 <div class="row">
+  <div class="col-sm-12" ng-show="!showNoticeDriver && booking.person.remark" style="padding-bottom: .5em;">
+    <div class="notice notice--driver">
+      <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
+      <strong>Remark bestuurder:</strong>
+      <br ng-if="noticeDriver">
+      {{booking.person.remark}}
+      </div>
+      <span ng-click="showNoticeDriver=!showNoticeDriver" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
+    </div>
+  </div>
+
+  <div class="col-sm-12" ng-show="!showBookingNoticeDriver && booking.remarkRequester" style="padding-bottom: .5em;">
+    <div class="notice notice--driver">
+      <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
+      <strong>Remark rit bestuurder:</strong>
+      <br ng-if="noticeDriver">
+      {{booking.remarkRequester}}
+      </div>
+      <span ng-click="showBookingNoticeDriver=!showBookingNoticeDriver" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
+    </div>
+  </div>
+
   <div class="col-sm-12" ng-show="!showNoticeOwner && booking.resource.owner.remark" style="padding-bottom: .5em;">
     <div class="notice notice--owner">
       <div ng-class="{'notice--single-line': !noticeOwner}" class="no-outline" ng-click="noticeOwner=!noticeOwner" >
@@ -10,14 +32,14 @@
     </div>
   </div>
 
-  <div class="col-sm-12" ng-show="!showNoticeDriver && booking.person.remark" style="padding-bottom: .5em;">
-    <div class="notice notice--driver">
-      <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
-      <strong>Remark bestuurder:</strong>
-      <br ng-if="noticeDriver">
-      {{booking.person.remark}}
+  <div class="col-sm-12" ng-show="!showBookingNoticeOwner && booking.remarkAuthorizer" style="padding-bottom: .5em;">
+    <div class="notice notice--owner">
+      <div ng-class="{'notice--single-line': !noticeOwner}" class="no-outline" ng-click="noticeOwner=!noticeOwner" >
+        <strong>Remark rit eigenaar:</strong>
+        <br ng-if="noticeOwner">
+        {{booking.remarkAuthorizer}}
       </div>
-      <span ng-click="showNoticeDriver=!showNoticeDriver" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
+      <span ng-click="showBookingNoticeOwner=!showBookingNoticeOwner" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
     </div>
   </div>
 </div>
@@ -403,14 +425,66 @@
 
 <div class="row row--padding-top">
   <div class="col-sm-12">
-    <div class="box box--small">
-      <div class="box__title box__title--remarks">
-        <h3 ng-click="open(5)">Opmerkingen, notities & overleg<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(5), 'fa-chevron-right': !isOpen(5)}"></i></small></h3>
+    <div class="box">
+      <div class="box__title box__title--trip">
+        <h3 ng-click="open(5)">Revisies<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(5), 'fa-chevron-right': !isOpen(5)}"></i></small></h3>
       </div>
       <div class="box__content" ng-if="isLoading(5)">
         <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
       </div>
-      <div class="" ng-if="isOpen(5)">
+      <div class="box__content" ng-if="isOpen(5)">
+        <div class="row row--small-font row--no-margin row--invoice-heading">
+          <div class="col-xs-2">Datum</div>
+          <div class="col-xs-4">Wijziging</div>
+          <div class="col-xs-2">Begintijd</div>
+          <div class="col-xs-2">Eindtijd</div>
+          <div class="col-xs-2">Gebruiker</div>
+        </div>
+        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="revision in revisions | orderBy: '-loggedAt'">
+          <div class="col-xs-2">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</div>
+          <div class="col-xs-4">
+            <span ng-if="revision.action==='create' && revision.data.status">created ({{ revision.data.status }})</span>
+            <span ng-if="revision.action==='create' && !revision.data.status">created</span>
+            <span ng-if="revision.action==='update' && !revision.data.status && !revision.data.beginRequested.date && !revision.data.responded">
+              {{ revision.data | json }}
+            </span>
+            <span ng-if="revision.action==='update' && !revision.data.status && revision.data.beginRequested.date">requested</span>
+            <span ng-if="revision.action==='update' && !revision.data.status && revision.data.responded">times changed</span>
+            <span ng-if="revision.action!=='create' && revision.data.status">{{ revision.data.status }}</span>
+          </div>
+          <div class="col-xs-2" ng-if="revision.data.beginBooking.date || !revision.data.beginRequested.date">
+            {{ revision.data.beginBooking.date | amDateFormat:'DD-MM-YYYY HH:mm' }}
+          </div>
+          <div class="col-xs-2" ng-if="revision.data.beginRequested.date">
+            {{ revision.data.beginRequested.date | amDateFormat:'DD-MM-YYYY HH:mm' }}
+          </div>
+          <div class="col-xs-2" ng-if="revision.data.endBooking.date || !revision.data.endRequested.date">
+            {{ revision.data.endBooking.date | amDateFormat:'DD-MM-YYYY HH:mm' }}
+          </div>
+          <div class="col-xs-2" ng-if="revision.data.endRequested.date">
+            {{ revision.data.endRequested.date | amDateFormat:'DD-MM-YYYY HH:mm' }}
+          </div>
+          <div class="col-xs-2" ng-if="revision.username">{{ revision.username }}</div>
+          <div class="col-xs-2" ng-if="!revision.username">system</div>
+        </div>
+        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-if="!revisions || revisions.length == 0">
+          <div class="col-xs-12">Geen revisies gevonden</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!--/ fourth row, revisions -->
+
+<div class="row row--padding-top">
+  <div class="col-sm-12">
+    <div class="box box--small">
+      <div class="box__title box__title--remarks">
+        <h3 ng-click="open(6)">Opmerkingen, notities & overleg<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(6), 'fa-chevron-right': !isOpen(6)}"></i></small></h3>
+      </div>
+      <div class="box__content" ng-if="isLoading(6)">
+        <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
+      </div>
+      <div class="" ng-if="isOpen(6)">
 
         <div class="row remark" ng-if="!remarks || remarks.length == 0">
           <div class="col-xs-12">
@@ -455,7 +529,7 @@
       </div>
     </div>
   </div> <!--/ first box, invoices driver-->
-</div><!-- / fourth row, remarks -->
+</div><!-- / fifth row, remarks -->
 
 <div class="quickaction">
   <a ng-class="{'quickaction__toggler--hidden': hide, 'quickaction__toggler--shown' : !hide}" ng-click="hide=!hide" type="button" class="quickaction__toggler">
@@ -471,6 +545,7 @@
     <li ng-click="applyDiscount()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Voeg kortingscode toe">Kort</span></li>
     <li ng-click="switchContract()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Wissel van contract">Contr</span></li>
     <li ng-click="resendBoardcomputer()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Stuur boeking naar boordcomputer">CCOME</span></li>
+    <li ng-click="alternatives()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Stuur boeking naar boordcomputer">Altern</span></li>
   </ul>
 </div>
 
