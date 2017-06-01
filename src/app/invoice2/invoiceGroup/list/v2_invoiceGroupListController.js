@@ -57,13 +57,17 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   };
 
   $scope.createSenderGroup = function(userId) {
-    alertService.load($scope);
+    alertService.load($scope, 'Bundeling invoices');
     invoice2Service.createSenderInvoiceGroup({ person: $stateParams.personId })
     .then(function (invoiceGroup) {
       if(invoiceGroup !== null) {
         $scope.ungroupedSentInvoices.length = 0;
+        $scope.ungroupedReceivedInvoices.length = 0;
         $scope.invoiceGroups = $scope.invoiceGroups || [];
         $scope.invoiceGroups.push(invoiceGroup);
+        voucherService.recalculate({ person: $stateParams.personId });
+      } else {
+        $scope.createRecipientGroup($stateParams.personId);
       }
       return;
     })
@@ -103,6 +107,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
     alertService.load($scope);
     invoice2Service.createSenderInvoiceGroup({ person: $stateParams.personId }).then(function (invoiceGroup) {
       $scope.ungroupedSentInvoices.length = 0;
+      $scope.ungroupedReceivedInvoices.length = 0;
       $scope.invoiceGroups = $scope.invoiceGroups || [];
       $scope.invoiceGroups.push(invoiceGroup);
       return $scope.payoutInvoiceGroup(invoiceGroup);
@@ -136,7 +141,18 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   $scope.createRecipientGroup = function (user) {
     alertService.load($scope, 'Bundeling invoices');
     invoice2Service.createRecipientInvoiceGroup({person: user, positiveOnly: false})
-    .then($scope.refresh);
+    .then(function (invoiceGroup) {
+      if(invoiceGroup !== null) {
+        $scope.ungroupedSentInvoices.length = 0;
+        $scope.ungroupedReceivedInvoices.length = 0;
+        $scope.invoiceGroups = $scope.invoiceGroups || [];
+        $scope.invoiceGroups.push(invoiceGroup);
+        voucherService.recalculate({ person: $stateParams.personId });
+      }
+      return;
+    })
+    .catch(alertService.addError)
+    .finally(alertService.loaded);
   };
 
   $scope.params = (function () {
