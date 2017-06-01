@@ -14,12 +14,12 @@
         <form name="form">
           <div class="row">
             <div class="form-group col-xs-6">
-              <label>Sender</label>
+              <label>Sender (owner)</label>
               <input find-person name="sender" model="invoice.sender" class="form-control" class="error" />
             </div>
 
             <div class="form-group col-xs-6">
-              <label>Recipient</label>
+              <label>Recipient (renter)</label>
               <input find-person name="recipient" model="invoice.recipient" class="form-control" />
             </div>
           </div>
@@ -60,7 +60,7 @@
 
           <div class="form-group">
             <label>Booking id (optional)</label>
-            <input ng-model="invoice.booking" class="form-control" integer />
+            <input ng-model="invoice.booking.id" class="form-control" integer />
           </div>
 
         </form>
