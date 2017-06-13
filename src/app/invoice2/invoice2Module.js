@@ -107,7 +107,7 @@ angular.module('openwheels.invoice2', [
   });
 
   $stateProvider.state('root.invoice2.invoice.create', {
-    url: '/create',
+    url: '/create?person',
     controller: 'InvoiceEditController',
     templateUrl: 'invoice2/invoice/edit/invoiceEdit.tpl.html',
     data: {
