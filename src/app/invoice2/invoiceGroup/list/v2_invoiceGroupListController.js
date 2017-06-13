@@ -19,6 +19,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   API_DATE_FORMAT
   ) {
 
+  $scope.personId = $stateParams.personId;
   $scope.invoiceGroups = invoiceGroups;
   $scope.ungroupedReceivedInvoices = ungroupedReceivedInvoices;
   $scope.ungroupedReceivedInvoicesTotal = calculateTotal(ungroupedReceivedInvoices);

@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice2.invoice.edit', [])
 
-.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService) {
+.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService, $stateParams, personService) {
 
   $scope.finished = false; // prevent creating an invoice twice
 
@@ -41,11 +41,29 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     initNewInvoice();
   }
 
+  $scope.swapSenderRecipient = function() {
+    var oldRecipient = $scope.invoice.recipient;
+    $scope.invoice.recipient = $scope.invoice.sender;
+    $scope.invoice.sender = oldRecipient;
+  };
+
   function initNewInvoice () {
-    $scope.invoice = {
+    var recipient;
+    var invoice = {
       quantity: 1,
       taxRate: $scope.taxRateOptions[0].value
     };
+
+    if($stateParams.person) {
+      personService.get({person: $stateParams.person})
+      .then(function(person) {
+        recipient = person;
+        $scope.invoice = invoice;
+        $scope.invoice.recipient = recipient;
+      });
+    } else {
+        $scope.invoice = invoice;
+    }
   }
 
   function initExistingInvoice (invoice) {
