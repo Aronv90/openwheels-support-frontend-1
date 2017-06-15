@@ -68,7 +68,9 @@ angular.module('openwheels.invoice2.invoice.edit', [])
 
   function initExistingInvoice (invoice) {
     $scope.invoice = invoice;
-    $scope.invoice.booking = invoice.booking.id;
+    if(invoice.booking) {
+      $scope.invoice.booking = invoice.booking.id;
+    }
   }
 
   function alterInvoice (invoice) {
