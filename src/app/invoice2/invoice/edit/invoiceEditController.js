@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice2.invoice.edit', [])
 
-.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService, $stateParams, personService) {
+.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService, $stateParams, personService, $state) {
 
   $scope.finished = false; // prevent creating an invoice twice
 
@@ -99,6 +99,12 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     });
   }
 
+  function redirect() {
+    if($stateParams.person) {
+      $state.go('root.person.show.invoiceGroupV2.list', {personId: $stateParams.person});
+    }
+  }
+
   function createInvoice (invoice) {
     var params = angular.copy(invoice);
 
@@ -111,6 +117,7 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     invoice2Service.create(params).then(function () {
       $scope.finished = true;
       alertService.add('success', 'Saved', 5000);
+      redirect(invoice);
     })
     .catch(function (err) {
       alertService.addError(err);
