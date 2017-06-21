@@ -5,7 +5,7 @@ angular.module('openwheels.resource', [
 	'openwheels.resource.edit',
 	'openwheels.resource.create',
 	'openwheels.resource.list',
-  'infinite-scroll'
+  	'infinite-scroll'
 ])
 
 	.config(function config($stateProvider) {

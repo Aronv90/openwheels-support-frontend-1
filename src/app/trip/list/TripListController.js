@@ -11,6 +11,7 @@ angular.module('openwheels.trip.list')
   };
 
   $scope.bookings = bookings;
+  $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
   $scope.currentTimeFrame = {
     startDate: $stateParams.startDate || todayTimeframe.startDate,

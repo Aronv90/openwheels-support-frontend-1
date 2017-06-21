@@ -49,13 +49,13 @@
         <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }">
           <a ui-sref=".invoice-group.list">Verzamelfacturen</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }">
+        <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }" ng-if="user.identity.id !== 542476">
           <a ui-sref=".invoiceGroupV2.list">Invoice</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.vouchers') }">
+        <li ng-class="{ active: $state.includes('root.person.show.vouchers') }" ng-if="user.identity.id !== 542476">
           <a ui-sref=".vouchers">Vouchers</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.payouts') }">
+        <li ng-class="{ active: $state.includes('root.person.show.payouts') }" ng-if="user.identity.id !== 542476">
           <a ui-sref=".payouts">Payouts</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.contracts') }">
