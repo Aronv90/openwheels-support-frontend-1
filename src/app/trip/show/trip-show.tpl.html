@@ -91,7 +91,7 @@
         <li ng-class="{ active: $state.includes('root.trip.show.boardcomputer') }" ng-if="booking.resource.locktypes.indexOf('smartphone') !== -1">
           <a ui-sref="root.trip.show.boardcomputer({ tripId: booking.id })">Boardcomputer Log</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.trip.show.lock') }" ng-if="booking.resource.locktypes.indexOf('smartphone') !== -1">
+        <li ng-class="{ active: $state.includes('root.trip.show.lock') }" ng-if="booking.resource.locktypes.indexOf('chipcard') !== -1 || booking.resource.locktypes.indexOf('smartphone') !== -1">
           <a ui-sref="root.trip.show.lock({ tripId: booking.id })">Lock / Unlock</a>
         </li>
         <li ng-class="{ active: $state.includes('root.trip.show.revisions') }">
