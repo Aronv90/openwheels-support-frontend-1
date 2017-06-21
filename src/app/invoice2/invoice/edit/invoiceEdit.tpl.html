@@ -14,6 +14,7 @@
         <form name="form">
           <div class="row">
             <div class="form-group col-xs-6">
+              <button type="button" ng-click="swapSenderRecipient()" class="btn-link" style="float: right"><i class="fa fa-exchange"></i></button>
               <label>Sender (owner)</label>
               <input find-person name="sender" model="invoice.sender" class="form-control" class="error" />
             </div>
@@ -63,9 +64,15 @@
             <input ng-model="invoice.booking" class="form-control" integer />
           </div>
 
+          <div class="form-group" ng-if="invoice.sender.id && invoice.recipient.id && invoice.price && invoice.quantity">
+            <label>Controle</label>
+            <p ng-if="invoice.quantity * invoice.price >= 0" ><em>{{invoice.recipient.firstName + ' ' + invoice.recipient.surname}}</em> moet <strong>{{invoice.quantity * invoice.price | currency}}</strong> betalen  aan <em>{{invoice.sender.firstName + ' ' + invoice.sender.surname}}</em></p>
+            <p ng-if="invoice.quantity * invoice.price < 0" ><em>{{invoice.recipient.firstName + ' ' + invoice.recipient.surname}}</em> moet <strong>{{-1 * invoice.quantity * invoice.price | currency}}</strong> ontvangen van <em>{{invoice.sender.firstName + ' ' + invoice.sender.surname}}</em></p>
+            <button ng-click="save(invoice)" class="btn btn-primary">Correct</button>
+          </div>
+
         </form>
 
-        <button ng-click="save(invoice)" class="btn btn-primary">Ok</button>
 
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 angular.module('openwheels.invoice2.invoice.edit', [])
 
-.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService) {
+.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService, $stateParams, personService, $state) {
 
   $scope.finished = false; // prevent creating an invoice twice
 
@@ -41,16 +41,36 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     initNewInvoice();
   }
 
+  $scope.swapSenderRecipient = function() {
+    var oldRecipient = $scope.invoice.recipient;
+    $scope.invoice.recipient = $scope.invoice.sender;
+    $scope.invoice.sender = oldRecipient;
+  };
+
   function initNewInvoice () {
-    $scope.invoice = {
+    var recipient;
+    var invoice = {
       quantity: 1,
       taxRate: $scope.taxRateOptions[0].value
     };
+
+    if($stateParams.person) {
+      personService.get({person: $stateParams.person})
+      .then(function(person) {
+        recipient = person;
+        $scope.invoice = invoice;
+        $scope.invoice.recipient = recipient;
+      });
+    } else {
+        $scope.invoice = invoice;
+    }
   }
 
   function initExistingInvoice (invoice) {
     $scope.invoice = invoice;
-    $scope.invoice.booking = invoice.booking.id;
+    if(invoice.booking) {
+      $scope.invoice.booking = invoice.booking.id;
+    }
   }
 
   function alterInvoice (invoice) {
@@ -79,6 +99,12 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     });
   }
 
+  function redirect() {
+    if($stateParams.person) {
+      $state.go('root.person.show.invoiceGroupV2.list', {personId: $stateParams.person});
+    }
+  }
+
   function createInvoice (invoice) {
     var params = angular.copy(invoice);
 
@@ -91,6 +117,7 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     invoice2Service.create(params).then(function () {
       $scope.finished = true;
       alertService.add('success', 'Saved', 5000);
+      redirect(invoice);
     })
     .catch(function (err) {
       alertService.addError(err);

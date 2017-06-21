@@ -44,7 +44,7 @@
       <div class="panel-body">
         <h3>
           Invoice groups
-          <a ui-sref="root.invoice2.invoice.create" class="btn btn-default" ng-if="$state.includes('root.person')">Create invoice</a>
+          <a ui-sref="root.invoice2.invoice.create({person: personId})" class="btn btn-default" ng-if="$state.includes('root.person')">Create invoice</a>
         </h3>
 
         <table class="table table-condensed table-hover table-invoice">
