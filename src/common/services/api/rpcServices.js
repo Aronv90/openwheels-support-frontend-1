@@ -124,6 +124,7 @@ angular.module('rpcServices', [])
       this.forOwner = m('forOwner');
       this.search = m('search');
       this.searchV2 = m('searchV2');
+      this.searchV3 = m('searchV3');
       this.allFleets = m('allFleets');
       this.getMembers = m('getMembers');
       this.addMember = m('addMember');

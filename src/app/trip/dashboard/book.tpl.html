@@ -1,0 +1,147 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Een auto boeken</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content" ng-show="booking.resource.boardcomputer === 'ccome'">
+      <h3>Boeken</h3>
+      <p>Selecteer hieronder wat voor boeking je wil maken:</p>
+      <form>
+        <md-radio-group ng-model="bookForPerson">
+          <md-radio-button value="otherResource" ng-click="loadAvailableResources()">Ik wil de huurder omboeken naar een andere auto</md-radio-button>
+          <md-radio-button value="sameResource">Ik wil een nieuwe reservering maken voor deze huurder</md-radio-button>
+          <md-radio-button value="blockResource" ng-click="loadContracts()">Ik wil de auto blokkeren</md-radio-button>
+        </md-radio-group>
+      </form>
+
+      <hr/>
+
+      <fieldset class="standard" ng-if="bookForPerson === 'otherResource'">
+        <p>Klik achter de gewenste auto op [Boeken] om de reservering om te zetten op de betreffende auto. De huurder kan dan naar die auto gaan om alsnog op weg te kunnen. <span ng-if="booking.resource.boardcomputer">De onderstaande auto's worden met een OV-chipkaart of de smartphone geopend.</span><br/><br/></p>
+
+        <div ng-repeat="resource in availableResources">
+          <div class="row">
+            <div class="col-xs-3">
+              <img class="img-responsive media-object" ng-src="{{ resource.pictures[0] | resourceAvatar:'normal' }}">
+            </div>
+            <div class="col-xs-7">
+              <h4 style="margin: 0px;"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.alias }}</a> van {{ resource.owner.firstName }}</h4>
+              <md-list class="margin-right">
+                <md-list-item>
+                    <md-icon>directions_car</md-icon>
+                    <div flex>
+                      <span ng-if="resource.brand || resource.model" flex="none">{{ (resource.brand + ' ' + resource.model) | toTitleCase }}</span>
+                    </div>
+                </md-list-item>
+                <md-list-item>
+                    <md-icon>location_on</md-icon>
+                    <div flex>
+                      <span> {{ resource.location }}, {{ resource.city | toTitleCase }}
+                        <span ng-if="resource.distance_to"> ({{ resource.distance_to | formatKilometers }})</span>
+                      </span>
+                    </div>
+                </md-list-item>
+                <md-list-item>
+                    <md-icon>check</md-icon>
+                    <div flex>
+                      Openen met {{ resource.locktype }}
+                    </div>
+                </md-list-item>
+              </md-list>
+            </div>
+            <div class="col-xs-2">
+              <md-button class="md-accent  md-raised" ng-click="bookOtherResource(resource)">Boeken</md-button>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </fieldset>
+
+      <fieldset class="standard" ng-if="bookForPerson === 'sameResource'">
+        <p>Hieronder kun je een nieuwe reservering voor de huurder maken op deze auto. Selecteer de juiste datum en tijd en klik op [Versturen] om de reservering te maken.</p>
+        <div layout="column" layout-margin class="md-dialog-content">
+          <div layout="row">
+            <md-input-container flex>
+              <label>Begindatum</label>
+              <md-datepicker ng-change="change(newBeginDt)" ng-model="newBeginDt.date" md-placeholder="Kies een datum"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Begintijd</label>
+              <md-select ng-change="change(newBeginDt)" ng-model="newBeginDt.time" md-placeholder="Kies een tijd">
+                <md-option ng-repeat="time in times" ng-value="time.value">{{time.value}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label>Einddatum</label>
+              <md-datepicker ng-change="change(newEndDt)" ng-model="newEndDt.date" md-placeholder="Kies een datum"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Eindtijd</label>
+              <md-select ng-change="change(newEndDt)" ng-model="newEndDt.time" md-placeholder="Kies een tijd">
+                <md-option ng-repeat="time in times" ng-value="time.value">{{time.value}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="standard" ng-show="bookForPerson === 'blockResource'">
+        <p>Hieronder kun je een reservering maken om de auto te blokkeren. Selecteer de juiste datum en tijd om de reservering te maken.</p>
+        <div layout="column" layout-margin class="md-dialog-content">
+          <div layout="row">
+            <md-input-container flex>
+              <label>Begindatum</label>
+              <md-datepicker ng-change="change(newBeginDt)" ng-model="newBeginDt.date" md-placeholder="Kies een datum"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Begintijd</label>
+              <md-select ng-change="change(newBeginDt)" ng-model="newBeginDt.time" md-placeholder="Kies een tijd">
+                <md-option ng-repeat="time in times" ng-value="time.value">{{time.value}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label>Einddatum</label>
+              <md-datepicker ng-change="change(newEndDt)" ng-model="newEndDt.date" md-placeholder="Kies een datum"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Eindtijd</label>
+              <md-select ng-change="change(newEndDt)" ng-model="newEndDt.time" md-placeholder="Kies een tijd">
+                <md-option ng-repeat="time in times" ng-value="time.value">{{time.value}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>            
+              <label>Contract</label>
+              <md-select ng-model="contract" md-placeholder="Kies een contract">
+                <md-option ng-repeat="contract in ownerContracts">{{ contract.contractor.firstName }} {{ contract.contractor.surName }} ({{contract.type.name}})
+                </md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+        </div>
+      </fieldset>
+
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row" ng-if="bookForPerson !== 'otherResource'">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!newBeginDt.date! || !newBeginDt.time || !newEndDt.date || !newEndDt.time">
+      Versturen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

@@ -13,10 +13,10 @@ angular.module('openwheels.person.show', [
   //'openwheels.trip.list'
 ])
 
-.controller('PersonShowController', function ($scope, person, settingsService, FRONT_DASHBOARD, FRONT_SWITCHUSER) {
+.controller('PersonShowController', function ($scope, person, settingsService, FRONT_DASHBOARD, FRONT_SWITCHUSER, authService) {
 
   $scope.person = person;
+  $scope.user = authService.user;
   $scope.frontDashboard = settingsService.settings.server + FRONT_DASHBOARD + FRONT_SWITCHUSER;
-})
-
-;
+  
+});

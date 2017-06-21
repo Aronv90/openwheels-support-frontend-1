@@ -69,7 +69,7 @@ angular.module('openwheels.root.navigation', [])
 	$scope.selectResource = function () {
 		var resourceId = $scope.selectedResource.id;
 		$scope.selectedResource = undefined;
-		$state.go('root.resource.show.summary', {resourceId: resourceId});
+		$state.go('root.resource.show.trip', {resourceId: resourceId});
 	};
 
 	$scope.formatResource = function ($model) {
@@ -119,7 +119,7 @@ angular.module('openwheels.root.navigation', [])
 
 	$scope.followTripId = function (tripId) {
 		if (tripId) {
-			$state.go('root.trip.show.summary', { tripId: tripId });
+			$state.go('root.trip.dashboard', { tripId: tripId });
     angular.element('#triproot').removeClass('open');
     $scope.tripId = '';
 		} else {

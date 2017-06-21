@@ -1,0 +1,32 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Nieuwe OV-chipkaart koppelen</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content">
+      <h3>OV-chipkaart koppelen</h3>
+      <p>Om een nieuwe OV-chipkaart te koppelen, heeft de huurder een viercijferige pincode nodig. Zodra je op [Versturen] klikt, ontvangt de huurder per mail de pincode, deze kan 45 seconden later gebruikt worden. Iedere OV-chipkaart is geldig, ook een anonieme.</p>
+
+      <p>De huurder kan tijdens de huurperiode de OV-chipkaart voor de gele lezer bij het voorraam houden (ter hoogte van het stuur). De deuren springen open en de huurder kan instappen. Voordat de auto gestart kan worden, dient de huurder pincode in te voeren op de boordcomputer (bij de binnenspiegel, geen touchscreen) en af te sluiten met enter. Daarna kan de auto gestart worden met de sleutel die in het dashboardkastje ligt.</p>
+
+      <p>Let op! De sleutel pas in het contactslot steken zodra de pincode ingevoerd is.</p>
+    </div> 
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="done()">
+      Versturen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

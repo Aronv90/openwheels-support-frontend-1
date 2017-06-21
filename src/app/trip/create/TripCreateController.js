@@ -60,7 +60,7 @@ angular.module('openwheels.trip.create', [])
         .then(function (booking) {
           $uibModalInstance.close(booking); //
           alertService.add('success', 'Booking created.', 4000);
-          $state.go('root.trip.show.summary', {tripId: booking.id});
+          $state.go('root.trip.dashboard', {tripId: booking.id});
         },
         function (error) {
           alertService.add('danger', 'Booking creation failed: ' + error.message, 5000);
