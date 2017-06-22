@@ -136,7 +136,7 @@
   <div class="col-md-3 col-sm-6">
     <div class="box box--min-height">
       <div class="box__title box__title--driver">
-        <small>Bestuurder #{{booking.person.id}}, provider #{{booking.person.provider.id}} <a ui-sref="root.person.show.summary({personId: booking.person.id})" class="pull-right box__link">Meer</a></small>
+        <small>Bestuurder #{{booking.person.id}}, provider #{{booking.person.provider.id}} <a ui-sref="root.person.show.trip({personId: booking.person.id})" class="pull-right box__link">Meer</a></small>
         <h3 title="{{booking.person.firstName + ' ' + booking.person.surname}}">{{booking.person.firstName + ' ' + booking.person.surname}}</h3>
       </div>
       <div class="box__content">
@@ -195,7 +195,7 @@
   <div class="col-md-3 col-sm-6">
     <div class="box box--min-height">
       <div class="box__title box__title--owner">
-        <small>Eigenaar #{{booking.resource.owner.id}}, provider #{{booking.resource.owner.provider.id}} <a ui-sref="root.person.show.summary({personId: booking.resource.owner.id})" class="pull-right box__link">Meer</a></small>
+        <small>Eigenaar #{{booking.resource.owner.id}}, provider #{{booking.resource.owner.provider.id}} <a ui-sref="root.person.show.trip({personId: booking.resource.owner.id})" class="pull-right box__link">Meer</a></small>
         <h3 title="{{booking.resource.owner.firstName + ' ' + booking.resource.owner.surname}}">{{booking.resource.owner.firstName + ' ' + (booking.resource.owner.surname || '')}}</h3>
       </div>
       <div class="box__content">
@@ -262,7 +262,7 @@
   <div class="col-md-3 col-sm-6">
     <div class="box box--min-height">
       <div class="box__title box__title--resource">
-        <small>Auto #{{booking.resource.id}} <a ui-sref="root.resource.show.summary({resourceId: booking.resource.id})" class="pull-right box__link">Meer</a></small>
+        <small>Auto #{{booking.resource.id}} <a ui-sref="root.resource.show.trip({resourceId: booking.resource.id})" class="pull-right box__link">Meer</a></small>
         <h3 title="{{booking.resource.alias}}">{{booking.resource.alias}}</h3>
       </div>
       <div class="box__content">

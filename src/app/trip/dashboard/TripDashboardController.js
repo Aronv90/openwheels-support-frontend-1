@@ -594,6 +594,18 @@ angular.module('openwheels.trip.dashboard', [])
         )
         .then(function(booking) {
           $scope.booking.endBooking = booking.endBooking;
+          console.log($scope.booking.resource);
+          if ($scope.booking.resource.boardcomputer === 'ccome') {
+            console.log(1);
+            // Resend the booking if boardcomputer is ccome
+            ccomeService.sendBooking({booking: $scope.booking.id})
+            .then(function(res) {
+              alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
+            })
+            .catch(function(err) {
+              alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
+            });
+          }
         });
       } else { // rit is nog bezig
         return bookingService.alterRequest(
@@ -1143,9 +1155,18 @@ angular.module('openwheels.trip.dashboard', [])
               riskReduction: $scope.booking.riskReduction
             })
             .then(function(booking) {
-              $mdDialog.cancel();
-              alertService.add('success', 'De boeking is gemaakt.', 5000);
-              $state.go('root.trip.dashboard', {tripId: booking.id});
+              if($scope.booking.approved === 'OK') {
+                bookingService.approve({booking: booking.id})
+                .then(function(booking) {
+                  $mdDialog.cancel();
+                  alertService.add('success', 'De boeking is gemaakt.', 5000);
+                  $state.go('root.trip.dashboard', {tripId: booking.id});
+                })
+              } else {
+                $mdDialog.cancel();
+                alertService.add('success', 'De boeking is gemaakt.', 5000);
+                $state.go('root.trip.dashboard', {tripId: booking.id});
+              }
             })
             .catch(function(err) {
               alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
