@@ -22,7 +22,7 @@
                 <tr ng-repeat="item in unfinishedJobs">
                     <td>{{item.id}}</td>
                     <td>
-                        <a ui-sref="root.trip.show.summary({ tripId: item.booking.id })">#{{item.booking.id}}</a>
+                        <a ui-sref="root.trip.dashboard({ tripId: item.booking.id })">#{{item.booking.id}}</a>
                     </td>
                     <td>{{item.begin | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
                 </tr>

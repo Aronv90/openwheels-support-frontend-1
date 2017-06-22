@@ -77,7 +77,7 @@
           </div>
         </div>
         <div class="row box__row">
-          <div class="col-xs-12"><span class="box__slabel">Req. boeking datum:</span></div>
+          <div class="col-xs-12"><span class="box__slabel">Aangevraagde boeking datum:</span></div>
           <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row">
             <span ng-if="booking.beginRequested">{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY HH:mm'}} | {{ booking.endRequested | amDateFormat:'DD-MM-YYYY HH:mm'}}</span>
             <span ng-if="!booking.beginRequested">-</span>
@@ -91,7 +91,7 @@
           </div>
         </div>
         <div class="row box__row">
-          <div class="col-xs-12"><span class="box__slabel">Trip datum:</span></div>
+          <div class="col-xs-12"><span class="box__slabel">Rit datum:</span></div>
           <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row">
             <span ng-if="booking.trip.begin">{{ booking.trip.begin | amDateFormat:'DD-MM-YYYY HH:mm'}} | {{ booking.trip.end | amDateFormat:'DD-MM-YYYY HH:mm'}}</span>
             <span ng-if="!booking.trip.begin">-</span>
@@ -137,7 +137,7 @@
     <div class="box box--min-height">
       <div class="box__title box__title--driver">
         <small>Bestuurder #{{booking.person.id}}, provider #{{booking.person.provider.id}} <a ui-sref="root.person.show.summary({personId: booking.person.id})" class="pull-right box__link">Meer</a></small>
-        <h3 title="{{booking.person.firstName + ' ' + booking.person.lastName}}">{{booking.person.firstName + ' ' + booking.person.lastName}}</h3>
+        <h3 title="{{booking.person.firstName + ' ' + booking.person.surname}}">{{booking.person.firstName + ' ' + booking.person.surname}}</h3>
       </div>
       <div class="box__content">
         <div class="row">
@@ -196,7 +196,7 @@
     <div class="box box--min-height">
       <div class="box__title box__title--owner">
         <small>Eigenaar #{{booking.resource.owner.id}}, provider #{{booking.resource.owner.provider.id}} <a ui-sref="root.person.show.summary({personId: booking.resource.owner.id})" class="pull-right box__link">Meer</a></small>
-        <h3 title="{{booking.resource.owner.firstName + ' ' + booking.resource.owner.lastName}}">{{booking.resource.owner.firstName + ' ' + booking.resource.owner.lastName}}</h3>
+        <h3 title="{{booking.resource.owner.firstName + ' ' + booking.resource.owner.surname}}">{{booking.resource.owner.firstName + ' ' + (booking.resource.owner.surname || '')}}</h3>
       </div>
       <div class="box__content">
         <div class="row">
@@ -206,7 +206,7 @@
               <div class="col-xs-6"><span class="box__sdata box__sdata--small">{{booking.resource.owner.status}}</span></div>
             </div>
             <div class="row box__row">
-              <div class="col-xs-4"><span class="box__slabel">Rijbewijs</span></div>
+              <div class="col-xs-6"><span class="box__slabel">Rijbewijs</span></div>
               <div class="col-xs-6"><span class="box__sdata box__sdata--small" ng-class="{'box__sdata--red': booking.resource.owner.driverLicenseStatus != 'ok'}">{{booking.resource.owner.driverLicenseStatus}}</span></div>
             </div>
             <div class="row box__row">
@@ -231,6 +231,29 @@
 
           <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
           <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.owner.created | amDateFormat:'DD-MM-YYYY'}}</span></div>
+        </div>
+        <div class="row box__row" ng-if="booking.resource.contactPerson">
+          <div class="col-xs-12">
+            <div class="box__divider"></div>
+          </div>
+        </div>
+        <div class="row box__row" ng-if="booking.resource.contactPerson">
+          <div class="col-xs-4"><span class="box__slabel">Beheerder</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.firstName + ' ' + booking.resource.contactPerson.surname}}</span></div>
+          <div class="col-xs-4"><span class="box__slabel">Email</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.email}}</span></div>
+          <div class="col-xs-4" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
+          <div class="col-xs-8" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0">
+            <span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.phoneNumbers[0].number}} <span ng-click="phoneNumbers.showContactPerson=!phoneNumbers.showContactPerson" class="no-outline pull-right" ng-show="booking.resource.contactPerson.phoneNumbers.length > 1">{{booking.resource.contactPerson.phoneNumbers.length -1}} meer </span> </span>
+
+            <span ng-if="phoneNumbers.showContactPerson">
+              <span ng-repeat="phone in booking.resource.contactPerson.phoneNumbers" ng-if="!$first" class="box__sdata box__sdata--small">
+                <br>{{phone.number}}
+              </span>
+            </span>
+          </div>
+          <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.created | amDateFormat:'DD-MM-YYYY'}}</span></div>
         </div>
       </div>
     </div>
@@ -264,7 +287,7 @@
           <div class="col-xs-5"><span class="box__slabel">Brandstof</span></div>
           <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.refuelByRenter ? 'Zelf tanken' : booking.price.fuelPerKilometer+ '/km' + (booking.price.kmFree ? ', 100KM gratis' : '')}}</span></div>
           <div class="col-xs-5"><span class="box__slabel">Merk</span></div>
-          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.brand + ', ' + booking.resource.model}}</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.brand + ' ' + booking.resource.model}}</span></div>
           <!--<div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor vrienden?">Besck. vrienden</span></div>-->
           <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableFriends ? 'Ja' : 'Nee'}} {{booking.resource.isConfirmationRequiredFriends ? ', bevestiging nodig' : ', geen bev'}}</span></div>-->
           <!--<div class="col-xs-5"><span class="box__slabel" ng-if="booking.resource.isAvailableFriends" title="Is de bestuurder een vriend van de auto?">Is best. vriend?</span></div>-->
@@ -273,12 +296,21 @@
           <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableOthers ? 'Ja': 'Nee'}} {{booking.resource.isConfirmationRequiredOthers ? ', bevestiging nodig' : ', geen bev'}}</span></div>-->
           <div class="col-xs-5"><span class="box__slabel" title="Locatie">Locatie</span></div>
           <div class="col-xs-7"><span class="box__sdata box__sdata--small" title="{{booking.resource.location + ', ' + booking.resource.city}}">{{booking.resource.location}}<br>{{booking.resource.city}}</span></div>
-          <div class="col-xs-5"><span class="box__slabel" title="Locatie">Openen met</span></div>
+          <div class="col-xs-5"><span class="box__slabel" title="Openen met">Openen met</span></div>
           <div class="col-xs-7">
             <span class="box__sdata box__sdata--small" ng-if="booking.resource.locktype === 'smartphone'">Smartphone</span>
             <span class="box__sdata box__sdata--small" ng-if="booking.resource.locktype === 'chipcard'">OV-chipkaart</span>
             <span class="box__sdata box__sdata--small" ng-if="booking.resource.locktype === 'meeting'">Sleuteloverdracht</span>
           </div>
+          <div class="col-xs-5" ng-if="booking.resource.fuelCardCode">
+            <span class="box__slabel" title="Locatie">Tankcode</span>
+          </div>
+          <div class="col-xs-7" ng-if="booking.resource.fuelCardCode">
+            <span class="box__sdata box__sdata--small" title="Tankcode van de auto">{{booking.resource.fuelCardCode}}</span>
+          </div>
+          <div class="col-xs-12"><span class="box__slabel">
+            <a ng-click="resourceRemark()" class="">Opmerkingen bij auto</a>
+          </span></div>
         </div>
       </div>
     </div>

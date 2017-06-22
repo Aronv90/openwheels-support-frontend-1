@@ -1228,7 +1228,8 @@ angular.module('openwheels.trip.dashboard', [])
     $window.scrollTo(0, 0);
     $mdDialog.show({
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
-
+        $scope.booking = booking;
+        
         $scope.done = function() {
           $mdDialog.hide();
         };
@@ -1240,6 +1241,49 @@ angular.module('openwheels.trip.dashboard', [])
       locals: {
         booking: booking
       }
+    });
+  };
+
+  $scope.damage = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
+        $scope.damageOptions = undefined;
+
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/damageResource.tpl.html',
+      clickOutsideToClose:true, 
+      fullscreen: false,
+      locals: {
+        booking: booking
+      }
+    });
+  };
+
+  $scope.resourceRemark = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
+
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/resourceRemark.tpl.html',
+      fullscreen: false,
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking
+      },
     });
   };
 
