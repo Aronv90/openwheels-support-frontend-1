@@ -33,10 +33,10 @@
       </td>
       <td>{{ booking.trip.begin | amDateFormat:'DD-MM HH:mm' }}</td>
       <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.trip({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
-      <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
+      <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
       <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
       <td>
-        <span>{{ booking.approved }}</span> <a ng-if="booking.approved === 'OK'" ng-click="refundBooking(booking)"> - Refund</a>
+        <span>{{ booking.approved }}</span>
       </td>
     </tr>
   </tbody>

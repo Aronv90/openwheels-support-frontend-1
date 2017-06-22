@@ -132,15 +132,15 @@
           </div>
         </div>
       </fieldset>
-
+    </div>
   </md-dialog-content>
 
-  <md-dialog-actions layout="row" ng-if="bookForPerson !== 'otherResource'">
+  <md-dialog-actions layout="row">
     <span flex></span>
     <md-button ng-click="cancel()">
      Sluiten
     </md-button>
-    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!newBeginDt.date || !newBeginDt.time || !newEndDt.date || !newEndDt.time">
+    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!newBeginDt.date || !newBeginDt.time || !newEndDt.date || !newEndDt.time" ng-if="bookForPerson !== 'otherResource' && bookForPerson">
       Versturen
     </md-button>
   </md-dialog-actions>

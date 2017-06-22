@@ -170,6 +170,8 @@ angular.module('rpcServices', [])
       this.futureByNotActiveDriver = m('futureByNotActiveDriver');
 
       this.forResource = m('forResource');
+      this.nextInResource = m('nextInResource');
+      this.previousInResource = m('previousInResource');
       this.getBookingList = m('getBookingList');
       this.getFarFromHome = m('getFarFromHome');
 
