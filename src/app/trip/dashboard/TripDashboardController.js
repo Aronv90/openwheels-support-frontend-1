@@ -1161,7 +1161,7 @@ angular.module('openwheels.trip.dashboard', [])
                   $mdDialog.cancel();
                   alertService.add('success', 'De boeking is gemaakt.', 5000);
                   $state.go('root.trip.dashboard', {tripId: booking.id});
-                })
+                });
               } else {
                 $mdDialog.cancel();
                 alertService.add('success', 'De boeking is gemaakt.', 5000);
