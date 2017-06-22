@@ -57,7 +57,7 @@
       <div class="box__content">
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Status</span></div>
-          <div class="col-xs-6"><span class="box__sdata" ng-class="{'text-danger': booking.status != 'accepted'}">{{booking.status}}</span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-class="{'box__sdata--green': booking.status=='accepted', 'text-danger': booking.status != 'accepted'}">{{booking.status}}</span></div>
         </div>
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Betaald</span></div>
