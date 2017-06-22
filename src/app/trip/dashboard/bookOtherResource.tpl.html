@@ -1,0 +1,63 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Rit omboeken</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content">
+      <h3>Rit omboeken</h3>
+        <p>Klik achter de gewenste auto op [Boeken] om de reservering om te zetten op de betreffende auto. <span ng-if="personGet.phoneNumbers">De huurder kun je bereiken op telefoonnummer(s): <span ng-repeat="phoneNumber in personGet.phoneNumbers">{{ phoneNumber.number }}</span>. Bel de huurder op om hem te informeren over het omboeken van de rit.</span> <span ng-if="booking.resource.boardcomputer">De onderstaande auto's worden met een OV-chipkaart of de smartphone geopend.</span><br/><br/></p>
+
+        <div ng-repeat="resource in availableResources">
+          <div class="row">
+            <div class="col-xs-3">
+              <img class="img-responsive media-object" ng-src="{{ resource.pictures[0] | resourceAvatar:'normal' }}">
+            </div>
+            <div class="col-xs-7">
+              <h4 style="margin: 0px;"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.alias }}</a> van {{ resource.owner.firstName }}</h4>
+              <md-list class="margin-right">
+                <md-list-item>
+                    <md-icon>directions_car</md-icon>
+                    <div flex>
+                      <span ng-if="resource.brand || resource.model" flex="none">{{ (resource.brand + ' ' + resource.model) | toTitleCase }}</span>
+                    </div>
+                </md-list-item>
+                <md-list-item>
+                    <md-icon>location_on</md-icon>
+                    <div flex>
+                      <span> {{ resource.location }}, {{ resource.city | toTitleCase }}
+                        <span ng-if="resource.distance_to"> ({{ resource.distance_to | formatKilometers }})</span>
+                      </span>
+                    </div>
+                </md-list-item>
+                <md-list-item>
+                    <md-icon>check</md-icon>
+                    <div flex>
+                      Openen met {{ resource.locktype }}
+                    </div>
+                </md-list-item>
+              </md-list>
+            </div>
+            <div class="col-xs-2">
+              <md-button class="md-accent  md-raised" ng-click="bookResource(booking, resource)">Boeken</md-button>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </fieldset>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
