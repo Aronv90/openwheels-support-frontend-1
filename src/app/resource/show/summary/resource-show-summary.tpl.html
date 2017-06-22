@@ -106,7 +106,7 @@
   </thead>
   <tbody>
   <tr ng-repeat="booking in bookings | orderBy:'beginBooking':true">
-    <td><a ui-sref="root.trip.show.summary({ tripId: booking.id })">#{{ booking.id }}</a></td>
+    <td><a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a></td>
     <td>{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
     <td>{{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
     <td>{{ booking.trip.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>

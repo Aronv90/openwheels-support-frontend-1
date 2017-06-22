@@ -3,7 +3,7 @@
     
       <a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person | fullname }}</a> in
       <a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }} ({{ booking.resource.registrationPlate}})</a>
-      ritnr: <a ui-sref="root.trip.show.summary({tripId: booking.id})">{{ booking.id }}</a>
+      ritnr: <a ui-sref="root.trip.dashboard({tripId: booking.id})">{{ booking.id }}</a>
     <div class="row">
         <div class="col-sm-8">
         <ul class="list-unstyled">

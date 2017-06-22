@@ -10,7 +10,7 @@
   </md-toolbar>
 
   <md-dialog-content>
-    <div layout="column" layout-margin class="md-dialog-content" ng-show="booking.resource.boardcomputer === 'ccome'">
+    <div layout="column" layout-margin class="md-dialog-content">
       <h3>Boeken</h3>
       <p>Selecteer hieronder wat voor boeking je wil maken:</p>
       <form>
@@ -140,7 +140,7 @@
     <md-button ng-click="cancel()">
      Sluiten
     </md-button>
-    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!newBeginDt.date! || !newBeginDt.time || !newEndDt.date || !newEndDt.time">
+    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!newBeginDt.date || !newBeginDt.time || !newEndDt.date || !newEndDt.time">
       Versturen
     </md-button>
   </md-dialog-actions>

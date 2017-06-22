@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="b in jobs">
-      <td><a ui-sref="root.trip.show.summary({ tripId: b.booking.id })">#{{ b.booking.id }} </a></td>
+      <td><a ui-sref="root.trip.dashboard({ tripId: b.booking.id })">#{{ b.booking.id }} </a></td>
       <td>{{ b.job.id }}</td>
       <td>{{ b.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
       <td>
