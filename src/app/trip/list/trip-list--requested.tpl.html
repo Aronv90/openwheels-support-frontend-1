@@ -16,7 +16,7 @@
         {{ b.resource.providerId }}
       </td>
       <td>
-        <a ui-sref="root.trip.show.summary({ tripId: b.id })">#{{ b.id }}</a>
+        <a ui-sref="root.trip.dashboard({ tripId: b.id })">#{{ b.id }}</a>
       </td>
       <td class="booking__date--fw-calendar">
         {{ b.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}<br/>

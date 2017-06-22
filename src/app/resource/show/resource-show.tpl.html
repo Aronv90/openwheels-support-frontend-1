@@ -63,7 +63,7 @@
         <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
             <ul class="nav navbar-nav">
                 <li ng-class="{ active: $state.includes('root.resource.show.edit') }">
-                    <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Edit</a>
+                  <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Edit{{resource.locktype}}</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.members') }">
                     <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Members</a>
@@ -74,7 +74,7 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.tripdata') }">
                     <a ui-sref="root.resource.show.tripdata({ resourceId: resource.id })" ng-if="resource.boardcomputer">Tripdata</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktype === 'smartphone'">
+                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktype === 'smartphone' || resource.locktype === 'chipcard'">
                     <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Board PC</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.locktype === 'smartphone'">

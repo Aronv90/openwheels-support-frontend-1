@@ -15,7 +15,7 @@
           ng-class="{ dropdown: true, active: $state.includes('root.person') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Person <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a ui-sref="root.person.create">Add person</a></li>
+          <li ng-if="user.identity.id !== 542476"><a ui-sref="root.person.create">Add person</a></li>
           <li><a ui-sref="root.person.search">Advanced search</a></li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
             ui-sref="root.person.blacklist">Blacklist</a>
@@ -27,7 +27,7 @@
         </ul>
       </li>
     </ul>
-    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
       <li ng-class="{ dropdown: true, active: $state.includes('root.resource') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Resource <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -68,23 +68,20 @@
           <li ng-class="{ active: $state.includes('root.trip.list.jobs') }">
             <a ui-sref="root.trip.list.jobs">Unfinished jobs</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.disapproved') }">
-            <a ui-sref="root.trip.list.disapproved">Invalid bookings</a>
-          </li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.trip.list.notactive') }">
             <a ui-sref="root.trip.list.notactive">Not active bookings</a>
           </li>
           <li class="divider"></li>
-          <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }">
+          <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }" show-if-user-has-role="ROLE_ADMIN">
             <a ui-sref="root.trip.list.strange-kms">Strange kms</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.remarked') }">
+          <li ng-class="{ active: $state.includes('root.trip.list.remarked') }" show-if-user-has-role="ROLE_ADMIN">
             <a ui-sref="root.trip.list.remarked">Remarks</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }">
+          <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }" show-if-user-has-role="ROLE_ADMIN">
             <a ui-sref="root.trip.list.returned-late">Returned late</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.farfromhome') }">
+          <li ng-class="{ active: $state.includes('root.trip.list.farfromhome') }" show-if-user-has-role="ROLE_ADMIN">
             <a ui-sref="root.trip.list.farfromhome">Far from home</a>
           </li>
         </ul>
@@ -126,7 +123,7 @@
     </ul>
 
     <!-- INVOICE MODULE VERSION 2 -->
-    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
       <li id="invoiceroot" ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Invoice <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -188,7 +185,7 @@
         </ul>
       </li>
     </ul>
-    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li class="dropdown" ng-class="{ active: $state.includes('root.checklist') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Checklists <b class="caret"></b></a>
         <ul class="dropdown-menu">

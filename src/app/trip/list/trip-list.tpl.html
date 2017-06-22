@@ -13,34 +13,30 @@
 <table class="table table-hover" ng-show="bookings.length > 0">
   <thead>
     <tr>
-      <th>Trip</th>
+      <th>Booking</th>
       <th>Status</th>
-      <th colspan="2">Datum boeking</th>
+      <th colspan="2">Timeframe</th>
       <th>Begin trip</th>
-      <th>Begin requested</th>
-      <th ng-if="! $state.includes('root.resource')">Auto</th>
-      <th ng-if="! $state.includes('root.person')">Bestuurder</th>
+      <th ng-if="!$state.includes('root.resource')">Resource</th>
+      <th ng-if="!$state.includes('root.person')">Person</th>
       <th ng-if="!$state.includes('root.person')">Email</th>
-      <th>Approved</th>
-      <th></th>
+      <th>Paid</th>
     </tr>
   </thead>
   <tbody>
-    <tr ng-class="{danger: booking.status === 'cancelled', warning: booking.status === 'rejected'}" ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']">
+    <tr ng-class="{danger: ['cancelled', 'owner_cancelled'].indexOf(booking.status) >= 0, warning: booking.status === 'rejected', success: booking.beginBooking < now && booking.endBooking > now}" ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']">
       <td><a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a></td>
       <td>{{ booking.status }}</td>
-      <td colspan="2"><booking-date ng-if="booking.beginBooking" booking="booking"></booking-date></td>
+      <td colspan="2">
+        <booking-date ng-if="booking.beginBooking" booking="booking"></booking-date>
+        <booking-date ng-if="booking.beginRequested && !booking.beginBooking" booking="booking" type="requested"></booking-date>
+      </td>
       <td>{{ booking.trip.begin | amDateFormat:'DD-MM HH:mm' }}</td>
-      <td>{{ booking.beginRequested | amDateFormat:'DD-MM | HH:mm' }}</td>
-      <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
-      <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
+      <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.trip({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
+      <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
       <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
       <td>
-        <span>{{ booking.approved }}</span><br/>
-        <a ng-if="booking.approved === 'OK'" ng-click="refundBooking(booking)">Refund</a>
-      </td>
-      <td>
-        <span ng-if="b.trip.finalized" class="text-success">finalized</span>
+        <span>{{ booking.approved }}</span> <a ng-if="booking.approved === 'OK'" ng-click="refundBooking(booking)"> - Refund</a>
       </td>
     </tr>
   </tbody>

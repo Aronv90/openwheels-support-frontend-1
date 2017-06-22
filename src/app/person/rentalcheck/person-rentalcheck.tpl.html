@@ -17,108 +17,18 @@
         <tbody>
           <tr ng-repeat="check in previousChecks">
               <td class="text-right">
-                  <button type="button" class="btn btn-default btn-sm" ng-click="showDetail(check)"><i class="fa fa-eye"></i></button>
+                  <a type="button" class="btn btn-default btn-sm" href="/rc/{{check.id}}/html" target="_blank"><i class="fa fa-eye"></i></a>
               </td>
               <td>
                 {{ check.type }}
                 <span ng-show="check.includeDocumentCheck"> + document check</span>
               </td>
               <td>{{ check.checkDate }}</td>
-              <td>
-                <span ng-show="check.person_check_result.report_pdf">
-                  <a class="btn btn-link" target="_blank" href="{{ check.person_check_result.report_pdf }}">PDF</a>
-                </span>
-              </td>
-              <td>
-                <span ng-show="check.person_check_result.report_html">
-                  <a class="btn btn-link" target="_blank" href="{{ check.person_check_result.report_html }}">HTML</a>
-                </span>
-              </td>
           </tr>
         </tbody>
       </table>
     </div>
     <button type="button" class="btn btn-default" ng-click="showCreate()">Perform a new Rental Check</button>
-  </div>
-
-  <!-- detail -->
-
-  <div ng-show="activeSection==='detail'">
-
-    <div style="margin-bottom:12px">
-      <button class="btn btn-link" ng-click="showList()">« Back to list</button>
-    </div>
-
-    <ul class="list-group">
-      <li class="list-group-item disabled">
-        <h4>
-          Report type: {{ selectedCheck.type }}
-          <span ng-show="selectedCheck.includeDocumentCheck"> + document check</span>
-        </h4>
-      </li>
-
-      <li class="list-group-item" ng-if="selectedCheck.errors">
-        <b>Error</b><br/>
-        Sorry, it looks like something went wrong at Rental Check... They're saying: &quot;{{ selectedCheck.errors.error }}&quot;.
-      </li>
-
-      <li class="list-group-item" ng-repeat="(prop, item) in selectedCheck.person_check_result" ng-switch="prop">
-
-        <div ng-switch-when="risk_scores">
-          <b>Risk scores</b><br/>
-          Name: {{ item.name.description }}<br/>
-          Address: {{ item.address.description }}<br/>
-          Zipcode: {{ item.zip_code.description }}
-        </div>
-
-        <div ng-switch-when="address_match">
-          <b>Address match <small>({{ item.message }}, last updated: {{ item.last_updated}})</small></b><br/>
-          {{ item.address.street }}
-          {{ item.address.house_number }}
-          {{ item.address.house_number_extension }}
-          {{ item.address.zip_code }}
-          {{ item.address.city }}
-        </div>
-
-        <div ng-switch-when="person_match">
-          <b>Person match <small>({{ item.message }})</small></b><br/>
-          {{ item.person.initials }}
-          {{ item.person.last_name_prefix }}
-          {{ item.person.last_name }} (gender: {{ item.person.gender || '?' }})
-        </div>
-
-        <div ng-switch-when="phone_number_matches">
-          <b>Phone number matches <small>({{ item.phone_number_match.message }})</small></b><br/>
-          {{ item.phone_number_match.name }}
-          {{ item.phone_number_match.phone_number }}
-          {{ item.phone_number_match.address.zip_code }}
-          {{ item.phone_number_match.address.house_number }}
-          {{ item.phone_number_match.address.house_number_extension }}
-        </div>
-
-        <div ng-switch-when="id_document_number_check_result">
-          <b>Document number check <small>({{ item.code }})</small></b><br/>
-          {{ item.description || '?' }}
-        </div>
-
-        <div ng-switch-when="report_html">
-          <b>Report HTML</b><br/>
-          <a target="_blank" href="{{ item }}">{{ item }}</a>
-        </div>
-
-        <div ng-switch-when="report_pdf">
-          <b>Report PDF</b><br/>
-          <a target="_blank" href="{{ item }}">{{ item }}</a>
-        </div>
-
-        <div ng-switch-default>
-          <b>Unkown category: &quot;{{ prop }}&quot;</b><br />
-          Please refer to the report PDF or HTML.
-        </div>
-
-      </li><!-- end repeat -->
-    </ul>
-
   </div>
 
   <!-- create -->

@@ -152,7 +152,7 @@
           </thead>
           <tr ng-repeat="invoice in ungroupedReceivedInvoices">
             <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
-            <td><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
+            <td><a ui-sref="root.trip.dashboard({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
             <td>{{ invoice.date | amDateFormat: 'DD-MM-YY hh:mm'}}</td>
             <td>{{ invoice.sender | fullname }}</a>
             <td>{{ invoice.description }}</td>
@@ -188,7 +188,7 @@
           </thead>
           <tr ng-repeat="invoice in ungroupedSentInvoices">
             <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
-            <td><a ui-sref="root.trip.show.summary({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
+            <td><a ui-sref="root.trip.dashboard({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
             <td>{{ invoice.date | amDateFormat: 'DD-MM-YY hh:mm'}}</td>
             <td>{{ invoice.recipient | fullname }}</a>
             <td>{{ invoice.description }}</td>

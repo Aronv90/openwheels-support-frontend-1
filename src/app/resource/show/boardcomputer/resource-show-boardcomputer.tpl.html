@@ -1,8 +1,16 @@
-<div ng-if="'root.resource' | includedByState">
-  <p>Gebruik deze knop alleen als er <strong>geen boeking</strong> bezig is. Als er een boeking bezig is gebruik dan de knop op de trippagina. Kilometer standen worden anders namelijk niet goed verwerkt</p>
-</div>
-<div class="form-group" ng-if="resource.locktypes.indexOf('smartphone') !== -1">
-  <button  ng-click="openDoor(resource)" class="btn btn-primary">Open</button>
-  <button  ng-click="closeDoor(resource)" class="btn btn-primary">Close</button>
+<div ng-if="resource.locktypes.indexOf('smartphone') !== -1">
+  <div ng-if="'root.resource' | includedByState">
+    <p>Gebruik deze knop alleen als er <strong>geen boeking</strong> bezig is. Als er een boeking bezig is gebruik dan de knop op de trippagina. Kilometer standen worden anders namelijk niet goed verwerkt</p>
+  </div>
+  <div class="form-group">
+    <button ng-click="openDoor(resource)" class="btn btn-primary">Open</button>
+    <button ng-click="closeDoor(resource)" class="btn btn-primary">Close</button>
+  </div>
 </div>
 
+<div ng-if="resource.locktypes.indexOf('chipcard') !== -1">
+  <div ng-if="'root.trip' | includedByState" class="form-group">
+    <button ng-click="openDoor(resource)" class="btn btn-primary">Open</button>
+    <button ng-click="closeDoor(resource)" class="btn btn-primary">Close</button>
+  </div>
+</div>

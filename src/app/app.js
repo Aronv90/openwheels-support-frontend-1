@@ -83,6 +83,7 @@ angular.module('openwheels', [
   'filters.ratingStars',
   'filters.dirty',
   'filters.conversion',
+  'filters.util',
 
   'openwheels.root',
   'openwheels.trip',

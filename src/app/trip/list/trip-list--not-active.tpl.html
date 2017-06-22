@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     <tr ng-repeat="b in bookings | orderBy:'beginBooking':true">
-      <td><a ui-sref="root.trip.show.summary({ tripId: b.id })">#{{ b.id }}</a></td>
+      <td><a ui-sref="root.trip.dashboard({ tripId: b.id })">#{{ b.id }}</a></td>
       <td class="booking__date--fw-calendar">
           <div ng-show="b.beginBooking">
             {{ b.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}<br/>
