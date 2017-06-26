@@ -66,8 +66,12 @@
 
           <div class="form-group" ng-if="invoice.sender.id && invoice.recipient.id && invoice.price && invoice.quantity">
             <label>Controle</label>
-            <p ng-if="invoice.quantity * invoice.price >= 0" ><em>{{invoice.recipient.firstName + ' ' + invoice.recipient.surname}}</em> moet <strong>{{invoice.quantity * invoice.price | currency}}</strong> betalen  aan <em>{{invoice.sender.firstName + ' ' + invoice.sender.surname}}</em></p>
-            <p ng-if="invoice.quantity * invoice.price < 0" ><em>{{invoice.recipient.firstName + ' ' + invoice.recipient.surname}}</em> moet <strong>{{-1 * invoice.quantity * invoice.price | currency}}</strong> ontvangen van <em>{{invoice.sender.firstName + ' ' + invoice.sender.surname}}</em></p>
+            <p ng-if="invoice.quantity * invoice.price >= 0" >
+              <em>{{invoice.recipient.firstName + ' ' + (invoice.recipient.surname || '')}}</em> moet <strong>{{invoice.quantity * invoice.price | currency}}</strong> betalen  aan <em>{{invoice.sender.firstName + ' ' + (invoice.sender.surname || '')}}</em>
+            </p>
+            <p ng-if="invoice.quantity * invoice.price < 0" >
+              <em>{{invoice.recipient.firstName + ' ' + (invoice.recipient.surname || '')}}</em> moet <strong>{{-1 * invoice.quantity * invoice.price | currency}}</strong> ontvangen van <em>{{invoice.sender.firstName + ' ' + (invoice.sender.surname || '')}}</em>
+            </p>
             <button ng-click="save(invoice)" class="btn btn-primary">Correct</button>
           </div>
 
