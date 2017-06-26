@@ -22,7 +22,7 @@ angular.module('openwheels.trip.dashboard', [])
     }
   };
 })
-.controller('TripDashboardController', function ($scope, booking, contract, invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
+.controller('TripDashboardController', function ($scope, booking, contract, paymentService, personService, invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
 
   /* INIT  */
   $scope.booking = booking;
@@ -102,7 +102,7 @@ angular.module('openwheels.trip.dashboard', [])
       });
     }
   };
-  $scope.open(6);
+  $scope.open(7);
 
   $scope.isOpen = function(id) {
     if(sections[id]) {
@@ -136,6 +136,9 @@ angular.module('openwheels.trip.dashboard', [])
       return initRevisionsScope();
     }
     if(id === 6) {
+      return initNextBookingsScope();
+    }
+    if(id === 7) {
       return initRemarksScope();
     }
 
@@ -175,8 +178,18 @@ angular.module('openwheels.trip.dashboard', [])
         for (var i=0; i<tripRevisions.length; i++){
             $scope.revisions.push(tripRevisions[i]);
         }
-        console.log($scope.revisions);
       });
+    });
+  }
+
+  function initNextBookingsScope() {
+    $scope.now = moment().format('YYYY-MM-DD HH:mm');
+    return bookingService.nextInResource({
+      resource: booking.resource.id,
+      limit: 3
+    })
+    .then(function(bookings) {
+      $scope.nextBookings = bookings;
     });
   }
 
@@ -594,9 +607,7 @@ angular.module('openwheels.trip.dashboard', [])
         )
         .then(function(booking) {
           $scope.booking.endBooking = booking.endBooking;
-          console.log($scope.booking.resource);
           if ($scope.booking.resource.boardcomputer === 'ccome') {
-            console.log(1);
             // Resend the booking if boardcomputer is ccome
             ccomeService.sendBooking({booking: $scope.booking.id})
             .then(function(res) {
@@ -1058,7 +1069,6 @@ angular.module('openwheels.trip.dashboard', [])
 
         chipcardService.getFish({person: $scope.booking.person.id})
         .then(function(fish) {
-          console.log(fish);
           $scope.fish = fish;
         });
 
@@ -1097,6 +1107,89 @@ angular.module('openwheels.trip.dashboard', [])
           alertService.add('warning', 'De auto kon niet geopend worden', 5000);
         }
       });
+    });
+  };
+
+  $scope.bookOtherResource = function(selectedBooking) {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      controller: ['$scope', '$mdDialog', function($scope, $mdDialog) {
+        $scope.booking = selectedBooking;
+        $scope.now = moment().format('YYYY-MM-DD HH:mm');
+        $scope.contract = {};
+
+        personService.get({person: selectedBooking.person.id})
+        .then(function(personGet) {
+          $scope.personGet = personGet;
+        });
+
+        resourceService.searchV3({
+          person: $scope.booking.person.id,
+          timeFrame: { 
+            startDate: $scope.booking.beginBooking, 
+            endDate: $scope.booking.endBooking 
+          },
+          radius: 5000,
+          sort: 'relevance',
+          offest: 0,
+          maxresults: 5, 
+          filters: {
+            smartwheels: $scope.booking.resource.boardcomputer ? true : false
+          },
+          location: {
+            latitude: $scope.booking.resource.latitude,
+            longitude: $scope.booking.resource.longitude
+          }
+        })
+        .then(function(resources) {
+          $scope.availableResources = resources.results;
+        });
+
+        $scope.bookResource = function(booking, resource) {
+          bookingService.cancel({booking: booking.id})
+          .then(function(booking) {
+            $scope.now = moment().format('YYYY-MM-DD HH:mm');
+            bookingService.create({
+              resource: resource.id,
+              person: booking.person.id,
+              timeFrame: { 
+                startDate: booking.beginBooking < $scope.now ? $scope.now : booking.beginBooking, 
+                endDate: booking.endBooking
+              },
+              contract: booking.contract.id,
+              remark: booking.remark,
+              riskReduction: booking.riskReduction
+            })
+            .then(function(newBooking) {
+              if(booking.approved === 'OK') {
+                bookingService.approve({booking: newBooking.id})
+                .then(function(newBooking) {
+                  $mdDialog.cancel();
+                  alertService.add('success', 'De boeking is gemaakt.', 5000);
+                  $state.go('root.trip.dashboard', {tripId: newBooking.id});
+                });
+              } else {
+                $mdDialog.cancel();
+                alertService.add('success', 'De boeking is gemaakt.', 5000);
+                $state.go('root.trip.dashboard', {tripId: newBooking.id});
+              }
+            })
+            .catch(function(err) {
+              alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+            });
+          });
+        };
+
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+      }],
+      templateUrl: 'trip/dashboard/bookOtherResource.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking
+      }
     });
   };
 
@@ -1161,7 +1254,7 @@ angular.module('openwheels.trip.dashboard', [])
                   $mdDialog.cancel();
                   alertService.add('success', 'De boeking is gemaakt.', 5000);
                   $state.go('root.trip.dashboard', {tripId: booking.id});
-                })
+                });
               } else {
                 $mdDialog.cancel();
                 alertService.add('success', 'De boeking is gemaakt.', 5000);
@@ -1284,6 +1377,54 @@ angular.module('openwheels.trip.dashboard', [])
       locals: {
         booking: booking
       }
+    });
+  };
+
+  $scope.previousBooking = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
+
+        bookingService.previousInResource({
+          resource: $scope.booking.resource.id,
+          limit: 1
+        })
+        .then(function(bookings) {
+          $scope.previousBookings = bookings;
+          personService.get({person: bookings[0].person.id})
+          .then(function(person) {
+            $scope.person = person;
+          });
+        });
+
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/previousBooking.tpl.html',
+      fullscreen: false,
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking
+      },
+    });
+  };
+
+  $scope.refundBooking = function() {
+    var confirm = $mdDialog.confirm()
+    .title('Rit restitueren')
+    .textContent('Weet je zeker dat je deze rit wil restitueren?')
+    .ok('Ja')
+    .cancel('Nee');
+
+    $mdDialog.show(confirm)
+    .then(function(res) {      
+      paymentService.refundBooking({ booking: $scope.booking.id })
+      .catch(alertService.addError)
+      .finally(alertService.loaded);
     });
   };
 

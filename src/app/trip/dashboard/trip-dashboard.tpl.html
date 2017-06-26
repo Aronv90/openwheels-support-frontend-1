@@ -526,14 +526,56 @@
 
 <div class="row row--padding-top">
   <div class="col-sm-12">
-    <div class="box box--small">
-      <div class="box__title box__title--remarks">
-        <h3 ng-click="open(6)">Opmerkingen, notities & overleg<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(6), 'fa-chevron-right': !isOpen(6)}"></i></small></h3>
+    <div class="box">
+      <div class="box__title box__title--trip">
+        <h3 ng-click="open(6)">Komende ritten<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(6), 'fa-chevron-right': !isOpen(6)}"></i></small></h3>
       </div>
       <div class="box__content" ng-if="isLoading(6)">
         <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
       </div>
-      <div class="" ng-if="isOpen(6)">
+      <div class="box__content" ng-if="isOpen(6)">
+        <div class="row row--small-font row--no-margin row--invoice-heading">
+          <div class="col-xs-2">#</div>
+          <div class="col-xs-3">Boeking datum</div>
+          <div class="col-xs-3">Huurder</div>
+          <div class="col-xs-2">Betaald</div>
+          <div class="col-xs-2">Actie</div>
+        </div>
+        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="booking in nextBookings | orderBy: 'beginBooking'">
+          <div class="col-xs-2">
+            <a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a>
+          </div>
+          <div class="col-xs-3">
+            <booking-date ng-if="booking.beginBooking" booking="booking"></booking-date>
+          </div>
+          <div class="col-xs-3">
+            <a ui-sref="root.person.show.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a>
+          </div>
+          <div class="col-xs-2" ng-class="{'box__sdata--green': booking.approved=='OK', 'box__sdata--red': booking.approved == 'BUY_VOUCHER' || booking.approved == 'INSPECT' || booking.approved == 'TO_BE_PAID'}">
+            {{booking.approved}}
+          </div>
+          <div class="col-xs-2">
+            <a ng-click="bookOtherResource(booking)">Omboeken</a>
+          </div>
+        </div>
+        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-if="!nextBookings || nextBookings.length == 0">
+          <div class="col-xs-12">Geen komende ritten gevonden</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!--/ fifth row, revisions -->
+
+<div class="row row--padding-top">
+  <div class="col-sm-12">
+    <div class="box box--small">
+      <div class="box__title box__title--remarks">
+        <h3 ng-click="open(7)">Opmerkingen, notities & overleg<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(7), 'fa-chevron-right': !isOpen(7)}"></i></small></h3>
+      </div>
+      <div class="box__content" ng-if="isLoading(7)">
+        <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
+      </div>
+      <div class="" ng-if="isOpen(7)">
 
         <div class="row remark" ng-if="!remarks || remarks.length == 0">
           <div class="col-xs-12">
@@ -578,7 +620,7 @@
       </div>
     </div>
   </div> <!--/ first box, invoices driver-->
-</div><!-- / fifth row, remarks -->
+</div><!-- / sixt row, remarks -->
 
 <div class="quickaction">
 
@@ -612,6 +654,7 @@
     <li ng-click="book()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Boek een auto">Boeken</span></li>
     <li ng-click="breakdown()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Pechhulp inschakelen">Pech</span></li>
     <li ng-click="damage()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Schade melden">Schade</span></li>
+    <li ng-click="previousBooking()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Contactgegevens van de vorige huurder">Vorige</span></li>
 
     <a ng-class="{'quickaction__toggler--hidden': hide, 'quickaction__toggler--shown' : !hide}" ng-init="hide=true" ng-click="hide=!hide" type="button" class="quickaction__toggler">
       <i ng-class="{'fa-chevron-right': hide, 'fa-chevron-left' : !hide}" class="fa fa-fw"></i>
@@ -621,6 +664,7 @@
     <li ng-click="resendBoardcomputer()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer === 'ccome'" ng-hide="hide">
       <span tooltip-placement="right" uib-tooltip="Stuur boeking naar boordcomputer">CCOME</span>
     </li>
+    <li ng-click="refundBooking()" class="quickaction__item--trip" ng-hide="hide" ng-if="booking.approved=='OK'"><span tooltip-placement="right" uib-tooltip="Crediteer rit">Restitutie</span></li>
     <li ng-click="addDeclaration()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg tankbonnen toe">Tankbon</span></li>
     <li ng-click="addKm()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM-standen</span></li>
     <!--<li ng-click="notifyDamage()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Stuur schademails">Schade</span></li>-->

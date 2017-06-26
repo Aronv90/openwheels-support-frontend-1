@@ -1,4 +1,4 @@
-<div ng-if="resource.locktypes.indexOf('smartphone') !== -1">
+<div ng-if="resource.locktypes.indexOf('smartphone', 'chipcard') !== -1">
   <div ng-if="'root.resource' | includedByState">
     <p>Gebruik deze knop alleen als er <strong>geen boeking</strong> bezig is. Als er een boeking bezig is gebruik dan de knop op de trippagina. Kilometer standen worden anders namelijk niet goed verwerkt</p>
   </div>
