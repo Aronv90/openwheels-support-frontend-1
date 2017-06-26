@@ -4,33 +4,8 @@
 </section>
 <section class="col-md-6">
     <article class="">
-        <div google-chart chart="chartData" style="height:20em"> </div>
+        <div google-chart chart="chartData" style="height:20em;margin-bottom:1em;"> </div>
     </article>
-    
-    <article class="panel panel-default card" ng-if="unfinishedJobs.length > 0">
-        <div class="card-body">
-        <table class="table table-condensed">
-            <caption>CComE messages {{unfinishedJobs.length}}</caption>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Booking</th>
-                    <th>Begin booking</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="item in unfinishedJobs">
-                    <td>{{item.id}}</td>
-                    <td>
-                        <a ui-sref="root.trip.dashboard({ tripId: item.booking.id })">#{{item.booking.id}}</a>
-                    </td>
-                    <td>{{item.begin | amDateFormat:'DD-MM-YYYY | HH:mm'}}</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-    </article>
-    
 
     <snoozablechecklist query="query" limit="5" hide-if-null="true" ng-repeat="query in queries| filter:{ column: 1}"> </snoozablechecklist>
 </section>

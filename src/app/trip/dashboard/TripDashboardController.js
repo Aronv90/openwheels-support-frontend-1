@@ -607,6 +607,7 @@ angular.module('openwheels.trip.dashboard', [])
         )
         .then(function(booking) {
           $scope.booking.endBooking = booking.endBooking;
+          $scope.booking.status = booking.status;
           if ($scope.booking.resource.boardcomputer === 'ccome') {
             // Resend the booking if boardcomputer is ccome
             ccomeService.sendBooking({booking: $scope.booking.id})
@@ -631,6 +632,7 @@ angular.module('openwheels.trip.dashboard', [])
         )
         .then(function(booking) {
           $scope.booking.endBooking = booking.endBooking;
+          $scope.booking.status = booking.status;
         });
       }
     })
@@ -1132,7 +1134,7 @@ angular.module('openwheels.trip.dashboard', [])
           radius: 5000,
           sort: 'relevance',
           offest: 0,
-          maxresults: 5, 
+          maxresults: 10, 
           filters: {
             smartwheels: $scope.booking.resource.boardcomputer ? true : false
           },
@@ -1193,6 +1195,28 @@ angular.module('openwheels.trip.dashboard', [])
     });
   };
 
+  $scope.showPhoneNumbers = function(person) {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      controller: ['$scope', '$mdDialog', function($scope, $mdDialog) {
+
+        personService.get({person: person.id})
+        .then(function(person) {
+          $scope.person = person;
+        });
+
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/showPhoneNumber.tpl.html',
+      fullscreen: false,
+      clickOutsideToClose:true
+    });
+  };
+
   $scope.book = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -1212,7 +1236,7 @@ angular.module('openwheels.trip.dashboard', [])
             radius: 5000,
             sort: 'relevance',
             offest: 0,
-            maxresults: 5, 
+            maxresults: 10, 
             filters: {
               smartwheels: $scope.booking.resource.boardcomputer ? true : false
             },

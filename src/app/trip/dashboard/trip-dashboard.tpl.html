@@ -61,7 +61,8 @@
         </div>
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Betaald</span></div>
-          <div class="col-xs-6"><span class="box__sdata" ng-class="{'box__sdata--green': booking.approved=='OK', 'box__sdata--red': booking.approved == 'BUY_VOUCHER' || booking.approved == 'INSPECT' || booking.approved == 'TO_BE_PAID'}">{{booking.approved}}</span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-class="{'box__sdata--green': booking.approved=='OK', 'text-danger': booking.approved == 'BUY_VOUCHER' || booking.approved == 'INSPECT' || booking.approved == 'TO_BE_PAID'}" ng-if="booking.approved || booking.status!=='accepted'">{{booking.approved}}</span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-class="{'box__sdata--green': true}" ng-if="!booking.approved && booking.status==='accepted'">Onderhoud</span></div>
         </div>
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Finalized + KM</span></div>
@@ -137,7 +138,7 @@
     <div class="box box--min-height">
       <div class="box__title box__title--driver">
         <small>Bestuurder #{{booking.person.id}}, provider #{{booking.person.provider.id}} <a ui-sref="root.person.show.trip({personId: booking.person.id})" class="pull-right box__link">Meer</a></small>
-        <h3 title="{{booking.person.firstName + ' ' + booking.person.surname}}">{{booking.person.firstName + ' ' + booking.person.surname}}</h3>
+        <h3 title="{{booking.person.firstName + ' ' + booking.person.surname}}">{{booking.person.firstName + ' ' + (booking.person.surname || '')}}</h3>
       </div>
       <div class="box__content">
         <div class="row">
@@ -148,7 +149,7 @@
             </div>
             <div class="row box__row">
               <div class="col-xs-6"><span class="box__slabel">Rijbewijs</span></div>
-              <div class="col-xs-6"><span class="box__sdata box__sdata--small" ng-class="{'box__sdata--red': booking.person.driverLicenseStatus != 'ok'}">{{booking.person.driverLicenseStatus}}</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small" ng-class="{'text-danger': booking.person.driverLicenseStatus != 'ok'}">{{booking.person.driverLicenseStatus}}</span></div>
             </div>
             <div class="row box__row">
               <div class="col-xs-12"><span class="box__slabel"><a ng-click="loginAs(booking.person)" class="">Login als bestuurder</a></span></div>
@@ -207,7 +208,7 @@
             </div>
             <div class="row box__row">
               <div class="col-xs-6"><span class="box__slabel">Rijbewijs</span></div>
-              <div class="col-xs-6"><span class="box__sdata box__sdata--small" ng-class="{'box__sdata--red': booking.resource.owner.driverLicenseStatus != 'ok'}">{{booking.resource.owner.driverLicenseStatus}}</span></div>
+              <div class="col-xs-6"><span class="box__sdata box__sdata--small" ng-class="{'text-danger': booking.resource.owner.driverLicenseStatus != 'ok'}">{{booking.resource.owner.driverLicenseStatus}}</span></div>
             </div>
             <div class="row box__row">
               <div class="col-xs-12"><span class="box__slabel"><a ng-click="loginAs(booking.resource.owner)" class="">Login als eigenaar</a></span></div>
@@ -239,7 +240,7 @@
         </div>
         <div class="row box__row" ng-if="booking.resource.contactPerson">
           <div class="col-xs-4"><span class="box__slabel">Beheerder</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.firstName + ' ' + booking.resource.contactPerson.surname}}</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.firstName + ' ' + (booking.resource.contactPerson.surname || '')}}</span></div>
           <div class="col-xs-4"><span class="box__slabel">Email</span></div>
           <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.email}}</span></div>
           <div class="col-xs-4" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
@@ -535,24 +536,28 @@
       </div>
       <div class="box__content" ng-if="isOpen(6)">
         <div class="row row--small-font row--no-margin row--invoice-heading">
-          <div class="col-xs-2">#</div>
+          <div class="col-xs-1">#</div>
           <div class="col-xs-3">Boeking datum</div>
-          <div class="col-xs-3">Huurder</div>
+          <div class="col-xs-2">Huurder</div>
           <div class="col-xs-2">Betaald</div>
+          <div class="col-xs-2">Telefoonnummer</div>
           <div class="col-xs-2">Actie</div>
         </div>
         <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="booking in nextBookings | orderBy: 'beginBooking'">
-          <div class="col-xs-2">
+          <div class="col-xs-1">
             <a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a>
           </div>
           <div class="col-xs-3">
             <booking-date ng-if="booking.beginBooking" booking="booking"></booking-date>
           </div>
-          <div class="col-xs-3">
+          <div class="col-xs-2">
             <a ui-sref="root.person.show.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a>
           </div>
-          <div class="col-xs-2" ng-class="{'box__sdata--green': booking.approved=='OK', 'box__sdata--red': booking.approved == 'BUY_VOUCHER' || booking.approved == 'INSPECT' || booking.approved == 'TO_BE_PAID'}">
+          <div class="col-xs-2" ng-class="{'box__sdata--green': booking.approved=='OK', 'text-danger': booking.approved == 'BUY_VOUCHER' || booking.approved == 'INSPECT' || booking.approved == 'TO_BE_PAID'}">
             {{booking.approved}}
+          </div>
+          <div class="col-xs-2">
+            <a ng-click="showPhoneNumbers(booking.person)">Toon</a>
           </div>
           <div class="col-xs-2">
             <a ng-click="bookOtherResource(booking)">Omboeken</a>
@@ -625,36 +630,39 @@
 <div class="quickaction">
 
   <ul>
-    <li ng-click="changeTimes()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verlengen</span></li>
-    <li ng-click="stop()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Rit inkorten">Inkorten</span></li>
+    <a ng-class="{'quickaction__toggler--hidden': hideMain, 'quickaction__toggler--shown' : !hideMain}" ng-init="hideMain=false" ng-click="hideMain=!hideMain" type="button" class="quickaction__toggler">
+      <i ng-class="{'fa-chevron-right': hideMain, 'fa-chevron-left' : !hideMain}" class="fa fa-fw"></i>
+    </a>
+    <li ng-click="changeTimes()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verlengen</span></li>
+    <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Rit inkorten">Inkorten</span></li>
 
-    <li ng-click="accept()" ng-if="booking.status === 'requested'" class="quickaction__item--trip">
+    <li ng-click="accept()" ng-if="booking.status === 'requested'" ng-hide="hideMain" class="quickaction__item--trip">
       <span tooltip-placement="right" uib-tooltip="Rit accepteren">Accept</span>
     </li>
-    <li ng-click="reject()" ng-if="booking.status === 'requested'" class="quickaction__item--trip">
+    <li ng-click="reject()" ng-if="booking.status === 'requested'" ng-hide="hideMain" class="quickaction__item--trip">
       <span tooltip-placement="right" uib-tooltip="Rit afwijzen">Afwijzen</span>
     </li>
-    <li ng-click="cancel()" ng-if="['cancelled', 'owner_cancelled', 'rejected'].indexOf(booking.status) < 0" class="quickaction__item--trip">
+    <li ng-click="cancel()" ng-if="['cancelled', 'owner_cancelled', 'rejected'].indexOf(booking.status) < 0" ng-hide="hideMain" class="quickaction__item--trip">
       <span tooltip-placement="right" uib-tooltip="Rit annuleren">Annuleren</span>
     </li>
   
-    <li ng-click="openResource()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer">
+    <li ng-click="openResource()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
       <span tooltip-placement="right" uib-tooltip="Auto openen">Openen</span>
     </li>
-    <li ng-click="close()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer">
+    <li ng-click="close()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
       <span tooltip-placement="right" uib-tooltip="Auto sluiten">Sluiten</span>
     </li>
-    <li ng-click="chip()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer === 'ccome'">
+    <li ng-click="chip()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer === 'ccome'">
       <span tooltip-placement="right" uib-tooltip="Nieuwe OV-chipkaart koppelen">Chipkaart</span>
     </li>
 
-    <li ng-click="start()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer">
+    <li ng-click="start()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
       <span tooltip-placement="right" uib-tooltip="Problemen met starten">Starten</span>
     </li>
-    <li ng-click="book()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Boek een auto">Boeken</span></li>
-    <li ng-click="breakdown()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Pechhulp inschakelen">Pech</span></li>
-    <li ng-click="damage()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Schade melden">Schade</span></li>
-    <li ng-click="previousBooking()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Contactgegevens van de vorige huurder">Vorige</span></li>
+    <li ng-click="book()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Boek een auto">Boeken</span></li>
+    <li ng-click="breakdown()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Pechhulp inschakelen">Pech</span></li>
+    <li ng-click="damage()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Schade melden">Schade</span></li>
+    <li ng-click="previousBooking()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Contactgegevens van de vorige huurder">Vorige</span></li>
 
     <a ng-class="{'quickaction__toggler--hidden': hide, 'quickaction__toggler--shown' : !hide}" ng-init="hide=true" ng-click="hide=!hide" type="button" class="quickaction__toggler">
       <i ng-class="{'fa-chevron-right': hide, 'fa-chevron-left' : !hide}" class="fa fa-fw"></i>

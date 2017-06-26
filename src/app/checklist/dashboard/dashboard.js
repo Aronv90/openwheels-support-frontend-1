@@ -4,7 +4,6 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
 .controller('DashboardController', function (
           $scope,
           bookingService,
-          ccomeService,
           $interval,
           googleChartApiPromise,
           $q,
@@ -32,10 +31,6 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
       return row;
     },*/
     doUpdate = function () {
-
-      ccomeService.unfinishedJobs().then(function(list){
-        $scope.unfinishedJobs = list;
-      });
 
       $q.all([
         bookingService.bookingWeekKPIData(),
