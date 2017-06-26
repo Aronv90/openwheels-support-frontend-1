@@ -241,7 +241,7 @@
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search person"
                ng-model="selectedPerson"
-               uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br>Provider ' + person.provider.id + '</small></p>') for person in searchPersons($viewValue)"
+               uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br> ' + (person.preference | toTitleCase) + '</small></p>') for person in searchPersons($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectPerson()"
                typeahead-input-formatter="formatPerson($model)">
       </div>
