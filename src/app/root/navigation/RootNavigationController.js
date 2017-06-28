@@ -15,6 +15,10 @@ angular.module('openwheels.root.navigation', [])
     localStorageService
  	) {
 
+	$scope.noResourceResults = false;
+	$scope.noPersonResults = false;
+	$scope.searchingForResourceResults = false;
+	$scope.searchingForPersonResults = false;
 	$rootScope.limit = true;
 
     checklistService.all().then(function (data) {
