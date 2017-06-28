@@ -637,11 +637,15 @@ angular.module('openwheels.trip.dashboard', [])
       }
     })
     .then(function(booking) {
-      return alertService.add('success', 'Rit is verlengd', 5000);
+      return alertService.add('success', 'Rit is verlengd.', 5000);
     })
     .catch(function(err) {
       if(err && err.message) {
-        alertService.add('danger', 'De rit kon niet verlengd worden: ' + err.message, 5000);
+        if(err.message.indexOf('onvoldoende')) {
+          alertService.add('danger', err.message + '. Je hebt nog ' + err.data.extra_credit + ' euro extra rijtegoed nodig voordat je de boeking kan verlengen.', 7000);
+        } else {
+          alertService.add('danger', 'De rit kon niet verlengd worden: ' + err.message, 5000);
+        }
       }
     })
     ;

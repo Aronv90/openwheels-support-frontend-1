@@ -87,7 +87,6 @@
         </ul>
       </li>
     </ul>
-    
 
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li ng-class="{ dropdown: true, active: $state.includes('root.invoice') }">
@@ -241,9 +240,21 @@
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search person"
                ng-model="selectedPerson"
-               uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br> ' + (person.preference | toTitleCase) + '</small></p>') for person in searchPersons($viewValue)"
+               uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br> ' + (person.preference | toTitleCase) + ' - <b>Provider ' + person.providerId + '</b></small></p>') for person in searchPersons($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectPerson()"
-               typeahead-input-formatter="formatPerson($model)">
+               typeahead-input-formatter="formatPerson($model)"
+               typeahead-no-results="noPersonResults"
+               typeahead-loading="searchingForPersonResults">
+        <span ng-if="noPersonResults && !searchingForPersonResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
+          <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
+            <li class="uib-typeahead-match">No results found.</li>
+          </ul>
+        </span>
+        <span ng-if="searchingForPersonResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
+          <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
+            <li class="uib-typeahead-match">Searching...</li>
+          </ul>
+        </span>
       </div>
     </form>
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
@@ -252,7 +263,19 @@
                ng-model="selectedResource"
                uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectResource()"
-               typeahead-input-formatter="formatResource($model)">
+               typeahead-input-formatter="formatResource($model)"
+               typeahead-no-results="noResourceResults"
+               typeahead-loading="searchingForResourceResults">
+        <span ng-if="noResourceResults && !searchingForResourceResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
+          <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
+            <li class="uib-typeahead-match">No results found.</li>
+          </ul>
+        </span>
+        <span ng-if="searchingForResourceResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
+          <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
+            <li class="uib-typeahead-match">Searching...</li>
+          </ul>
+        </span>
       </div>
     </form>
 
