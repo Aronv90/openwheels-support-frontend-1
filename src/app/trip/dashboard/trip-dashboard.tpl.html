@@ -187,7 +187,8 @@
           <div class="col-xs-4"><span class="box__slabel" title="Bedrag nodig voor aankomende boekingen ({{requiredCredit.bookings.length}} boeking(en))">Boekingen</span></div>
           <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{requiredCredit.sub_total | currency}}</span></div>
           <div class="col-xs-4"><span class="box__slabel"><strong>Totaal nodig</strong></span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{requiredCredit.total | currency}}</span></div>
+          <div class="col-xs-8" ng-if="requiredCredit.total < 0"><span class="box__sdata box__sdata--small">{{0.00 | currency}}</span></div>
+          <div class="col-xs-8" ng-if="requiredCredit.total >= 0"><span class="box__sdata box__sdata--small">{{requiredCredit.total | currency}}</span></div>
         </div>
       </div>
     </div>

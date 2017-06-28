@@ -40,7 +40,7 @@
         <md-checkbox aria-label="Deuren zijn niet dicht" class="md-warn md-align-top-left">
           <span>Eén van de deuren is niet goed dicht. Vraag om alle deuren én de achterklep goed dicht te drukken/duwen. Daarna de chipkaart nogmaals voor de lezer houden, dan zou de auto open moeten gaan.</span>
         </md-checkbox>
-        <p>Gaan de deuren nog niet open? Klik dan hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</p>
+        <p>Gaan de deuren nog niet open? Klik dan hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</p>
         <p ng-if="booking.resource.contactPerson.id !== 282">Opent de auto ook niet op afstand? Bel dan de beheerder van de auto op zodat diegene de auto met de sleutel kan openen: {{ booking.resource.contactPerson.phoneNumbers[0].number }}.</p>
       </fieldset>
 
@@ -64,7 +64,7 @@
           <md-checkbox aria-label="Chipkaart in portemonnee" class="md-warn md-align-top-left">
             <span>De OV-chipkaart zit in een portemonnee. Vraag de huurder om alleen de OV-chipkaart voor de lezer te houden.</span>
           </md-checkbox>
-          <p>Gaan de deuren nog niet open? Klik dan hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</p>
+          <p>Gaan de deuren nog niet open? Klik dan hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</p>
         </div>
       </fieldset>
 
@@ -77,11 +77,9 @@
           <span>De OV-chipkaart zit in een portemonnee. Vraag de huurder om alleen de OV-chipkaart voor de lezer te houden.</span>
         </md-checkbox>
         <md-checkbox aria-label="Defecte OV-chipkaart" class="md-warn md-align-top-left">
-          <span>De OV-chipkaart is defect. Klik hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Adviseer de huurder om een nieuwe OV-chipkaart aan te schaffen.</span>
+          <span>De OV-chipkaart is defect. Klik hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Adviseer de huurder om een nieuwe OV-chipkaart aan te schaffen. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</span>
         </md-checkbox>
-        <md-checkbox aria-label="Accu is leeg" class="md-warn md-align-top-left">
-          <span>Opent de auto ook niet op afstand? Dan is de accu van de auto mogeljk leeg. Reserveer een andere auto voor de huurder via de knop [Boeken].</span>
-        </md-checkbox>
+        <p>Opent de auto in de stap hiervoor ook niet op afstand? Dan is de accu van de auto mogeljk leeg. Reserveer een andere auto voor de huurder via de knop [Boeken].</p>
       </fieldset>
 
     </div>
@@ -99,7 +97,7 @@
         <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas de auto in als de rit begonnen is.</span>
       </div>
       <div ng-if="booking.person.status === 'active' && booking.approved !== 'BUY_VOUCHER' && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">
-        Klik hieronder op [Versturen] om de auto op afstand te openen.
+        Klik hieronder op [Versturen] om de auto op afstand te openen. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.
       </div>
     </div>
 
