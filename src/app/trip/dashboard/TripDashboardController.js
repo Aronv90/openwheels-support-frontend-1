@@ -1008,7 +1008,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.close = function() {
     var confirm = $mdDialog.confirm()
     .title('Wil je de auto afsluiten?')
-    .textContent('Weet je zeker dat je deze auto wil afsluiten? Zorg dat de sleutel weer in de auto ligt en de verlichting (ook de binnenverlichting) uit is.')
+    .textContent('Weet je zeker dat je deze auto wil afsluiten? Zorg dat de sleutel weer in de auto ligt en de verlichting (ook de binnenverlichting) uit is. Vraag de huurder om te controleren of de auto op slot is.')
     .ok('Ja')
     .cancel('Nee');
 
