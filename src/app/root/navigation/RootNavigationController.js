@@ -19,6 +19,8 @@ angular.module('openwheels.root.navigation', [])
 	$scope.noPersonResults = false;
 	$scope.searchingForResourceResults = false;
 	$scope.searchingForPersonResults = false;
+	$scope.personsOverflow = false;
+	$scope.resourcesOverflow = false;
 	$rootScope.limit = true;
 
     checklistService.all().then(function (data) {
@@ -33,7 +35,16 @@ angular.module('openwheels.root.navigation', [])
 		return personService.search({
 			search: $viewValue,
 			limit: $rootScope.limit
-		});
+		})
+		.then(function(persons) {
+			$scope.personsOverflow = false;
+			if (persons.length > 9) {
+				persons = [];
+				$scope.personsOverflow = true;
+			}
+			$scope.personsResult = persons;
+			return persons;
+  		});
 	};
 
 	$scope.selectPerson = function () {
@@ -67,7 +78,16 @@ angular.module('openwheels.root.navigation', [])
 		return resourceService.select({
 			search: $viewValue,
 			limit: $rootScope.limit
-		});
+		})
+		.then(function(resources) {
+			$scope.resourcesOverflow = false;
+			if (resources.length > 9) {
+				resources = [];
+				$scope.resourcesOverflow = true;
+			}
+			$scope.resourcesResult = resources;
+			return resources;
+  		});
 	};
 
 	$scope.selectResource = function () {
