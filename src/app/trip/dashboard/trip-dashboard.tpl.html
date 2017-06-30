@@ -103,7 +103,7 @@
             <div class="box__divider"></div>
           </div>
         </div>
-        <div class="row box__row" ng-if="contract.type.id === 60">
+        <div class="row box__row">
           <div class="col-xs-12">
             <span class="box__slabel">
             Extra personen:
@@ -119,8 +119,11 @@
         </div>
         <div class="row box__row box__row--hover" ng-repeat="person in extraPersons"ng-if="extraPersons.length > 0">
           <div class="col-xs-10" >
-            <span class="box__slabel">
-              {{person.firstName ? person.firstName : person.email}}
+            <span class="box__slabel" ng-if="person.firstName">
+              <a ui-sref="root.person.show.trip({personId: person.id})">{{person.firstName}} {{person.preposition}} {{person.surname}}</a>
+            </span>
+            <span class="box__slabel" ng-if="!person.firstName">
+              <a ui-sref="root.person.show.trip({personId: person.id})">{{person.email}}</a>
             </span>
           </div>
           <div class="col-xs-2">

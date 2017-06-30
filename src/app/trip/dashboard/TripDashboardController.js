@@ -58,6 +58,11 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.extraPersons = res;
       });
     };
+  } else {
+    contractService.get({contract: contract.id})
+    .then(function(res) {
+      $scope.extraPersons = res.persons;
+    });
   }
 
   /*
