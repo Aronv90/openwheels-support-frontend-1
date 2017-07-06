@@ -600,31 +600,31 @@ angular.module('openwheels.trip.dashboard', [])
       }
     })
     .then(function(res) {
-      if(moment().isAfter(moment(booking.endBooking))) { // rit is al klaar
-        return bookingService.alter(
-          {
-            booking: booking.id, 
-            newProps: {
-              startBooking: booking.startBooking, 
-              endBooking: res
-            }
-          }
-        )
-        .then(function(booking) {
-          $scope.booking.endBooking = booking.endBooking;
-          $scope.booking.status = booking.status;
-          if ($scope.booking.resource.boardcomputer === 'ccome') {
-            // Resend the booking if boardcomputer is ccome
-            ccomeService.sendBooking({booking: $scope.booking.id})
-            .then(function(res) {
-              alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
-            })
-            .catch(function(err) {
-              alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
-            });
-          }
-        });
-      } else { // rit is nog bezig
+      // if(moment().isAfter(moment(booking.endBooking))) { // rit is al klaar
+      //   return bookingService.alter(
+      //     {
+      //       booking: booking.id, 
+      //       newProps: {
+      //         startBooking: booking.startBooking, 
+      //         endBooking: res
+      //       }
+      //     }
+      //   )
+      //   .then(function(booking) {
+      //     $scope.booking.endBooking = booking.endBooking;
+      //     $scope.booking.status = booking.status;
+      //     if ($scope.booking.resource.boardcomputer === 'ccome') {
+      //       // Resend the booking if boardcomputer is ccome
+      //       ccomeService.sendBooking({booking: $scope.booking.id})
+      //       .then(function(res) {
+      //         alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
+      //       })
+      //       .catch(function(err) {
+      //         alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
+      //       });
+      //     }
+      //   });
+      // } else { // rit is nog bezig
         return bookingService.alterRequest(
           {
             booking: booking.id,
@@ -639,7 +639,7 @@ angular.module('openwheels.trip.dashboard', [])
           $scope.booking.endBooking = booking.endBooking;
           $scope.booking.status = booking.status;
         });
-      }
+      // }
     })
     .then(function(booking) {
       return alertService.add('success', 'Rit is verlengd.', 5000);
@@ -1013,7 +1013,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.close = function() {
     var confirm = $mdDialog.confirm()
     .title('Wil je de auto afsluiten?')
-    .textContent('Weet je zeker dat je deze auto wil afsluiten? Zorg dat de sleutel weer in de auto ligt en de verlichting (ook de binnenverlichting) uit is. Vraag de huurder om te controleren of de auto op slot is.')
+    .textContent('Weet je zeker dat je deze auto wil afsluiten? Zorg dat de sleutel weer in de auto ligt, de deuren dicht zijn en de verlichting (ook de binnenverlichting) uit is. Vraag de huurder om te controleren of de auto op slot is.')
     .ok('Ja')
     .cancel('Nee');
 
@@ -1140,12 +1140,12 @@ angular.module('openwheels.trip.dashboard', [])
             startDate: $scope.booking.beginBooking, 
             endDate: $scope.booking.endBooking 
           },
-          radius: 5000,
+          radius: 10000,
           sort: 'relevance',
           offest: 0,
-          maxresults: 10, 
+          maxresults: 15, 
           filters: {
-            smartwheels: $scope.booking.resource.boardcomputer ? true : false
+            smartwheels: $scope.booking.resource.boardcomputer ? true : null
           },
           location: {
             latitude: $scope.booking.resource.latitude,
@@ -1242,12 +1242,12 @@ angular.module('openwheels.trip.dashboard', [])
               startDate: $scope.booking.beginBooking, 
               endDate: $scope.booking.endBooking 
             },
-            radius: 5000,
+            radius: 10000,
             sort: 'relevance',
             offest: 0,
-            maxresults: 10, 
+            maxresults: 15, 
             filters: {
-              smartwheels: $scope.booking.resource.boardcomputer ? true : false
+              smartwheels: $scope.booking.resource.boardcomputer ? true : null
             },
             location: {
               latitude: $scope.booking.resource.latitude,

@@ -32,18 +32,21 @@ angular.module('openwheels.root.navigation', [])
 	 */
 	$scope.selectedPerson = undefined;
 	$scope.searchPersons = function ($viewValue) {
+		$scope.personsOverflow = false;
 		return personService.search({
 			search: $viewValue,
 			limit: $rootScope.limit
 		})
 		.then(function(persons) {
-			$scope.personsOverflow = false;
 			if (persons.length > 9) {
 				persons = [];
 				$scope.personsOverflow = true;
+				return persons;
+			} else {
+				$scope.personsResult = persons;
+				$scope.personsOverflow = false;
+				return persons;	
 			}
-			$scope.personsResult = persons;
-			return persons;
   		});
 	};
 
@@ -75,18 +78,21 @@ angular.module('openwheels.root.navigation', [])
 	 */
 	$scope.selectedResource = undefined;
 	$scope.searchResources = function ($viewValue) {
+		$scope.resourcesOverflow = false;
 		return resourceService.select({
 			search: $viewValue,
 			limit: $rootScope.limit
 		})
 		.then(function(resources) {
-			$scope.resourcesOverflow = false;
 			if (resources.length > 9) {
 				resources = [];
 				$scope.resourcesOverflow = true;
+				return resources;
+			} else {
+				$scope.resourcesResult = resources;
+				$scope.resourcesOverflow = false;
+				return resources;	
 			}
-			$scope.resourcesResult = resources;
-			return resources;
   		});
 	};
 

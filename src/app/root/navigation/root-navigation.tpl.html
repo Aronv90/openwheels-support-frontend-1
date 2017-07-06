@@ -244,7 +244,8 @@
                typeahead-min-length="3" typeahead-on-select="selectPerson()"
                typeahead-input-formatter="formatPerson($model)"
                typeahead-no-results="noPersonResults"
-               typeahead-loading="searchingForPersonResults">
+               typeahead-loading="searchingForPersonResults"
+               typeahead-wait-ms="300">
         <span ng-if="noPersonResults && !searchingForPersonResults && !personsOverflow" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
             <li class="uib-typeahead-match">No persons found.</li>
@@ -270,7 +271,8 @@
                typeahead-min-length="3" typeahead-on-select="selectResource()"
                typeahead-input-formatter="formatResource($model)"
                typeahead-no-results="noResourceResults"
-               typeahead-loading="searchingForResourceResults">
+               typeahead-loading="searchingForResourceResults"
+               typeahead-wait-ms="300">
         <span ng-if="noResourceResults && !searchingForResourceResults && !resourcesOverflow" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
             <li class="uib-typeahead-match">No resources found.</li>

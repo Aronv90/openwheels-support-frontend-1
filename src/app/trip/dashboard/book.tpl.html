@@ -43,7 +43,7 @@
                 <md-list-item>
                     <md-icon>location_on</md-icon>
                     <div flex>
-                      <span> {{ resource.location }}, {{ resource.city | toTitleCase }}
+                      <span> {{ resource.location }} {{ resource.streetNumber }}, {{ resource.city | toTitleCase }}
                         <span ng-if="resource.distance_to"> ({{ resource.distance_to | formatKilometers }})</span>
                       </span>
                     </div>
