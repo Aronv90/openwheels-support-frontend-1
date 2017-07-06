@@ -307,7 +307,7 @@
           <!--<div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor anderen?">Besch. overig</span></div>-->
           <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableOthers ? 'Ja': 'Nee'}} {{booking.resource.isConfirmationRequiredOthers ? ', bevestiging nodig' : ', geen bev'}}</span></div>-->
           <div class="col-xs-5"><span class="box__slabel" title="Locatie">Locatie</span></div>
-          <div class="col-xs-7"><span class="box__sdata box__sdata--small" title="{{booking.resource.location + ', ' + booking.resource.city}}">{{booking.resource.location}}<br>{{booking.resource.city}}</span></div>
+          <div class="col-xs-7"><span class="box__sdata box__sdata--small" title="{{booking.resource.location + ', ' + booking.resource.city}}">{{booking.resource.location}} {{ booking.resource.streetNumber }}<br>{{booking.resource.city}}</span></div>
           <div class="col-xs-5"><span class="box__slabel" title="Openen met">Openen met</span></div>
           <div class="col-xs-7">
             <span class="box__sdata box__sdata--small" ng-if="booking.resource.locktype === 'smartphone'">Smartphone</span>
