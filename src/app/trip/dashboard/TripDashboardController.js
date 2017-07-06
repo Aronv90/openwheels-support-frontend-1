@@ -600,31 +600,31 @@ angular.module('openwheels.trip.dashboard', [])
       }
     })
     .then(function(res) {
-      if(moment().isAfter(moment(booking.endBooking))) { // rit is al klaar
-        return bookingService.alter(
-          {
-            booking: booking.id, 
-            newProps: {
-              startBooking: booking.startBooking, 
-              endBooking: res
-            }
-          }
-        )
-        .then(function(booking) {
-          $scope.booking.endBooking = booking.endBooking;
-          $scope.booking.status = booking.status;
-          if ($scope.booking.resource.boardcomputer === 'ccome') {
-            // Resend the booking if boardcomputer is ccome
-            ccomeService.sendBooking({booking: $scope.booking.id})
-            .then(function(res) {
-              alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
-            })
-            .catch(function(err) {
-              alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
-            });
-          }
-        });
-      } else { // rit is nog bezig
+      // if(moment().isAfter(moment(booking.endBooking))) { // rit is al klaar
+      //   return bookingService.alter(
+      //     {
+      //       booking: booking.id, 
+      //       newProps: {
+      //         startBooking: booking.startBooking, 
+      //         endBooking: res
+      //       }
+      //     }
+      //   )
+      //   .then(function(booking) {
+      //     $scope.booking.endBooking = booking.endBooking;
+      //     $scope.booking.status = booking.status;
+      //     if ($scope.booking.resource.boardcomputer === 'ccome') {
+      //       // Resend the booking if boardcomputer is ccome
+      //       ccomeService.sendBooking({booking: $scope.booking.id})
+      //       .then(function(res) {
+      //         alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
+      //       })
+      //       .catch(function(err) {
+      //         alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
+      //       });
+      //     }
+      //   });
+      // } else { // rit is nog bezig
         return bookingService.alterRequest(
           {
             booking: booking.id,
@@ -639,7 +639,7 @@ angular.module('openwheels.trip.dashboard', [])
           $scope.booking.endBooking = booking.endBooking;
           $scope.booking.status = booking.status;
         });
-      }
+      // }
     })
     .then(function(booking) {
       return alertService.add('success', 'Rit is verlengd.', 5000);
