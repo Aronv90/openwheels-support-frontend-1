@@ -16,7 +16,7 @@
           <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }"> {{ r.isActive ? 'Active' : 'Inactive' }}</span>
         </div>
         <div>{{ r.brand }} {{ r.model }}</div>
-        <div><i class="fa fa-map-marker fa-fw"></i> {{ r.location }}, {{ r.city }}</div>
+        <div><i class="fa fa-map-marker fa-fw"></i> {{ r.location }} {{ r.streetNumber }}, {{ r.city }}</div>
         <ul class="list-inline">
           <li>
             <i class="fa fa-user fa-fw"></i> <a ui-sref="root.person.show.summary({personId: r.owner.id })">{{ r.owner.firstName }} {{ r.owner.surname }}</a>
