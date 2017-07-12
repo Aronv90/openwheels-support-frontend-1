@@ -12,7 +12,7 @@
   <md-dialog-content>
     <div layout="column" layout-margin class="md-dialog-content" ng-if="booking.resource.boardcomputer === 'ccome'">
       <h3>OV-chipkaart</h3>
-      <p>Een huurder opent deze auto met een OV-chipkaart. <span ng-if="booking.person.status === 'active' && booking.approved !== 'BUY_VOUCHER' && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">Gaat de auto niet open? Vraag welk kleur lampje de gele chipkaartlezer op de voorruit toont als de huurder de OV-chipkaart voor de lezer houdt. Selecteer hieronder de kleur.</span></p>
+      <p>Een huurder opent deze auto met een OV-chipkaart. <span ng-if="booking.person.status === 'active' && booking.approved !== 'BUY_VOUCHER' && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">Gaat de auto niet open? <strong>Vraag welk kleur lampje de gele chipkaartlezer op de voorruit toont als de huurder de OV-chipkaart voor de lezer houdt.</strong> Selecteer hieronder de kleur.</span></p>
       <form ng-if="booking.person.status === 'active' && booking.approved !== 'BUY_VOUCHER' && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">
         <md-radio-group ng-model="$parent.ccomeColor">
           <md-radio-button value="green">Groen</md-radio-button>
@@ -26,22 +26,27 @@
         <span ng-if="booking.person.status !== 'active'">De huurder heeft nog geen goedgekeurd account.<br/></span>
         <span ng-if="booking.approved === 'BUY_VOUCHER'">De huurder heeft de rit nog niet betaald of de betaling is nog niet goedgekeurd.<br/></span>
         <span ng-if="booking.status !== 'accepted'">De verhuurder heeft de rit nog niet geaccepteerd of de rit is geannuleerd.<br/></span>
-        <span ng-if="booking.endBooking < now">De rit is reeds afgelopen en eindigde om {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Wijzig de eindtijd via de knop [Verleng] om de huurder weer toegang te geven of maak een nieuwe reservering via de knop [Boeken].<br/></span>
+        <span ng-if="booking.endBooking < now">De rit is reeds afgelopen en eindigde om {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Wijzig de eindtijd via de knop [Verleng] om de huurder weer toegang te geven of maak een nieuwe reservering via de knop <strong>[Boeken]</strong>.<br/></span>
         <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas de auto in als de rit begonnen is.</span>
       </div>
 
       <hr/>
 
+      <strong ng-if="ccomeColor != ''">Onderneem dan de volgende acties:</strong>
+
       <fieldset class="standard" ng-if="ccomeColor === 'green'">
-        <p>De auto zou open moeten gaan. Zo niet, kan dit de volgende oorzaken hebben:</p>
         <md-checkbox aria-label="Chipkaart te lang voor lezer" class="md-warn md-align-top-left">
-          <span>De OV-chipkaart wordt te lang voor de lezer gehouden. Vraag om de chipkaart heel kort voor de lezer te houden. Vaak moet de huurder dit een aantal keer proberen.</span>
+          <span>De OV-chipkaart wordt te lang voor de lezer gehouden. Vraag om de chipkaart heel kort voor de lezer te houden. Vaak moet de huurder dit een aantal keer proberen. Vraag de huurder om de chipkaart heel kort ervoor te houden.</span>
         </md-checkbox>
         <md-checkbox aria-label="Deuren zijn niet dicht" class="md-warn md-align-top-left">
           <span>Eén van de deuren is niet goed dicht. Vraag om alle deuren én de achterklep goed dicht te drukken/duwen. Daarna de chipkaart nogmaals voor de lezer houden, dan zou de auto open moeten gaan.</span>
         </md-checkbox>
-        <p>Gaan de deuren nog niet open? Klik dan hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</p>
-        <p ng-if="booking.resource.contactPerson.id !== 282">Opent de auto ook niet op afstand? Bel dan de beheerder van de auto op zodat diegene de auto met de sleutel kan openen: {{ booking.resource.contactPerson.phoneNumbers[0].number }}.</p>
+        <md-checkbox aria-label="Op afstand openen" class="md-warn md-align-top-left">
+          Gaan de deuren nog niet open? Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.
+        </md-checkbox>
+        <md-checkbox aria-label="Beheerder bellen" class="md-warn md-align-top-left" ng-if="booking.resource.contactPerson.id !== 282">
+          Opent de auto ook niet op afstand? Bel dan de beheerder van de auto op zodat diegene de auto met de sleutel kan openen: {{ booking.resource.contactPerson.phoneNumbers[0].number }}.
+        </md-checkbox>
       </fieldset>
 
       <fieldset class="standard" ng-if="ccomeColor === 'red'">
@@ -54,17 +59,22 @@
           <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas de auto in als de rit begonnen is.</span>
         </div>
         <div ng-if="booking.person.status === 'active' && booking.approved !== 'BUY_VOUCHER' && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">
-          <p>Stuur allereerst de boeking nogmaals naar de boordcomputer door <a ng-click="ccome()"><strong>hier</strong></a> te klikken. Vraag de huurder om over 45 seconden nogmaals de OV-chipkaart bij de lezer te houden. Nog steeds een rood lampje? Dan kan dit de volgende oorzaken hebben:</p>
+          <md-checkbox aria-label="Opnieuw versturen" class="md-warn md-align-top-left">
+            Stuur allereerst de boeking nogmaals naar de boordcomputer door <a ng-click="ccome()"><strong>[hier]</strong></a> te klikken. Vraag de huurder om over 45 seconden nogmaals de OV-chipkaart bij de lezer te houden.
+          </md-checkbox>
+          <p>Nog steeds een rood lampje? Dan kan dit de volgende oorzaken hebben:</p>
           <md-checkbox aria-label="Verkeerde auto" class="md-warn md-align-top-left">
             <span>De huurder staat niet bij de juiste auto. Vraag of de huurder bij de auto met kenteken {{ booking.resource.registrationPlate }} staat.</span>
           </md-checkbox>
           <md-checkbox aria-label="Andere chipkaart" class="md-warn md-align-top-left">
-            <span>Gebruikt de huurder dezelfde OV-chipkaart als bij zijn of haar vorige reservering? De auto gaat enkel open als dezelfde OV-chipkaart gebruikt wordt. Heeft de huurder inmiddels een andere OV-chipkaart? Klik dan op de knop [Chipkaart] om een nieuwe OV-chipkaart te koppelen.</span>
+            <span>Gebruikt de huurder dezelfde OV-chipkaart als bij zijn of haar vorige reservering? De auto gaat enkel open als dezelfde OV-chipkaart gebruikt wordt. Heeft de huurder inmiddels een andere OV-chipkaart? Klik dan op de knop <strong>[Chipkaart]</strong> om een nieuwe OV-chipkaart te koppelen.</span>
           </md-checkbox>
           <md-checkbox aria-label="Chipkaart in portemonnee" class="md-warn md-align-top-left">
             <span>De OV-chipkaart zit in een portemonnee. Vraag de huurder om alleen de OV-chipkaart voor de lezer te houden.</span>
           </md-checkbox>
-          <p>Gaan de deuren nog niet open? Klik dan hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</p>
+          <md-checkbox aria-label="Op afstand openen" class="md-warn md-align-top-left">
+            Gaan de deuren nog niet open? Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.
+          </md-checkbox>
         </div>
       </fieldset>
 
@@ -77,9 +87,9 @@
           <span>De OV-chipkaart zit in een portemonnee. Vraag de huurder om alleen de OV-chipkaart voor de lezer te houden.</span>
         </md-checkbox>
         <md-checkbox aria-label="Defecte OV-chipkaart" class="md-warn md-align-top-left">
-          <span>De OV-chipkaart is defect. Klik hieronder op [Versturen] om de auto op afstand te openen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Adviseer de huurder om een nieuwe OV-chipkaart aan te schaffen. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</span>
+          <span>De OV-chipkaart is defect. Klik hieronder op <strong>[Versturen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden. Adviseer de huurder om een nieuwe OV-chipkaart aan te schaffen. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</span>
         </md-checkbox>
-        <p>Opent de auto in de stap hiervoor ook niet op afstand? Dan is de accu van de auto mogeljk leeg. Reserveer een andere auto voor de huurder via de knop [Boeken].</p>
+        <p>Opent de auto in de stap hiervoor ook niet op afstand? Dan is de accu van de auto mogeljk leeg. Reserveer een andere auto voor de huurder via de knop <strong>[Boeken]</strong> en blokkeer deze auto.</p>
       </fieldset>
 
     </div>
@@ -93,11 +103,11 @@
         <span ng-if="booking.person.status !== 'active'">De huurder heeft nog geen goedgekeurd account.<br/></span>
         <span ng-if="booking.approved === 'BUY_VOUCHER'">De huurder heeft de rit nog niet betaald of de betaling is nog niet goedgekeurd.<br/></span>
         <span ng-if="booking.status !== 'accepted'">De verhuurder heeft de rit nog niet geaccepteerd of de rit is geannuleerd.<br/></span>
-        <span ng-if="booking.endBooking < now">De rit is reeds afgelopen en eindigde om {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Wijzig de eindtijd via de knop [Verleng] om de huurder weer toegang te geven of maak een nieuwe reservering via de knop [Boeken].<br/></span>
+        <span ng-if="booking.endBooking < now">De rit is reeds afgelopen en eindigde om {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Wijzig de eindtijd via de knop [Verleng] om de huurder weer toegang te geven of maak een nieuwe reservering via de knop <strong>[Boeken]</strong>.<br/></span>
         <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas de auto in als de rit begonnen is.</span>
       </div>
       <div ng-if="booking.person.status === 'active' && booking.approved !== 'BUY_VOUCHER' && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">
-        Klik hieronder op [Versturen] om de auto op afstand te openen. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.
+        Klik hieronder op <strong>[Versturen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.
       </div>
     </div>
 
