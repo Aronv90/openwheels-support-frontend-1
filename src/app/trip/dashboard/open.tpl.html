@@ -122,7 +122,7 @@
     <md-button ng-click="cancel()">
      Sluiten
     </md-button>
-    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="booking.person.status !== 'active' || booking.approved === 'BUY_VOUCHER' || booking.status !== 'accepted' || booking.beginBooking > now || booking.endBooking < now">
+    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="booking.person.status !== 'active' || booking.approved === 'BUY_VOUCHER' || booking.status !== 'accepted' || booking.beginBooking > now">
       Versturen
     </md-button>
   </md-dialog-actions>
