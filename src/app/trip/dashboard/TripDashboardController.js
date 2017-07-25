@@ -646,8 +646,10 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .catch(function(err) {
       if(err && err.message) {
-        if(err.message.indexOf('onvoldoende')) {
-          alertService.add('danger', err.message + '. Je hebt nog ' + err.data.extra_credit + ' euro extra rijtegoed nodig voordat je de boeking kan verlengen.', 7000);
+        if(err.message.match('onvoldoende')) {
+          alertService.add('danger', err.message + '. De huurder heeft nog ' + err.data.extra_credit + ' euro extra rijtegoed nodig voordat de boeking verlengd kan worden.', 7000);
+        } else if (err.message.match('kilometers van de rit zijn al ingevuld')) {
+          alertService.add('danger', 'De rit kon niet verlengd worden: de rit is een uur na de eindtijd automatisch afgesloten. Maak een nieuwe reservering voor deze huurder via de knop [Boeken].', 7000);
         } else {
           alertService.add('danger', 'De rit kon niet verlengd worden: ' + err.message, 5000);
         }
