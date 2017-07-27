@@ -30,11 +30,13 @@
       <fieldset class="standard" ng-if="damageOptions === 'ownDamage'">
         <p>De huurder geeft aan zelf de schade veroorzaakt te hebben zonder dat er een tegenpartij bij betrokken is (eenzijdig ongeluk). Bepaal in overleg met de huurder of doorrijden veilig kan of dat de auto weggesleept moet worden.</p>
 
-        <p ng-if="booking.owner.resource.id === 282">Kan de auto niet verder rijden? Vraag dan aan de huurder wat zijn of haar huidige locatie is en bel Interhelp op nummer 013-4620462 en noem het kenteken van de auto.
+        <p ng-if="booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving: {{ booking.resource.roadAssistance }}
         <br/><br/>
-        De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer.</p>
+        De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
+        <br><br>
+        Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
 
-        <p ng-if="!booking.owner.resource.boardcomputer">Kan de auto niet verder rijden? Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
+        <p ng-if="!booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
         <br/><br/>
         De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
         <br><br>
@@ -56,9 +58,13 @@
         
         <p>Bepaal in overleg met de huurder of doorrijden veilig kan of dat de auto weggesleept moet worden.</p>
 
-        <p ng-if="booking.resource.owner.id === 282">Kan de auto niet verder rijden? Vraag dan aan de huurder wat zijn of haar huidige locatie is en bel Interhelp op nummer 013-4620462 en noem het kenteken van de auto. De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. De huurder moet aanwezig zijn bij de auto als deze door de berger wordt opgehaald anders wordt deze niet meegenomen, er dient namelijk voor het ophalen getekend te worden.</p>
+        <p ng-if="booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving: {{ booking.resource.roadAssistance }}
+        <br/><br/>
+        De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
+        <br><br>
+        Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
 
-        <p ng-if="!booking.booking.resource.boardcomputer">Kan de auto niet verder rijden? Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
+        <p ng-if="!booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
         <br/><br/>
         De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. De huurder moet aanwezig zijn bij de auto als deze door de berger wordt opgehaald anders wordt deze niet meegenomen, er dient namelijk voor het ophalen getekend te worden. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering.
         <br><br>
