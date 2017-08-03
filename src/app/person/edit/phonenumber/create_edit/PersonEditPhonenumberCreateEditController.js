@@ -23,7 +23,8 @@ angular.module('openwheels.person.edit.data.phonenumber.create_edit', [])
           newProps: {
             type: phone.type,
             number: phone.number,
-            confidential: phone.confidential
+            confidential: phone.confidential,
+            verified: phone.verified
           }
         }).then(function (result) {
           $uibModalInstance.close(result);
@@ -33,7 +34,8 @@ angular.module('openwheels.person.edit.data.phonenumber.create_edit', [])
           id: person.id,
           number: phone.number,
           type: phone.type,
-          confidential: phone.confidential
+          confidential: phone.confidential,
+          verified: phone.verified
         }).then(function (result) {
           $uibModalInstance.close(result);
         });
