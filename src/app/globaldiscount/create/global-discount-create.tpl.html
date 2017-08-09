@@ -15,6 +15,19 @@
             </div>
 
             <div class="form-group">
+                <label for="resource">Resource</label>
+                <input type="text" id="resource" class="form-control input-sm typeahead" placeholder="Search resource"
+                       ng-model="globalDiscount.resource"
+                       uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+                       typeahead-min-length="3" typeahead-input-formatter="formatResource($model)">
+            </div>
+
+            <div class="form-group">
+                <label for="sender">Sender</label>
+                <input find-person model="globalDiscount.sender" id="sender" name="sender" />
+            </div>
+
+            <div class="form-group">
                 <label for="recipient">Person (optional)</label>
                 <input find-person model="globalDiscount.recipient" id="recipient" name="recipient" />
             </div>

@@ -2,10 +2,9 @@
 
 angular.module('openwheels.globaldiscount.create', [])
 
-  .controller('GlobalDiscountCreateController', function ($scope, $log, $state, $filter, $stateParams, alertService, personService, discountService) {
+  .controller('GlobalDiscountCreateController', function ($scope, $log, $state, $filter, $stateParams, alertService, personService, discountService, resourceService) {
 
     $scope.globalDiscount = {};
-    $scope.globalDiscount.sender = null;
     $scope.globalDiscount.resource = null;
 
     $scope.dateConfig = {
@@ -30,6 +29,23 @@ angular.module('openwheels.globaldiscount.create', [])
     };
 
     /**
+     * Typeahead Resource
+     */
+    $scope.searchResources = function ($viewValue) {
+      return resourceService.select({
+        search: $viewValue
+      });
+    };
+
+    $scope.formatResource = function ($model) {
+      var inputLabel = '';
+      if ($model) {
+        inputLabel = '[' + $model.id + ']' + ' ' + $model.alias;
+      }
+      return inputLabel;
+    };
+
+    /**
      * A convenience method for detecting a legitimate non-null value.
      * Returns false for null/undefined/NaN/Infinity, true for other values,
      * including 0/false/''
@@ -41,7 +57,7 @@ angular.module('openwheels.globaldiscount.create', [])
     angular.isValue = function(val) {
       return !(val === null || !angular.isDefined(val) || (angular.isNumber(val) && !isFinite(val)));
     };
-    
+
     $scope.save = function () {
       discountService.create({
         code: $scope.globalDiscount.code,
@@ -49,8 +65,9 @@ angular.module('openwheels.globaldiscount.create', [])
         percentage: $scope.globalDiscount.percentage,
         validFrom: $scope.globalDiscount.from,
         validUntil: $scope.globalDiscount.until,
-        recipient:  angular.isValue($scope.globalDiscount.recipient) ? $scope.globalDiscount.recipient.id : null,
-        resource: $scope.globalDiscount.resource,
+        sender: angular.isValue($scope.globalDiscount.sender) ? $scope.globalDiscount.sender.id : null,
+        recipient: angular.isValue($scope.globalDiscount.recipient) ? $scope.globalDiscount.recipient.id : null,
+        resource: angular.isValue($scope.globalDiscount.resource) ? $scope.globalDiscount.resource.id : null,
         multiple: $scope.globalDiscount.multiple,
         global: $scope.globalDiscount.global,
         globalCharge: $scope.globalDiscount.globalCharge
