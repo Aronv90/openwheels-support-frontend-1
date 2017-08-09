@@ -92,6 +92,7 @@ angular.module('openwheels', [
   'openwheels.person',
   'openwheels.contract',
   'openwheels.resource',
+  'openwheels.globaldiscount',
   'openwheels.invoice',
   'openwheels.invoice2',
   'openwheels.mailer',

@@ -236,6 +236,14 @@
       </li>
     </ul>
 
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+      <li ng-class="{ dropdown: true, active: $state.includes('root.globaldiscount') }">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Global Discounts <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a ui-sref="root.globaldiscount.create">Create global discount</a></li>
+        </ul>
+      </li>
+    </ul>
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search person by name"
