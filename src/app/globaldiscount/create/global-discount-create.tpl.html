@@ -1,0 +1,114 @@
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <h1>Create new global Discount</h1>
+    </div>
+</div>
+
+<div class="panel panel-default card">
+    <div class="panel-body">
+        <form ng-submit="save(globalDiscount)" name="createGlobalDiscountForm">
+
+            <div class="form-group">
+                <label for="code">Discount code (optional)</label>
+                <input name="code" id="code" type="text" class="form-control input-sm typeahead" placeholder="Discount code"
+                       ng-model="globalDiscount.code">
+            </div>
+
+            <div class="form-group">
+                <label for="resource">Resource</label>
+                <input type="text" id="resource" class="form-control input-sm typeahead" placeholder="Search resource"
+                       ng-model="globalDiscount.resource"
+                       uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+                       typeahead-min-length="3" typeahead-input-formatter="formatResource($model)">
+            </div>
+
+            <div class="form-group">
+                <label for="sender">Sender</label>
+                <input find-person model="globalDiscount.sender" required id="sender" name="sender" />
+            </div>
+
+            <div class="form-group">
+                <label for="recipient">Person (optional)</label>
+                <input find-person model="globalDiscount.recipient" id="recipient" name="recipient" />
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <label for="from">From (optional)</label>
+                        <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                               ng-model="globalDiscount.from" pickadate="dateConfig">
+                    </div>
+
+                    <div class="col-xs-6">
+                        <label for="until">Until (optional)</label>
+                        <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                               ng-model="globalDiscount.until" pickadate="dateConfig">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">€</span>
+                            <input type="text" smart-float id="amount" name="amount" class="form-control"
+                                   ng-model="globalDiscount.amount" placeholder="amount" ng-disabled="discount.percentage">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="form-group">
+                        <label for="hourRate">Percentage</label>
+
+                        <div class="input-group">
+                            <span class="input-group-addon">%</span>
+                            <input type="text" smart-float id="percentage" name="percentage" class="form-control"
+                                   ng-model="globalDiscount.percentage" placeholder="percentage" ng-disabled="discount.amount">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-grouo">
+                <b>Options</b>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="globalDiscount.multiple"> Multiple
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="globalDiscount.global"> Global
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="globalDiscount.globalCharge"> GlobalCharge
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-2">
+                        <button id="clear" type="reset" class="btn btn-default pull-right" >Cancel</button>
+                        <button id="submitForm" type="submit" class="btn btn-primary pull-left" ng-disabled="createGlobalDiscountForm.$pristine">Submit</button>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>

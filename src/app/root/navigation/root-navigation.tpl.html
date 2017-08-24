@@ -15,7 +15,7 @@
           ng-class="{ dropdown: true, active: $state.includes('root.person') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Person <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li ng-if="user.identity.id !== 542476"><a ui-sref="root.person.create">Add person</a></li>
+          <li show-if-user-has-role="ROLE_ADMIN"><a ui-sref="root.person.create">Add person</a></li>
           <li><a ui-sref="root.person.search">Advanced search</a></li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
             ui-sref="root.person.blacklist">Blacklist</a>
@@ -236,6 +236,14 @@
       </li>
     </ul>
 
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+      <li ng-class="{ dropdown: true, active: $state.includes('root.globaldiscount') }">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Discount<b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a ui-sref="root.globaldiscount.create">Create global discount</a></li>
+        </ul>
+      </li>
+    </ul>
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Search person by name"
