@@ -18,7 +18,7 @@
             <td class="text-right">{{ phone.sortOrder }}</td>
             <td>{{ phone.number }}</td>
             <td>{{ phone.type }}</td>
-            <td>{{ phone.verified }}</td>
+            <td>{{ phone.verified ? 'Yes' : 'No' }}</td>
             <td><i ng-class="{ 'fa fa-eye': !phone.confidential, 'fa fa-eye-slash': phone.confidential }"></i></td>
         </tr>
     </tbody>

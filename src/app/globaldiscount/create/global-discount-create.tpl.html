@@ -9,7 +9,7 @@
         <form ng-submit="save(globalDiscount)" name="createGlobalDiscountForm">
 
             <div class="form-group">
-                <label for="code">Discount Code</label>
+                <label for="code">Discount code (optional)</label>
                 <input name="code" id="code" type="text" class="form-control input-sm typeahead" placeholder="Discount code"
                        ng-model="globalDiscount.code">
             </div>
@@ -24,7 +24,7 @@
 
             <div class="form-group">
                 <label for="sender">Sender</label>
-                <input find-person model="globalDiscount.sender" id="sender" name="sender" />
+                <input find-person model="globalDiscount.sender" required id="sender" name="sender" />
             </div>
 
             <div class="form-group">
@@ -56,7 +56,7 @@
                         <div class="input-group">
                             <span class="input-group-addon">€</span>
                             <input type="text" smart-float id="amount" name="amount" class="form-control"
-                                   ng-model="globalDiscount.amount" required placeholder="amount" ng-disabled="discount.percentage">
+                                   ng-model="globalDiscount.amount" placeholder="amount" ng-disabled="discount.percentage">
                         </div>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                         <div class="input-group">
                             <span class="input-group-addon">%</span>
                             <input type="text" smart-float id="percentage" name="percentage" class="form-control"
-                                   ng-model="globalDiscount.percentage" required placeholder="percentage" ng-disabled="discount.amount">
+                                   ng-model="globalDiscount.percentage" placeholder="percentage" ng-disabled="discount.amount">
                         </div>
                     </div>
                 </div>
@@ -75,27 +75,38 @@
 
             <div class="form-grouo">
                 <b>Options</b>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="globalDiscount.multiple"> Multiple
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="globalDiscount.global"> Global
-                    </label>
-                </div>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" ng-model="globalDiscount.globalCharge"> GlobalCharge
-                    </label>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="globalDiscount.multiple"> Multiple
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="globalDiscount.global"> Global
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="globalDiscount.globalCharge"> GlobalCharge
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-
             <div class="form-group">
-                <button id="clear" type="reset" class="btn btn-default pull-right" >Cancel</button>
-                <button id="submitForm" type="submit" class="btn btn-primary pull-left" ng-disabled="createGlobalDiscountForm.$pristine">Submit</button>
+                <div class="row">
+                    <div class="col-xs-2">
+                        <button id="clear" type="reset" class="btn btn-default pull-right" >Cancel</button>
+                        <button id="submitForm" type="submit" class="btn btn-primary pull-left" ng-disabled="createGlobalDiscountForm.$pristine">Submit</button>
+                    </div>
+                </div>
             </div>
 
         </form>
