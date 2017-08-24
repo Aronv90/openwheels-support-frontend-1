@@ -16,7 +16,11 @@
       <tr>
         <th>Remark</th>
         <td>{{person.remark}}</td>
-      </tr>      
+      </tr>    
+      <tr>
+        <th>Email verified</th>
+        <td>{{person.emailVerified ? 'Yes' : 'No'}}</td>
+      </tr>
       <tr>
         <th>Preference</th>
         <td>{{person.preference}}</td>
@@ -42,7 +46,7 @@
         <td>{{person.account.adres}}</td>
       </tr>
       <tr>
-        <th>Iban Account</th>
+        <th>Account IBAN</th>
         <td>{{person.account.iban}}</td>
       </tr>
     </table>
