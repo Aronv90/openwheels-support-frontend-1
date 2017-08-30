@@ -1,4 +1,16 @@
 <div class="row">
+  <div class="col-sm-12" ng-if="!booking.ok || booking.status !== 'accepted'" style="padding-bottom: .5em;">
+    <div class="notice notice--neg">
+      <strong>De verhuurder mag de auto nog niet meegeven aan de huurder omdat de rit nog niet in orde is:</strong>
+      <strong ng-if="booking.person.status === 'blocked'"><br>- Het account van de huurder is gedeactiveerd.</strong>
+      <strong ng-if="booking.person.status === 'book-only'"><br>- Het account van de huurder moet nog handmatig gecontroleerd worden.</strong>
+      <strong ng-if="booking.approved === 'BUY_VOUCHER'"><br>- De rit is nog niet betaald.</strong>
+      <strong ng-if="booking.status === 'requested'"><br>- De rit is nog niet geaccepteerd.</strong>
+      <strong ng-if="booking.status === 'cancelled' || booking.status === 'owner_cancelled' "><br>- De rit is geannuleerd.</strong>
+      <strong ng-if="booking.status === 'rejected' "><br>- De rit is afgewezen door de verhuurder.</strong>
+    </div>
+  </div>
+
   <div class="col-sm-12" ng-show="!showNoticeDriver && booking.person.remark" style="padding-bottom: .5em;">
     <div class="notice notice--driver">
       <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
@@ -42,6 +54,7 @@
       <span ng-click="showBookingNoticeOwner=!showBookingNoticeOwner" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
     </div>
   </div>
+
 </div>
 
 <div class="row">
