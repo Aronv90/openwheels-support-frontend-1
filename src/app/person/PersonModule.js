@@ -435,6 +435,24 @@ angular.module('openwheels.person', [
       }
     });
 
+    $stateProvider.state('root.person.show.communication', {
+      url: '/communication',
+      controller: 'PersonShowCommunicationController',
+      templateUrl: 'person/show/communication/person-show-communication.tpl.html',
+      data: {pageTitle: 'Person communication'},
+      resolve: {
+        communication: ['$stateParams', 'conversationService', 'perPage', function ($stateParams, conversationService, perPage) {
+          var params = {};
+          params.person = $stateParams.personId;
+          params.limit = perPage;
+          params.offset = 0;
+
+          return conversationService.getCommunicationMessages(params);
+        }],
+        perPage: function(){ return 20;}
+      }
+    });
+
 		/* Vouchers */
 		$stateProvider.state('root.person.show.vouchers', {
 			url: '/vouchers',

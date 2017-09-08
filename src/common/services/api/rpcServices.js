@@ -320,6 +320,7 @@ angular.module('rpcServices', [])
       this.count = m('count');
       this.getTypes = m('getTypesAsArray');
       this.getType = m('getTypeAsArray');
+      this.getCommunicationMessages = m('getCommunicationMessages');
     })
 
     .service('bankService', function (api) {
