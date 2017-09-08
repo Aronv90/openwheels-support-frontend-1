@@ -22,7 +22,6 @@ angular.module('openwheels.person.edit.data.contact', [])
       .then(function (returnedPerson) {
         angular.extend(person, returnedPerson);
         masterPerson = returnedPerson;
-        console.log(returnedPerson.emailVerified);
         $scope.person.emailValid = returnedPerson.emailVerified;
         alertService.add('success', 'Person Modified.', 2000);
         $scope.cancel();
