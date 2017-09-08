@@ -5,12 +5,15 @@ angular.module('openwheels.person.edit.data.contact', [])
 .controller('PersonEditContactController', function ($scope, $timeout, dutchZipcodeService, personService, person, alertService) {
 
   var masterPerson = person;
+  $scope.person.emailValid = person.emailVerified;
 
   $scope.cancel = function () {
     $scope.person = angular.copy(masterPerson);
+    $scope.person.emailValid = masterPerson.emailVerified;
   };
 
   $scope.save = function () {
+    $scope.person.emailVerified = $scope.person.emailValid;
     var newProps = difference(masterPerson, $scope.person);
     personService.alter({
       id: masterPerson.id,
@@ -19,6 +22,8 @@ angular.module('openwheels.person.edit.data.contact', [])
       .then(function (returnedPerson) {
         angular.extend(person, returnedPerson);
         masterPerson = returnedPerson;
+        console.log(returnedPerson.emailVerified);
+        $scope.person.emailValid = returnedPerson.emailVerified;
         alertService.add('success', 'Person Modified.', 2000);
         $scope.cancel();
       },
