@@ -417,6 +417,24 @@ angular.module('openwheels.person', [
 			data: {pageTitle: 'Person Badges'}
 		});
 
+    $stateProvider.state('root.person.show.messages', {
+      url: '/messages',
+      controller: 'PersonShowMessagesController',
+      templateUrl: 'person/show/messages/person-show-messages.tpl.html',
+      data: {pageTitle: 'Person messages'},
+      resolve: {
+        messages: ['$stateParams', 'messageService', 'perPage', function ($stateParams, messageService, perPage) {
+          var params = {};
+          params.person = $stateParams.personId;
+          params.limit = perPage;
+          params.offset = 0;
+
+          return messageService.getMessages(params);
+        }],
+        perPage: function(){ return 20;}
+      }
+    });
+
 		/* Vouchers */
 		$stateProvider.state('root.person.show.vouchers', {
 			url: '/vouchers',

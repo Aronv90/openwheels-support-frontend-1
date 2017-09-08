@@ -348,6 +348,13 @@ angular.module('rpcServices', [])
       this.previousChecks = m('previousChecks');
     })
 
+  .service('messageService', function (api) {
+    var m = function (name) {
+      return api.createRpcMethod('message.' + name);
+    };
+    this.getMessages = m('getMessages');
+  })
+
     .service('revisionsService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('revisions.' + name);
