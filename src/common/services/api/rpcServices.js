@@ -354,6 +354,8 @@ angular.module('rpcServices', [])
       return api.createRpcMethod('message.' + name);
     };
     this.getMessages = m('getMessages');
+    this.getPushMessages = m('getPushMessages');
+
   })
 
     .service('revisionsService', function (api) {

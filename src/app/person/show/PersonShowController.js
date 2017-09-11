@@ -8,6 +8,7 @@ angular.module('openwheels.person.show', [
   'openwheels.person.show.rating',
   'openwheels.person.show.badges',
   'openwheels.person.show.messages',
+  'openwheels.person.show.messagesms',
   'openwheels.person.show.communication',
   'openwheels.person.show.vouchers',
   'openwheels.person.show.revisions',

@@ -421,7 +421,7 @@ angular.module('openwheels.person', [
       url: '/messages',
       controller: 'PersonShowMessagesController',
       templateUrl: 'person/show/messages/person-show-messages.tpl.html',
-      data: {pageTitle: 'Person messages'},
+      data: {pageTitle: 'Person Messages'},
       resolve: {
         messages: ['$stateParams', 'messageService', 'perPage', function ($stateParams, messageService, perPage) {
           var params = {};
@@ -435,11 +435,29 @@ angular.module('openwheels.person', [
       }
     });
 
+    $stateProvider.state('root.person.show.messagesms', {
+      url: '/messagesms',
+      controller: 'PersonShowMessageSmsController',
+      templateUrl: 'person/show/messagesms/person-show-messagesms.tpl.html',
+      data: {pageTitle: 'Person Push Messages'},
+      resolve: {
+        messagesms: ['$stateParams', 'messageService', 'perPage', function ($stateParams, messageService, perPage) {
+          var params = {};
+          params.person = $stateParams.personId;
+          params.limit = perPage;
+          params.offset = 0;
+
+          return messageService.getPushMessages(params);
+        }],
+        perPage: function(){ return 20;}
+      }
+    });
+
     $stateProvider.state('root.person.show.communication', {
       url: '/communication',
       controller: 'PersonShowCommunicationController',
       templateUrl: 'person/show/communication/person-show-communication.tpl.html',
-      data: {pageTitle: 'Person communication'},
+      data: {pageTitle: 'Person Communication Messages'},
       resolve: {
         communication: ['$stateParams', 'conversationService', 'perPage', function ($stateParams, conversationService, perPage) {
           var params = {};
