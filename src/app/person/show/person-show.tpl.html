@@ -67,6 +67,21 @@
         <li ng-class="{ active: $state.includes('root.person.show.chipcards') }">
           <a ui-sref=".chipcards">Chipcards</a>
         </li>
+
+        <li class="dropdown" ng-class="{ active: $state.includes('root.person.show.messages') || $state.includes('root.person.show.communication') || $state.includes('root.person.show.messagesms') }">
+          <a class="dropdown-toggle" data-toggle="dropdown">Messages</a>
+          <ul class="dropdown-menu">
+            <li ng-class="{ active: $state.includes('root.person.show.messages') }">
+              <a ui-sref=".messages">PM Messages</a>
+            </li>
+            <li ng-class="{ active: $state.includes('root.person.show.messagesms') }">
+              <a ui-sref=".messagesms">Push Messages</a>
+            </li>
+            <li ng-class="{ active: $state.includes('root.person.show.communication') }">
+              <a ui-sref=".communication">Communication</a>
+            </li>
+          </ul>
+        </li>
         <li class="dropdown pull-right">
         <a class="dropdown-toggle" data-toggle="dropdown">More <big><i class="fa fa-fw fa fa-ellipsis-v"></i></big></a>
           <ul class="dropdown-menu">

@@ -1,0 +1,42 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div ng-if="$state.includes('root.person')" class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Messages</h3>
+                <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
+                <p class="btn"> {{curPage}} </p>
+                <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Sender</th>
+                        <th>Recipient</th>
+                        <th>Message</th>
+                        <th>Booking</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="message in messages">
+                        <td>
+                            <a class="pull-left" ui-sref="root.person.show.summary({personId: message.sender.id })">
+                                {{ message.sender.firstName }}
+                            </a>
+                        </td>
+                        <td>
+                            <a class="pull-left" ui-sref="root.person.show.summary({personId: message.recipient.id })">
+                                {{ message.recipient.firstName }}
+                            </a>
+                        </td>
+                        <td>{{ message.text }}</td>
+                        <td><a ui-sref="root.trip.dashboard({ tripId: message.booking.id })">#{{ message.booking.id }}</a></td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>
