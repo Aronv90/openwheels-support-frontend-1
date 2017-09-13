@@ -320,6 +320,7 @@ angular.module('rpcServices', [])
       this.count = m('count');
       this.getTypes = m('getTypesAsArray');
       this.getType = m('getTypeAsArray');
+      this.getCommunicationMessages = m('getCommunicationMessages');
     })
 
     .service('bankService', function (api) {
@@ -347,6 +348,15 @@ angular.module('rpcServices', [])
       this.checkPerson = m('checkPerson');
       this.previousChecks = m('previousChecks');
     })
+
+  .service('messageService', function (api) {
+    var m = function (name) {
+      return api.createRpcMethod('message.' + name);
+    };
+    this.getMessages = m('getMessages');
+    this.getPushMessages = m('getPushMessages');
+
+  })
 
     .service('revisionsService', function (api) {
       var m = function (name) {
