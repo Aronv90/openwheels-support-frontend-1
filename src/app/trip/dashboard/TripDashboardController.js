@@ -558,7 +558,7 @@ angular.module('openwheels.trip.dashboard', [])
     ;
   };
 
-  $scope.changeTimes = function() {
+  $scope.changeEndTime = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
@@ -593,38 +593,13 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.cancel = $mdDialog.cancel;
 
       }],
-      templateUrl: 'trip/dashboard/changeTimes.tpl.html',
+      templateUrl: 'trip/dashboard/changeEndTime.tpl.html',
       clickOutsideToClose:true,
       locals: {
         booking: booking
       }
     })
     .then(function(res) {
-      // if(moment().isAfter(moment(booking.endBooking))) { // rit is al klaar
-      //   return bookingService.alter(
-      //     {
-      //       booking: booking.id, 
-      //       newProps: {
-      //         startBooking: booking.startBooking, 
-      //         endBooking: res
-      //       }
-      //     }
-      //   )
-      //   .then(function(booking) {
-      //     $scope.booking.endBooking = booking.endBooking;
-      //     $scope.booking.status = booking.status;
-      //     if ($scope.booking.resource.boardcomputer === 'ccome') {
-      //       // Resend the booking if boardcomputer is ccome
-      //       ccomeService.sendBooking({booking: $scope.booking.id})
-      //       .then(function(res) {
-      //         alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
-      //       })
-      //       .catch(function(err) {
-      //         alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
-      //       });
-      //     }
-      //   });
-      // } else { // rit is nog bezig
         return bookingService.alterRequest(
           {
             booking: booking.id,
@@ -653,6 +628,65 @@ angular.module('openwheels.trip.dashboard', [])
         } else {
           alertService.add('danger', 'De rit kon niet verlengd worden: ' + err.message, 5000);
         }
+      }
+    })
+    ;
+  };
+
+  $scope.changeBeginTime = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        var originalBegin = moment(booking.beginBooking, API_DATE_FORMAT);
+
+        $scope.newDt = {};
+        $scope.newDt.date = new Date(originalBegin.format('LL'));
+        $scope.newDt.time = originalBegin.format('HH:mm');
+        $scope.times = generateTimes();
+
+        $scope.tripIsNow = moment().isAfter(moment(booking.beginBooking, API_DATE_FORMAT)) && moment().isBefore(moment(booking.endBooking, API_DATE_FORMAT));
+        $scope.tripHasEnded = moment().isAfter(moment(booking.endBooking, API_DATE_FORMAT));
+
+        function makeNewDateString() {
+          var date = moment($scope.newDt.date);
+          return date.format('YYYY-MM-DD ') + $scope.newDt.time;
+        }
+
+        $scope.done = function() {
+          $mdDialog.hide(makeNewDateString());
+        };
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/changeBeginTime.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking
+      }
+    })
+    .then(function(res) {
+        return bookingService.alterRequest(
+          {
+            booking: booking.id,
+            remark: booking.remarkRequest,
+            timeFrame: {
+              startDate: res,
+              endDate: booking.endBooking
+            },
+          }
+        )
+        .then(function(booking) {
+          $scope.booking.beginBooking = booking.beginBooking;
+          $scope.booking.status = booking.status;
+        });
+      // }
+    })
+    .then(function(booking) {
+      return alertService.add('success', 'De begintijd is aangepast.', 5000);
+    })
+    .catch(function(err) {
+      if(err && err.message) {
+        alertService.add('danger', 'De begintijd kon niet aangepast worden: ' + err.message, 5000);
       }
     })
     ;
@@ -974,6 +1008,22 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.booking = booking;
         $scope.ccomeColor = [];
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
+
+        $scope.myfms = function() {
+          boardcomputerService.control({
+            action: 'OpenDoorStartEnable',
+            resource: $scope.booking.resource.id
+          })
+          .then(function(res) {
+            return alertService.add('success', 'De auto wordt geopend.', 5000);
+          })
+          .catch(function(err) {
+            if(err && err.message) {
+              alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+            }
+          });
+        };
+
         $scope.ccome = function() {
           ccomeService.sendBooking({booking: $scope.booking.id})
           .then(function(res) {
@@ -1006,7 +1056,7 @@ angular.module('openwheels.trip.dashboard', [])
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet geopend worden', 5000);
+          alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
         }
       });
     });
@@ -1480,6 +1530,27 @@ angular.module('openwheels.trip.dashboard', [])
       clickOutsideToClose:true,
       locals: {
         booking: booking
+      },
+    });
+  };
+
+  $scope.contractInfo = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      controller: ['$scope', '$mdDialog', 'contract', function($scope, $mdDialog, contract) {
+        $scope.contract = contract;
+        
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/contractInfo.tpl.html',
+      fullscreen: false,
+      clickOutsideToClose:true,
+      locals: {
+        contract: contract
       },
     });
   };
