@@ -9,6 +9,7 @@
         <th>Status</th>
         <th>Contractor</th>
         <th>Max Drivers</th>
+        <th>Credit limit</th>
         <th>Own risk</th>
     </tr>
     </thead>
@@ -22,8 +23,9 @@
         <td>{{ contract.id }}</td>
         <td>{{ contract.type.name }}</td>
         <td ng-class="{'bg-success': contract.status == 'active', 'text-muted': contract.status == 'blocked' || contract.status == 'ended'}">{{ contract.status }}</td>
-        <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{ contract.contractor.firstName }} {{ contract.contractor.surname }}</a></td>
-        <td>{{ contract.maxDrivers }}</td>
+        <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{contract.contractor | fullname}}</a></td>
+        <td>{{ contract.type.maxDrivers }}</td>
+        <td>{{ contract.creditLimit }}</td>
         <td>{{ contract.ownRiskWaiver }}</td>
     </tr>
     </tbody>
