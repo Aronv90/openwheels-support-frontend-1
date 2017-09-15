@@ -1,0 +1,51 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Wijzing begintijd</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content">
+      <h3>
+        Nieuwe begintijd
+      </h3>
+      <p ng-if="tripIsNow">
+        Deze rit is al begonnen, je kunt de begintijd niet meer aanpassen.
+      </p>
+      <p ng-if="tripHasEnded">
+        Deze rit is al klaar, je kunt de begintijd niet meer aanpassen.
+      </p>
+      <p ng-if="!tripIsNow && !tripHasEnded">
+        Hieronder kun je de begintijd van deze rit vervroegen of verlaten.
+      </p>
+      <form layout="row" ng-if="!tripIsNow && !tripHasEnded">
+        <md-input-container flex>
+          <label>Begindatum</label>
+          <md-datepicker ng-model="newDt.date" md-placeholder="Kies een datum"></md-datepicker>
+        </md-input-container>
+        <md-input-container flex>
+          <label>Begintijd</label>
+          <md-select ng-change="change()" ng-model="newDt.time">
+            <md-option ng-repeat="time in times" ng-value="time.value">{{time.value}}</md-option>
+          </md-select>
+        </md-input-container>
+      </form>
+      <p ng-if="warning">{{warning}}</p>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Annuleren
+    </md-button>
+    <md-button ng-disabled="warning || tripIsNow || tripHasEnded" class="md-primary md-raised" ng-click="done()">
+      Opslaan
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
