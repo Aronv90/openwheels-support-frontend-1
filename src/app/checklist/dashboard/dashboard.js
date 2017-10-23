@@ -57,7 +57,8 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
       }
     }
   };
-  
-  $interval(doUpdate, 30000);
+
+  //don't update to reduce number of calls
+  //$interval(doUpdate, 30000);
   doUpdate();
 });

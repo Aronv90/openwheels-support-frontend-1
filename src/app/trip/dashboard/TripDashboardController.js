@@ -565,7 +565,7 @@ angular.module('openwheels.trip.dashboard', [])
         var originalEnd = moment(booking.endBooking, API_DATE_FORMAT);
 
         $scope.newDt = {};
-        $scope.newDt.date = new Date(originalEnd.format('LL'));
+        $scope.newDt.date = new Date(originalEnd);
         $scope.newDt.time = originalEnd.format('HH:mm');
         $scope.times = generateTimes();
 
@@ -640,7 +640,7 @@ angular.module('openwheels.trip.dashboard', [])
         var originalBegin = moment(booking.beginBooking, API_DATE_FORMAT);
 
         $scope.newDt = {};
-        $scope.newDt.date = new Date(originalBegin.format('LL'));
+        $scope.newDt.date = new Date(originalBegin);
         $scope.newDt.time = originalBegin.format('HH:mm');
         $scope.times = generateTimes();
 
