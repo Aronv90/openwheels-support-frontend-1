@@ -95,10 +95,11 @@
     </div>
     
     <div layout="column" layout-margin class="md-dialog-content" ng-if="booking.resource.boardcomputer && booking.resource.boardcomputer !== 'ccome'">
-      <h3>Smartphone</h3>
-      <p ng-if="[19667, 18062].indexOf(booking.resource.id) < 0">Een huurder opent deze auto met een smartphone. Dit kan de huurder zelf doen via de <a href="https://mywheels.nl/autodelen/hoe-autodelen-werkt/deelauto-app/" target="_blank" title="MyWheels app">MyWheels app</a> of op <a href="https://mywheels.nl" target="_blank" title="MyWheels.nl">MyWheels.nl</a>.</p>
+      <h3 ng-if="booking.resource.locktypes.indexOf('chipcard') < 0">Smartphone</h3>
+      <h3 ng-if="booking.resource.locktypes.indexOf('chipcard') >= 0">Smartphone en chipkaart</h3>
+      <p ng-if="booking.resource.locktypes.indexOf('chipcard') < 0">Een huurder opent deze auto met een smartphone. Dit kan de huurder zelf doen via de <a href="https://mywheels.nl/autodelen/hoe-autodelen-werkt/deelauto-app/" target="_blank" title="MyWheels app">MyWheels app</a> of op <a href="https://mywheels.nl" target="_blank" title="MyWheels.nl">MyWheels.nl</a>.</p>
 
-      <p ng-if="[19667, 18062].indexOf(booking.resource.id) >= 0">Een huurder opent deze auto met een smartphone of een OV-chipkaart. Openen met de smartphone kan de huurder zelf doen via de <a href="https://mywheels.nl/autodelen/hoe-autodelen-werkt/deelauto-app/" target="_blank" title="MyWheels app">MyWheels app</a> of op <a href="https://mywheels.nl" target="_blank" title="MyWheels.nl">MyWheels.nl</a>. Openen met de OV-chipkaart kan de huurder doen door de OV-chipkaart voor de lezer te houden. De auto opent binnen 20 seconden.</p>
+      <p ng-if="booking.resource.locktypes.indexOf('chipcard') >= 0">Een huurder opent deze auto met een smartphone of een OV-chipkaart. Openen met de smartphone kan de huurder zelf doen via de <a href="https://mywheels.nl/autodelen/hoe-autodelen-werkt/deelauto-app/" target="_blank" title="MyWheels app">MyWheels app</a> of op <a href="https://mywheels.nl" target="_blank" title="MyWheels.nl">MyWheels.nl</a>. Openen met de OV-chipkaart kan de huurder doen door de OV-chipkaart voor de lezer te houden. De auto opent binnen 15 seconden.</p>
 
       <div ng-if="booking.person.status !== 'active' || booking.approved === 'BUY_VOUCHER' || booking.status !== 'accepted' || booking.beginBooking > now || booking.endBooking < now">
         <strong>Let op! De rit is niet in orde</strong><br/>

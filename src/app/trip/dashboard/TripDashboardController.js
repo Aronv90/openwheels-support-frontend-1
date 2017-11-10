@@ -32,7 +32,6 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.friends = [];
   $scope.remarks = [];
   $scope.extraPersons = [];
-  
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
