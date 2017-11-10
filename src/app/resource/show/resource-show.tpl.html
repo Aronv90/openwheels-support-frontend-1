@@ -77,7 +77,7 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktype === 'smartphone' || resource.locktype === 'chipcard'">
                     <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Board PC</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.locktype === 'smartphone'">
+                <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0">
                   <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boardcomputer Log</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
