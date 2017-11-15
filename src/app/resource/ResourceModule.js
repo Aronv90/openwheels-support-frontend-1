@@ -206,6 +206,28 @@ angular.module('openwheels.resource', [
 			}
 		});
 
+    /**
+     * resource/:id/myfms/requests
+     * @resolve {promise} resource
+     */
+    $stateProvider.state('root.resource.show.myfmschipcard', {
+      url: '/myfms/requests',
+      controller: 'ResourceShowMyFMSChipcardRequestController',
+      templateUrl: 'resource/show/myfms/request/resource-show-myfms-chipcard-request.tpl.html',
+      data: {pageTitle: 'Resource myfmschipcard'},
+      resolve: {
+        chipcardrequest: ['$stateParams', 'resource', 'chipcardService', 'perPage', function ($stateParams, resource, chipcardService, perPage) {
+          var params = {};
+          params.resource = $stateParams.resourceId;
+          params.limit = perPage;
+          params.offset = 0;
+
+          return chipcardService.requests(params);
+        }],
+        perPage: function(){ return 20;}
+      }
+    });
+
 		/**
      * resource/:id/log
      * @resolve {promise} resource
