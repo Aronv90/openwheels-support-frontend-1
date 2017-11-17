@@ -3,7 +3,7 @@
 
         <div class="panel panel-default card">
             <div class="panel-body">
-                <h3>Chipcard Requests</h3>
+                <h3>Log Requests</h3>
                 <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
                 <p class="btn"> {{curPage}} </p>
                 <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
@@ -13,32 +13,28 @@
                     <tr>
                         <th>#</th>
                         <th>Person</th>
-                        <th>Resource</th>
                         <th>Booking</th>
-                        <th>Chipcard</th>
+                        <th>Action</th>
                         <th>Request Date</th>
+                        <th>Callback Date</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="request in chipcardrequest">
-                        <td>{{ request.id }}</td>
+                    <tr ng-repeat="log in logrequest">
+                        <td>{{ log.id }}</td>
                         <td>
-                            <a class="pull-left" ui-sref="root.person.show.summary({personId: request.booking.person.id })">
-                                {{ request.booking.person.firstName }}
+                            <a class="pull-left" ui-sref="root.person.show.summary({personId: log.user })">
+                                {{ log.user }}
                             </a>
                         </td>
                         <td>
-                            <a class="pull-left" ui-sref="root.resource.show.summary({ resourceId: request.booking.resource.id})">
-                                {{ request.booking.resource.alias }}
+                            <a class="pull-left" ui-sref="root.trip.dashboard({ tripId: log.booking })">
+                                {{ log.booking }}
                             </a>
                         </td>
-                        <td>
-                            <a class="pull-left" ui-sref="root.trip.dashboard({ tripId: request.booking.id })">
-                                {{ request.booking.id }}
-                            </a>
-                        </td>
-                        <td>{{ request.rfid }}</td>
-                        <td>{{ request.requestDate | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+                        <td>{{ log.action }}</td>
+                        <td>{{ log.dateRequested | amDateFormat:'DD-MM-YYYY | HH:mm:ss' }}</td>
+                        <td>{{ log.dateCallback | amDateFormat:'DD-MM-YYYY | HH:mm:ss' }}</td>
                     </tr>
 
                     </tbody>

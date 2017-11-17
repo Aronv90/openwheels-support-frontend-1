@@ -6,6 +6,7 @@ angular.module('openwheels.resource.show.myfmschipcard', [])
 
     $scope.curPage = 1;
     $scope.perPage = perPage;
+    $scope.offset = 0;
     $scope.resource = resource;
 
     handleChipCardRequests(chipcardrequest);
@@ -16,7 +17,8 @@ angular.module('openwheels.resource.show.myfmschipcard', [])
     }
 
     $scope.nextPage = function() {
-      chipcardService.requests(_.extend({}, {resource: $scope.resource.id, limit: $scope.perPage, offset: $scope.curPage * $scope.perPage}))
+      $scope.offset = $scope.curPage * $scope.perPage;
+      chipcardService.requests(_.extend({}, {resource: $scope.resource.id, limit: $scope.perPage, offset: $scope.offset }))
         .then(function(chipcardrequest) {
           handleChipCardRequests(chipcardrequest);
           $scope.curPage = $scope.curPage + 1;
@@ -24,10 +26,18 @@ angular.module('openwheels.resource.show.myfmschipcard', [])
     };
 
     $scope.prevPage = function() {
-      chipcardService.requests(_.extend({}, {resource: $scope.resource.id, limit: $scope.perPage, offset: ($scope.curPage - 2) * $scope.perPage}))
+      $scope.offset = ($scope.curPage - 2) * $scope.perPage;
+      chipcardService.requests(_.extend({}, {resource: $scope.resource.id, limit: $scope.perPage, offset: $scope.offset}))
         .then(function(chipcardrequest) {
           handleChipCardRequests(chipcardrequest);
           $scope.curPage = $scope.curPage - 1;
+        });
+    };
+
+    $scope.refresh = function() {
+      chipcardService.requests(_.extend({}, {resource: $scope.resource.id, limit: $scope.perPage, offset: $scope.offset}))
+        .then(function(chipcardrequest) {
+          handleChipCardRequests(chipcardrequest);
         });
     };
 
