@@ -44,7 +44,6 @@ angular.module('openwheels.trip.dashboard', [])
   }
   localStorageService.set('dashboard.last_trips', lastTrips);
 
-
   if(contract.type.id === 60) {
     bookingService.driversForBooking({booking: booking.id})
     .then(function(res) {
@@ -64,30 +63,10 @@ angular.module('openwheels.trip.dashboard', [])
     });
   }
 
-  /*
-  // niet langer nodig
-  if(booking.resource.isAvailableFriends) {
-    resourceService.getMembers({resource: booking.resource.id})
-    .then(function(res) {
-      $scope.friends = res;
-      $scope.isFriend = _.findWhere(res, {id: booking.person.id}) !== undefined;
-    });
-  }
-  */
-
   voucherService.calculateRequiredCredit({person: booking.person.id})
   .then(function(res) {
     $scope.requiredCredit = res;
   });
-
-  /*
-  // niet langer nodig
-  voucherService.calculateRequiredCredit({person: booking.resource.owner.id})
-  .then(function(res) {
-    $scope.requiredCreditOwn = res;
-  });
-  */
-
 
   /* Section support */
   var sections = {};
@@ -990,7 +969,9 @@ angular.module('openwheels.trip.dashboard', [])
 
     $mdDialog.show(confirm)
     .then(function(res) {
-      return ccomeService.sendBooking({booking: $scope.booking.id})
+      return ccomeService.sendBooking({
+        booking: $scope.booking.id
+      })
       .then(function(res) {
         alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
       })
@@ -1024,7 +1005,9 @@ angular.module('openwheels.trip.dashboard', [])
         };
 
         $scope.ccome = function() {
-          ccomeService.sendBooking({booking: $scope.booking.id})
+          ccomeService.sendBooking({
+            booking: $scope.booking.id
+          })
           .then(function(res) {
             alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
           })
@@ -1080,7 +1063,7 @@ angular.module('openwheels.trip.dashboard', [])
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet gesloten worden', 5000);
+          alertService.add('warning', 'De auto kon niet gesloten worden ' + err.message, 5000);
         }
       });
     });
@@ -1108,13 +1091,15 @@ angular.module('openwheels.trip.dashboard', [])
         person: booking.person.id
       })
       .then(function(chip) {
-        ccomeService.sendBooking({booking: $scope.booking.id})
+        ccomeService.sendBooking({
+          booking: $scope.booking.id
+        })
         .then(function(ccome) {
-          return alertService.add('success', 'Er is een nieuwe pincode verstuurd, de pincode is ' +chip.pincode, 15000);
+          return alertService.add('success', 'Er is een nieuwe pincode verstuurd, de pincode is ' + chip.pincode, 15000);
         })
         .catch(function(err) {
           if(err && err.message) {
-            alertService.add('warning', 'Er kon helaas geen nieuwe pincode verstuurd worden', 5000);
+            alertService.add('warning', 'Er kon helaas geen nieuwe pincode verstuurd worden ' + err.message, 5000);
           }
         });
       });
@@ -1135,12 +1120,29 @@ angular.module('openwheels.trip.dashboard', [])
         });
 
         $scope.ccome = function() {
-          ccomeService.sendBooking({booking: $scope.booking.id})
+          ccomeService.sendBooking({
+            booking: $scope.booking.id
+          })
           .then(function(res) {
             alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
           })
           .catch(function(err) {
             alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
+          });
+        };
+
+        $scope.myfms = function() {
+          boardcomputerService.control({
+            action: 'OpenDoorStartEnable',
+            resource: $scope.booking.resource.id
+          })
+          .then(function(res) {
+            return alertService.add('success', 'De auto wordt geopend.', 5000);
+          })
+          .catch(function(err) {
+            if(err && err.message) {
+              alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+            }
           });
         };
 
@@ -1166,7 +1168,7 @@ angular.module('openwheels.trip.dashboard', [])
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet geopend worden', 5000);
+          alertService.add('warning', 'De auto kon niet geopend worden ' + err.message, 5000);
         }
       });
     });
