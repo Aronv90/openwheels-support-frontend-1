@@ -206,6 +206,50 @@ angular.module('openwheels.resource', [
 			}
 		});
 
+    /**
+     * resource/:id/myfms/requests
+     * @resolve {promise} resource
+     */
+    $stateProvider.state('root.resource.show.myfmschipcard', {
+      url: '/myfms/requests',
+      controller: 'ResourceShowMyFMSChipcardRequestController',
+      templateUrl: 'resource/show/myfms/request/resource-show-myfms-chipcard-request.tpl.html',
+      data: {pageTitle: 'Resource myfmschipcard'},
+      resolve: {
+        chipcardrequest: ['$stateParams', 'resource', 'chipcardService', 'perPage', function ($stateParams, resource, chipcardService, perPage) {
+          var params = {};
+          params.resource = $stateParams.resourceId;
+          params.limit = perPage;
+          params.offset = 0;
+
+          return chipcardService.requests(params);
+        }],
+        perPage: function(){ return 20;}
+      }
+    });
+
+    /**
+     * resource/:id/myfms/log
+     * @resolve {promise} resource
+     */
+    $stateProvider.state('root.resource.show.myfmslog', {
+      url: '/myfms/log',
+      controller: 'ResourceShowMyFMSLogRequestController',
+      templateUrl: 'resource/show/myfms/log/resource-show-myfms-chipcard-log.tpl.html',
+      data: {pageTitle: 'Resource MyFMS Log'},
+      resolve: {
+        logrequest: ['$stateParams', 'resource', 'chipcardService', 'perPage', function ($stateParams, resource, chipcardService, perPage) {
+          var params = {};
+          params.resource = $stateParams.resourceId;
+          params.limit = perPage;
+          params.offset = 0;
+
+          return chipcardService.logs(params);
+        }],
+        perPage: function(){ return 20;}
+      }
+    });
+
 		/**
      * resource/:id/log
      * @resolve {promise} resource
