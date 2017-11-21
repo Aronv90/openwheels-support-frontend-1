@@ -80,6 +80,18 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0">
                   <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boardcomputer Log</a>
                 </li>
+                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0">
+                    <a class="dropdown-toggle" data-toggle="dropdown">MyFMS Requests <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') }">
+                            <a ui-sref=".myfmschipcard">Chipcard</a>
+                        </li>
+                        <li ng-class="{ active: $state.includes('root.person.show.myfmslog') }">
+                            <a ui-sref=".myfmslog">Log</a>
+                        </li>
+                    </ul>
+                </li>
+
                 <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
                     <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Ratings</a>
                 </li>

@@ -96,6 +96,8 @@ angular.module('rpcServices', [])
       this.deleteFish = m('deleteFish');
       this.block = m('block');
       this.unblock = m('unblock');
+      this.requests = m('getResourceRequests');
+      this.logs = m('getResourceLogs');
     })
 
     .service('voucherService', function (api) {

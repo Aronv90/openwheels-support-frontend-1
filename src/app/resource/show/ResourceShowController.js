@@ -9,7 +9,9 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.boardcomputer',
   'openwheels.resource.show.log',
   'openwheels.resource.show.revisions',
-  'openwheels.resource.show.tripdata'
+  'openwheels.resource.show.tripdata',
+  'openwheels.resource.show.myfmschipcard',
+  'openwheels.resource.show.myfmslog'
 ])
 
 .controller('ResourceShowController', function ($scope, $stateParams, $uibModal, $log, alertService, dialogService, resourceService, resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {
