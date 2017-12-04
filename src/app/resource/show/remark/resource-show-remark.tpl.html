@@ -1,0 +1,47 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Remarks</h3>
+                <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
+                <p class="btn"> {{curPage}} </p>
+                <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
+                <button class="btn" ng-click="refresh()"> <i class="fa fa-refresh"></i></button>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Person</th>
+                        <th>Booking</th>
+                        <th>Message/Type</th>
+                        <th>followUpDate</th>
+                        <th>Date</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="remark in remarklog">
+                        <td>{{ remark.id }}</td>
+                        <td>
+                            <a class="pull-left" ui-sref="root.person.show.summary({personId: remark.booking.person.id })">
+                                {{ remark.booking.person.firstName }}
+                            </a>
+                        </td>
+                        <td>
+                            <a class="pull-left" ui-sref="root.trip.dashboard({ tripId: remark.booking.id })">
+                                {{ remark.booking.id }}
+                            </a>
+                        </td>
+                        <td>{{ remark.message != null ? remark.message : remark.type }}</td>
+                        <td>{{ remark.followUpDate }}</td>
+                        <td>{{ remark.created | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+                    </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+    </div>
+</div>

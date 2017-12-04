@@ -297,6 +297,28 @@ angular.module('openwheels.resource', [
 			data: {pageTitle: 'Resource Revisions'}
 		});
 
+    /**
+     * resource/:id/remark
+     * @resolve {promise} resource
+     */
+    $stateProvider.state('root.resource.show.remarklog', {
+      url: '/remarks',
+      controller: 'ResourceShowRemarkController',
+      templateUrl: 'resource/show/remark/resource-show-remark.tpl.html',
+      data: {pageTitle: 'Resource Remark Log'},
+      resolve: {
+        remarklog: ['$stateParams', 'resource', 'remarkService', 'perPage', function ($stateParams, resource, remarkService, perPage) {
+          var params = {};
+          params.resource = $stateParams.resourceId;
+          params.limit = perPage;
+          params.offset = 0;
+
+          return remarkService.forResource(params);
+        }],
+        perPage: function(){ return 20;}
+      }
+    });
+
 	})
 
 ;
