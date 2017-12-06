@@ -32,6 +32,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.friends = [];
   $scope.remarks = [];
   $scope.extraPersons = [];
+  $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
@@ -1073,6 +1074,12 @@ angular.module('openwheels.trip.dashboard', [])
     $window.scrollTo(0, 0);
     $mdDialog.show({
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
+
+        chipcardService.getFish({person: $scope.booking.person.id})
+        .then(function(fish) {
+          $scope.fish = fish;
+        });
 
         $scope.done = function() {
           $mdDialog.hide();
@@ -1103,6 +1110,16 @@ angular.module('openwheels.trip.dashboard', [])
           }
         });
       });
+    });
+  };
+
+  $scope.location = function() {
+    boardcomputerService.currentLocation({
+      resource: booking.resource.id
+    })
+    .then(function(location) {
+      var locationUrl = 'https://www.google.nl/maps/search/' + location.lat + ',%20' + location.lng;
+      $window.open(locationUrl);
     });
   };
 

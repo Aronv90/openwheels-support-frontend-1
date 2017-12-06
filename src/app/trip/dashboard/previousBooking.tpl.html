@@ -12,7 +12,7 @@
 
     <md-dialog-content>
       <div class="md-dialog-content">
-        De laatste huurder die in deze auto gereden heeft, is {{ person.firstName }} {{ person.preposition || '' }} {{ person.surname || '' }} uit {{ person.city }}. {{ person.firstName }} had de auto geboekt van {{ previousBookings[0].beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }} tot {{ previousBookings[0].endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Je kunt {{ person.firstName }} bereiken op telefoonnummer(s):
+        De laatste huurder die in deze auto gereden heeft, is {{ person.firstName }} {{ person.preposition || '' }} {{ person.surname || '' }} uit {{ person.city }}. {{ person.firstName }} heeft de auto geboekt van {{ previousBookings[0].beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }} tot {{ previousBookings[0].endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Je kunt {{ person.firstName }} bereiken op telefoonnummer(s):
         <br/>
         <span ng-repeat="phoneNumber in person.phoneNumbers">{{ phoneNumber.number }}</br/></span>
       </div>

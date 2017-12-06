@@ -655,8 +655,8 @@
       <i ng-class="{'fa-chevron-right': hideMain, 'fa-chevron-left' : !hideMain}" class="fa fa-fw"></i>
     </a>
     <li ng-click="changeEndTime()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verlengen</span></li>
-    <li ng-click="changeBeginTime()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Vervroeg deze rit">Vervroegen</span></li>
-    <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Rit inkorten">Inkorten</span></li>
+    <li ng-click="changeBeginTime()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.beginBooking > now"><span tooltip-placement="right" uib-tooltip="Vervroeg deze rit">Vervroegen</span></li>
+    <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.endBooking > now && booking.beginBooking < now"><span tooltip-placement="right" uib-tooltip="Rit inkorten">Inkorten</span></li>
 
     <li ng-click="accept()" ng-if="booking.status === 'requested' || booking.beginRequested" ng-hide="hideMain" class="quickaction__item--trip">
       <span tooltip-placement="right" uib-tooltip="Rit accepteren">Accepteren</span>
@@ -674,8 +674,11 @@
     <li ng-click="close()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
       <span tooltip-placement="right" uib-tooltip="Auto sluiten">Sluiten</span>
     </li>
-    <li ng-click="chip()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer === 'ccome'">
+    <li ng-click="chip()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.locktypes.indexOf('chipcard') >= 0">
       <span tooltip-placement="right" uib-tooltip="Nieuwe OV-chipkaart koppelen">Chipkaart</span>
+    </li>
+    <li ng-click="location()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.locktypes.indexOf('smartphone') >= 0">
+      <span tooltip-placement="right" uib-tooltip="De huidige locatie ophalen">Locatie</span>
     </li>
 
     <li ng-click="start()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
