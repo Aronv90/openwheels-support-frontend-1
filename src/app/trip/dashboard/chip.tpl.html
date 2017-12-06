@@ -12,11 +12,40 @@
   <md-dialog-content>
     <div layout="column" layout-margin class="md-dialog-content">
       <h3>OV-chipkaart koppelen</h3>
-      <p>Om een nieuwe OV-chipkaart te koppelen, heeft de huurder een viercijferige pincode nodig. Zodra je op [Versturen] klikt, ontvangt de huurder per mail de pincode, deze kan 45 seconden later gebruikt worden. Iedere OV-chipkaart is geldig, ook een anonieme. Na versturen wordt de pincode in de groene melding getoond.</p>
+      <div ng-if="booking.resource.boardcomputer === 'ccome'">
+        <p>Om een OV-chipkaart te koppelen, heeft de huurder een viercijferige pincode nodig.</p>
 
-      <p>De huurder kan tijdens de huurperiode de OV-chipkaart voor de gele lezer bij het voorraam houden (ter hoogte van het stuur). De deuren springen open en de huurder kan instappen. Voordat de auto gestart kan worden, dient de huurder de pincode in te voeren op de boordcomputer (bij de binnenspiegel, geen touchscreen) en af te sluiten met enter. Daarna kan de auto gestart worden met de sleutel die in het dashboardkastje ligt.</p>
+        <p ng-if="!fish">De huurder heeft nog geen pincode. Maak een pincode aan via onderstaande stappen:
+          <ul ng-if="!fish">
+            <li>Zodra je op <strong>[Versturen]</strong> klikt, wordt de pincode in de groene melding getoond. Deze kan 45 seconden later gebruikt worden.</li>
+            <li>Iedere OV-chipkaart is geldig, ook een anonieme.</li>
+            <li>Na het aanmaken van de pincode, vind je hieronder meer informatie.</li>
+          </ul>
+        </p>
 
-      <p>Let op! De sleutel pas in het contactslot steken zodra de pincode ingevoerd is.</p>
+        <p ng-if="fish">De pincode van de huurder is <strong>{{ fish.pincode }}</strong>. Volg onderstaande stappen:
+          <ul ng-if="fish">
+            <li>De huurder houdt aan het begin van de huurperiode de OV-chipkaart voor de gele lezer achter het voorraam.</li>
+            <li>De deuren springen open en de huurder kan instappen.</li>
+            <li>Voordat de auto gestart kan worden, dient de huurder de pincode in te voeren op de boordcomputer (bij de binnenspiegel, geen touchscreen) en af te sluiten met enter.</li>
+            <li>Daarna kan de auto gestart worden met de sleutel die in het dashboardkastje ligt.</li>
+          </ul>
+        </p>
+
+        <p ng-if="fish">Let op! De sleutel pas in het contactslot steken zodra de pincode ingevoerd is.</p>
+      </div>
+
+      <div ng-if="booking.resource.boardcomputer !== 'ccome'">
+        <p>Gebruikt de huurder voor de eerste keer de OV-chipkaart? Volg dan ondestaande stappen:
+          <ul>
+            <li>De huurder houdt aan het begin van de huurperiode de OV-chipkaart voor de witte lezer achter het voorraam.</li>
+            <li>De huurder ontvangt automatisch binnen enkele seconden een sms.</li>
+            <li>Vraag de huurder om de sms met 'Ja' te beantwoorden.</li>
+            <li>De OV-chipkaart wordt gekoppeld en de auto opent binnen 15 sec.</li>
+            <li>Daarna kan de auto gestart worden met de sleutel die in het dashboardkastje ligt.</li>
+          </ul>
+        </p>
+      </div>
     </div> 
   </md-dialog-content>
 
@@ -25,7 +54,7 @@
     <md-button ng-click="cancel()">
      Sluiten
     </md-button>
-    <md-button class="md-primary md-raised" ng-click="done()">
+    <md-button class="md-primary md-raised" ng-click="done()" ng-if="booking.resource.boardcomputer === 'ccome'">
       Versturen
     </md-button>
   </md-dialog-actions>

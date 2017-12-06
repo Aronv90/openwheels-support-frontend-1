@@ -11,7 +11,8 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.revisions',
   'openwheels.resource.show.tripdata',
   'openwheels.resource.show.myfmschipcard',
-  'openwheels.resource.show.myfmslog'
+  'openwheels.resource.show.myfmslog',
+  'openwheels.resource.show.remarklog'
 ])
 
 .controller('ResourceShowController', function ($scope, $stateParams, $uibModal, $log, alertService, dialogService, resourceService, resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {
@@ -66,7 +67,7 @@ angular.module('openwheels.resource.show', [
     }, {
       headerText: 'Are you sure?',
       bodyText: 'Do you really want to create a parking permit for  ' + resource.alias + '?',
-      cities: ['Den Haag', 'Rijswijk', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Utrecht']
+      cities: ['Den Haag', 'Rijswijk', 'Gooise Meren', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Utrecht']
     }).then(function (city){
       return resourceService.createParkingpermit({resource: resource.id, city: city});
     }).then(function (permit) {
@@ -89,7 +90,7 @@ angular.module('openwheels.resource.show', [
           resource: $scope.resource,
           resourceList: $scope.resourceList,
           members: members,
-          cities: ['Den Haag', 'Rijswijk', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Utrecht']
+          cities: ['Den Haag', 'Rijswijk', 'Gooise Meren', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Utrecht']
         });
       }).then(function (resource) {
         return resourceService.alterParkingpermit({
