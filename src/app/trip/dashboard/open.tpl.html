@@ -101,6 +101,8 @@
 
       <p ng-if="booking.resource.locktypes.indexOf('chipcard') >= 0">Een huurder opent deze auto met een smartphone of een OV-chipkaart. Openen met de smartphone kan de huurder zelf doen via de <a href="https://mywheels.nl/autodelen/hoe-autodelen-werkt/deelauto-app/" target="_blank" title="MyWheels app">MyWheels app</a> of op <a href="https://mywheels.nl" target="_blank" title="MyWheels.nl">MyWheels.nl</a>. Openen met de OV-chipkaart kan de huurder doen door de OV-chipkaart voor de lezer te houden. De auto opent binnen 15 seconden.</p>
 
+      <p ng-if="booking.resource.locktypes.indexOf('chipcard') >= 0">Meer informatie over het koppelen van een nieuwe OV-chipkaart vind je onder de knop <strong>[Chipkaart]</strong>.</p>
+
       <div ng-if="booking.person.status !== 'active' || booking.approved === 'BUY_VOUCHER' || booking.status !== 'accepted' || booking.beginBooking > now || booking.endBooking < now">
         <strong>Let op! De rit is niet in orde</strong><br/>
         <span ng-if="booking.person.status !== 'active'">De huurder heeft nog geen geactiveerd account.<br/></span>
