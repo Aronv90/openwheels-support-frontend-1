@@ -75,6 +75,27 @@ angular.module('openwheels.person.rentalcheck', [])
     });
   };
 
+  $scope.delete = function (rentalcheck) {
+    var dialogOptions = {
+      closeButtonText: 'Cancel',
+      actionButtonText: 'OK',
+      headerText: 'Are you sure?',
+      bodyText: 'Do you really want to delete this rental check?'
+    };
+
+    dialogService.showModal({}, dialogOptions)
+      .then(function () { // OK is clicked
+        return rentalcheckService.deleteCheck({id: rentalcheck.id});
+      })
+      .then(function () {
+        loadPreviousChecks();
+        },
+        function (error) {
+          alertService.add('danger', 'Error: ' + error.message, 5000);
+
+        });
+  };
+
   function showDetail (check) {
     $scope.selectedCheck = check;
     $scope.activeSection = 'detail';
