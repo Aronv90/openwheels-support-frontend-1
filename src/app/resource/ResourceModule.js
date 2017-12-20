@@ -294,7 +294,19 @@ angular.module('openwheels.resource', [
 			url: '/revisions',
 			controller: 'ResourceShowRevisionsController',
 			templateUrl: 'resource/show/revisions/resource-show-revisions.tpl.html',
-			data: {pageTitle: 'Resource Revisions'}
+			data: {pageTitle: 'Resource Revisions'},
+            resolve: {
+                revisionlog: ['$stateParams', 'resource', 'revisionsService', 'perPage', function ($stateParams, resource, revisionsService, perPage) {
+                    var params = {};
+                    params.id = $stateParams.resourceId;
+                    params.type = 'OpenWheels\\ApiBundle\\Entity\\Resource';
+                    params.limit = perPage;
+                    params.offset = 0;
+
+                    return revisionsService.revisions(params);
+                }],
+                perPage: function(){ return 20;}
+            }
 		});
 
     /**

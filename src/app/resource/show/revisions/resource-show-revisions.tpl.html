@@ -1,55 +1,36 @@
-<h4>Revisions</h4>
+<div class="row">
+  <div class="col-md-12">
 
-<form>
-  <div class="form-group" ng-show="fields.length">
-    <select class="form-control"
-            ng-model="selectedField"
-            ng-options="field for field in fields | orderBy : 'toString()'">
-        <option value="">-- Filter by field --</option>
-    </select>
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Revisions</h3>
+        <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
+        <p class="btn"> {{curPage}} </p>
+        <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
+        <button class="btn" ng-click="refresh()"> <i class="fa fa-refresh"></i></button>
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Date</th>
+            <th></th>
+            <th>Updated by</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="revision in revisionlog">
+            <td class="nowrap">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
+            <td>
+              <span ng-if="revision.action==='create'">Created</span>
+              <span ng-if="revision.action==='update'">{{ revision.data[selectedField] | json }}</span>
+            </td>
+            <td>{{ revision.username }}</td>
+          </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
   </div>
-</form>
-
-<div ng-show="!selectedField">
-  <table class="table" ng-show="revisions.length">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Changes</th>
-        <th>Updated by</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="revision in revisions">
-      <td class="nowrap">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
-      <td>
-        <span ng-if="revision.action==='create'">Created</span>
-        <span ng-if="revision.action==='update'">{{ revision.data | json }}</span>
-      </td>
-      <td>{{ revision.username }}</td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-<div ng-show="selectedField">
-  <table class="table" ng-show="revisions.length">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>{{ selectedField }}</th>
-        <th>Updated by</th>
-      </tr>
-    </thead>
-    <tbody>
-    <tr ng-repeat="revision in revisions" ng-show="revision.data[selectedField]">
-      <td class="nowrap">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
-      <td>
-        <span ng-if="revision.action==='create'">Created</span>
-        <span ng-if="revision.action==='update'">{{ revision.data[selectedField] | json }}</span>
-      </td>
-      <td>{{ revision.username }}</td>
-    </tr>
-    </tbody>
-  </table>
 </div>
