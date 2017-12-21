@@ -8,26 +8,28 @@
         <p class="btn"> {{curPage}} </p>
         <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
         <button class="btn" ng-click="refresh()"> <i class="fa fa-refresh"></i></button>
-        <table class="table">
-          <thead>
-          <tr>
-            <th>Date</th>
-            <th></th>
-            <th>Updated by</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr ng-repeat="revision in revisionlog">
-            <td class="nowrap">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
-            <td>
-              <span ng-if="revision.action==='create'">Created</span>
-              <span ng-if="revision.action==='update'">{{ revision.data[selectedField] | json }}</span>
-            </td>
-            <td>{{ revision.username }}</td>
-          </tr>
 
-          </tbody>
-        </table>
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Changes</th>
+                <th>Updated by</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="revision in revisionlog">
+                <td class="nowrap">{{ revision.loggedAt | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
+                <td>
+                  <span ng-if="revision.action==='create'">Created</span>
+                  <span ng-if="revision.action==='update'">{{ revision.data | json }}</span>
+                </td>
+                <td>{{ revision.username }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
       </div>
     </div>

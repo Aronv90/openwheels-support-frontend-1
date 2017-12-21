@@ -2,6 +2,34 @@
 
 angular.module('openwheels.resource.show.revisions', [])
 
+
+/*
+$scope.fields        = [];
+$scope.revisions     = [];
+$scope.selectedField = null;
+
+// populate fields
+angular.forEach(resource, function (val, key) {
+    $scope.fields.push(key);
+});
+
+// populate revisions
+alertService.load();
+revisionsService.revisions({
+    id   : resource.id,
+    type : 'OpenWheels\\ApiBundle\\Entity\\Resource'
+})
+    .then(function (revisions) {
+        $scope.revisions = revisions;
+    })
+    .finally(function () {
+        alertService.loaded();
+    });
+
+
+*/
+
+
 .controller('ResourceShowRevisionsController', function ($scope, alertService, revisionlog, perPage, resource, revisionsService) {
 
   $scope.curPage = 1;
