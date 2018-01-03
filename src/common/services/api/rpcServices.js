@@ -350,6 +350,7 @@ angular.module('rpcServices', [])
       };
       this.checkPerson = m('checkPerson');
       this.previousChecks = m('previousChecks');
+      this.deleteCheck = m('deleteCheck');
     })
 
   .service('messageService', function (api) {

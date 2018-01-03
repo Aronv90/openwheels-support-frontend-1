@@ -12,6 +12,7 @@
             <th>Report type</th>
             <th>Date generated</th>
             <th colspan="2">View on www.rentalcheck.nl</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -24,6 +25,9 @@
                 <span ng-show="check.includeDocumentCheck"> + document check</span>
               </td>
               <td>{{ check.checkDate }}</td>
+            <td class="text-right">
+              <button class="btn btn-default btn-xs"ng-click="delete(check)">Delete</button>
+            </td>
           </tr>
         </tbody>
       </table>
