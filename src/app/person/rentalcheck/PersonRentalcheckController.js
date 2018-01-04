@@ -10,8 +10,8 @@ angular.module('openwheels.person.rentalcheck', [])
   $scope.activeSection  = 'list';
   $scope.checkRequest   = {
     personId: person.id,
-    type: null, // basic, standard or extended
-    includeDocumentCheck: false
+    type: 'extended', // basic, standard or extended
+    includeDocumentCheck: true
   };
 
   // methods
@@ -62,6 +62,7 @@ angular.module('openwheels.person.rentalcheck', [])
         $scope.checkRequest = { personId : person.id };
         showDetail(result);
         loadPreviousChecks();
+        $scope.showList();
         console.log('success', result);
       })
       .catch(function (err) {
@@ -108,5 +109,4 @@ angular.module('openwheels.person.rentalcheck', [])
   function showCreate () {
     $scope.activeSection = 'create';
   }
-})
-;
+});
