@@ -28,6 +28,8 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.booking = booking;
   $scope.contract = contract;
   $scope.driverContracts = driverContracts;
+  $scope.driverContracts.push({ id: 50076, contractorId: 282, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels'} });
+  $scope.driverContracts.push({ id: 53808, contractorId: 519038, type: {name: 'MyWheels Free'}, contractor: {firstName: 'Visscher2Go Rivierenland'} });
   $scope.declarations = [];
   $scope.friends = [];
   $scope.remarks = [];
@@ -153,14 +155,14 @@ angular.module('openwheels.trip.dashboard', [])
       type : 'OpenWheels\\ApiBundle\\Entity\\Booking'
     })
     .then(function (bookingRevisions) {
-      $scope.revisions = bookingRevisions;
+      $scope.revisions = bookingRevisions.result;
       revisionsService.revisions({
         id   : booking.id,
         type : 'OpenWheels\\ApiBundle\\Entity\\Trip'
       })
       .then(function (tripRevisions) {
-        for (var i=0; i<tripRevisions.length; i++){
-            $scope.revisions.push(tripRevisions[i]);
+        for (var i=0; i<tripRevisions.result.length; i++){
+            $scope.revisions.push(tripRevisions.result[i]);
         }
       });
     });

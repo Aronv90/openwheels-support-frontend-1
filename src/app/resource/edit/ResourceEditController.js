@@ -49,6 +49,7 @@ angular.module('openwheels.resource.edit', [])
       {label: 'Cabrio', value: 'cabrio'},
       {label: 'Camper', value: 'camper'},
       {label: 'Oldtimer', value: 'oldtimer'},
+      {label: 'Station', value: 'station'},
       {label: 'Van', value: 'van'}
     ];
 
