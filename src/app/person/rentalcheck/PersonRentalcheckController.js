@@ -10,8 +10,8 @@ angular.module('openwheels.person.rentalcheck', [])
   $scope.activeSection  = 'list';
   $scope.checkRequest   = {
     personId: person.id,
-    type: null, // basic, standard or extended
-    includeDocumentCheck: false
+    type: 'extended', // basic, standard or extended
+    includeDocumentCheck: true
   };
 
   // methods
@@ -62,6 +62,7 @@ angular.module('openwheels.person.rentalcheck', [])
         $scope.checkRequest = { personId : person.id };
         showDetail(result);
         loadPreviousChecks();
+        $scope.showList();
         console.log('success', result);
       })
       .catch(function (err) {
@@ -73,6 +74,27 @@ angular.module('openwheels.person.rentalcheck', [])
       });
 
     });
+  };
+
+  $scope.delete = function (rentalcheck) {
+    var dialogOptions = {
+      closeButtonText: 'Cancel',
+      actionButtonText: 'OK',
+      headerText: 'Are you sure?',
+      bodyText: 'Do you really want to delete this rental check?'
+    };
+
+    dialogService.showModal({}, dialogOptions)
+      .then(function () { // OK is clicked
+        return rentalcheckService.deleteCheck({id: rentalcheck.id});
+      })
+      .then(function () {
+        loadPreviousChecks();
+        },
+        function (error) {
+          alertService.add('danger', 'Error: ' + error.message, 5000);
+
+        });
   };
 
   function showDetail (check) {
@@ -87,5 +109,4 @@ angular.module('openwheels.person.rentalcheck', [])
   function showCreate () {
     $scope.activeSection = 'create';
   }
-})
-;
+});

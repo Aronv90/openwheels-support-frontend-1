@@ -61,7 +61,7 @@ angular.module('openwheels.person.show.revisions', [])
       type : entityTypeMap[entityInfo.type]
     })
     .then(function (revisions) {
-      $scope.revisions = revisions;
+      $scope.revisions = revisions.result;
     })
     .finally(function () {
       alertService.loaded();
