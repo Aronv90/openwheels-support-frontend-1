@@ -2,7 +2,8 @@
 
 angular.module('openwheels.phoneLog', [
   'openwheels.phoneLog.slider',
-  'openwheels.phoneLog.history'
+  'openwheels.phoneLog.history',
+  'openwheels.phoneLog.current'
 ])
 
 .config(function ($stateProvider) {
@@ -22,5 +23,11 @@ angular.module('openwheels.phoneLog', [
     url: '/history',
     templateUrl: 'phoneLog/history/phoneHistory.tpl.html',
     controller: 'PhoneHistoryController'
+  });
+
+  $stateProvider.state('phoneLog.current', {
+    url: '/current',
+    templateUrl: 'phoneLog/current/phoneCurrent.tpl.html',
+    controller: 'PhoneCurrentController'
   });
 });
