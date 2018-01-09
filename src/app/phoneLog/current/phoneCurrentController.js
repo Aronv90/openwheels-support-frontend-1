@@ -8,7 +8,7 @@ angular.module('openwheels.phoneLog.current', [])
 
   function loadCurrent () {
     alertService.load();
-      telecomService.currentCalls().then(function (calls) {
+      telecomService.getCurrentCalls().then(function (calls) {
       $scope.calls = calls;
     })
     .catch(function (err) {

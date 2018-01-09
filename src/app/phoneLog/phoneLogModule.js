@@ -20,7 +20,7 @@ angular.module('openwheels.phoneLog', [
   });
 
   $stateProvider.state('phoneLog.history', {
-    url: '/history',
+    url: '/history/:sDate',
     templateUrl: 'phoneLog/history/phoneHistory.tpl.html',
     controller: 'PhoneHistoryController'
   });

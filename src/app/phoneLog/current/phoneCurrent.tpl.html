@@ -6,17 +6,23 @@
       <thead>
         <tr>
           <th></th>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Caller</th>
+          <th>Incoming</th>
+          <th>Caller Number</th>
+          <th>MyWheels User</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="call in calls">
           <td><i class="fa fa-phone fa-2x text-muted"></i></td>
-          <td>{{ call.id }}</td>
           <td>{{ call.timestamp | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
-          <td>{{ call.callee_desc }}</td>
+          <td>{{ call.caller_number || 'Unknown' }}</td>
+          <td ng-if="call.user_id">
+            <a ui-sref="root.person.show.summary({ personId: call.user_id })">{{ call.user_name }}</a>
+          </td>
+          <td ng-if="!call.user_id">
+            Not Found
+          </td>
+
         </tr>
       </tbody>
     </table>

@@ -62,6 +62,14 @@ angular.module('rpcServices', [])
       this.getRecentIncomingCalls = m('getRecentIncomingCalls');
     })
 
+    .service('telecomService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('telecom.' + name);
+      };
+      this.getCurrentCalls = m('getCurrentCalls');
+      this.getByDate = m('getByDate');
+    })
+
     .service('contractService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('contract.' + name);
