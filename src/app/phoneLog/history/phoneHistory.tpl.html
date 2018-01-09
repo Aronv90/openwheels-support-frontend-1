@@ -4,8 +4,8 @@
 
     <div style="margin-bottom: 20px">
 
-      <button class="btn btn-default" ng-click="previous()">&laquo;&nbsp;Previous</button>
-      <button class="btn btn-default" ng-click="next()">Next&nbsp;&raquo;</button>
+      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sPrevDay })">&laquo; Previous</button>
+      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sNextDay })">Next &raquo;</button>
 
       {{ sCurrentDate | amDateFormat: 'DD MMM YYYY'}}
 

@@ -13,13 +13,14 @@
       </thead>
       <tbody>
         <tr ng-repeat="call in calls">
+
           <td><i class="fa fa-phone fa-2x text-muted"></i></td>
           <td>{{ call.timestamp | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
           <td>{{ call.caller_number || 'Unknown' }}</td>
-          <td ng-if="call.user_id">
-            <a ui-sref="root.person.show.summary({ personId: call.user_id })">{{ call.user_name }}</a>
+          <td ng-if="call.person_id">
+            <a ng-click="checkOutPerson(call)">{{ call.person_name }}</a>
           </td>
-          <td ng-if="!call.user_id">
+          <td ng-if="!call.person_id">
             Not Found
           </td>
 

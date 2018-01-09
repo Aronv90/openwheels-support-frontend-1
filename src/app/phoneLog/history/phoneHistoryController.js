@@ -9,61 +9,52 @@ angular.module('openwheels.phoneLog.history', [])
     var oCurrentDate = new Date($scope.sCurrentDate);
 
     // Determine the date of the previous day
+
     var oPrevDay = oCurrentDate;
     oPrevDay.setDate(oCurrentDate.getDate()-1);
-    var sPrevDay = formatDate(oPrevDay);
+    $scope.sPrevDay = formatDate(oPrevDay);
 
-    // Set the date to the previous day
-    $scope.previous = function() {
+    // Determine the date of the next day
 
-        // $scope.offset = $scope.curPage * $scope.perPage;
-        // remarkService.forResource(_.extend({}, {resource: $scope.resource.id, limit: $scope.perPage, offset: $scope.offset }))
-        //     .then(function(remarklog) {
-        //         handleRemarkLog(remarklog);
-        //         $scope.curPage = $scope.curPage + 1;
-        //     });
-    };
+    var oNextDay = oCurrentDate;
+    oNextDay.setDate(oCurrentDate.getDate()+1);
+    $scope.sNextDay = formatDate(oNextDay);
 
     // Get the calls with the current date and pass them to the scope. Give an error message if this is not possible.
 
-    function loadCalls (sDate)
+    alertService.load();
+    telecomService.getByDate({ sDate: sDate })
+        .then
+        (
+            function (calls)
+            {
+                $scope.calls = calls;
+            }
+        )
+        .catch
+        (
+            function (err)
+            {
+                alertService.addError(err);
+            }
+        )
+        .finally
+        (
+            function ()
+            {
+                alertService.loaded();
+            }
+        );
+
+    function formatDate(oDate)
     {
-        alertService.load();
-        telecomService.getByDate({ sDate: sDate })
-            .then
-            (
-                function (calls)
-                {
-                    $scope.calls = calls;
-                }
-            )
-            .catch
-            (
-                function (err)
-                {
-                    alertService.addError(err);
-                }
-            )
-            .finally
-            (
-                function ()
-                {
-                    alertService.loaded();
-                }
-            );
+        var sYear = oDate.getFullYear();
+        var sMonth = oDate.getMonth();
+        var sDay = oDate.getDate();
 
-        function formatDate(oDate)
-        {
-            var sYear = oDate.getFullYear();
-            var sMonth = oDate.getMonth();
-            var sDay = oDate.getDate();
+        if(sDay < 10) sDay = '0'+sDay;
+        if(sMonth < 10) sDay = '0'+sMonth;
 
-            if(sDay < 10) sDay = '0'+sDay;
-            if(sMonth < 10) sDay = '0'+sMonth;
-
-            return sYear + '-' + sMonth + '-' + sDay;
-        }
+        return sYear + '-' + sMonth + '-' + sDay;
     }
-
-
 });
