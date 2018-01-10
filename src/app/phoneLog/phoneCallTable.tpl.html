@@ -1,0 +1,36 @@
+<table class="table table-hover">
+  <thead>
+  <tr>
+    <th></th>
+    <th>Incoming</th>
+    <th>Caller Number</th>
+    <th>MyWheels User</th>
+    <th>Answered by</th>
+    <th>Remark</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="call in calls">
+
+      <td><i class="fa fa-phone fa-2x text-muted"></i></td>
+      <td>{{ call.sDate | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
+      <td>{{ call.sNumber || 'Unknown' }}</td>
+      <td>
+        {{ call.call_id }}
+        <a ng-if="call.oPerson" ng-click="checkOutPerson(call)">{{ call.oPerson | fullname }}</a>
+        <span ng-if="!call.oPerson">Not Found</span>
+      </td>
+      <td><span ng-if="call.oAdmin">{{ call.oAdmin | fullname }}</span></td>
+      <td>
+        <span ng-if="call.sRemark">
+            <span ng-if="call.sRemark.length > 20" tooltip-placement="bottom" uib-tooltip="{{ call.sRemark }}">
+              {{ call.sRemark.substring(0,20) }}...
+            </span>
+            <span ng-if="call.sRemark.length <= 20">{{ call.sRemark }}</span>
+        </span>
+        <span ng-if="!call.sRemark">(<a ui-sref="phoneLog.edit">Add</a>)</span>
+      </td>
+
+    </tr>
+  </tbody>
+</table>

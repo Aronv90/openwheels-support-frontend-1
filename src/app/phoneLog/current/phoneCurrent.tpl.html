@@ -1,32 +1,11 @@
 <div class="panel panel-default card">
   <div class="panel-body">
     <h3>Current and Recent Calls</h3>
+    <p>
+      All calls of the past 25 minutes are displayed. See <a ui-sref="phoneLog.history">all calls of today</a>.
+    </p>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>Incoming</th>
-          <th>Caller Number</th>
-          <th>MyWheels User</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="call in calls">
-
-          <td><i class="fa fa-phone fa-2x text-muted"></i></td>
-          <td>{{ call.timestamp | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
-          <td>{{ call.caller_number || 'Unknown' }}</td>
-          <td ng-if="call.person_id">
-            <a ng-click="checkOutPerson(call)">{{ call.person_name }}</a>
-          </td>
-          <td ng-if="!call.person_id">
-            Not Found
-          </td>
-
-        </tr>
-      </tbody>
-    </table>
+    <phone-call-table></phone-call-table>
 
   </div>
 </div>
