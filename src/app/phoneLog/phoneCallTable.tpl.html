@@ -28,7 +28,7 @@
             </span>
             <span ng-if="call.sRemark.length <= 20">{{ call.sRemark }}</span>
         </span>
-        <span ng-if="!call.sRemark">(<a ui-sref="phoneLog.edit">Add</a>)</span>
+        <span ng-if="!call.sRemark">(<a ng-click="editCall(call)">Add</a>)</span>
       </td>
 
     </tr>

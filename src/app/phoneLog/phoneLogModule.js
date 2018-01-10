@@ -47,14 +47,28 @@ angular.module('openwheels.phoneLog', [
         templateUrl: 'phoneLog/phoneCallTable.tpl.html',
         controller: function($scope, $state, telecomService) {
 
-            $scope.checkOutPerson = function(call)
+            $scope.checkOutPerson = function (call)
             {
-                // Assign this person to the admin taking the call
-                telecomService.assignAdmin({ iCall: call.id, iPerson: call.person_id });
+                // Assign this call to the admin taking the call
+                telecomService.assignAdmin({ sExtId: call.sExtId });
 
                 // Go to check out the person
-                $state.go('root.person.show.summary', { personId: call.person_id });
+                $state.go('root.person.show.summary', { personId: call.oPerson.id });
             };
+
+            $scope.editCall = function (call)
+            {
+                // Assign this call to the admin taking the call
+                telecomService.assignAdmin({ sExtId: call.sExtId }).then(function(iCall) {
+                    $state.go('phoneLog.edit', { iCall: iCall });
+                });
+            };
+            //
+            // $scope.assignPerson = function (call)
+            // {
+            //     // Assign the selected person to this call
+            //     telecomService.assignPerson({ sExtId: call.sExtId }).then(goToEditForm(iCall));
+            // }
 
         }
     };
