@@ -6,10 +6,22 @@ angular.module('openwheels.phoneLog.edit', [])
 
     $scope.iCall = $stateParams['iCall'];
 
-    $scope.oCall = telecomService.getCall($scope.iCall);
+    telecomService.getCall({ iCall: $scope.iCall })
+        .then ( function (call) {
+            $scope.sRemark = call.remark;
+        });
 
     $scope.saveRemark = function() {
-        telecomService.saveRemark($scope.iCall, $scope.sRemark);
+        telecomService.saveRemark({ iCall: $scope.iCall, sRemark: $scope.sRemark })
+            .then(function (call) {
+                alertService.add('success', 'Call edited', 3000);
+            }, function(error) {
+                alertService.add('danger', error.message, 5000);
+            });
+
     };
+
+
+
 
 });
