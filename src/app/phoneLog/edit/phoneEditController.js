@@ -15,9 +15,12 @@ angular.module('openwheels.phoneLog.edit', [])
         telecomService.saveRemark({ iCall: $scope.iCall, sRemark: $scope.sRemark })
             .then(function (call) {
                 alertService.add('success', 'Call edited', 3000);
+                window.history.back();
             }, function(error) {
                 alertService.add('danger', error.message, 5000);
             });
+
+
 
     };
 

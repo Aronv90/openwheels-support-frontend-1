@@ -27,6 +27,7 @@
               {{ call.sRemark.substring(0,20) }}...
             </span>
             <span ng-if="call.sRemark.length <= 20">{{ call.sRemark }}</span>
+          (<a ng-click="editCall(call)">Edit</a>)
         </span>
         <span ng-if="!call.sRemark">(<a ng-click="editCall(call)">Add</a>)</span>
       </td>
