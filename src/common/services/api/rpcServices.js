@@ -69,6 +69,7 @@ angular.module('rpcServices', [])
       this.getCurrentCalls = m('getCurrentCalls');
       this.getByDate = m('getByDate');
       this.assignAdmin = m('assignAdmin');
+      this.assignPerson = m('assignPerson');
       this.saveRemark = m('saveRemark');
       this.getCall = m('getCall');
     })

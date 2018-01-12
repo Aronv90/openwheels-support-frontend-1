@@ -17,8 +17,25 @@
       <td>{{ call.sNumber || 'Unknown' }}</td>
       <td>
         {{ call.call_id }}
-        <a ng-if="call.oPerson" ng-click="checkOutPerson(call)">{{ call.oPerson | fullname }}</a>
-        <span ng-if="!call.oPerson">Not Found</span>
+
+        <span ng-if="call.aPeople.length > 1">
+
+          <ul ng-if="call.aPeople">
+             <li ng-repeat="oPerson in call.aPeople">
+               <a ng-click="checkOutPerson(call, oPerson)">{{ oPerson | fullname }}</a>
+             </li>
+          </ul>
+
+          <span ng-if="call.oAssignedPerson">
+            Assigned (first click):
+            <a ng-click="checkOutPerson(call, call.oAssignedPerson)">{{ call.oAssignedPerson | fullname }}</a>
+          </span>
+
+        </span>
+
+        <span ng-if="call.aPeople.length === 1"><a ng-click="checkOutPerson(call, call.aPeople[0])">{{ call.aPeople[0] | fullname }}</a></span>
+        <span ng-if="call.aPeople.length < 1">Not Found</span>
+
       </td>
       <td><span ng-if="call.oAdmin">{{ call.oAdmin | fullname }}</span></td>
       <td>

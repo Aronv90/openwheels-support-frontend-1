@@ -20,8 +20,6 @@ angular.module('openwheels.phoneLog.edit', [])
                 alertService.add('danger', error.message, 5000);
             });
 
-
-
     };
 
 
