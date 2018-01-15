@@ -1,36 +1,17 @@
 <div class="panel panel-default card">
   <div class="panel-body">
-    <h3>Call history</h3>
+    <h3>Call history per day</h3>
 
-    <table class="table">
-      <thead>
-        <tr>
-          <th></th>
-          <th>ID</th>
-          <th>Date</th>
-          <th>Caller</th>
-          <th>Answered by</th>
-          <th>Remark</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr ng-repeat="call in calls">
-          <td><i class="fa fa-phone fa-2x text-muted"></i></td>
-          <td>{{ call.id }}</td>
-          <td>{{ call.date | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
-          <td>
-            <a ng-if="call.callingPerson" ui-sref="root.person.show.summary({ personId: call.callingPerson.id })">
-              <b>{{ call.callingPerson | fullname }}</b>
-            </a>
-            <span ng-if="!call.callingPerson"><b>Unkown</b></span>
-            <br/>
-            {{ call.phoneNumber }}
-          </td>
-          <td>{{ (call.answeringPerson | fullname) || '-' }}</td>
-          <td>{{ call.remark || '-' }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div style="margin-bottom: 20px">
+
+      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sPrevDay })">&laquo; Previous</button>
+      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sNextDay })">Next &raquo;</button>
+
+      {{ sCurrentDate | amDateFormat: 'DD MMM YYYY'}}
+
+    </div>
+
+    <phone-call-table></phone-call-table>
 
   </div>
 </div>
