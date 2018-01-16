@@ -38,7 +38,7 @@ angular.module('openwheels.root', [
 		});
 
 		$stateProvider.state('root.home', {
-			url: '/',
+			url: '/'
 		});
 
 		/**

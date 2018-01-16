@@ -1,4 +1,8 @@
 <hr>
-<p>Backoffice - MyWheels</p>
 
+<p>Backoffice - MyWheels</p>
 <p>Current API: {{ currentServer }}</p>
+
+<hr>
+
+<center ng-if="user.identity.provider.id === 1"><h3><a ui-sref="phoneLog.current">Show current phone calls</a></h3></center>

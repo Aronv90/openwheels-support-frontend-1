@@ -5,14 +5,13 @@
   <div class="panel-body">
       <form name="settingsForm" ng-submit="submit()">
 
+        <div>
+          <p><strong>Logged in as:</strong> <a href="/#/person/{{user.identity.id}}">{{user.identity.firstName}} {{user.identity.surname}}</a></p>
+        </div>
+
         <div class="form-group">
           <label for="api">API and Database</label>
           <select id="api" class="form-control" ng-model="settings.server" ng-options="o.url as o.name for o in backendOptions"></select>
-        </div>
-
-        <div show-if-user-has-role="ROLE_ADMIN" class="form-group">
-          <label for="ringerPopups"><input class="" id="ringerPopups" type="checkbox" ng-model="settings.ringerPopups"> Enable Ringer Popups</label>
-          <span ng-if="user && settings.ringerPopups"> - <a ng-click="testCall()">test call</a></span>
         </div>
 
         <div class="form-group">
