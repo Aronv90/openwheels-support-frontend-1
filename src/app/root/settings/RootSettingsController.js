@@ -13,10 +13,5 @@ angular.module('openwheels.root.settings', [
   $scope.submit = function() {
 	  settingsService.save();
   };
-
-  $scope.testCall = function () {
-    phoneLogService.testCall();
-    phoneLogService.testHangup();
-  };
 })
 ;
