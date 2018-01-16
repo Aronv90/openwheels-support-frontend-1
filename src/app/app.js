@@ -192,12 +192,11 @@ angular.module('openwheels', [
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
 
-
-
   //set moment lang
   $window.moment.locale('nl');
 
   $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+
     $state.previous = fromState;
 
     $rootScope.previousState = fromState;
@@ -218,13 +217,21 @@ angular.module('openwheels', [
   });
 })
 
-.controller('AppCtrl', function AppCtrl($scope) {
-
-
-  //set page title on state change
+.controller('AppCtrl', function AppCtrl($scope, authService, $state) {
   $scope.$on('$stateChangeSuccess', function (event, toState) {
+    //set page title on state change
     if ( angular.isDefined(toState.data) &&  angular.isDefined(toState.data.pageTitle)) {
-      $scope.pageTitle = toState.data.pageTitle + ' | openwheels';
+      $scope.pageTitle = toState.data.pageTitle + ' | Openwheels';
+    }
+
+    //go to phoneLog if the person is on the homepage 
+    if (toState.name === 'root') {
+      authService.me()
+      .then(function (user) {
+        if(user.provider.id === 1) {
+          $state.go('phoneLog.current');
+        }
+      });
     }
   });
 
@@ -238,9 +245,7 @@ angular.module('openwheels', [
       this.$apply(fn);
     }
   };
-})
-
-;
+});
 
 /**
  * Manual bootstrap

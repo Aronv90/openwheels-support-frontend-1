@@ -9,7 +9,23 @@
     </button>
   </div>
   <!-- Collect the nav links, forms, and other content for toggling -->
+
+
   <div class="collapse navbar-collapse navbar-main-collapse">
+    <ul class="nav navbar-nav" ng-if="user.identity.provider.id === 1">
+      <li show-if-user-has-role="ROLE_PROVIDER_ADMIN"
+          ng-class="{ dropdown: true, active: $state.includes('phoneLog') }">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Calls <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.current') }">
+            <a ui-sref="phoneLog.current">Current calls</a>
+          </li>
+          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
+            <a ui-sref="phoneLog.history">Call history</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
     <ul class="nav navbar-nav">
       <li show-if-user-has-role="ROLE_PROVIDER_ADMIN"
           ng-class="{ dropdown: true, active: $state.includes('root.person') }">
@@ -19,13 +35,6 @@
           <li><a ui-sref="root.person.search">Advanced search</a></li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
             ui-sref="root.person.blacklist">Blacklist</a>
-          </li>
-          <li show-if-user-has-role="ROLE_ADMIN" class="divider"></li>
-          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
-            <a ui-sref="phoneLog.current">Current calls</a>
-          </li>
-          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
-            <a ui-sref="phoneLog.history">Call history</a>
           </li>
         </ul>
       </li>
@@ -91,7 +100,7 @@
       </li>
     </ul>
 
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" hide>
       <li ng-class="{ dropdown: true, active: $state.includes('root.invoice') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Bill <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -164,7 +173,7 @@
       </li>
     </ul>
 
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" hide>
       <li class="dropdown" ng-class="{ active: $state.includes('root.bank') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Bank <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -308,9 +317,6 @@
     </div>
 
     <ul class="nav navbar-nav">
-      <li ng-if="user.isAuthenticated">
-        <a href="/#/person/{{user.identity.id}}">{{user.identity.firstName}} {{user.identity.surname}}</a>
-      </li>
       <li ng-if="!user.isAuthenticated">
         <a ng-click="logIn()">Log In</a>
       </li>
