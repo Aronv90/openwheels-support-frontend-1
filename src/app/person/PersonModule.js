@@ -102,7 +102,8 @@ angular.module('openwheels.person', [
 						timeFrame: {
 							startDate: startDate.format('YYYY-MM-DD HH:mm'),
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
-						}
+						},
+						limit: 15
 					});
 				}]
 			}
