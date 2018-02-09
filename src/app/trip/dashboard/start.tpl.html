@@ -26,11 +26,17 @@
 
       <hr/>
 
+      <span ng-if="startProblems == ''">
+        <strong>Heeft de huurder zijn of haar OV-chipkaart verloren?</strong>
+        <p>Zorg eerst dat de sleutel uit het contact is! Klik vervolgens hieronder op <strong>[Versturen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</p>
+      </span>
+
       <strong ng-if="startProblems != ''">Onderneem dan de volgende acties:</strong>
 
       <span ng-if="startProblems === 'show_chipcard'">
         <ul>
-          <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De boordcomputer heeft geen ingelogde rit. Vraag om de OV-chipkaart nogmaals voor de chipkaartlezer bij de voorruit te houden. Hierna zouden de begin- en eindtijd van de reservering op het scherm zichtbaar moeten zijn en kan de auto gestart worden.</li>
+          <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
+          <li>De boordcomputer heeft geen ingelogde rit. Vraag om de OV-chipkaart nogmaals voor de chipkaartlezer bij de voorruit te houden. Hierna zouden de begin- en eindtijd van de reservering op het scherm zichtbaar moeten zijn en kan de auto gestart worden.</li>
           <li>Zijn de begin- en eindtijd van de reservering hierna niet zichtbaar op het scherm? Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. <strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
         </ul>
       </span>
@@ -39,16 +45,18 @@
         <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas op weg als de rit begonnen is. De huurder moet dan de OV-chipkaart nogmaals voor de lezer houden.</span>
         <span ng-if="booking.beginBooking <= now">
           <ul>
-            <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De boordcomputer heeft geen reservering gevonden voor de OV-chipkaart. Stuur de boeking nogmaals naar de boordcomputer door <a ng-click="ccome()"><strong>[hier]</strong></a> te klikken. Vraag de huurder om over 45 seconden nogmaals de OV-chipkaart bij de lezer te houden en de auto te starten. </li>
-            <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. <strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
+            <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
+            <li>De boordcomputer heeft geen reservering gevonden voor de OV-chipkaart. Stuur de boeking nogmaals naar de boordcomputer door <a ng-click="ccome()"><strong>[hier]</strong></a> te klikken. Vraag de huurder om over 45 seconden nogmaals de OV-chipkaart bij de lezer te houden en de auto te starten. </li>
+            <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
           </ul>
         </span>
       </span>
 
       <span class="standard" ng-if="startProblems === 'pincode'">
         <ul>
+          <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
           <li>Er is een pincode voor de huurder aangemaakt waarmee een OV-chipkaart gekoppeld kan worden. De pincode van de huurder is <strong>{{ fish.pincode }}</strong>. De huurder dient deze pincode op de boordcomputer in te vullen en met enter te bevestigen (het is geen touchscreen). Hierna zouden de begin- en eindtijd van de reservering op het scherm zichtbaar moeten zijn en kan de auto gestart worden.</li>
-          <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Vraag de huurder dan om de OV-chipkaart nogmaals voor de lezer te houden, de boordcomputer logt dan uit. Klik vervolgens hieronder op <strong>[Versturen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. <strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
+          <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Vraag de huurder dan om de OV-chipkaart nogmaals voor de lezer te houden, de boordcomputer logt dan uit. Klik vervolgens hieronder op <strong>[Versturen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
         </ul>
       </span>
 
@@ -62,36 +70,29 @@
         </span>
         <span ng-if="booking.endBooking > now">
           <ul>
+            <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
             <li>De huurder is waarschijnlijk te vroeg bij de auto waardoor de boordcomputer de vorige rit wil verlengen. De rit begint om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Vraag de huurder om de OV-chipkaart nogmaals voor de lezer te houden zodra de rit begonnen is.</li>
-            <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Vraag de huurder dan om de OV-chipkaart nogmaals voor de lezer te houden, de boordcomputer logt dan uit. Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. <strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
+            <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Vraag de huurder dan om de OV-chipkaart nogmaals voor de lezer te houden, de boordcomputer logt dan uit. Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
           </ul>
         </span>
       </span>
 
-      <fieldset class="standard" ng-if="startProblems === 'reservation'">
+      <span class="standard" ng-if="startProblems === 'reservation'">
         De boordcomputer heeft de juiste reservering en de auto zou moeten starten. Zo niet, kan dit de volgende oorzaken hebben:
-        <md-checkbox aria-label="Koppeling intrappen" class="md-warn md-align-top-left">
-          <span><strong>De koppeling wordt niet volledig ingetrapt</strong>. Zorg dat de koppeling helemaal tot de bodem wordt ingestrapt.</span>
-        </md-checkbox>
-        <md-checkbox aria-label="Stuurslot" class="md-warn md-align-top-left">
-          <span>De <strong>sleutel zat in het contact</strong> toen de OV-chipkaart voor de lezer werd gehouden. Vraag de huurder om de sleutel uit het contact te halen en de OV-chipkaart voor de lezer te houden. De boordcomputer logt nu uit. Vraag de huurder nogmaals de OV-chipkaart voor de lezer te houden, de begin- en eindtijd van de reservering zouden nu weer zichtbaar moeten zijn op het scherm. De auto kan gestart worden.</span>
-        </md-checkbox>
-        <md-checkbox aria-label="Stuurslot" class="md-warn md-align-top-left">
-          <span>Het <strong>stuur staat op stuurslot</strong>. Flink trekken aan het stuur en gelijktijdig de sleutel omdraaien. De auto zou dan moeten starten.</span>
-        </md-checkbox>
-        <md-checkbox aria-label="Automaat" class="md-warn md-align-top-left">
-          <span>Als het een automaat is, moet de <strong>versnelling in de P stand staan en de rem ingetrapt worden</strong>.</span>
-        </md-checkbox>
-        <md-checkbox aria-label="Lege accu" class="md-warn md-align-top-left">
-          <span>De boordcomputer toont tijdens het starten de melding 'System info error'. <strong>De accu van de auto is dan leeg.</strong> Boek de auto om via de knop <strong.[Boeken]</strong>. Is de huurder al onderweg? Schakel dan de Pechhulp in via <strong>[Pech]</strong>.</span>
-        </md-checkbox>
-        <md-checkbox style="display:none;"></md-checkbox>
-      </fieldset>
+        <br/><br/>
+        <ul>
+          <li><strong>De koppeling wordt niet volledig ingetrapt</strong>. Zorg dat de koppeling helemaal tot de bodem wordt ingestrapt.</li>
+          <li>De <strong>sleutel zat in het contact</strong> toen de OV-chipkaart voor de lezer werd gehouden. Vraag de huurder om de sleutel uit het contact te halen en de OV-chipkaart voor de lezer te houden. De boordcomputer logt nu uit. Vraag de huurder nogmaals de OV-chipkaart voor de lezer te houden, de begin- en eindtijd van de reservering zouden nu weer zichtbaar moeten zijn op het scherm. De auto kan gestart worden.</li>
+          <li>Het <strong>stuur staat op stuurslot</strong>. Flink trekken aan het stuur en gelijktijdig de sleutel omdraaien. De auto zou dan moeten starten.</li>
+          <li>Als het een automaat is, moet de <strong>versnelling in de P stand staan en de rem ingetrapt worden</strong>.</li>
+        <li>De boordcomputer toont tijdens het starten de melding 'System info error'. <strong>De accu van de auto is dan leeg.</strong> Is de huurder al onderweg? Schakel dan de Pechhulp in via de knop <strong>[Pech]</strong>. Zo niet, boek de auto om via de knop <strong>[Boeken]</strong>.</li>
+        </ul>
+      </span>
 
       <span class="standard" ng-if="startProblems === 'empty'">
         <ul>
           <li>Als de huurder aangeeft dat het scherm van de boordcomputer leeg is, zou het kunnen dat de tekst slecht leesbaar is op het donkere scherm. Vraag de huurder om rechtsonder op de knop <strong>'Esc'</strong> te drukken en/of de OV-chipkaart voor de lezer te houden. Het scherm zou dan op moeten lichten. Selecteer een van bovenstaande opties als hierdoor de tekst wel leesbaar is.</li>
-          <li>Licht het scherm niet op en ziet de huurder nog steeds geen tekst? Dan is de accu waarschijnlijk leeg. Boek de auto om via de knop <strong>[Boeken]</strong>. Is de huurder al onderweg? Schakel dan de Pechhulp in via <strong>[Pech]</strong>.</li>
+          <li>Licht het scherm niet op en ziet de huurder nog steeds geen tekst? Dan is de accu waarschijnlijk leeg. Is de huurder al onderweg? Schakel dan de Pechhulp in via de knop <strong>[Pech]</strong>. Zo niet, boek de auto om via de knop <strong>[Boeken]</strong>.</li>
         </ul>
       </span>
 
@@ -127,7 +128,7 @@
           <span>Als het een automaat is, moet de <strong>versnelling in de P stand staan en de rem ingetrapt worden</strong>.</span>
         </md-checkbox>
         <md-checkbox aria-label="Lege accu van de auto" class="md-warn md-align-top-left">
-          <span><strong>De accu van de auto is dan leeg.</strong> Boek de auto om via de knop <strong>[Boeken]</strong>. Is de huurder al onderweg? Schakel dan de Pechhulp in via <strong>[Pech]</strong>.</span>
+          <span><strong>De accu van de auto is dan leeg.</strong> Is de huurder al onderweg? Schakel dan de Pechhulp in via de knop <strong>[Pech]</strong>. Zo niet, boek de auto om via de knop <strong>[Boeken]</strong>.</span>
         </md-checkbox>
         <md-checkbox style="display:none;"></md-checkbox>
       </div>
@@ -146,7 +147,7 @@
         <span>Als het een automaat is, moet de versnelling in de P stand staan en de rem ingetrapt worden.</span>
       </md-checkbox>
       <md-checkbox aria-label="Accu van de auto is leeg" class="md-warn md-align-top-left">
-        <span>De accu van de auto is dan leeg. Boek de auto om via de knop <strong>[Boeken]</strong>. Is de huurder al onderweg? Schakel dan de Pechhulp in via <strong>[Pech]</strong>.</span>
+        <span>De accu van de auto is dan leeg. Is de huurder al onderweg? Schakel dan de Pechhulp in via de knop <strong>[Pech]</strong>. Zo niet, boek de auto om via de knop <strong>[Boeken]</strong>.</span>
       </md-checkbox>
       <md-checkbox style="display:none;"></md-checkbox>
     </div>

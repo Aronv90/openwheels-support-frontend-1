@@ -32,6 +32,11 @@
 
       <hr/>
 
+      <span ng-if="ccomeColor == ''">
+        <strong>Heeft de huurder zijn of haar OV-chipkaart verloren?</strong>
+        <p>Klik dan hieronder op <strong>[Versturen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</p>
+      </span>
+
       <strong ng-if="ccomeColor != ''">Onderneem dan de volgende acties:</strong>
 
       <fieldset class="standard" ng-if="ccomeColor === 'green'">
