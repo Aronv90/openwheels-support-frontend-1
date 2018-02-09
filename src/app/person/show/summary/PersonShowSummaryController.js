@@ -4,7 +4,7 @@ angular.module('openwheels.person.show.summary', [])
 
 .controller('PersonShowSummaryController', function ($scope, person, bookings) {
   $scope.person = person;
-  $scope.bookings = bookings.result;
+  $scope.bookings = bookings;
 
   var warnings = {
     total: function(){
