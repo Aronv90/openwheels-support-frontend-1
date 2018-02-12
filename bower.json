@@ -23,7 +23,6 @@
     "angular-ui-utils": "~3.0.0",
     "angular-uuid": "~0.1.0",
     "animate.css": "~3.5.2",
-    "bootstrap": "https://github.com/twbs/bootstrap.git",
     "font-awesome": "~4.6.3",
     "headroom.js": "https://github.com/WickyNilliams/headroom.js.git#master",
     "jquery": "~2.1.0",
