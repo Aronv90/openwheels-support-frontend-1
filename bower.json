@@ -27,6 +27,7 @@
     "headroom.js": "https://github.com/WickyNilliams/headroom.js.git#master",
     "jquery": "~2.1.0",
     "jquery-ui": "1.12.1",
+    "bootstrap": "3.3.7",
     "momentjs": "~2.15.1",
     "ng-file-upload": "~12.2.12",
     "ng-infinite-scroll-npm-is-better-than-bower": "^1.3.1",
