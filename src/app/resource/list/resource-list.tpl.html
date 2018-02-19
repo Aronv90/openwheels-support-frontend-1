@@ -1,3 +1,4 @@
+  <h4>Resources</h4>
 <ul class="list-unstyled list-block">
   <li ng-repeat="r in resources">
     <div class="media">
@@ -30,6 +31,37 @@
   </li>
 </ul>
 
-<div ng-show="resources.length > 4">
-  <pagination total-items="125" page="params.page" on-select-page="setPage(page)" rotate="false"></pagination>
-</div>
+<hr>
+
+  <h4>Member of resources</h4>
+<ul class="list-unstyled list-block">
+  <li ng-repeat="r in resourceMembers">
+    <div class="media">
+
+      <a class="pull-left" ui-sref="root.resource.show.summary({resourceId: r.id })">
+        <img class="media-object img-square" ng-src="{{ r.pictures[0] | resourceAvatar:'small' }}" alt="Resource">
+      </a>
+
+      <div class="pull-left">
+        <span ng-bind-html="r.rating_totals | satisfactionThumb:'fa-lg'"></span>
+      </div>
+
+      <div class="media-body">
+        <div>
+          <a ui-sref="root.resource.show.summary({resourceId: r.id })">{{ r.alias }}</a>
+          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }"> {{ r.isActive ? 'Active' : 'Inactive' }}</span>
+        </div>
+        <div>{{ r.brand }} {{ r.model }}</div>
+        <div><i class="fa fa-map-marker fa-fw"></i> {{ r.location }} {{ r.streetNumber }}, {{ r.city }}</div>
+        <ul class="list-inline">
+          <li>
+            <i class="fa fa-user fa-fw"></i> <a ui-sref="root.person.show.summary({personId: r.owner.id })">{{ r.owner.firstName }} {{ r.owner.surname }}</a>
+          </li>
+          <li ng-show="r.contactPerson.id">
+            <i class="fa fa-user fa-fw"></i> <a ui-sref="root.person.show.summary({personId: r.contactPerson.id })">{{ person | fullname }}</a>
+          </li>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
