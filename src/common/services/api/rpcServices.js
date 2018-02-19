@@ -143,10 +143,10 @@ angular.module('rpcServices', [])
       this.allFleets = m('allFleets');
       this.getMembers = m('getMembers');
       this.addMember = m('addMember');
+      this.getMemberResources = m('getMemberResources');
       this.removeMember = m('removeMember');
       this.addProperty = m('addProperty');
       this.removeProperty = m('remProperty');
-      
       this.createParkingpermit = m('createParkingpermit');
       this.alterParkingpermit = m('alterParkingpermit');
       this.removeParkingpermit = m('removeParkingpermit');
