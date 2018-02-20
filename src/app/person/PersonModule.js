@@ -584,11 +584,16 @@ angular.module('openwheels.person', [
 			resolve: {
 				resources: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 					var personId = $stateParams.personId;
-					var page = $stateParams.page || 1;
 					return resourceService.search({
 						owner: personId,
-						page: page - 1,
-						perPage: 5
+						page: 0,
+						perPage: 25
+					});
+				}],
+				resourceMembers: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
+					var personId = $stateParams.personId;
+					return resourceService.getMemberResources({
+						person: personId
 					});
 				}]
 			}

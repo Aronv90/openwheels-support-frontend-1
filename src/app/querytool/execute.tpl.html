@@ -36,7 +36,7 @@
 <nav ng-if="pages.length > 1">
     <ul class="pagination">
         <li ng-repeat="page in pages" ui-sref-active="active">
-            <a ui-sref="root.querytool.execute(page)">{{page.page + 1}}</a>
+            <a ui-sref="setPage(page)">{{page.page + 1}}</a>
         </li>
     </ul>
 </nav>
