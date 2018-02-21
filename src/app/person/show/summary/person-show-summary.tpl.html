@@ -43,6 +43,7 @@
 
 <ul class="fa-ul">
   <li>
+    <i class="fa fa-li fa-calendar"></i>
     {{ person.dateOfBirth | amDateFormat:'DD-MM-YYYY' }}
   </li>
   <li>
@@ -68,26 +69,39 @@
 </div>
 <table class="table table-hover" ng-show="bookings.length > 0">
   <thead>
-  <tr>
-    <th>Trip</th>
-    <th>Begin booking</th>
-    <th>End booking</th>
-    <th>Begin trip</th>
-    <th>Begin requested</th>
-    <th>Resource</th>
-  </tr>
+    <tr>
+      <th>Booking</th>
+      <th>Status</th>
+      <th colspan="2">Timeframe</th>
+      <th>Begin trip</th>
+      <th>Resource</th>
+      <th>Paid</th>
+    </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="booking in bookings | orderBy:'beginBooking':true">
-    <td><a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a></td>
-    <td>{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td>{{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td>{{ booking.trip.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td>{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td><a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
-    <td>
-      <span class="text-success" ng-if="booking.trip.finalized">finalized</span>
-    </td>
-  </tr>
+    <tr 
+      ng-class="{
+        danger: ['cancelled', 'owner_cancelled'].indexOf(booking.status) >= 0, 
+        warning: booking.status === 'rejected', 
+        success: booking.beginBooking < now && booking.endBooking > now
+      }" 
+      ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']"
+    >
+      <td>
+        <a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a>
+      </td>
+      <td>{{ booking.status }}</td>
+      <td colspan="2">
+        <booking-date ng-if="booking.beginBooking" booking="booking"></booking-date>
+        <booking-date ng-if="booking.beginRequested && !booking.beginBooking" booking="booking" type="requested"></booking-date>
+      </td>
+      <td>{{ booking.trip.begin | amDateFormat:'DD-MM HH:mm' }}</td>
+      <td>
+        <a ui-sref="root.resource.show.trip({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a>
+      </td>
+      <td>
+        <span>{{ booking.approved }}</span>
+      </td>
+    </tr>
   </tbody>
 </table>
