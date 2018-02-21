@@ -99,10 +99,12 @@ angular.module('openwheels.person', [
 
 					return bookingService.getBookingList({
 						person: $stateParams.personId,
+						cancelled: true,
 						timeFrame: {
 							startDate: startDate.format('YYYY-MM-DD HH:mm'),
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
-						}
+						},
+						limit: 50
 					});
 				}]
 			}
@@ -125,11 +127,12 @@ angular.module('openwheels.person', [
 
 					return bookingService.getBookingList({
 						person: $stateParams.personId,
+						cancelled: true,
 						timeFrame: {
 							startDate: startDate.format('YYYY-MM-DD HH:mm'),
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
-						cancelled: true
+						limit: 50
 					});
 				}]
 			}

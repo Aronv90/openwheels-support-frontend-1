@@ -24,7 +24,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-class="{danger: ['cancelled', 'owner_cancelled'].indexOf(booking.status) >= 0, warning: booking.status === 'rejected', success: booking.beginBooking < now && booking.endBooking > now}" ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']">
+    <tr 
+      ng-class="{
+        danger: ['cancelled', 'owner_cancelled'].indexOf(booking.status) >= 0, 
+        warning: booking.status === 'rejected', 
+        success: booking.beginBooking < now && booking.endBooking > now
+      }" 
+      ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']"
+    >
       <td><a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a></td>
       <td>{{ booking.status }}</td>
       <td colspan="2">
