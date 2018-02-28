@@ -13,6 +13,14 @@
 
         <form name="form">
           <div class="row">
+
+            <div class="form-group col-xs-12">
+              <label>Booking id</label>
+              <input ng-model="invoice.booking" class="form-control" type="text" min="0"  maxlength="6" max="999999" restrict-to="[0-9]" pattern="[0-9]*" />
+              <span class="text-danger" ng-if="bookingError"><br/>De boeking kan niet gevonden worden.</span>
+              <span ng-if="loadBooking"><br/>De boekingsgegevens worden opgehaald, een moment geduld.</span>
+            </div>
+
             <div class="form-group col-xs-6">
               <button type="button" ng-click="swapSenderRecipient()" class="btn-link" style="float: right"><i class="fa fa-exchange"></i></button>
               <label>Sender (owner)</label>
@@ -22,6 +30,7 @@
             <div class="form-group col-xs-6">
               <label>Recipient (renter)</label>
               <input find-person name="recipient" model="invoice.recipient" class="form-control" />
+              <span class="text-danger" ng-if="invoice.recipient.id === 282"><br/>MyWheels kan geen ontvanger zjn.</span>
             </div>
           </div>
 
@@ -59,11 +68,6 @@
             </div>
           </div>
 
-          <div class="form-group">
-            <label>Booking id (optional)</label>
-            <input ng-model="invoice.booking" class="form-control" integer />
-          </div>
-
           <div class="form-group" ng-if="invoice.sender.id && invoice.recipient.id && invoice.price && invoice.quantity">
             <label>Controle</label>
             <p ng-if="invoice.quantity * invoice.price >= 0" >
@@ -72,7 +76,7 @@
             <p ng-if="invoice.quantity * invoice.price < 0" >
               <em>{{invoice.recipient.firstName + ' ' + (invoice.recipient.surname || '')}}</em> moet <strong>{{-1 * invoice.quantity * invoice.price | currency}}</strong> ontvangen van <em>{{invoice.sender.firstName + ' ' + (invoice.sender.surname || '')}}</em>
             </p>
-            <button ng-click="save(invoice)" class="btn btn-primary">Correct</button>
+            <button ng-click="save(invoice)" class="btn btn-primary" ng-disabled="invoice.recipient.id === 282">Correct</button>
           </div>
 
         </form>

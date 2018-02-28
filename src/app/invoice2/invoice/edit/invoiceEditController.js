@@ -2,9 +2,11 @@
 
 angular.module('openwheels.invoice2.invoice.edit', [])
 
-.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService, $stateParams, personService, $state) {
+.controller('InvoiceEditController', function ($scope, invoice, invoice2Service, alertService, $stateParams, personService, $state, bookingService, contractService) {
 
   $scope.finished = false; // prevent creating an invoice twice
+  $scope.bookingError = false;
+  $scope.loadBooking = false;
 
   $scope.taxRateOptions = [
     { label: '21%', value: 21 },
@@ -14,10 +16,11 @@ angular.module('openwheels.invoice2.invoice.edit', [])
 
   $scope.typeOptions = [
     { label: 'Tankbon', value: 'receipt' },
-    { label: 'Schade', value: 'damage' },
-    { label: 'Verkeersboete', value: 'traffic_ticket' },
-    { label: 'Providerboete', value: 'provider_penalty' },
-    { label: 'Administratiekosten', value: 'administration_costs' },
+    { label: 'Schade (eigen risico, reparatiekosten)', value: 'damage' },
+    { label: 'Verkeersboete (parkeerboete, snelheidsovertreding)', value: 'traffic_ticket' },
+    { label: 'Providerboete (roken, schooonmaken, te laat terugbrengen)', value: 'provider_penalty' },
+    { label: 'Annuleringskosten', value: 'penalty' },
+    { label: 'Administratiekosten (tankbon, verwerken boete, herinneringskosten)', value: 'administration_costs' },
     { label: 'Abonnement VGA', value: 'subscription_vga' },
     { label: 'Boekingskosten huurder', value: 'reserveer_kosten' },
     { label: 'Boekingskosten verhuurder', value: 'dag_owner_fee_kosten' },
@@ -30,6 +33,79 @@ angular.module('openwheels.invoice2.invoice.edit', [])
     { label: 'Inleg', value: 'inleg_rente' },
     { label: 'Other', value: 'custom' }
   ];
+
+  $scope.$watch('invoice.type', function (newValue) {
+    if (['traffic_ticket', 'subscription_vga', 'verzekering_kosten'].indexOf(newValue) >= 0) {
+      $scope.invoice.taxRate = 0;
+    } else if (['reserveer_kosten', 'dag_owner_fee_kosten', 'verzekering_kosten'].indexOf(newValue) >= 0) {
+      $scope.invoice.taxRate = 21;
+    } else if ($scope.invoice.sender.isCompany && ['damage'].indexOf(newValue) < 0) {
+      $scope.invoice.taxRate = 21;
+    } else if (!$scope.invoice.sender.isCompany) {
+      $scope.invoice.taxRate = 0;
+    }
+
+
+    if (newValue === 'damage' && $scope.invoice.price === 250) {
+      $scope.invoice.taxRate = 0;
+    }
+  });
+
+  $scope.$watch('invoice.price', function (newValue) {
+    if (newValue === 250 && $scope.invoice.type === 'damage') {
+      $scope.invoice.taxRate = 0;
+    }
+  });
+
+  $scope.$watch('invoice.sender', function (newValue) {
+    if (
+      newValue.isCompany && 
+      ['traffic_ticket', 'subscription_vga', 'verzekering_kosten'].indexOf($scope.invoice.type) < 0 && 
+      ($scope.invoice.type !== 'damage' || $scope.invoice.price !== 250)
+    ) {
+      $scope.invoice.taxRate = 21;
+    } else {
+      $scope.invoice.taxRate = 0;      
+    }
+  });
+
+  $scope.$watch('invoice.booking', function (newValue) {
+    if (newValue.length === 6) {
+      $scope.loadBooking = true;
+      alertService.load();
+
+      // get booking
+      bookingService.get({
+        id: newValue
+      })
+      .then(function(booking) {
+        // get contractor
+        contractService.get({
+          id: booking.contract.id
+        })
+        .then(function(contract) {
+          // set the sender and recipient
+          $scope.invoice.sender = booking.resource.owner;
+          $scope.invoice.recipient = contract.contractor;
+        })
+        .catch(function(err){
+          $scope.bookingError = true;
+        })
+        .finally(function(){
+          alertService.loaded();
+          $scope.loadBooking = false;
+        });
+
+      })
+      .catch(function(err){
+        $scope.bookingError = true;
+      })
+      .finally(function(){
+        alertService.loaded();
+        $scope.loadBooking = false;
+      });
+    }
+  });
 
   $scope.save = function (invoice) {
     return invoice.id ? alterInvoice(invoice) : createInvoice(invoice);
