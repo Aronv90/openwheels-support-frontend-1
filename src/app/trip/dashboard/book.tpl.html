@@ -54,6 +54,12 @@
                       Openen met {{ resource.locktype }}
                     </div>
                 </md-list-item>
+                <md-list-item>
+                    <md-icon>euro_symbol</md-icon>
+                    <div flex>
+                      {{ resource.price.dayRateTotal | currency }} per dag
+                    </div>
+                </md-list-item>
               </md-list>
             </div>
             <div class="col-xs-2">
