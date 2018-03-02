@@ -1131,6 +1131,7 @@ angular.module('openwheels.trip.dashboard', [])
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
         $scope.startProblems = [];
+        $scope.getLastCommand = false;
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
         chipcardService.getFish({person: $scope.booking.person.id})
@@ -1164,6 +1165,27 @@ angular.module('openwheels.trip.dashboard', [])
             }
           });
         };
+
+        //get last command to see if immobilizer is on
+        $scope.getLastCommand = function() {
+          chipcardService.logs({
+            resource: $scope.booking.resource.id,
+            max: 1,
+            offset: 0
+          })
+          .then(function(lastCommand) {
+            $scope.lastCommand = lastCommand.result[0];
+          })
+          .finally(function() {
+            $scope.loadingLastCommand = false;
+          });
+        };
+
+        //only get last command if boardcomputer is MyFMS
+        if($scope.booking.resource.boardcomputer && $scope.booking.resource.boardcomputer !== 'ccome') {
+          $scope.loadingLastCommand = true;
+          $scope.getLastCommand();
+        }
 
         $scope.done = function() {
           $mdDialog.hide();
