@@ -67,12 +67,13 @@
             <!-- link -->
             <td>
               <a ng-href="{{ FRONT_BASE }}/verzamelfactuur/{{ elm.id }}.pdf" target="_blank">
-                <i class="fa fa-external-link"></i></a>
+                <i class="fa fa-fw fa-file-pdf-o"></i>
+              </a>
               <button ng-if="!elm.paid" ng-click="removeInvoiceGroup(elm.id)" title="Ongroepeer deze verzamelfactuur" class="btn btn-xs btn-link"><i class="fa fa-fw fa-expand"></i></button>
             </td>
 
             <td>
-              <a ui-sref="root.invoice2.invoiceGroup.show({ invoiceGroupId: elm.id })">{{ elm.id }}</a>
+              {{ elm.id }}
             </td>
 
             <!-- person -->
