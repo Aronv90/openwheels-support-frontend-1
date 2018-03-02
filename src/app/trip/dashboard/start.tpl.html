@@ -105,10 +105,10 @@
     <div layout="column" layout-margin class="md-dialog-content" ng-if="booking.resource.boardcomputer && booking.resource.boardcomputer !== 'ccome'">
       <h3>Auto starten</h3>
 
-      <div ng-if="lastCommand.action === 'CloseDoorStartDisable'">
-        <p>Zit de huurder al in de auto, maar kan hij de auto niet starten? Dit kan de volgende oorzaken hebben:</p>
+      <div ng-if="lastCommand.action === 'CloseDoorStartDisable' && booking.beginBooking < now && booking.endBooking > now">
+        <p>Zit de huurder al in de auto, maar kan hij de auto niet starten? Dan heeft dit de volgende oorzaak:</p>
         
-        <p>De auto start niet omdat de startblokkering ingeschakeld is op {{ lastCommand.dateRequested | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik op de knop <strong>[Openen]</strong> om de auto op afstand te openen en de startblokkering uit te schakelen. <strong>Let op:</strong> de sleutel moet uit het contactslot zijn!</p>
+        <p>De auto start niet omdat de startblokkering ingeschakeld is op {{ lastCommand.dateRequested | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik <a ng-click="myfms()"><strong>[hier]</strong></a> om de auto op afstand te openen en de startblokkering eraf te halen. <strong>Let op:</strong> de sleutel moet uit het contactslot zijn. Verifieer de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.
       </div>
 
       <div ng-if="booking.beginBooking > now || booking.endBooking < now">
