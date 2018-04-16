@@ -14,7 +14,7 @@ angular.module('openwheels.person.show.vouchers', [])
 
   function reload () {
     alertService.load();
-    $q.all([ getVouchers(), getRequiredValue(), getCredit(), getDebt() ]).finally(function () {
+    $q.all([ getVouchers(), getDisapprovedVouchers(), getRequiredValue(), getCredit(), getDebt() ]).finally(function () {
       alertService.loaded();
     });
   }
@@ -37,6 +37,18 @@ angular.module('openwheels.person.show.vouchers', [])
     })
     .catch(function (err) {
       $scope.vouchers = [];
+    });
+    return promise;
+  }
+
+  function getDisapprovedVouchers () {
+    $scope.vouchers = null;
+    var promise = voucherService.search({ person: person.id, minValue: 0, approved: false });
+    promise.then(function (vouchers) {
+      $scope.disapprovedVouchers = vouchers;
+    })
+    .catch(function (err) {
+      $scope.disapprovedVouchers = [];
     });
     return promise;
   }
@@ -119,7 +131,7 @@ angular.module('openwheels.person.show.vouchers', [])
     
     paymentService.payoutVoucher({ voucher: voucher.id })
     .then(function (result) {
-      return getVouchers();
+      return getVouchers(), getDisapprovedVouchers();
     })
     .catch(alertService.addError)
     .finally(alertService.loaded);
