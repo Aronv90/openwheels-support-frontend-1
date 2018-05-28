@@ -251,21 +251,24 @@ angular.module('openwheels.resource', [
     });
 
 		/**
-     * resource/:id/log
+     * resource/:id/log?startDate&endDate
      * @resolve {promise} resource
      */
 		$stateProvider.state('root.resource.show.log', {
-			url: '/log',
+			url: '/log?startDate&endDate',
 			controller: 'ResourceShowLogController',
 			templateUrl: 'resource/show/log/resource-show-log.tpl.html',
 			data: {pageTitle: 'Resource Boardcomputer Log'},
 			resolve: {
-				logs: ['resource', 'boardcomputerService', function (resource, boardcomputerService) {
-					var from;
-					var to;
-					from = moment().subtract(1, 'week').format('YYYY-MM-DD HH:mm');
-					to = moment().add(1, 'week').format('YYYY-MM-DD HH:mm');
-					return boardcomputerService.log({resource: resource.id, from: from, to: to});
+				logs: ['$stateParams', 'resource', 'boardcomputerService', function ($stateParams, resource, boardcomputerService) {
+					var startDate = $stateParams.startDate ? moment($stateParams.startDate).format('YYYY-MM-DD HH:mm') : moment().startOf('day').format('YYYY-MM-DD HH:mm');
+					var endDate = $stateParams.endDate ? moment($stateParams.endDate).format('YYYY-MM-DD HH:mm') : moment().endOf('day').format('YYYY-MM-DD HH:mm');
+
+					return boardcomputerService.log({
+						resource: resource.id, 
+						from: startDate, 
+						to: endDate
+					});
 				}]
 			}
 		});

@@ -3,30 +3,54 @@
         <h1>Resource with id: {{resource.id}} was removed.</h1>
     </div>
 </div>
-<div class="panel panel-default card">
+<div class="panel panel-default card" style="height:140px">
     <div class="panel-heading">
         <div class="media row">
-          <div class="col-md-1">
-            <img class="img-responsive media-object img-square" ng-src="{{ resource.pictures[0] | resourceAvatar:'small' }}">
+
+          <div class="col-md-2" style="height:120px">
+            <img class="img-responsive media-object" ng-src="{{ resource.pictures[0] | resourceAvatar:'normal' }}" />
           </div>
-          <div class="col-md-8">
+
+          <div class="col-md-7" style="margin-top:10px;">
             <h3 class="card__title">
-              <a target="_blank" href="{{ frontResources }}{{ resource.owner.email }}"><i class="fa fa-external-link"></i></a>
-              {{ resource.alias }}
-              <span class="lead text-muted">({{ resource.registrationPlate }})</span>
-              van <a ui-sref="root.person.show.summary({ personId: resource.ownerId })">{{ resource.owner.firstName }}</a>
-              <small>{{ resource.id }}</small>
+              {{ resource.alias | limitTo: 25}}{{resource.alias.length > 25 ? '...' : ''}}
+              van 
+              <a ui-sref="root.person.show.summary({ personId: resource.ownerId })">{{ resource.owner.firstName }}</a>
+              <small>({{ resource.registrationPlate }}, {{ resource.id }})</small>
             </h3>
             <ul class="list-inline card__subtitle">
-              <li>{{ resource.isActive ? 'Active' : 'Inactive' }}</li>
-              <li><i class="fa fa-calendar"></i> {{ resource.created | amDateFormat:'DD-MM-YYYY' }}</li>
-              <li><i class="fa fa-map-marker"></i> {{ resource.location }} {{ resource.streetNumber }}, {{ resource.city }}</li>
-              <li><i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Available for others' : 'Not available for others'}}</li>
-              <li><i class="fa fa-gear"></i> {{ resource.fuelType}}</li>
+              <li ng-class="{'text-success': resource.isActive, 'text-danger': !resource.isActive}">
+                <i class="fa fa-check"></i> {{ resource.isActive ? 'Active' : 'Inactive' }}
+              </li>
+              <li ng-class="{'text-success': resource.isAvailableOthers, 'text-danger': !resource.isAvailableOthers}">
+                <i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Available for others' : 'Not available for others'}}
+              </li>
+              <li>
+                <i class="fa fa-calendar"></i> {{ resource.created | amDateFormat:'DD-MM-YYYY' }}
+              </li>
+              <li>
+                <i class="fa fa-map-marker"></i> {{ resource.location }} {{ resource.streetNumber }}, {{ resource.city }}
+              </li>
+            </ul>
+
+            <ul class="list-inline card__subtitle" style="margin-top:5px;">
+              <li ng-if="resource.locktypes.indexOf('smartphone') >= 0 && resource.locktypes.indexOf('chipcard') < 0">
+                <h4>Micpoint: smartphone</h4>
+              </li>
+              <li ng-if="resource.locktypes.indexOf('smartphone') >= 0 && resource.locktypes.indexOf('chipcard') >= 0">
+                <h4>Micpoint: smartphone & chipcard</h4>
+              </li>
+              <li ng-if="resource.locktypes.indexOf('smartphone') < 0 && resource.locktypes.indexOf('chipcard') >= 0">
+                <h4>Convadis: chipcard</h4>
+              </li>
+              <li ng-if="resource.locktypes.indexOf('smartphone') < 0 && resource.locktypes.indexOf('chipcard') < 0">
+                <h4>Meeting</h4>
+              </li>
             </ul>
           </div>
-          <div class="col-md-2">
-            <button class="btn btn-xl" ng-click="bookResource(resource)">Book Resource</button>
+
+          <div class="col-md-2" style="line-height: 120px;">
+            <button class="btn btn-primary" ng-click="bookResource(resource)">Book Resource</button>
 
             <div id="resourceParkingpermit">
               <button ng-if="resource.fleet.id == 5 && permits.length == 0" class="btn btn-info" ng-click="createParkingPermit(resource)">
@@ -41,9 +65,11 @@
             </div>
 
           </div>
+
           <div class="col-md-1">
-              <i class="fa fa-trash-o fa-4x  pull-right" ng-click="removeResource(resource)"></i>
+              <i class="fa fa-trash-o fa-3x  pull-right" ng-click="removeResource(resource)"></i>
           </div>
+
         </div>
       </div>
     </div>
