@@ -5,6 +5,13 @@
     <small style="margin-left: 1em" title="{{curLoc.date | date:'mediumDate'}}  {{curLoc.date | date:'mediumTime'}}" am-time-ago="curLoc.date"></small>
   </span>
 </div>
+
+<div style="margin-bottom: 20px">
+  <button class="btn btn-default" ng-click="previous()">&laquo;&nbsp;Previous day</button>
+  <button class="btn btn-default" ng-click="next()">Next day&nbsp;&raquo;</button>
+  {{ startDate | amDateFormat: 'DD MMM YYYY'}} - {{ endDate | amDateFormat: 'DD MMM YYYY'}}
+</div>
+
 <table class="table table-striped">
   <tr>
     <th>Date</th>
