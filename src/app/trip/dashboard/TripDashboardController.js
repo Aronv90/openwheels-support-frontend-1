@@ -676,7 +676,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.stop = function() {
     var confirm = $mdDialog.confirm()
     .title('Rit inkorten')
-    .textContent('Weet je zeker dat je deze rit wil inkorten?')
+    .textContent('Weet je zeker dat je deze rit wil inkorten? Annuleer de rit alleen als er nog niet gereden is.')
     .ok('Ja')
     .cancel('Nee');
 
@@ -1231,8 +1231,8 @@ angular.module('openwheels.trip.dashboard', [])
         resourceService.searchV3({
           person: $scope.booking.person.id,
           timeFrame: { 
-            startDate: $scope.booking.beginBooking, 
-            endDate: $scope.booking.endBooking 
+            startDate: $scope.booking.beginBooking ? $scope.booking.beginBooking : $scope.booking.beginRequested, 
+            endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested              
           },
           radius: 10000,
           sort: 'relevance',
@@ -1333,8 +1333,8 @@ angular.module('openwheels.trip.dashboard', [])
           resourceService.searchV3({
             person: $scope.booking.person.id,
             timeFrame: { 
-              startDate: $scope.booking.beginBooking, 
-              endDate: $scope.booking.endBooking 
+              startDate: $scope.booking.beginBooking ? $scope.booking.beginBooking : $scope.booking.beginRequested, 
+              endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested
             },
             radius: 10000,
             sort: 'relevance',
