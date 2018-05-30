@@ -328,10 +328,46 @@
             <span class="box__sdata box__sdata--small" ng-if="booking.resource.locktypes.indexOf('smartphone') >= 0 && booking.resource.locktypes.indexOf('chipcard') >= 0">Smartphone en OV-chipkaart</span>
           </div>
           <div class="col-xs-5" ng-if="booking.resource.fuelCardCode">
-            <span class="box__slabel" title="Locatie">Tankcode</span>
+            <span class="box__slabel" title="Tankcode">Tankcode</span>
           </div>
           <div class="col-xs-7" ng-if="booking.resource.fuelCardCode">
             <span class="box__sdata box__sdata--small" title="Tankcode van de auto">{{booking.resource.fuelCardCode}}</span>
+          </div>
+          <div class="col-xs-5" ng-if="booking.resource.provider.id === 1">
+            <span class="box__slabel" title="Verzekering">Verzekerd bij/via</span>
+          </div>
+          <div class="col-xs-7" ng-if="booking.resource.provider.id === 1">
+            <span 
+              class="box__sdata box__sdata--small" 
+              title="Verzekering van de auto"
+              ng-if="booking.resource.insurancePolicy === 'deelauto_OK' && booking.resource.owner.id === 282 && booking.resource.id !== 20770"
+              >
+                <strong>Interpolis</strong>
+                <strong ng-if="booking.resource.id >= 14107">(allrisk)</strong>
+                <strong ng-if="booking.resource.id < 14107">(Beperkt casco)</strong>
+            </span>
+            <span 
+              class="box__sdata box__sdata--small" 
+              title="Verzekering van de auto"
+              ng-if="booking.resource.id === 20770"
+              >
+                <strong>Multilease</strong>
+                <strong ng-if="booking.resource.id >= 14107">(allrisk)</strong>
+            </span>
+            <span 
+              class="box__sdata box__sdata--small" 
+              title="Verzekering van de auto"
+              ng-if="booking.resource.insurancePolicy === 'deelauto_OK' && booking.resource.owner.id !== 282"
+              >
+                <strong>{{booking.resource.owner.firstName}}</strong>
+            </span>
+            <span 
+              class="box__sdata box__sdata--small" 
+              title="Verzekering van de auto"
+              ng-if="(booking.resource.insurancePolicy === 'elders' || booking.resource.insurancePolicy === 'CB')"
+              >
+                <strong>Centraal Beheer (allrisk)</strong>
+            </span>
           </div>
           <div class="col-xs-12"><span class="box__slabel">
             <a ng-click="resourceRemark()" class="">Opmerkingen bij auto</a>
