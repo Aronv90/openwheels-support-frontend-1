@@ -24,6 +24,7 @@ angular.module('api', [])
 	.factory('api', function ($log, $q, $http, $rootScope, settingsService, API_PATH, appConfig, tokenService) {
 
 		var AUTH_HEADER = 'Authorization';
+		var DIGEST_HEADER = 'X-Simple-Auth-Digest';
 		var apiUrl = function() { return settingsService.settings.server + API_PATH; };
 
 		var defaultConfig = {
@@ -64,7 +65,8 @@ angular.module('api', [])
 
 			token = tokenService.getToken();
 			if (token && token.tokenType) {
-				config.headers[AUTH_HEADER] = createAuthHeader(token);
+				//config.headers[AUTH_HEADER] = createAuthHeader(token);
+        config.headers[DIGEST_HEADER] = createDigestHeader(token);
 			}
 
 			http = $http(config).then(handleRpcResponse);
@@ -86,7 +88,8 @@ angular.module('api', [])
 			return token.refresh().then(function (freshToken) {
 				var replayConfig = angular.copy(config);
 				replayConfig.isReplay = true;
-				replayConfig.headers[AUTH_HEADER] = createAuthHeader(freshToken);
+        replayConfig.headers[DIGEST_HEADER] = createDigestHeader(token);
+        //replayConfig.headers[AUTH_HEADER] = createAuthHeader(freshToken);
 				return $http(replayConfig);
 			});
 		};
@@ -173,8 +176,10 @@ angular.module('api', [])
 		function createAuthHeader(token) {
 			return token.tokenType.slice(0, 1).toUpperCase() + token.tokenType.slice(1) + ' ' + token.accessToken;
 		}
-
-
+		
+		function createDigestHeader(token) {
+			return token.accessToken;
+    }
 
 		return api;
 	})
