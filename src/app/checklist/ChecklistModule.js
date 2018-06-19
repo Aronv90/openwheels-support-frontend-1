@@ -30,14 +30,14 @@ angular.module('openwheels.checklist', [
 	      controller: 'DashboardController',
 	      templateUrl: 'checklist/dashboard/dashboard.tpl.html',
 	      data: {pageTitle: 'Dashboard'},
-        resolve: {
-          queries: ['checklistService', function (checklistService) {
+    	  resolve: {
+        	queries: ['checklistService', function (checklistService) {
               return checklistService.all()
                   .then(function (lists) {
                     return lists.filter(function(item) { return item.onDashboard; });
                   });
             }]
-        }
+          }
 	    });
 
 		/**

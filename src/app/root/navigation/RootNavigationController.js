@@ -23,9 +23,11 @@ angular.module('openwheels.root.navigation', [])
 	$scope.resourcesOverflow = false;
 	$rootScope.limit = true;
 
-    checklistService.all().then(function (data) {
-      $scope.checklists = data;
-    });
+	if(authService.userHasRole('ROLE_ADMIN')) {
+	    checklistService.all().then(function (data) {
+	      $scope.checklists = data;
+	    });
+	}
 
 	/**
 	 * Typeahead Person
