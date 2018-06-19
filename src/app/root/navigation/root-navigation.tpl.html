@@ -17,10 +17,10 @@
           ng-class="{ dropdown: true, active: $state.includes('phoneLog') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Calls <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.current') }">
+          <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('phoneLog.current') }">
             <a ui-sref="phoneLog.current">Current calls</a>
           </li>
-          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
+          <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
             <a ui-sref="phoneLog.history">Call history</a>
           </li>
         </ul>
