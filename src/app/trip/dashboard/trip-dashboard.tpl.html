@@ -357,14 +357,14 @@
             <span 
               class="box__sdata box__sdata--small" 
               title="Verzekering van de auto"
-              ng-if="booking.resource.owner.id === 281"
+              ng-if="booking.resource.owner.id === 281 && booking.resource.id !== 20762"
               >
                 <strong>Justlease</strong>
             </span>
             <span 
               class="box__sdata box__sdata--small" 
               title="Verzekering van de auto"
-              ng-if="booking.resource.insurancePolicy === 'deelauto_OK' && [282, 281].indexOf(booking.resource.owner.id) < 0"
+              ng-if="booking.resource.insurancePolicy === 'deelauto_OK' && ([282, 281].indexOf(booking.resource.owner.id) < 0 || booking.resource.id === 20762)"
               >
                 <strong>{{booking.resource.owner.firstName}}</strong>
             </span>
