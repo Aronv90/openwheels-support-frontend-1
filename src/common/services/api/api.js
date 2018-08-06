@@ -23,7 +23,6 @@ angular.module('api', [])
 
 	.factory('api', function ($log, $q, $http, $rootScope, settingsService, API_PATH, appConfig, tokenService) {
 
-		var AUTH_HEADER = 'Authorization';
 		var DIGEST_HEADER = 'X-Simple-Auth-Digest';
 		var apiUrl = function() { return settingsService.settings.server + API_PATH; };
 
@@ -65,7 +64,6 @@ angular.module('api', [])
 
 			token = tokenService.getToken();
 			if (token && token.tokenType) {
-				//config.headers[AUTH_HEADER] = createAuthHeader(token);
         config.headers[DIGEST_HEADER] = createDigestHeader(token);
 			}
 
@@ -89,7 +87,6 @@ angular.module('api', [])
 				var replayConfig = angular.copy(config);
 				replayConfig.isReplay = true;
         replayConfig.headers[DIGEST_HEADER] = createDigestHeader(token);
-        //replayConfig.headers[AUTH_HEADER] = createAuthHeader(freshToken);
 				return $http(replayConfig);
 			});
 		};
@@ -113,7 +110,7 @@ angular.module('api', [])
 				rpcError.level = ['danger', 'info', 'warning'].indexOf(res.data.error.level) >= 0 ? res.data.error.level : 'danger';
 				rpcError.status = res.status;
 
-				if (!res.config.isAnonymousMethod && (!res.config.headers[AUTH_HEADER] || (res.data.authenticated === false)) && res.data.error.code === -32104) {
+				if (!res.config.isAnonymousMethod && (!res.config.headers[DIGEST_HEADER] || (res.data.authenticated === false)) && res.data.error.code === -32104) {
 
 					// simulate http 401 (to be caught by error handler)
 					$log.debug('<!! JSON-RPC UNAUTHENTICATED ' + res.config.data.method);
