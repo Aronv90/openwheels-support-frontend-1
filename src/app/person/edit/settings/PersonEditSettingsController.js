@@ -45,12 +45,6 @@ angular.module('openwheels.person.edit.data.settings', [])
       {label: 'Minimum', value: 'min'}
     ];
 
-    $scope.$watch('person.preference', function (newValue) {
-      if (newValue === 'renter') {
-        $scope.person.slug = null;
-      }
-    });
-
     $scope.$watch('person.isCompany', function (newValue) {
       if (!newValue) {
         $scope.person.companyName = null;
