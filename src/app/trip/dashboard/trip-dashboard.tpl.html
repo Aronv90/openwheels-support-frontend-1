@@ -6,7 +6,7 @@
       <strong ng-if="booking.person.status === 'book-only'"><br>- Het account van de huurder moet nog handmatig gecontroleerd worden.</strong>
       <strong ng-if="booking.approved === 'BUY_VOUCHER'"><br>- De rit is nog niet betaald.</strong>
       <strong ng-if="booking.status === 'requested'"><br>- De rit is nog niet geaccepteerd.</strong>
-      <strong ng-if="booking.status === 'cancelled' || booking.status === 'owner_cancelled' "><br>- De rit is geannuleerd.</strong>
+      <strong ng-if="booking.status === 'cancelled' || booking.status === 'owner_cancelled' "><br>- De rit is geannuleerd. <span ng-if="booking.cancelReason === 'NOT_PAID_ON_TIME'">Een andere huurder heeft de auto voor dezelfde huurperiode gereserveerd en betaald. Omdat deze reservering nog niet betaald is, is de reservering automatisch geannuleerd.</span></strong>
       <strong ng-if="booking.status === 'rejected' "><br>- De rit is afgewezen door de verhuurder.</strong>
     </div>
   </div>
