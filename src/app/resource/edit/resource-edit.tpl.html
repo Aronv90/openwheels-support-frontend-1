@@ -144,7 +144,7 @@
     <div class="col-md-6">
             <label for="bouwjaar">Time of origin</label>
             <input type="number" id="bouwjaar" name="bouwjaar" class="form-control"
-                   ng-model="resource.bouwjaar" placeholder="Fuel card bouwjaar">
+                   ng-model="resource.bouwjaar" placeholder="Time of origin">
     </div>
 </div>
 
@@ -152,19 +152,19 @@
 
 <div class="form-group">
     <label for="advertisement">Advertisement</label>
-    <textarea id="advertisement" rows="4" class="form-control" ng-model="resource.advertisement"
+    <textarea id="advertisement" rows="6" class="form-control" ng-model="resource.advertisement"
               placeholder="Advertisement"></textarea>
 </div>
 
 <div class="form-group">
     <label for="notes">Usage manual</label>
-    <textarea id="usageManual" rows="3" class="form-control" ng-model="resource.usageManual"
+    <textarea id="usageManual" rows="6" class="form-control" ng-model="resource.usageManual"
               placeholder="Usage manual"></textarea>
 </div>
 
 <div class="form-group">
     <label for="remark">Remark</label>
-    <textarea id="remark" rows="3" class="form-control" ng-model="resource.remark" placeholder="Remark"></textarea>
+    <textarea id="remark" rows="6" class="form-control" ng-model="resource.remark" placeholder="Remark"></textarea>
 </div>
 
 <div class="form-group">
@@ -313,7 +313,7 @@
                 <input type="text" smart-float id="kilometerRate" name="kilometerRate" class="form-control"
                        ng-model="resource.kilometerRate" required placeholder="per km">
                 <span class="input-group-addon">
-                  <input type="checkbox" ng-model="resource.price.kmFree"> 100km Free
+                  <input type="checkbox" ng-model="resource.kmFree"> 100km Free
                 </span>
             </div>
         </div>
