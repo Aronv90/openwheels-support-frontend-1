@@ -204,6 +204,31 @@ angular.module('rpcServices', [])
       this.bookingWeekKPIData = m('bookingWeekKPIData');
     })
 
+    .service('damageService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('damage.' + name);
+      };
+      this.add = m('add');
+      this.addUserDamage = m('addUserDamage');
+      this.alter = m('alter');
+      this.dirty = m('dirty');
+      this.remove = m('remove');
+      this.search = m('search');
+    })
+
+    .service('maintenanceService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('maintenance.' + name);
+      };
+      this.add = m('add');
+      this.addGarage = m('addGarage');
+      this.alter = m('alter');
+      this.alterGarage = m('alterGarage');
+      this.remove = m('remove');
+      this.search = m('search');
+      this.searchGarage = m('searchGarage');
+    })
+
     .service('invoiceService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('invoice.' + name);

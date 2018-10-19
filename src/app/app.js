@@ -79,6 +79,7 @@ angular.module('openwheels', [
   'filters.getByPropertyFilter',
   'filters.fullname',
   'filters.avatar',
+  'filters.damageType',
   'filters.satisfactionThumb',
   'filters.ratingStars',
   'filters.dirty',

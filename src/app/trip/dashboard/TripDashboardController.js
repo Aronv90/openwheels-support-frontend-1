@@ -22,7 +22,11 @@ angular.module('openwheels.trip.dashboard', [])
     }
   };
 })
-.controller('TripDashboardController', function ($scope, booking, contract, paymentService, personService, invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
+.controller('TripDashboardController', function ($scope, booking, contract, paymentService, personService,
+  invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT,
+  voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
+  $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
+  driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, maintenanceService) {
 
   /* INIT  */
   $scope.booking = booking;
@@ -88,7 +92,7 @@ angular.module('openwheels.trip.dashboard', [])
       });
     }
   };
-  $scope.open(7);
+  $scope.open(8);
 
   $scope.isOpen = function(id) {
     if(sections[id]) {
@@ -125,6 +129,9 @@ angular.module('openwheels.trip.dashboard', [])
       return initNextBookingsScope();
     }
     if(id === 7) {
+      return initDamages();
+    }
+    if(id === 8) {
       return initRemarksScope();
     }
 
@@ -176,6 +183,16 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .then(function(bookings) {
       $scope.nextBookings = bookings;
+    });
+  }
+
+  function initDamages() {
+    return damageService.search({
+      bookingId: booking.id,
+      max: 10
+    })
+    .then(function(damages) {
+      $scope.damages = damages.result;
     });
   }
 
@@ -787,23 +804,42 @@ angular.module('openwheels.trip.dashboard', [])
     ;
   };
 
-  $scope.notifyDamage = function() {
+  $scope.addDamage = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
       controller: ['$scope', '$mdDialog', 'booking', 'contract', function($scope, $mdDialog, booking, contract) {
-        $scope.damage = {booking: booking.id, notifyDriver: false, notifyOwner: false};
+        $scope.damage = [];
         $scope.booking = booking;
         $scope.contract = contract;
+
+        $scope.damageTypes = [
+          {label: 'Bekleding', value: 'coating'},
+          {label: 'Diefstal', value: 'theft'},
+          {label: 'Lakschade', value: 'paint'},
+          {label: 'Motorisch', value: 'motor'},
+          {label: 'Roken', value: 'smoking'},
+          {label: 'Ruitschade', value: 'window'}
+        ];
+
+        function makeNewDateString(date) {
+          var newDate = moment(date);
+          return newDate.format('YYYY-MM-DD');
+        }
+
         $scope.age = moment().diff(booking.person.dateOfBirth, 'years');
         if(isNaN($scope.age)) {
           $scope.age = 'Onbekend';
         }
+
         $scope.done = function() {
-          $mdDialog.hide($scope.damage);
+          $mdDialog.hide({
+            damage: $scope.damage,
+            damageDate: makeNewDateString($scope.damage.damageDate)
+          });
         };
         $scope.cancel = $mdDialog.cancel;
       }],
-      templateUrl: 'trip/dashboard/damage.tpl.html',
+      templateUrl: 'trip/dashboard/addDamage.tpl.html',
       parent: angular.element(document.body),
       fullscreen: false,
       clickOutsideToClose:true,
@@ -813,17 +849,31 @@ angular.module('openwheels.trip.dashboard', [])
       }
     })
     .then(function(res) {
-      return bookingService.addDamage(res);
-    })
-    .then(function(res) {
-      return alertService.add('success', 'Schademails gestuurd', 6000);
-    })
-    .catch(function(err) {
-      if(err && err.message) {
-        alertService.add('danger', err.message, 6000);
-      }
-    })
-    ;
+      return damageService.add({
+        booking: res.damage.withoutBooking ? undefined : $scope.booking.id,
+        resource: $scope.booking.resource.id,
+        person: res.damage.withoutBooking ? undefined : $scope.booking.person.id,
+        newProps: {
+          ownRiskAmountMywheels: res.damage.ownRiskAmountMywheels,
+          ownRiskAmountPerson: res.damage.ownRiskAmountPerson,
+          damageAmountAgreed: res.damage.damageAmountAgreed,
+          damageAmountInvoice: res.damage.damageAmountInvoice,
+          description: res.damage.description,
+          type: res.damage.type,
+          odo: res.damage.odo,
+          ticketNumbers: res.damage.ticketNumbers,
+          notify: res.damage.notify,
+          finalized: res.damage.finalized
+          // damageDate: res.damageDate
+        }
+      })
+      .then(function(res) {
+        alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
+      })
+      .catch(function(err) {
+        alertService.add('warning', 'De schademelding kon niet opgeslagen worden: ' + err.message, 5000);
+      });
+    });
   };
 
   /* CHAT */
