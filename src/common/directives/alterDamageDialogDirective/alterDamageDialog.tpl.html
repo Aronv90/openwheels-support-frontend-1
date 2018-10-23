@@ -1,7 +1,7 @@
 <md-dialog flex="50" flex-sm="70">
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <h2>Nieuwe schade melden</h2>
+      <h2>Schade {{ damage.id }} wijzigen</h2>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel()">
         <md-icon>close</md-icon>
@@ -23,26 +23,32 @@
           <div class="md-block" flex-gt-sm>
             <span layout="row">
               <span flex="50"><strong>Auto:</strong></span>
-              <span flex="50">{{ booking.resource.alias }}</span>
+              <span flex="50">{{ resource.alias }}</span>
             </span>
-            <span layout="row">
+            <span layout="row" ng-if="damage.person">
               <span flex="50"><strong>Huurder:</strong></span>
-              <span flex="50">{{ booking.person | fullname }}</span>
+              <span flex="50">{{ damage.person | fullname }}</span>
             </span>
-            <span layout="row" ng-if="contract.contractor.id !== booking.person.id">
+            <span layout="row" ng-if="contract.contractor.id !== damage.person.id && damage.person">
               <span flex="50"><strong>Contractant:</strong></span>
               <span flex="50">{{ contract.contractor | fullname }}</span>
             </span>
-            <span layout="row">
+            <span layout="row" ng-if="booking">
               <span flex="50"><strong>Eigen risico:</strong></span>
               <span flex="50">{{ (booking.riskReduction || contract.ownRiskWaiver !== 'not') ? '250 euro (verlaagd)' : '500 euro (niet verlaagd)' }}</span>
             </span>
-            <span layout="row">
+            <span layout="row" ng-if="age">
               <span flex="50"><strong>Leeftijd:</strong></span>
               <span flex="50">{{ age }}</span>
             </span>
+            <span layout="row">
+              <span flex="50"><strong>Toestemmingscode:</strong></span>
+              <span flex="50">{{ damage.authorizationCode }}</span>
+            </span>
           </div>
         </div>
+
+        <br>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
@@ -61,7 +67,7 @@
         </div>
 
         <md-input-container class="md-block">
-          <label>Ticket nummers</label>
+          <label>Ticketnummers</label>
           <textarea ng-model="damage.ticketNumbers" rows="1" md-select-on-focus></textarea>
         </md-input-container>
 
@@ -71,10 +77,6 @@
         </md-input-container>
 
         <div layout-gt-sm="row">
-          <md-checkbox ng-model="damage.withoutBooking" aria-label="Niet in deze rit" class="md-block" flex-gt-sm>
-            Niet in deze rit
-          </md-checkbox>
-
           <md-checkbox ng-model="damage.notify" aria-label="Mails versturen?" class="md-block" flex-gt-sm>
             Mails versturen?
           </md-checkbox>
@@ -84,27 +86,27 @@
           </md-checkbox>
         </div>
 
-        <div layout-gt-sm="row" ng-if="damage.finalized">
+        <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Eigen risico betaald door huurder</label>
-            <input ng-model="damage.ownRiskAmountPerson" type="number">
+            <input ng-model="damage.ownRiskAmountPerson">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Eigen risico betaald door MyWheels</label>
-            <input ng-model="damage.ownRiskAmountMywheels" type="number">
+            <input ng-model="damage.ownRiskAmountMyWheels">
           </md-input-container>
         </div>
 
-        <div layout-gt-sm="row" ng-if="damage.finalized">
+        <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Schadebedrag MyWheels voor toestemmingscode (excl. btw)</label>
-            <input ng-model="damage.damageAmountAgreed" type="number">
+            <input ng-model="damage.damageAmountAgreed">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Schadebedrag op factuur (excl. btw)</label>
-            <input ng-model="damage.damageAmountInvoice" type="number">
+            <input ng-model="damage.damageAmountInvoice">
           </md-input-container>
         </div>
 

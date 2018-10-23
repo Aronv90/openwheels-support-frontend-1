@@ -6,6 +6,7 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.members',
   'openwheels.resource.show.discount',
   'openwheels.resource.show.discount.create',
+  'openwheels.resource.show.damage',
   'openwheels.resource.show.boardcomputer',
   'openwheels.resource.show.log',
   'openwheels.resource.show.revisions',

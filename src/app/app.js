@@ -43,8 +43,8 @@ angular.module('openwheels', [
   'jsonrpc',
   'ngTable',
   'bookingDate',
-
-
+  'alterDamageDialogDirective',
+  'addDamageDialogDirective',
   'templates-app',
   'templates-common',
 

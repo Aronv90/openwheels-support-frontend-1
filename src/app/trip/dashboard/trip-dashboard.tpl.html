@@ -263,7 +263,7 @@
         </div>
         <div class="row box__row" ng-if="booking.resource.contactPerson">
           <div class="col-xs-4"><span class="box__slabel">Beheerder</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson | fullname}}</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small"><a ui-sref="root.person.show.trip({personId: booking.resource.contactPerson.id})">{{booking.resource.contactPerson | fullname}}</a></span></div>
           <div class="col-xs-4"><span class="box__slabel">Email</span></div>
           <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.email}}</span></div>
           <div class="col-xs-4" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
@@ -612,7 +612,7 @@
         </div>
         <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="booking in nextBookings | orderBy: 'beginBooking'">
           <div class="col-xs-1">
-            <a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a>
+            <a ui-sref="root.trip.dashboard({ tripId: booking.id })">{{ booking.id }}</a>
           </div>
           <div class="col-xs-3">
             <booking-date ng-if="booking.beginBooking" booking="booking"></booking-date>
@@ -650,25 +650,27 @@
       <div class="box__content" ng-if="isOpen(7)">
         <div class="row row--small-font row--no-margin row--invoice-heading">
           <div class="col-xs-1">#</div>
-          <div class="col-xs-1">Datum</div>
+          <div class="col-xs-1">Schadedatum</div>
           <div class="col-xs-1">Admin</div>
           <div class="col-xs-1">Type schade</div>
           <div class="col-xs-1 text-right">Bedrag</div>
           <div class="col-xs-2 text-right">Eigen risico huurder</div>
-          <div class="col-xs-2 text-right">Eigen risico MyWheels</div>
           <div class="col-xs-2">Toestemmingscode</div>
           <div class="col-xs-1">Afgerond?</div>
+          <div class="col-xs-1">Acties</div>
+          <div class="col-xs-1"></div>
         </div>
         <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="damage in damages">
-          <div class="col-xs-1"><a href="" ng-click="editDamage(damage.id)">#{{ damage.id }}</a></div>
-          <div class="col-xs-1">{{ damage.createdAt | amDateFormat:'DD-MM-YYYY' }}</div>
-          <div class="col-xs-1">{{ damage.admin.firstName }}</div>
+          <div class="col-xs-1">{{ damage.id }}</div>
+          <div class="col-xs-1">{{ damage.damageDate | amDateFormat:'DD-MM-YYYY' }}</div>
+          <div class="col-xs-1"><a ui-sref="root.person.show.trip({personId: damage.admin.id})">{{ damage.admin.firstName }}</a></div>
           <div class="col-xs-1">{{ damage.type | damageTypeFilter }}</div>
           <div class="col-xs-1 text-right">{{ damage.damageAmountAgreed | currency }}</div>
-          <div class="col-xs-2 text-right">{{ damage.ownRiskAmountPerson | currency | currency }}</div>
-          <div class="col-xs-2 text-right">{{ damage.ownRiskAmountMywheels | currency }}</div>
+          <div class="col-xs-2 text-right">{{ damage.ownRiskAmountPerson | currency }}</div>
           <div class="col-xs-2">{{ damage.authorizationCode }}</div>
           <div class="col-xs-1">{{ damage.finalized ? 'Ja' : 'Nee' }}</div>
+          <div class="col-xs-1"><alter-damage-dialog ng-click="alterDamage(damage)""></alter-damage-dialog></div>
+          <div class="col-xs-1"><a ng-click="deleteDamage(damage)">Remove</a></div>
         </div>
         <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-if="!damages || damages.length == 0">
           <div class="col-xs-12">Geen schades gevonden</div>
@@ -786,7 +788,7 @@
     <li ng-click="refundBooking()" class="quickaction__item--trip" ng-hide="hide" ng-if="booking.approved=='OK'"><span tooltip-placement="right" uib-tooltip="Crediteer rit">Restitutie</span></li>
     <li ng-click="addDeclaration()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg tankbonnen toe">Tankbon</span></li>
     <li ng-click="addKm()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM-standen</span></li>
-    <li ng-click="addDamage()" class="quickaction__item--trip"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe schademelding aan">Schade</span></li>
+    <li class="quickaction__item--trip text-white" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe schademelding aan"><add-damage-dialog ng-click="addDamage()"></add-damage-dialog></span></li>
     <li ng-click="mailAgreement()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Mail huurovereenkomst">Overeen</span></li>
     <li ng-click="applyDiscount()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg kortingscode toe">Korting</span></li>
     <li ng-click="switchContract()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wissel van contract">Contract</span></li>
