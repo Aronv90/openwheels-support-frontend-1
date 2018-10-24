@@ -52,6 +52,9 @@
         <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }" ng-if="user.identity.id !== 542476">
           <a ui-sref=".invoiceGroupV2.list">Invoice</a>
         </li>
+        <li ng-class="{ active: $state.includes('root.person.show.damage') }">
+          <a ui-sref="root.person.show.damage({ personId: person.id })">Damage</a>
+        </li>
         <li ng-class="{ active: $state.includes('root.person.show.vouchers') }" ng-if="user.identity.id !== 542476">
           <a ui-sref=".vouchers">Vouchers</a>
         </li>

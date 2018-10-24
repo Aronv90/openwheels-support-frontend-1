@@ -22,7 +22,12 @@ angular.module('openwheels.trip.dashboard', [])
     }
   };
 })
-.controller('TripDashboardController', function ($scope, booking, contract, paymentService, personService, invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT, voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService, $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService, driverContracts, $state, $timeout, localStorageService, ccomeService) {
+.controller('TripDashboardController', function ($scope, booking, contract, paymentService, personService,
+  invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT,
+  voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
+  $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
+  driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, maintenanceService,
+  $mdMedia) {
 
   /* INIT  */
   $scope.booking = booking;
@@ -88,7 +93,7 @@ angular.module('openwheels.trip.dashboard', [])
       });
     }
   };
-  $scope.open(7);
+  $scope.open(8);
 
   $scope.isOpen = function(id) {
     if(sections[id]) {
@@ -125,6 +130,9 @@ angular.module('openwheels.trip.dashboard', [])
       return initNextBookingsScope();
     }
     if(id === 7) {
+      return initDamages();
+    }
+    if(id === 8) {
       return initRemarksScope();
     }
 
@@ -179,15 +187,25 @@ angular.module('openwheels.trip.dashboard', [])
     });
   }
 
+  function initDamages() {
+    return damageService.search({
+      bookingId: booking.id,
+      max: 10
+    })
+    .then(function(damages) {
+      $scope.damages = damages.result;
+    });
+  }
+
   $scope.openDeclaration = function(declaration) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'declaration', function($scope, $mdDialog, declaration) {
         $scope.declaration = declaration;
         $scope.cancel = $mdDialog.cancel;
       }],
       templateUrl: 'trip/dashboard/singleDeclaration.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         declaration: declaration
@@ -201,6 +219,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.openPayouts = function(person) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'payouts', 'voucherService', 'alertService', 'paymentService', 'person', function($scope, $mdDialog, payouts, voucherService, alertService, paymentService, person) {
         $scope.payouts = payouts;
         $scope.cancel = $mdDialog.cancel;
@@ -234,7 +253,6 @@ angular.module('openwheels.trip.dashboard', [])
         };
       }],
       templateUrl: 'trip/dashboard/payouts.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         person: person
@@ -258,6 +276,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.openVouchers = function(person) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'vouchers', 'voucherService', 'alertService', 'paymentService', 'person', function($scope, $mdDialog, vouchers, voucherService, alertService, paymentService, person) {
         $scope.vouchers = vouchers;
         $scope.cancel = $mdDialog.cancel;
@@ -311,7 +330,6 @@ angular.module('openwheels.trip.dashboard', [])
 
       }],
       templateUrl: 'trip/dashboard/vouchers.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         person: person
@@ -335,6 +353,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.loginAs = function(person) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'person', 'settingsService', 'FRONT_DASHBOARD', 'FRONT_SWITCHUSER', function($scope, $mdDialog, person, settingsService, FRONT_DASHBOARD, FRONT_SWITCHUSER) {
         $scope.person = person;
         $scope.frontDashboard = settingsService.settings.server + FRONT_DASHBOARD + FRONT_SWITCHUSER;
@@ -342,7 +361,6 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.cancel = $mdDialog.cancel;
       }],
       templateUrl: 'trip/dashboard/loginAs.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         person: person
@@ -356,6 +374,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.switchContract = function(declaration) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'driverContracts', 'contract', function($scope, $mdDialog, driverContracts, contract) {
         $scope.driverContracts = driverContracts;
         $scope.origId = contract.id;
@@ -368,7 +387,6 @@ angular.module('openwheels.trip.dashboard', [])
         };
       }],
       templateUrl: 'trip/dashboard/contractSwitch.tpl.html',
-      fullscreen: false,
       clickOutsideToClose: true,
       locals: {
         driverContracts: driverContracts,
@@ -394,12 +412,12 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.openDiscount = function(discount) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'discount', function($scope, $mdDialog, discount) {
         $scope.discount = discount.discount;
         $scope.cancel = $mdDialog.cancel;
       }],
       templateUrl: 'trip/dashboard/singleDiscountCode.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         discount: discount
@@ -469,6 +487,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.addDeclaration = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', 'contract', function($scope, $mdDialog, booking) {
         $scope.declaration = {description: '', booking: booking.id};
         $scope.contract= contract;
@@ -482,7 +501,6 @@ angular.module('openwheels.trip.dashboard', [])
       }],
       templateUrl: 'trip/dashboard/declaration.tpl.html',
       parent: angular.element(document.body),
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         booking: $scope.booking,
@@ -509,6 +527,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.addKm = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.km = {booking: booking.id, odoBegin: booking.trip.odoBegin, odoEnd: booking.trip.odoEnd};
         $scope.done = function() {
@@ -518,7 +537,6 @@ angular.module('openwheels.trip.dashboard', [])
       }],
       templateUrl: 'trip/dashboard/km.tpl.html',
       parent: angular.element(document.body),
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         booking: $scope.booking
@@ -542,6 +560,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.changeEndTime = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         var originalEnd = moment(booking.endBooking, API_DATE_FORMAT);
 
@@ -617,6 +636,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.changeBeginTime = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         var originalBegin = moment(booking.beginBooking, API_DATE_FORMAT);
 
@@ -760,6 +780,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.mailAgreement = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.agreement = {toDriver: true, toOwner: false, toMe: false, booking: booking.id};
         $scope.done = function() {
@@ -782,45 +803,6 @@ angular.module('openwheels.trip.dashboard', [])
     .catch(function(err) {
       if(err && err.message) {
         alertService.add('danger', 'De email(s) kosnten niet verstuurd worden: ' + err.message, 5000);
-      }
-    })
-    ;
-  };
-
-  $scope.notifyDamage = function() {
-    $window.scrollTo(0, 0);
-    $mdDialog.show({
-      controller: ['$scope', '$mdDialog', 'booking', 'contract', function($scope, $mdDialog, booking, contract) {
-        $scope.damage = {booking: booking.id, notifyDriver: false, notifyOwner: false};
-        $scope.booking = booking;
-        $scope.contract = contract;
-        $scope.age = moment().diff(booking.person.dateOfBirth, 'years');
-        if(isNaN($scope.age)) {
-          $scope.age = 'Onbekend';
-        }
-        $scope.done = function() {
-          $mdDialog.hide($scope.damage);
-        };
-        $scope.cancel = $mdDialog.cancel;
-      }],
-      templateUrl: 'trip/dashboard/damage.tpl.html',
-      parent: angular.element(document.body),
-      fullscreen: false,
-      clickOutsideToClose:true,
-      locals: {
-        booking: $scope.booking,
-        contract: $scope.contract,
-      }
-    })
-    .then(function(res) {
-      return bookingService.addDamage(res);
-    })
-    .then(function(res) {
-      return alertService.add('success', 'Schademails gestuurd', 6000);
-    })
-    .catch(function(err) {
-      if(err && err.message) {
-        alertService.add('danger', err.message, 6000);
       }
     })
     ;
@@ -896,6 +878,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.openDatepickerDialog = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'selectedDay', function($scope, $mdDialog, selectedDay) {
 
         if(!selectedDay) {
@@ -917,7 +900,6 @@ angular.module('openwheels.trip.dashboard', [])
       }],
       templateUrl: 'trip/dashboard/datepicker.tpl.html',
       parent: angular.element(document.body),
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         selectedDay: $scope.chat.date
@@ -932,6 +914,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.applyDiscount = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.discount = {discount: '', booking: booking.id};
 
@@ -942,7 +925,6 @@ angular.module('openwheels.trip.dashboard', [])
 
       }],
       templateUrl: 'trip/dashboard/discountCode.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         booking: booking,
@@ -987,6 +969,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.openResource = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
         $scope.ccomeColor = [];
@@ -1075,6 +1058,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.chip = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
 
@@ -1128,6 +1112,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.start = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
         $scope.startProblems = [];
@@ -1218,6 +1203,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.bookOtherResource = function(selectedBooking) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', function($scope, $mdDialog) {
         $scope.booking = selectedBooking;
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
@@ -1301,6 +1287,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.showPhoneNumbers = function(person) {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', function($scope, $mdDialog) {
 
         personService.get({person: person.id})
@@ -1315,7 +1302,6 @@ angular.module('openwheels.trip.dashboard', [])
 
       }],
       templateUrl: 'trip/dashboard/showPhoneNumber.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true
     });
   };
@@ -1323,6 +1309,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.book = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
         $scope.bookForPerson = undefined;
@@ -1468,6 +1455,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.breakdown = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
         
@@ -1488,6 +1476,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.damage = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
         $scope.damageOptions = undefined;
@@ -1500,16 +1489,38 @@ angular.module('openwheels.trip.dashboard', [])
       }],
       templateUrl: 'trip/dashboard/damageResource.tpl.html',
       clickOutsideToClose:true, 
-      fullscreen: false,
       locals: {
         booking: booking
       }
     });
   };
 
+  $scope.deleteDamage = function (damage) {
+    var confirm = $mdDialog.confirm()
+    .title('Schade verwijderen')
+    .textContent('Weet je zeker dat je deze schade wil verwijderen?')
+    .ok('Ja')
+    .cancel('Nee');
+
+    $mdDialog.show(confirm)
+    .then(function(res) {
+      damageService.remove({ damage: damage.id })
+      .then(function (result) {
+        alertService.add('success', 'Damage removed.', 5000);
+        var index = $scope.damages.indexOf(damage);
+        if(index >= 0) {
+          $scope.damages.splice(index, 1);
+        }
+      })
+      .catch(alertService.addError)
+      .finally(alertService.loaded);
+    });
+  };
+
   $scope.previousBooking = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
 
@@ -1532,7 +1543,6 @@ angular.module('openwheels.trip.dashboard', [])
 
       }],
       templateUrl: 'trip/dashboard/previousBooking.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         booking: booking
@@ -1558,6 +1568,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.resourceRemark = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
 
@@ -1568,7 +1579,6 @@ angular.module('openwheels.trip.dashboard', [])
 
       }],
       templateUrl: 'trip/dashboard/resourceRemark.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         booking: booking
@@ -1579,6 +1589,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.contractInfo = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'contract', function($scope, $mdDialog, contract) {
         $scope.contract = contract;
         
@@ -1589,7 +1600,6 @@ angular.module('openwheels.trip.dashboard', [])
 
       }],
       templateUrl: 'trip/dashboard/contractInfo.tpl.html',
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         contract: contract
@@ -1600,6 +1610,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.openTextEditorDialog = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'text', function($scope, $mdDialog, text) {
 
         if(text) {
@@ -1613,7 +1624,6 @@ angular.module('openwheels.trip.dashboard', [])
       }],
       templateUrl: 'trip/dashboard/textEditor.tpl.html',
       parent: angular.element(document.body),
-      fullscreen: false,
       clickOutsideToClose:true,
       locals: {
         text: $scope.chat.message

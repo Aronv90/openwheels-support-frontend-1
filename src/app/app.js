@@ -43,8 +43,10 @@ angular.module('openwheels', [
   'jsonrpc',
   'ngTable',
   'bookingDate',
-
-
+  'alterDamageDialogDirective',
+  'alterMaintenanceDialogDirective',
+  'addDamageDialogDirective',
+  'addMaintenanceDialogDirective',
   'templates-app',
   'templates-common',
 
@@ -73,12 +75,14 @@ angular.module('openwheels', [
   'driverLicense',
   'showIfUserHasRole',
   'fileInputDirective',
+  'fileUploadDirective',
   'sameHeightDirective',
 
   // custom filters
   'filters.getByPropertyFilter',
   'filters.fullname',
   'filters.avatar',
+  'filters.damageType',
   'filters.satisfactionThumb',
   'filters.ratingStars',
   'filters.dirty',
