@@ -658,7 +658,7 @@ angular.module('openwheels.person', [
 		resolve: {
 			damages: ['$stateParams', 'damageService', 'person', 'perPage', function ($stateParams, discountService, person, perPage) {
 				var params = {};
-				params.person = person.id;
+				params.personId = person.id;
       			params.finalized = $stateParams.finalized === 'true' || null;
       			params.max = perPage;
       			params.offset = 0;

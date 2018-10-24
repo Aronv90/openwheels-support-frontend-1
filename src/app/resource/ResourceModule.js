@@ -200,13 +200,35 @@ angular.module('openwheels.resource', [
 		templateUrl: 'resource/show/damage/resource-show-damage.tpl.html',
 		data: {pageTitle: 'Resource damage'},
 		resolve: {
-			damages: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, discountService, resource, perPage) {
+			damages: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
 				var params = {};
-				params.resource = resource.id;
+				params.resourceId = resource.id;
       			params.finalized = $stateParams.finalized === 'true' || null;
       			params.max = perPage;
       			params.offset = 0;
-				return discountService.search(params);
+				return damageService.search(params);
+			}],
+			perPage: function(){ return 20;},
+		}
+	});
+
+	/**
+	 * resource/:id/maintenance
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.maintenance', {
+		url: '/maintenance?finalized&max&offset',
+		controller: 'ResourceShowMaintenanceController',
+		templateUrl: 'resource/show/maintenance/resource-show-maintenance.tpl.html',
+		data: {pageTitle: 'Resource maintenance'},
+		resolve: {
+			maintenances: ['$stateParams', 'maintenanceService', 'resource', 'perPage', function ($stateParams, maintenanceService, resource, perPage) {
+				var params = {};
+				params.resourceId = resource.id;
+      			params.finalized = $stateParams.finalized === 'true' || null;
+      			params.max = perPage;
+      			params.offset = 0;
+				return maintenanceService.search(params);
 			}],
 			perPage: function(){ return 20;},
 		}

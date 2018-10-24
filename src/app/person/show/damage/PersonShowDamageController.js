@@ -16,7 +16,7 @@ angular.module('openwheels.person.show.damage', [])
 
   function buildParams() {
     var params = {};
-    params.person = $stateParams.person;
+    params.personId = $stateParams.person;
     params.finalized = $stateParams.finalized === 'true' || null;
     return params;
   }

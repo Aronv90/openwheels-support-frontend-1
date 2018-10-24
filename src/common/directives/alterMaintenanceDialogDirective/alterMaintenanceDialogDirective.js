@@ -1,27 +1,27 @@
 
 'use strict';
 
-angular.module('alterDamageDialogDirective', [])
+angular.module('alterMaintenanceDialogDirective', [])
 
-.directive('alterDamageDialog', function () {
+.directive('alterMaintenanceDialog', function () {
   return {
     restrict: 'AE',
     transclude: true,
-    templateUrl: 'directives/alterDamageDialogDirective/alterDamageDialogDirective.tpl.html',
-    controller: function ($scope, $state, $stateParams, $mdDialog, $window, alertService, damageService, $mdMedia, contractService,
+    templateUrl: 'directives/alterMaintenanceDialogDirective/alterMaintenanceDialogDirective.tpl.html',
+    controller: function ($scope, $state, $stateParams, $mdDialog, $window, alertService, maintenanceService, $mdMedia, contractService,
       API_DATE_FORMAT) {
 
-      $scope.alterDamage = function(damage) {
+      $scope.alterMaintenance = function(maintenance) {
         $window.scrollTo(0, 0);
-        var masterDamage = angular.copy(damage);
-        $scope.damage = damage;
-        $scope.resource = damage.resource;
+        var masterMaintenance = angular.copy(maintenance);
+        $scope.maintenance = maintenance;
+        $scope.resource = maintenance.resource;
 
-        //only if damage is linked to a booking
-        if(damage.booking) {
-          $scope.booking = damage.booking;
+        //only if maintenance is linked to a booking
+        if(maintenance.booking) {
+          $scope.booking = maintenance.booking;
 
-          contractService.get({contract: damage.booking.contract.id})
+          contractService.get({contract: maintenance.booking.contract.id})
           .then(function(contract) {
             $scope.contract = contract;
           });
@@ -32,12 +32,12 @@ angular.module('alterDamageDialogDirective', [])
           preserveScope: true,
           scope: $scope,
           locals: {
-            masterDamage: masterDamage
+            masterMaintenance: masterMaintenance
           },
-          templateUrl: 'directives/alterDamageDialogDirective/alterDamageDialog.tpl.html',
+          templateUrl: 'directives/alterMaintenanceDialogDirective/alterMaintenanceDialog.tpl.html',
           clickOutsideToClose:true,
-          controller: ['$scope', '$mdDialog', 'masterDamage', function($scope, $mdDialog, masterDamage) {
-            $scope.damageTypes = [
+          controller: ['$scope', '$mdDialog', 'masterDamage', function($scope, $mdDialog, masterMaintenance) {
+            $scope.maintenanceTypes = [
               {label: 'Bekleding', value: 'coating'},
               {label: 'Diefstal', value: 'theft'},
               {label: 'Lakschade', value: 'paint'},
@@ -51,16 +51,16 @@ angular.module('alterDamageDialogDirective', [])
               return newDate.format('YYYY-MM-DD');
             }
 
-            //on file upload add the selected files to damage.files
+            //on file upload add the selected files to maintenance.files
             $scope.$on('fileSelected', function (event, args) {
               $scope.$apply(function (index) {
-                $scope.damage.files.push(args.file);
+                $scope.maintenance.files.push(args.file);
               });
             });
 
-            //only if damage is linked to a person/booking
-            if($scope.damage.person) {
-              $scope.age = moment().diff($scope.damage.person.dateOfBirth, 'years');
+            //only if maintenance is linked to a person/booking
+            if($scope.maintenance.person) {
+              $scope.age = moment().diff($scope.maintenance.person.dateOfBirth, 'years');
               if(isNaN($scope.age)) {
                 $scope.age = 'Onbekend';
               }
@@ -68,10 +68,10 @@ angular.module('alterDamageDialogDirective', [])
 
             $scope.done = function() {
               $mdDialog.hide({
-                damage: $scope.damage,
-                masterDamage: masterDamage,
-                damageDate: makeNewDateString($scope.damage.damageDate),
-                files: $scope.damage.files
+                maintenance: $scope.maintenance,
+                masterMaintenance: masterMaintenance,
+                maintenanceDate: makeNewDateString($scope.maintenance.maintenanceDate),
+                files: $scope.maintenance.files
               });
             };
             $scope.cancel = $mdDialog.cancel;
@@ -79,12 +79,12 @@ angular.module('alterDamageDialogDirective', [])
         })
         .then(function(res) {
           //don't update files
-          res.masterDamage.files = [];
-          res.damage.files = [];
-          var newProps = difference(res.masterDamage, res.damage);
+          res.masterMaintenance.files = [];
+          res.maintenance.files = [];
+          var newProps = difference(res.masterMaintenance, res.maintenance);
           
-          return damageService.alter({
-            damage: damage.id,
+          return maintenanceService.alter({
+            maintenance: maintenance.id,
             newProps: newProps
           }, {
             'files[0]': res.files[0] ? res.files[0] : undefined,

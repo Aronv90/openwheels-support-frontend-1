@@ -1,17 +1,17 @@
 'use strict';
 
-angular.module('openwheels.resource.show.damage', [])
+angular.module('openwheels.resource.show.maintenance', [])
 
-.controller( 'ResourceShowDamageController', function ($location, $uibModal, $state, $stateParams, $scope,
-  alertService, damageService, damages, perPage, $mdDialog) {
+.controller( 'ResourceShowMaintenanceController', function ($location, $uibModal, $state, $stateParams, $scope,
+  alertService, maintenanceService, maintenances, perPage, $mdDialog) {
 
   $scope.curPage = 1;
   $scope.perPage = perPage;
-  handleDamages(damages);
+  handleMaintenances(maintenances);
 
-  function handleDamages(damages) {
-    $scope.damages = damages.result;
-    $scope.lastPage = Math.ceil(damages.total / $scope.perPage);
+  function handleMaintenances(maintenances) {
+    $scope.maintenances = maintenances.result;
+    $scope.lastPage = Math.ceil(maintenances.total / $scope.perPage);
   }
 
   function buildParams() {
@@ -22,17 +22,17 @@ angular.module('openwheels.resource.show.damage', [])
   }
 
   $scope.nextPage = function() {
-    damageService.search(_.extend(buildParams(), {max: $scope.perPage, offset: $scope.curPage * $scope.perPage}))
-    .then(function(damages) {
-      handleDamages(damages);
+    maintenanceService.search(_.extend(buildParams(), {max: $scope.perPage, offset: $scope.curPage * $scope.perPage}))
+    .then(function(maintenances) {
+      handleMaintenances(maintenances);
       $scope.curPage = $scope.curPage + 1;
     });
   };
 
   $scope.prevPage = function() {
-    damageService.search(_.extend(buildParams(), {max: $scope.perPage, offset: ($scope.curPage - 2) * $scope.perPage}))
-    .then(function(damages) {
-      handleDamages(damages);
+    maintenanceService.search(_.extend(buildParams(), {max: $scope.perPage, offset: ($scope.curPage - 2) * $scope.perPage}))
+    .then(function(maintenances) {
+      handleMaintenances(maintenances);
       $scope.curPage = $scope.curPage - 1;
     });
   };
@@ -49,7 +49,7 @@ angular.module('openwheels.resource.show.damage', [])
     $location.search({});
   };
 
-  $scope.deleteDamage = function (damage) {
+  $scope.deleteMaintenance = function (maintenance) {
     var confirm = $mdDialog.confirm()
     .title('Schade verwijderen')
     .textContent('Weet je zeker dat je deze schade wil verwijderen?')
@@ -58,12 +58,12 @@ angular.module('openwheels.resource.show.damage', [])
 
     $mdDialog.show(confirm)
     .then(function(res) {
-      damageService.remove({ damage: damage.id })
+      maintenanceService.remove({ maintenance: maintenance.id })
       .then(function (result) {
         alertService.add('success', 'Damage removed.', 5000);
-        var index = $scope.damages.indexOf(damage);
+        var index = $scope.maintenances.indexOf(maintenance);
         if(index >= 0) {
-          $scope.damages.splice(index, 1);
+          $scope.maintenances.splice(index, 1);
         }
       })
       .catch(alertService.addError)

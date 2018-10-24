@@ -44,7 +44,9 @@ angular.module('openwheels', [
   'ngTable',
   'bookingDate',
   'alterDamageDialogDirective',
+  'alterMaintenanceDialogDirective',
   'addDamageDialogDirective',
+  'addMaintenanceDialogDirective',
   'templates-app',
   'templates-common',
 
@@ -73,6 +75,7 @@ angular.module('openwheels', [
   'driverLicense',
   'showIfUserHasRole',
   'fileInputDirective',
+  'fileUploadDirective',
   'sameHeightDirective',
 
   // custom filters

@@ -24,6 +24,7 @@ angular.module('addDamageDialogDirective', [])
           },
           controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', function($scope, $mdDialog, booking, contract, resource) {
             $scope.damage = [];
+            $scope.damage.files = [];
 
             //create damage with or without a booking
             if (booking) {
@@ -38,6 +39,13 @@ angular.module('addDamageDialogDirective', [])
             } else {
               $scope.resource = resource;
             }
+
+            //on file upload add the selected files to damage.files
+            $scope.$on('fileSelected', function (event, args) {
+              $scope.$apply(function (index) {
+                $scope.damage.files.push(args.file);
+              });
+            });
 
             $scope.damageTypes = [
               {label: 'Bekleding', value: 'coating'},
@@ -56,9 +64,9 @@ angular.module('addDamageDialogDirective', [])
             $scope.done = function() {
               $mdDialog.hide({
                 damage: $scope.damage,
-                resource: $scope.resource,
                 damageDate: makeNewDateString($scope.damage.damageDate),
-
+                resource: $scope.resource,
+                files: $scope.damage.files
               });
             };
             $scope.cancel = $mdDialog.cancel;
@@ -86,6 +94,17 @@ angular.module('addDamageDialogDirective', [])
               finalized: res.damage.finalized,
               damageDate: res.damageDate
             }
+          }, {
+            'files[0]': res.files[0] ? res.files[0] : undefined,
+            'files[1]': res.files[1] ? res.files[1] : undefined,
+            'files[2]': res.files[2] ? res.files[2] : undefined,
+            'files[3]': res.files[3] ? res.files[3] : undefined,
+            'files[4]': res.files[4] ? res.files[4] : undefined,
+            'files[5]': res.files[5] ? res.files[5] : undefined,
+            'files[6]': res.files[6] ? res.files[6] : undefined,
+            'files[7]': res.files[7] ? res.files[7] : undefined,
+            'files[8]': res.files[8] ? res.files[8] : undefined,
+            'files[9]': res.files[9] ? res.files[9] : undefined
           })
           .then(function(res) {
             alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);

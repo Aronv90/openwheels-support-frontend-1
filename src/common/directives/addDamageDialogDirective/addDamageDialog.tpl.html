@@ -66,17 +66,17 @@
         </md-input-container>
 
         <md-input-container class="md-block">
-          <label>Omschrijving</label>
+          <label>Omschrijving van de schade</label>
           <textarea ng-model="damage.description" rows="3" md-select-on-focus></textarea>
         </md-input-container>
 
         <div layout-gt-sm="row">
           <md-checkbox ng-model="damage.withoutBooking" aria-label="Niet in deze rit" class="md-block" ng-if="booking" flex-gt-sm>
-            Niet in deze rit
+            Niet tijdens deze rit gebeurd
           </md-checkbox>
 
           <md-checkbox ng-model="damage.notify" aria-label="Mails versturen?" class="md-block" flex-gt-sm>
-            Mails versturen?
+            Schademails versturen?
           </md-checkbox>
 
           <md-checkbox ng-model="damage.finalized" aria-label="Schade afgehandeld?" class="md-block" flex-gt-sm>
@@ -105,6 +105,16 @@
           <md-input-container class="md-block" flex-gt-sm>
             <label>Schadebedrag op factuur (excl. btw)</label>
             <input ng-model="damage.damageAmountInvoice" type="number">
+          </md-input-container>
+        </div>
+
+        <br><br>
+
+        <span class="md-headline">Bijlage(s) toevoegen</span>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <input type="file" name="files[]" file-upload multiple aria-label="Upload bestanden" />
+            <div class="hint">Bijvoorbeeld schadeformulieren, foto's of facturen. Maximaal 10 bestanden per schade.</div>
           </md-input-container>
         </div>
 
