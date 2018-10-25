@@ -5,17 +5,11 @@
       <div class="panel-body">
         <h3>Filter</h3>
         <form class="form">
-
           <div class="form-group">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" ng-model="params.finalized"> Finalized
-              </label>
-            </div>
+            <label for="finalized">Finalized?</label>
+            <select id="finalized" class="form-control" ng-model="params.finalized" ng-options="p.value as p.label for p in finalizedOptions"></select>
           </div>
-
           <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
-          <button class="btn btn-link" ng-click="clear()">Clear</button>
         </form>
       </div>
     </div>
@@ -24,7 +18,7 @@
   <div class="col-sm-10">
     <div class="panel panel-default card">
       <div class="panel-body">
-        <h3>maintenances</h3>
+        <h3>Maintenances</h3>
         <button class="btn"><add-maintenance-dialog ng-click="addMaintenance()"></add-maintenance-dialog></button>
         <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
         <p class="btn"> {{curPage}} </p>
@@ -33,11 +27,12 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Maintenance date</th>
+              <th>Date</th>
               <th>Booking</th>
-              <th>Person</th>
               <th>Admin</th>
               <th>Type</th>
+              <th>APK</th>
+              <th>Regular</th>
               <th>Code</th>
               <th>Finalized?</th>
               <th>Actions</th>
@@ -52,18 +47,15 @@
                 <a ui-sref="root.trip.dashboard({tripId: maintenance.booking.id})">
                   {{ maintenance.booking.id }}
                 </a>
-              </td>
-              <td>
-                <a ui-sref="root.person.show.summary({ personId: maintenance.person.id })">
-                  {{ maintenance.person.firstName }}
-                </a>
-              </td>
+              </td> 
               <td>
                 <a ui-sref="root.person.show.summary({ personId: maintenance.admin.id })">
                   {{ maintenance.admin.firstName }}
                 </a>
               </td>
               <td>{{ maintenance.type | maintenanceTypeFilter }}</td>
+              <td>{{ maintenance.apk ? 'Yes' : 'No' }}</td>
+              <td>{{ maintenance.regular ? 'Yes' : 'No' }}</td>
               <td>{{ maintenance.authorizationCode }}</td>
               <td>{{ maintenance.finalized ? 'Yes' : 'No' }}</td>
               <td><alter-maintenance-dialog ng-click="alterMaintenance(maintenance)""></alter-maintenance-dialog></td>

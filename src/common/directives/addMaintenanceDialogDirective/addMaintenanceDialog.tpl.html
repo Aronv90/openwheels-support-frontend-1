@@ -34,7 +34,7 @@
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Type schade</label>
+            <label>Type onderhoud</label>
             <md-select ng-model="maintenance.type">
               <md-option ng-repeat="maintenance in maintenanceTypes" value="{{maintenance.value}}">
                 {{maintenance.label}}
@@ -50,7 +50,10 @@
 
         <md-input-container class="md-block">
           <label>Garage</label>
-          <textarea ng-model="maintenance.garageId" rows="1" md-select-on-focus></textarea>
+          <input type="text" id="garage" class="typeahead" placeholder="Search garage"
+           ng-model="maintenance.garage"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
         </md-input-container>
 
         <md-input-container class="md-block">
@@ -63,7 +66,7 @@
             Inclusief APK?
           </md-checkbox>
 
-          <md-checkbox ng-model="maintenance.regularMaintenance" aria-label="Jaarlijks onderhoud?" class="md-block" flex-gt-sm>
+          <md-checkbox ng-model="maintenance.regular" aria-label="Jaarlijks onderhoud?" class="md-block" flex-gt-sm>
             Jaarlijks onderhoud?
           </md-checkbox>
 
@@ -72,17 +75,30 @@
           </md-checkbox>
         </div>
 
-        <div layout-gt-sm="row" ng-if="maintenance.finalized">
+        <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Bedrag MyWheels voor toestemmingscode (excl. btw)</label>
-            <input ng-model="maintenance.maintenanceAmountAgreed" type="number">
+            <input ng-model="maintenance.amountAgreed" type="number">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Bedrag op factuur (excl. btw)</label>
-            <input ng-model="maintenance.maintenanceAmountInvoice" type="number">
+            <input ng-model="maintenance.amountInvoice" type="number">
           </md-input-container>
         </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Onderhoud betaald door</label>
+            <md-select ng-model="maintenance.paidBy">
+              <md-option ng-repeat="paidBy in paidByOptions" value="{{paidBy.value}}">
+                {{paidBy.label}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <br>
 
         <br><br>
 
@@ -103,7 +119,7 @@
     <md-button ng-click="cancel()">
      Annuleren
     </md-button>
-    <md-button class="md-primary md-raised" ng-click="done()">
+    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!maintenance.garage">
       Versturen
     </md-button>
   </md-dialog-actions>

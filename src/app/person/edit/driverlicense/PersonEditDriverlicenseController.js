@@ -128,8 +128,6 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       $scope.isBusy = true;
       alertService.load();
 
-      console.log(images.front);
-
       personService.addLicenseImages({
         person: person.id
       }, {

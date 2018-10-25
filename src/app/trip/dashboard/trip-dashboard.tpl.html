@@ -665,7 +665,7 @@
           <div class="col-xs-1">{{ damage.damageDate | amDateFormat:'DD-MM-YYYY' }}</div>
           <div class="col-xs-1"><a ui-sref="root.person.show.trip({personId: damage.admin.id})">{{ damage.admin.firstName }}</a></div>
           <div class="col-xs-1">{{ damage.type | damageTypeFilter }}</div>
-          <div class="col-xs-1 text-right">{{ damage.damageAmountAgreed | currency }}</div>
+          <div class="col-xs-1 text-right">{{ damage.amountAgreed | currency }}</div>
           <div class="col-xs-2 text-right">{{ damage.ownRiskAmountPerson | currency }}</div>
           <div class="col-xs-2">{{ damage.authorizationCode }}</div>
           <div class="col-xs-1">{{ damage.finalized ? 'Ja' : 'Nee' }}</div>
@@ -789,6 +789,7 @@
     <li ng-click="addDeclaration()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg tankbonnen toe">Tankbon</span></li>
     <li ng-click="addKm()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM-standen</span></li>
     <li class="quickaction__item--trip text-white" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe schademelding aan"><add-damage-dialog ng-click="addDamage()"></add-damage-dialog></span></li>
+    <li class="quickaction__item--trip text-white" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe onderhoudsmelding aan"><add-maintenance-dialog ng-click="addMaintenance()"></add-maintenance-dialog></span></li>
     <li ng-click="mailAgreement()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Mail huurovereenkomst">Overeen</span></li>
     <li ng-click="applyDiscount()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg kortingscode toe">Korting</span></li>
     <li ng-click="switchContract()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wissel van contract">Contract</span></li>

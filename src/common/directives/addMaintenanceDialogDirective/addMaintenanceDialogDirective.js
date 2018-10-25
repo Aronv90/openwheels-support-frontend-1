@@ -20,19 +20,27 @@ angular.module('addMaintenanceDialogDirective', [])
           locals: {
             booking: $scope.booking,
             contract: $scope.contract,
-            resource: $scope.resource
+            resource: $scope.resource   
           },
           controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', function($scope, $mdDialog, booking, contract, resource) {
             $scope.maintenance = [];
             $scope.maintenance.files = [];
-            $scope.maintenance.garageId = resource.garageId;
 
             //create maintenance with or without a booking
             if (booking) {
               $scope.booking = booking;
               $scope.resource = booking.resource;
             } else {
+              $scope.booking = null;
               $scope.resource = resource;
+            }
+
+            if(typeof !$scope.resource.garage === 'undefined'){
+              $scope.maintenance.resource.garage = {};
+              $scope.maintenance.resource.garage.id = null;
+              $scope.maintenance.resource.garage.name = null;
+            } else {
+              $scope.maintenance.garage = $scope.resource.garage;
             }
 
             //on file upload add the selected files to maintenance.files
@@ -42,11 +50,38 @@ angular.module('addMaintenanceDialogDirective', [])
               });
             });
 
+            /**
+             * Typeahead Garages
+             */
+            $scope.searchGarages = function ($viewValue) {
+              return maintenanceService.searchGarage({
+                search: $viewValue
+              })
+              .then(function(garages){
+                return garages.result;
+              });
+            };
+
+            $scope.formatGarage = function ($model) {
+              var inputLabel = '';
+              if ($model) {
+                inputLabel = $model.name + ' ' + '[' + $model.id + ']';
+              }
+              return inputLabel;
+            };
+
             $scope.maintenanceTypes = [
               {label: 'APK', value: 'apk'},
               {label: 'Garantie', value: 'guarantee'},
               {label: 'Onderhoudsbeurt', value: 'regular'},
               {label: 'Onderhoudsbeurt + APK', value: 'regular_apk'}
+            ];
+
+            $scope.paidByOptions = [
+              {label: 'Leasemaatschappij', value: 'lease'},
+              {label: 'MyWheels', value: 'mywheels'},
+              {label: 'Niet gerepareerd', value: 'unrepaired'},
+              {label: 'Verzekering', value: 'insurance'}
             ];
 
             function makeNewDateString(date) {
@@ -59,7 +94,8 @@ angular.module('addMaintenanceDialogDirective', [])
                 maintenance: $scope.maintenance,
                 maintenanceDate: makeNewDateString($scope.maintenance.maintenanceDate),
                 resource: $scope.resource,
-                files: $scope.maintenance.files
+                files: $scope.maintenance.files,
+                booking: $scope.booking
               });
             };
             $scope.cancel = $mdDialog.cancel;
@@ -68,19 +104,20 @@ angular.module('addMaintenanceDialogDirective', [])
         .then(function(res) {
           //save new maintenance
           return maintenanceService.add({
-            booking: $scope.booking.id ? undefined : $scope.booking.id,
+            booking: res.booking ? res.booking.id : undefined,
             resource: res.resource.id,
-            garage: $scope.maintenance.garageId,
+            garage: res.maintenance.garage.id,
             newProps: {
-              maintenanceAmountAgreed: res.maintenance.maintenanceAmountAgreed,
-              maintenanceAmountInvoice: res.maintenance.maintenanceAmountInvoice,
+              amountAgreed: res.maintenance.amountAgreed,
+              amountInvoice: res.maintenance.amountInvoice,
               description: res.maintenance.description,
               type: res.maintenance.type,
               odo: res.maintenance.odo,
               apk: res.maintenance.apk,
-              regularMaintenance: res.maintenance.regularMaintenance,
+              regular: res.maintenance.regular,
               finalized: res.maintenance.finalized,
-              maintenanceDate: res.maintenanceDate
+              maintenanceDate: res.maintenanceDate,
+              paidBy: res.maintenance.paidBy
             }
           }, {
             'files[0]': res.files[0] ? res.files[0] : undefined,
@@ -95,6 +132,9 @@ angular.module('addMaintenanceDialogDirective', [])
             'files[9]': res.files[9] ? res.files[9] : undefined
           })
           .then(function(res) {
+            if(!res.booking) {
+              $scope.maintenances.unshift(res);
+            }
             alertService.add('success', 'De onderhoudsmelding is succesvol opgeslagen.', 5000);
           })
           .catch(function(err) {

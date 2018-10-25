@@ -1,7 +1,7 @@
 <md-dialog flex="50" flex-sm="70">
   <md-toolbar>
     <div class="md-toolbar-tools">
-      <h2>Schade {{ damage.id }} wijzigen</h2>
+      <h2>Schade {{ maintenance.id }} wijzigen</h2>
       <span flex></span>
       <md-button class="md-icon-button" ng-click="cancel()">
         <md-icon>close</md-icon>
@@ -12,12 +12,12 @@
   <md-dialog-content layout-padding>
     <div layout="column" layout-margin class="md-dialog-content">
 
-      <form name="addDamage">
+      <form name="addMaintenance">
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Schadedatum</label>
-            <md-datepicker ng-change="change(newDamageDate)" ng-model="damage.damageDate" md-placeholder="Kies een datum"></md-datepicker>
+            <label>Onderhoudsdatum</label>
+            <md-datepicker ng-change="change(newMaintenanceDate)" ng-model="maintenance.maintenanceDate" md-placeholder="Kies een datum"></md-datepicker>
           </md-input-container>
 
           <div class="md-block" flex-gt-sm>
@@ -25,25 +25,13 @@
               <span flex="50"><strong>Auto:</strong></span>
               <span flex="50">{{ resource.alias }}</span>
             </span>
-            <span layout="row" ng-if="damage.person">
-              <span flex="50"><strong>Huurder:</strong></span>
-              <span flex="50">{{ damage.person | fullname }}</span>
-            </span>
-            <span layout="row" ng-if="contract.contractor.id !== damage.person.id && damage.person">
-              <span flex="50"><strong>Contractant:</strong></span>
-              <span flex="50">{{ contract.contractor | fullname }}</span>
-            </span>
             <span layout="row" ng-if="booking">
-              <span flex="50"><strong>Eigen risico:</strong></span>
-              <span flex="50">{{ (booking.riskReduction || contract.ownRiskWaiver !== 'not') ? '250 euro (verlaagd)' : '500 euro (niet verlaagd)' }}</span>
-            </span>
-            <span layout="row" ng-if="age">
-              <span flex="50"><strong>Leeftijd:</strong></span>
-              <span flex="50">{{ age }}</span>
+              <span flex="50"><strong>Huurder:</strong></span>
+              <span flex="50">{{ booking.person | fullname }}</span>
             </span>
             <span layout="row">
               <span flex="50"><strong>Toestemmingscode:</strong></span>
-              <span flex="50">{{ damage.authorizationCode }}</span>
+              <span flex="50">{{ maintenance.authorizationCode }}</span>
             </span>
           </div>
         </div>
@@ -52,73 +40,79 @@
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Type schade</label>
-            <md-select ng-model="damage.type">
-              <md-option ng-repeat="damage in damageTypes" value="{{damage.value}}">
-                {{damage.label}}
+            <label>Type onderhoud</label>
+            <md-select ng-model="maintenance.type">
+              <md-option ng-repeat="maintenance in maintenanceTypes" value="{{maintenance.value}}">
+                {{maintenance.label}}
               </md-option>
             </md-select>
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Huidige kilometerstand</label>
-            <input ng-model="damage.odo" type="number">
+            <input ng-model="maintenance.odo" type="number">
           </md-input-container>
         </div>
 
         <md-input-container class="md-block">
-          <label>Ticketnummers</label>
-          <textarea ng-model="damage.ticketNumbers" rows="1" md-select-on-focus></textarea>
+          <label>Garage</label>
+          <input type="text" id="garage" class="typeahead" placeholder="Search garage"
+           ng-model="maintenance.garage"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
         </md-input-container>
 
         <md-input-container class="md-block">
-          <label>Omschrijving</label>
-          <textarea ng-model="damage.description" rows="3" md-select-on-focus></textarea>
+          <label>Omschrijving van het onderhoud</label>
+          <textarea ng-model="maintenance.description" rows="3" md-select-on-focus></textarea>
         </md-input-container>
 
         <div layout-gt-sm="row">
-          <md-checkbox ng-model="damage.notify" aria-label="Mails versturen?" class="md-block" flex-gt-sm>
-            Mails versturen?
+          <md-checkbox ng-model="maintenance.apk" aria-label="Inclusief APK?" class="md-block" flex-gt-sm>
+            Inclusief APK?
           </md-checkbox>
 
-          <md-checkbox ng-model="damage.finalized" aria-label="Schade afgehandeld?" class="md-block" flex-gt-sm>
-            Schade afgehandeld?
+          <md-checkbox ng-model="maintenance.regular" aria-label="Jaarlijks onderhoud?" class="md-block" flex-gt-sm>
+            Jaarlijks onderhoud?
+          </md-checkbox>
+
+          <md-checkbox ng-model="maintenance.finalized" aria-label="Onderhoud afgehandeld?" class="md-block" flex-gt-sm>
+            Onderhoud afgehandeld?
           </md-checkbox>
         </div>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Eigen risico betaald door huurder</label>
-            <input ng-model="damage.ownRiskAmountPerson">
+            <label>Bedrag MyWheels voor toestemmingscode (excl. btw)</label>
+            <input ng-model="maintenance.amountAgreed">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Eigen risico betaald door MyWheels</label>
-            <input ng-model="damage.ownRiskAmountMyWheels">
+            <label>Bedrag op factuur (excl. btw)</label>
+            <input ng-model="maintenance.amountInvoice">
           </md-input-container>
         </div>
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Schadebedrag MyWheels voor toestemmingscode (excl. btw)</label>
-            <input ng-model="damage.damageAmountAgreed">
-          </md-input-container>
-
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Schadebedrag op factuur (excl. btw)</label>
-            <input ng-model="damage.damageAmountInvoice">
+            <label>Onderhoud betaald door</label>
+            <md-select ng-model="maintenance.paidBy">
+              <md-option ng-repeat="paidBy in paidByOptions" value="{{paidBy.value}}">
+                {{paidBy.label}}
+              </md-option>
+            </md-select>
           </md-input-container>
         </div>
 
-        <br><br>
+        <br>
 
-        <span class="md-headline">Bijlages</span>
-        <div layout-gt-sm="row">
-          Hier foto's van bijlage tonen.
-          Aantal bijlages: {{ damage.files.length }}
+        <span class="md-headline">Bijlages ({{maintenance.files.length}})</span>
+        <br><br>
+        <div ng-repeat="file in currentFiles">
+          <a ng-href="{{ file.url }}" target="_blank"><i class="fa fa-external-link"></i> {{ file.originalName }}</a>
         </div>
-
-        <br><br>
+        
+        <br>
 
         <span class="md-headline">Bijlage(s) toevoegen</span>
         <div layout-gt-sm="row">
