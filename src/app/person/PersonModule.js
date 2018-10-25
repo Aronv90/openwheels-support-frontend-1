@@ -659,7 +659,7 @@ angular.module('openwheels.person', [
 			damages: ['$stateParams', 'damageService', 'person', 'perPage', function ($stateParams, discountService, person, perPage) {
 				var params = {};
 				params.personId = person.id;
-      			params.finalized = $stateParams.finalized === 'true' || null;
+      			params.finalized = $stateParams.finalized;
       			params.max = perPage;
       			params.offset = 0;
 				return discountService.search(params);

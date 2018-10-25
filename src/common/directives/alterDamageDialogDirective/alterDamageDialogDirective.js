@@ -8,7 +8,7 @@ angular.module('alterDamageDialogDirective', [])
     restrict: 'AE',
     transclude: true,
     templateUrl: 'directives/alterDamageDialogDirective/alterDamageDialogDirective.tpl.html',
-    controller: function ($scope, $state, $stateParams, $mdDialog, $window, alertService, damageService, $mdMedia, contractService,
+    controller: function ($scope, $state, settingsService, $stateParams, $mdDialog, $window, alertService, damageService, $mdMedia, contractService,
       API_DATE_FORMAT) {
 
       $scope.alterDamage = function(damage) {
@@ -36,8 +36,11 @@ angular.module('alterDamageDialogDirective', [])
           },
           templateUrl: 'directives/alterDamageDialogDirective/alterDamageDialog.tpl.html',
           clickOutsideToClose:true,
-          controller: ['$scope', '$mdDialog', 'masterDamage', function($scope, $mdDialog, masterDamage) {
+          controller: ['$scope', '$mdDialog', 'masterDamage', 'settingsService', function($scope, $mdDialog, masterDamage, settingsService) {
+            $scope.damage.newFiles = [];
+
             $scope.damageTypes = [
+              {label: 'Banden', value: 'tires'},
               {label: 'Bekleding', value: 'coating'},
               {label: 'Diefstal', value: 'theft'},
               {label: 'Lakschade', value: 'paint'},
@@ -46,15 +49,39 @@ angular.module('alterDamageDialogDirective', [])
               {label: 'Ruitschade', value: 'window'}
             ];
 
+            $scope.paidByOptions = [
+              {label: 'Eigenaar (niet MyWheels)', value: 'owner'},
+              {label: 'MyWheels', value: 'mywheels'},
+              {label: 'Niet gerepareerd', value: 'unrepaired'},
+              {label: 'Verzekering', value: 'insurance'}
+            ];
+
             function makeNewDateString(date) {
               var newDate = moment(date);
               return newDate.format('YYYY-MM-DD');
             }
 
+            initFiles();
+
+            function initFiles() {
+              $scope.currentFiles = createArray($scope.damage.files);
+            }
+
+            function createArray(files) {
+              var out = [];
+              angular.forEach(files, function (file) {
+                out.push({
+                  url: settingsService.settings.server + '/' + 'mw-docs-storage/' + file.id + '/' + file.name,
+                  originalName: file.original
+                });
+              });
+              return out;
+            }
+
             //on file upload add the selected files to damage.files
             $scope.$on('fileSelected', function (event, args) {
               $scope.$apply(function (index) {
-                $scope.damage.files.push(args.file);
+                $scope.damage.newFiles.push(args.file);
               });
             });
 
@@ -65,13 +92,12 @@ angular.module('alterDamageDialogDirective', [])
                 $scope.age = 'Onbekend';
               }
             }
-
             $scope.done = function() {
               $mdDialog.hide({
                 damage: $scope.damage,
                 masterDamage: masterDamage,
                 damageDate: makeNewDateString($scope.damage.damageDate),
-                files: $scope.damage.files
+                files: $scope.damage.newFiles
               });
             };
             $scope.cancel = $mdDialog.cancel;

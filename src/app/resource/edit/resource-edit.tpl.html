@@ -109,7 +109,7 @@
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="model">Fuel card code</label>
+            <label for="fuelCardCode">Fuel card code</label>
             <input type="text" id="fuelCardCode" name="fuelCardCode" class="form-control"
                    ng-model="resource.fuelCardCode" placeholder="Fuel card code">
         </div>
@@ -146,6 +146,35 @@
             <input type="number" id="bouwjaar" name="bouwjaar" class="form-control"
                    ng-model="resource.bouwjaar" placeholder="Time of origin">
     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="apkUntil">APK until</label>
+            <input type="text" id="apkUntil" name="apkUntil" class="form-control"
+                   ng-model="resource.apkUntil" placeholder="Current APK date">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="nextMaintenance">Next maintenance</label>
+            <input type="text" id="nextMaintenance" name="nextMaintenance" class="form-control"
+                   ng-model="resource.nextMaintenance" placeholder="Next maintenance date">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="owner">Garage</label>
+        <input type="text" id="garage" class="form-control input-sm typeahead" placeholder="Search garage"
+           ng-model="resource.garage"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
+    </div>
+  </div>
 </div>
 
 <hr>

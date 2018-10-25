@@ -77,16 +77,6 @@
         </md-input-container>
 
         <div layout-gt-sm="row">
-          <md-checkbox ng-model="damage.notify" aria-label="Mails versturen?" class="md-block" flex-gt-sm>
-            Mails versturen?
-          </md-checkbox>
-
-          <md-checkbox ng-model="damage.finalized" aria-label="Schade afgehandeld?" class="md-block" flex-gt-sm>
-            Schade afgehandeld?
-          </md-checkbox>
-        </div>
-
-        <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
             <label>Eigen risico betaald door huurder</label>
             <input ng-model="damage.ownRiskAmountPerson">
@@ -100,25 +90,44 @@
 
         <div layout-gt-sm="row">
           <md-input-container class="md-block" flex-gt-sm>
-            <label>Schadebedrag MyWheels voor toestemmingscode (excl. btw)</label>
-            <input ng-model="damage.damageAmountAgreed">
+            <label>Schadebedrag MyWheels (excl. btw)</label>
+            <input ng-model="damage.amountAgreed">
           </md-input-container>
 
           <md-input-container class="md-block" flex-gt-sm>
             <label>Schadebedrag op factuur (excl. btw)</label>
-            <input ng-model="damage.damageAmountInvoice">
+            <input ng-model="damage.amountInvoice">
           </md-input-container>
         </div>
 
-        <br><br>
-
-        <span class="md-headline">Bijlages</span>
         <div layout-gt-sm="row">
-          Hier foto's van bijlage tonen.
-          Aantal bijlages: {{ damage.files.length }}
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Schade betaald door</label>
+            <md-select ng-model="damage.paidBy">
+              <md-option ng-repeat="paidBy in paidByOptions" value="{{paidBy.value}}">
+                {{paidBy.label}}
+              </md-option>
+            </md-select>
+          </md-input-container>
         </div>
 
+        <br>
+
+        <div layout-gt-sm="row">
+          <md-checkbox ng-model="damage.finalized" aria-label="Schade afgehandeld?" class="md-block" flex-gt-sm>
+            Schade afgehandeld?
+          </md-checkbox>
+        </div>
+
+        <br>
+
+        <span class="md-headline">Bijlages ({{damage.files.length}})</span>
         <br><br>
+        <div ng-repeat="file in currentFiles">
+          <a ng-href="{{ file.url }}" target="_blank"><i class="fa fa-external-link"></i> {{ file.originalName }}</a>
+        </div>
+        
+        <br>
 
         <span class="md-headline">Bijlage(s) toevoegen</span>
         <div layout-gt-sm="row">

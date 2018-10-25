@@ -5,7 +5,9 @@ angular.module('filters.damageType', [])
 .filter('damageTypeFilter', function () {
   return function(type) {
     var typeTranslated;
-    if(type === 'coating') {
+    if(type === 'tires') {
+      typeTranslated = 'Banden';
+    } else if(type === 'coating') {
       typeTranslated = 'Bekleding';
     } else if(type === 'theft') {
       typeTranslated = 'Diefstal';

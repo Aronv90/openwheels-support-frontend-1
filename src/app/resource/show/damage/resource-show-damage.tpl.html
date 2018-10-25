@@ -5,17 +5,11 @@
       <div class="panel-body">
         <h3>Filter</h3>
         <form class="form">
-
           <div class="form-group">
-            <div class="checkbox">
-              <label>
-                <input type="checkbox" ng-model="params.finalized"> Finalized
-              </label>
-            </div>
+            <label for="finalized">Finalized?</label>
+            <select id="finalized" class="form-control" ng-model="params.finalized" ng-options="finalized.value as finalized.label for finalized in finalizedOptions"></select>
           </div>
-
           <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
-          <button class="btn btn-link" ng-click="clear()">Clear</button>
         </form>
       </div>
     </div>
@@ -33,7 +27,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Damage date</th>
+              <th>Date</th>
               <th>Booking</th>
               <th>Person</th>
               <th>Admin</th>

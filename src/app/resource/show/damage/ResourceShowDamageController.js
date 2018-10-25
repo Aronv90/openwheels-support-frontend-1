@@ -7,6 +7,13 @@ angular.module('openwheels.resource.show.damage', [])
 
   $scope.curPage = 1;
   $scope.perPage = perPage;
+
+  $scope.finalizedOptions = [
+    {label: 'Unfinalized', value: false},
+    {label: 'Finalized', value: true},
+    {label: 'All', value: null}
+  ];
+
   handleDamages(damages);
 
   function handleDamages(damages) {
@@ -16,8 +23,8 @@ angular.module('openwheels.resource.show.damage', [])
 
   function buildParams() {
     var params = {};
-    params.resourceId = $stateParams.resource;
-    params.finalized = $stateParams.finalized === 'true' || null;
+    params.resourceId = $stateParams.resourceId;
+    params.finalized = $stateParams.finalized;
     return params;
   }
 
@@ -37,9 +44,12 @@ angular.module('openwheels.resource.show.damage', [])
     });
   };
 
-  $scope.params = {
-    finalized: $stateParams.finalized === 'true' || 'false',
-  };
+  $scope.params = (function () {
+    var p = {
+      finalized: $stateParams.finalized
+    };
+    return p;
+  })();
 
   $scope.refresh = function () {
     $state.go($state.current.name, $scope.params);

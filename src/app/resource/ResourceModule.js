@@ -203,7 +203,7 @@ angular.module('openwheels.resource', [
 			damages: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
 				var params = {};
 				params.resourceId = resource.id;
-      			params.finalized = $stateParams.finalized === 'true' || null;
+      			params.finalized = $stateParams.finalized;
       			params.max = perPage;
       			params.offset = 0;
 				return damageService.search(params);
@@ -225,7 +225,7 @@ angular.module('openwheels.resource', [
 			maintenances: ['$stateParams', 'maintenanceService', 'resource', 'perPage', function ($stateParams, maintenanceService, resource, perPage) {
 				var params = {};
 				params.resourceId = resource.id;
-      			params.finalized = $stateParams.finalized === 'true' || null;
+      			params.finalized = $stateParams.finalized;
       			params.max = perPage;
       			params.offset = 0;
 				return maintenanceService.search(params);

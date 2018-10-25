@@ -1,4 +1,3 @@
-
 'use strict';
 
 angular.module('alterMaintenanceDialogDirective', [])
@@ -9,7 +8,7 @@ angular.module('alterMaintenanceDialogDirective', [])
     transclude: true,
     templateUrl: 'directives/alterMaintenanceDialogDirective/alterMaintenanceDialogDirective.tpl.html',
     controller: function ($scope, $state, $stateParams, $mdDialog, $window, alertService, maintenanceService, $mdMedia, contractService,
-      API_DATE_FORMAT) {
+      API_DATE_FORMAT, settingsService) {
 
       $scope.alterMaintenance = function(maintenance) {
         $window.scrollTo(0, 0);
@@ -36,16 +35,7 @@ angular.module('alterMaintenanceDialogDirective', [])
           },
           templateUrl: 'directives/alterMaintenanceDialogDirective/alterMaintenanceDialog.tpl.html',
           clickOutsideToClose:true,
-          controller: ['$scope', '$mdDialog', 'masterDamage', function($scope, $mdDialog, masterMaintenance) {
-            $scope.maintenanceTypes = [
-              {label: 'Bekleding', value: 'coating'},
-              {label: 'Diefstal', value: 'theft'},
-              {label: 'Lakschade', value: 'paint'},
-              {label: 'Motorisch', value: 'motor'},
-              {label: 'Roken', value: 'smoking'},
-              {label: 'Ruitschade', value: 'window'}
-            ];
-
+          controller: ['$scope', '$mdDialog', 'masterMaintenance', function($scope, $mdDialog, masterMaintenance) {
             function makeNewDateString(date) {
               var newDate = moment(date);
               return newDate.format('YYYY-MM-DD');
@@ -58,12 +48,56 @@ angular.module('alterMaintenanceDialogDirective', [])
               });
             });
 
-            //only if maintenance is linked to a person/booking
-            if($scope.maintenance.person) {
-              $scope.age = moment().diff($scope.maintenance.person.dateOfBirth, 'years');
-              if(isNaN($scope.age)) {
-                $scope.age = 'Onbekend';
+            /**
+             * Typeahead Garages
+             */
+            $scope.searchGarages = function ($viewValue) {
+              return maintenanceService.searchGarage({
+                search: $viewValue
+              })
+              .then(function(garages){
+                return garages.result;
+              });
+            };
+
+            $scope.formatGarage = function ($model) {
+              var inputLabel = '';
+              if ($model) {
+                inputLabel = $model.name + ' ' + '[' + $model.id + ']';
               }
+              return inputLabel;
+            };
+
+            $scope.maintenanceTypes = [
+              {label: 'APK', value: 'apk'},
+              {label: 'Garantie', value: 'guarantee'},
+              {label: 'Onderhoudsbeurt', value: 'regular'},
+              {label: 'Onderhoudsbeurt + APK', value: 'regular_apk'}
+            ];
+
+            $scope.paidByOptions = [
+              {label: 'Leasemaatschappij', value: 'lease'},
+              {label: 'MyWheels', value: 'mywheels'},
+              {label: 'Niet gerepareerd', value: 'unrepaired'},
+              {label: 'Verzekering', value: 'insurance'}
+            ];
+
+
+            initFiles();
+
+            function initFiles() {
+              $scope.currentFiles = createArray($scope.maintenance.files);
+            }
+
+            function createArray(files) {
+              var out = [];
+              angular.forEach(files, function (file) {
+                out.push({
+                  url: settingsService.settings.server + '/' + 'mw-docs-storage/' + file.id + '/' + file.name,
+                  originalName: file.original
+                });
+              });
+              return out;
             }
 
             $scope.done = function() {
@@ -82,6 +116,11 @@ angular.module('alterMaintenanceDialogDirective', [])
           res.masterMaintenance.files = [];
           res.maintenance.files = [];
           var newProps = difference(res.masterMaintenance, res.maintenance);
+
+          //only change garage id
+          if(newProps.garage) {
+            newProps.garage = newProps.garage.id;
+          }
           
           return maintenanceService.alter({
             maintenance: maintenance.id,
@@ -99,10 +138,11 @@ angular.module('alterMaintenanceDialogDirective', [])
             'files[9]': res.files[9] ? res.files[9] : undefined
           })
           .then(function(res) {
-            alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
+            $scope.maintenances.push(res);
+            alertService.add('success', 'De onderhoudsmelding is succesvol opgeslagen.', 5000);
           })
           .catch(function(err) {
-            alertService.add('warning', 'De schademelding kon niet opgeslagen worden: ' + err.message, 5000);
+            alertService.add('warning', 'De onderhoudsmelding kon niet opgeslagen worden: ' + err.message, 5000);
           });
         });
       };
@@ -116,7 +156,12 @@ function difference(template, override) {
   for (var name in template) {
     if (name in override) {
       if (_.isObject(override[name]) && !_.isArray(override[name])) {
-        var diff = difference(template[name], override[name]);
+        var diff;
+        if(_.isEmpty(template[name]) && !_.isEmpty(override[name])){
+          diff = override[name];
+        }else{
+          diff = difference(template[name], override[name]);
+        }
         if (!_.isEmpty(diff)) {
           ret[name] = diff;
         }

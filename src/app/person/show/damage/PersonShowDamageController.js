@@ -9,6 +9,12 @@ angular.module('openwheels.person.show.damage', [])
   $scope.perPage = perPage;
   handleDamages(damages);
 
+  $scope.finalizedOptions = [
+    {label: 'Unfinalized', value: false},
+    {label: 'Finalized', value: true},
+    {label: 'All', value: null}
+  ];
+
   function handleDamages(damages) {
     $scope.damages = damages.result;
     $scope.lastPage = Math.ceil(damages.total / $scope.perPage);
@@ -16,8 +22,8 @@ angular.module('openwheels.person.show.damage', [])
 
   function buildParams() {
     var params = {};
-    params.personId = $stateParams.person;
-    params.finalized = $stateParams.finalized === 'true' || null;
+    params.personId = $stateParams.personId;
+    params.finalized = $stateParams.finalized;
     return params;
   }
 
@@ -38,7 +44,7 @@ angular.module('openwheels.person.show.damage', [])
   };
 
   $scope.params = {
-    finalized: $stateParams.finalized === 'true' || 'false',
+    finalized: $stateParams.finalized,
   };
 
   $scope.refresh = function () {

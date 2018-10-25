@@ -16,7 +16,6 @@ angular.module('addDamageDialogDirective', [])
           fullscreen: $mdMedia('xs'),
           templateUrl: 'directives/addDamageDialogDirective/addDamageDialog.tpl.html',
           parent: angular.element(document.body),
-          clickOutsideToClose:true,
           locals: {
             booking: $scope.booking,
             contract: $scope.contract,
@@ -48,12 +47,20 @@ angular.module('addDamageDialogDirective', [])
             });
 
             $scope.damageTypes = [
+              {label: 'Banden', value: 'tires'},
               {label: 'Bekleding', value: 'coating'},
               {label: 'Diefstal', value: 'theft'},
               {label: 'Lakschade', value: 'paint'},
               {label: 'Motorisch', value: 'motor'},
               {label: 'Roken', value: 'smoking'},
               {label: 'Ruitschade', value: 'window'}
+            ];
+
+            $scope.paidByOptions = [
+              {label: 'Eigenaar (niet MyWheels)', value: 'owner'},
+              {label: 'MyWheels', value: 'mywheels'},
+              {label: 'Niet gerepareerd', value: 'unrepaired'},
+              {label: 'Verzekering', value: 'insurance'}
             ];
 
             function makeNewDateString(date) {
@@ -65,6 +72,7 @@ angular.module('addDamageDialogDirective', [])
               $mdDialog.hide({
                 damage: $scope.damage,
                 damageDate: makeNewDateString($scope.damage.damageDate),
+                booking: $scope.booking,
                 resource: $scope.resource,
                 files: $scope.damage.files
               });
@@ -73,26 +81,28 @@ angular.module('addDamageDialogDirective', [])
           }]
         })
         .then(function(res) {
-          if(!$scope.booking) {
+          if(!res.booking) {
             res.damage.withoutBooking = true;
           }
           //save new damage
           return damageService.add({
-            booking: res.damage.withoutBooking ? undefined : $scope.booking.id,
+            booking: res.damage.withoutBooking ? undefined : res.booking.id,
             resource: res.resource.id,
-            person: res.damage.withoutBooking ? undefined : $scope.booking.person.id,
+            person: res.damage.withoutBooking ? undefined : res.booking.person.id,
             newProps: {
               ownRiskAmountMyWheels: res.damage.ownRiskAmountMyWheels,
               ownRiskAmountPerson: res.damage.ownRiskAmountPerson,
-              damageAmountAgreed: res.damage.damageAmountAgreed,
-              damageAmountInvoice: res.damage.damageAmountInvoice,
+              amountAgreed: res.damage.AmountAgreed,
+              amountInvoice: res.damage.AmountInvoice,
               description: res.damage.description,
               type: res.damage.type,
               odo: res.damage.odo,
               ticketNumbers: res.damage.ticketNumbers,
               notify: res.damage.notify,
               finalized: res.damage.finalized,
-              damageDate: res.damageDate
+              damageDate: res.damageDate,
+              paidBy: res.damage.paidBy,
+              reminderAccidentReport: res.damage.reminderAccidentReport
             }
           }, {
             'files[0]': res.files[0] ? res.files[0] : undefined,
@@ -107,6 +117,7 @@ angular.module('addDamageDialogDirective', [])
             'files[9]': res.files[9] ? res.files[9] : undefined
           })
           .then(function(res) {
+            $scope.damages.unshift(res);
             alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
           })
           .catch(function(err) {

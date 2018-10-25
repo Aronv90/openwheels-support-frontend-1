@@ -7,6 +7,13 @@ angular.module('openwheels.resource.show.maintenance', [])
 
   $scope.curPage = 1;
   $scope.perPage = perPage;
+
+  $scope.finalizedOptions = [
+    {label: 'Unfinalized', value: false},
+    {label: 'Finalized', value: true},
+    {label: 'All', value: null}
+  ];
+
   handleMaintenances(maintenances);
 
   function handleMaintenances(maintenances) {
@@ -17,7 +24,7 @@ angular.module('openwheels.resource.show.maintenance', [])
   function buildParams() {
     var params = {};
     params.resourceId = $stateParams.resource;
-    params.finalized = $stateParams.finalized === 'true' || null;
+    params.finalized = $stateParams.finalized;
     return params;
   }
 
@@ -38,7 +45,7 @@ angular.module('openwheels.resource.show.maintenance', [])
   };
 
   $scope.params = {
-    finalized: $stateParams.finalized === 'true' || 'false',
+    finalized: $stateParams.finalized,
   };
 
   $scope.refresh = function () {
