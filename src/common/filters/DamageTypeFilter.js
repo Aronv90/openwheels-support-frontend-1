@@ -9,6 +9,8 @@ angular.module('filters.damageType', [])
       typeTranslated = 'Banden';
     } else if(type === 'coating') {
       typeTranslated = 'Bekleding';
+    } else if(type === 'stickers') {
+      typeTranslated = 'Bestickering';
     } else if(type === 'theft') {
       typeTranslated = 'Diefstal';
     } else if(type === 'paint') {

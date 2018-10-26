@@ -69,19 +69,18 @@ angular.module('alterMaintenanceDialogDirective', [])
             };
 
             $scope.maintenanceTypes = [
-              {label: 'APK', value: 'apk'},
+              {label: 'Boordcomputer', value: 'boardcomputer'},
               {label: 'Garantie', value: 'guarantee'},
-              {label: 'Onderhoudsbeurt', value: 'regular'},
-              {label: 'Onderhoudsbeurt + APK', value: 'regular_apk'}
+              {label: 'Onderhoudsbeurt', value: 'regular'}
             ];
 
             $scope.paidByOptions = [
+              {label: 'Eigenaar (niet MyWheels)', value: 'owner'},
               {label: 'Leasemaatschappij', value: 'lease'},
               {label: 'MyWheels', value: 'mywheels'},
               {label: 'Niet gerepareerd', value: 'unrepaired'},
               {label: 'Verzekering', value: 'insurance'}
             ];
-
 
             initFiles();
 
