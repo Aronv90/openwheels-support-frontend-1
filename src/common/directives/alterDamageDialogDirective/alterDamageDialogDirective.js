@@ -121,9 +121,8 @@ angular.module('alterDamageDialogDirective', [])
               $scope.damage.damageDate = makeNewDateString($scope.damage.damageDate);
               var newProps = difference(masterDamage, $scope.damage);
 
-              //only change garage id
-              if(newProps.garage) {
-                newProps.garage = newProps.garage.id;
+              if($scope.damage.garage) {
+                newProps.garage = $scope.damage.garage.id;
               }
 
               damageService.alter({
