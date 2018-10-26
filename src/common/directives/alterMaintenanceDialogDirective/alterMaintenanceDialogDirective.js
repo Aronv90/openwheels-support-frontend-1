@@ -101,16 +101,14 @@ angular.module('alterMaintenanceDialogDirective', [])
             }
 
             $scope.save = function() {
-              $scope.files = 
               //don't update files
               masterMaintenance.files = [];
               $scope.maintenance.files = [];
               $scope.maintenance.maintenanceDate = makeNewDateString($scope.maintenance.maintenanceDate);
               var newProps = difference(masterMaintenance, $scope.maintenance);
 
-              //only change garage id
-              if(newProps.garage) {
-                newProps.garage = newProps.garage.id;
+              if($scope.maintenance.garage) {
+                newProps.garage = $scope.maintenance.garage.id;
               }
 
               maintenanceService.alter({
