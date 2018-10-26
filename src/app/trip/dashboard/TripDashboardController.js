@@ -37,6 +37,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.declarations = [];
   $scope.friends = [];
   $scope.remarks = [];
+  $scope.damages = [];
   $scope.extraPersons = [];
   $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
