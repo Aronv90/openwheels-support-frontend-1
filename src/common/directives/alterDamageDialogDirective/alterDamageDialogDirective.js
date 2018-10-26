@@ -9,7 +9,7 @@ angular.module('alterDamageDialogDirective', [])
     transclude: true,
     templateUrl: 'directives/alterDamageDialogDirective/alterDamageDialogDirective.tpl.html',
     controller: function ($scope, $state, settingsService, $stateParams, $mdDialog, $window, alertService, damageService, $mdMedia, contractService,
-      API_DATE_FORMAT) {
+      API_DATE_FORMAT, maintenanceService) {
 
       $scope.alterDamage = function(damage) {
         $window.scrollTo(0, 0);
@@ -37,7 +37,7 @@ angular.module('alterDamageDialogDirective', [])
           templateUrl: 'directives/alterDamageDialogDirective/alterDamageDialog.tpl.html',
           clickOutsideToClose:true,
           controller: ['$scope', '$mdDialog', 'masterDamage', 'settingsService', function($scope, $mdDialog, masterDamage, settingsService) {
-            $scope.damage.newFiles = [];
+            $scope.newFiles = [];
 
             $scope.damageTypes = [
               {label: 'Banden', value: 'tires'},
@@ -82,9 +82,29 @@ angular.module('alterDamageDialogDirective', [])
             //on file upload add the selected files to damage.files
             $scope.$on('fileSelected', function (event, args) {
               $scope.$apply(function (index) {
-                $scope.damage.newFiles.push(args.file);
+                $scope.newFiles.push(args.file);
               });
             });
+
+            /**
+             * Typeahead Garages
+             */
+            $scope.searchGarages = function ($viewValue) {
+              return maintenanceService.searchGarage({
+                search: $viewValue
+              })
+              .then(function(garages){
+                return garages.result;
+              });
+            };
+
+            $scope.formatGarage = function ($model) {
+              var inputLabel = '';
+              if ($model) {
+                inputLabel = $model.name + ' ' + '[' + $model.id + ']';
+              }
+              return inputLabel;
+            };
 
             //only if damage is linked to a person/booking
             if($scope.damage.person) {
@@ -100,28 +120,34 @@ angular.module('alterDamageDialogDirective', [])
               $scope.damage.files = [];
               $scope.damage.damageDate = makeNewDateString($scope.damage.damageDate);
               var newProps = difference(masterDamage, $scope.damage);
-              
+
+              //only change garage id
+              if(newProps.garage) {
+                newProps.garage = newProps.garage.id;
+              }
+
               damageService.alter({
                 damage: $scope.damage.id,
                 newProps: newProps
               }, {
-                'files[0]': $scope.damage.newFiles[0] ? $scope.damage.newFiles[0] : undefined,
-                'files[1]': $scope.damage.newFiles[1] ? $scope.damage.newFiles[1] : undefined,
-                'files[2]': $scope.damage.newFiles[2] ? $scope.damage.newFiles[2] : undefined,
-                'files[3]': $scope.damage.newFiles[3] ? $scope.damage.newFiles[3] : undefined,
-                'files[4]': $scope.damage.newFiles[4] ? $scope.damage.newFiles[4] : undefined,
-                'files[5]': $scope.damage.newFiles[5] ? $scope.damage.newFiles[5] : undefined,
-                'files[6]': $scope.damage.newFiles[6] ? $scope.damage.newFiles[6] : undefined,
-                'files[7]': $scope.damage.newFiles[7] ? $scope.damage.newFiles[7] : undefined,
-                'files[8]': $scope.damage.newFiles[8] ? $scope.damage.newFiles[8] : undefined,
-                'files[9]': $scope.damage.newFiles[9] ? $scope.damage.newFiles[9] : undefined
+                'files[0]': $scope.newFiles[0] ? $scope.newFiles[0] : undefined,
+                'files[1]': $scope.newFiles[1] ? $scope.newFiles[1] : undefined,
+                'files[2]': $scope.newFiles[2] ? $scope.newFiles[2] : undefined,
+                'files[3]': $scope.newFiles[3] ? $scope.newFiles[3] : undefined,
+                'files[4]': $scope.newFiles[4] ? $scope.newFiles[4] : undefined,
+                'files[5]': $scope.newFiles[5] ? $scope.newFiles[5] : undefined,
+                'files[6]': $scope.newFiles[6] ? $scope.newFiles[6] : undefined,
+                'files[7]': $scope.newFiles[7] ? $scope.newFiles[7] : undefined,
+                'files[8]': $scope.newFiles[8] ? $scope.newFiles[8] : undefined,
+                'files[9]': $scope.newFiles[9] ? $scope.newFiles[9] : undefined
               })
               .then(function(res) {
                 $mdDialog.hide();
+                $scope.damage.files = res.files;
                 alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
               })
               .catch(function(err) {
-                $scope.damage.files = [];
+                $scope.newFiles = [];
                 alertService.add('warning', 'De schademelding kon niet opgeslagen worden: ' + err.message, 5000);
               });
             };

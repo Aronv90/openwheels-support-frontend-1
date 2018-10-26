@@ -61,6 +61,14 @@
         </div>
 
         <md-input-container class="md-block">
+          <label>Garage</label>
+          <input type="text" id="garage" class="typeahead" placeholder="Zoek garage"
+           ng-model="damage.garage"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
+        </md-input-container>
+
+        <md-input-container class="md-block">
           <label>Ticketnummers</label>
           <textarea ng-model="damage.ticketNumbers" rows="1" md-select-on-focus></textarea>
         </md-input-container>

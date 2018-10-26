@@ -45,6 +45,22 @@
               <span flex="50"><strong>Toestemmingscode:</strong></span>
               <span flex="50">{{ damage.authorizationCode }}</span>
             </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage name:</strong></span>
+              <span flex="60">{{ maintenance.garage.name }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage address:</strong></span>
+              <span flex="60">{{ maintenance.garage.address }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage email:</strong></span>
+              <span flex="60">{{ maintenance.garage.email }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage phone:</strong></span>
+              <span flex="60">{{ maintenance.garage.number }}</span>
+            </span>
           </div>
         </div>
 
@@ -65,6 +81,14 @@
             <input ng-model="damage.odo" type="number">
           </md-input-container>
         </div>
+
+        <md-input-container class="md-block">
+          <label>Garage</label>
+          <input type="text" id="garage" class="typeahead" placeholder="Zoek garage"
+           ng-model="damage.garage"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
+        </md-input-container>
 
         <md-input-container class="md-block">
           <label>Ticketnummers</label>
