@@ -8,7 +8,7 @@ angular.module('addDamageDialogDirective', [])
     transclude: true,
     templateUrl: 'directives/addDamageDialogDirective/addDamageDialogDirective.tpl.html',
     controller: function ($scope, $state, $stateParams, $mdDialog, $window, alertService, damageService, $mdMedia, contractService,
-      API_DATE_FORMAT) {
+      API_DATE_FORMAT, maintenanceService) {
 
       $scope.addDamage = function() {
         $window.scrollTo(0, 0);
@@ -22,7 +22,8 @@ angular.module('addDamageDialogDirective', [])
             contract: $scope.contract,
             resource: $scope.resource
           },
-          controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', 'damages', function($scope, $mdDialog, booking, contract, resource, damages) {
+          controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', 'damages', function($scope, $mdDialog, booking,
+            contract, resource, damages) {
             $scope.damage = [];
             $scope.damage.files = [];
             $scope.damages = damages;
@@ -41,12 +42,40 @@ angular.module('addDamageDialogDirective', [])
               $scope.resource = resource;
             }
 
+            if(typeof !$scope.resource.garage === 'undefined'){
+              $scope.damage.resource.garage = {};
+              $scope.damage.resource.garage.id = null;
+              $scope.damage.resource.garage.name = null;
+            } else {
+              $scope.damage.garage = $scope.resource.garage;
+            }
+
             //on file upload add the selected files to damage.files
             $scope.$on('fileSelected', function (event, args) {
               $scope.$apply(function (index) {
                 $scope.damage.files.push(args.file);
               });
             });
+
+            /**
+             * Typeahead Garages
+             */
+            $scope.searchGarages = function ($viewValue) {
+              return maintenanceService.searchGarage({
+                search: $viewValue
+              })
+              .then(function(garages){
+                return garages.result;
+              });
+            };
+
+            $scope.formatGarage = function ($model) {
+              var inputLabel = '';
+              if ($model) {
+                inputLabel = $model.name + ' ' + '[' + $model.id + ']';
+              }
+              return inputLabel;
+            };
 
             $scope.damageTypes = [
               {label: 'Banden', value: 'tires'},
@@ -79,6 +108,7 @@ angular.module('addDamageDialogDirective', [])
               return damageService.add({
                 booking: $scope.damage.withoutBooking ? undefined : $scope.booking.id,
                 resource: $scope.resource.id,
+                garage: $scope.damage.garage ? $scope.damage.garage.id : undefined,
                 person: $scope.damage.withoutBooking ? undefined : $scope.booking.person.id,
                 newProps: {
                   ownRiskAmountMyWheels: $scope.damage.ownRiskAmountMyWheels,

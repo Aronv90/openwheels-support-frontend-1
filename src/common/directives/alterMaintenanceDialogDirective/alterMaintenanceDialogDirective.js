@@ -36,6 +36,7 @@ angular.module('alterMaintenanceDialogDirective', [])
           templateUrl: 'directives/alterMaintenanceDialogDirective/alterMaintenanceDialog.tpl.html',
           clickOutsideToClose:true,
           controller: ['$scope', '$mdDialog', 'masterMaintenance', function($scope, $mdDialog, masterMaintenance) {
+            $scope.newFiles = [];
             function makeNewDateString(date) {
               var newDate = moment(date);
               return newDate.format('YYYY-MM-DD');
@@ -44,7 +45,7 @@ angular.module('alterMaintenanceDialogDirective', [])
             //on file upload add the selected files to maintenance.files
             $scope.$on('fileSelected', function (event, args) {
               $scope.$apply(function (index) {
-                $scope.maintenance.files.push(args.file);
+                $scope.newFiles.push(args.file);
               });
             });
 
@@ -99,49 +100,47 @@ angular.module('alterMaintenanceDialogDirective', [])
               return out;
             }
 
-            $scope.done = function() {
-              $mdDialog.hide({
-                maintenance: $scope.maintenance,
-                masterMaintenance: masterMaintenance,
-                maintenanceDate: makeNewDateString($scope.maintenance.maintenanceDate),
-                files: $scope.maintenance.files
+            $scope.save = function() {
+              $scope.files = 
+              //don't update files
+              masterMaintenance.files = [];
+              $scope.maintenance.files = [];
+              $scope.maintenance.maintenanceDate = makeNewDateString($scope.maintenance.maintenanceDate);
+              var newProps = difference(masterMaintenance, $scope.maintenance);
+
+              //only change garage id
+              if(newProps.garage) {
+                newProps.garage = newProps.garage.id;
+              }
+
+              maintenanceService.alter({
+                maintenance: $scope.maintenance.id,
+                newProps: newProps
+              }, {
+                'files[0]': $scope.newFiles[0] ? $scope.newFiles[0] : undefined,
+                'files[1]': $scope.newFiles[1] ? $scope.newFiles[1] : undefined,
+                'files[2]': $scope.newFiles[2] ? $scope.newFiles[2] : undefined,
+                'files[3]': $scope.newFiles[3] ? $scope.newFiles[3] : undefined,
+                'files[4]': $scope.newFiles[4] ? $scope.newFiles[4] : undefined,
+                'files[5]': $scope.newFiles[5] ? $scope.newFiles[5] : undefined,
+                'files[6]': $scope.newFiles[6] ? $scope.newFiles[6] : undefined,
+                'files[7]': $scope.newFiles[7] ? $scope.newFiles[7] : undefined,
+                'files[8]': $scope.newFiles[8] ? $scope.newFiles[8] : undefined,
+                'files[9]': $scope.newFiles[9] ? $scope.newFiles[9] : undefined
+              })
+              .then(function(res) {
+                $mdDialog.hide();
+                $scope.maintenance.files = res.files;
+                alertService.add('success', 'De onderhoudsmelding is succesvol opgeslagen.', 5000);
+              })
+              .catch(function(err) {
+                $scope.newFiles = [];
+                alertService.add('warning', 'De onderhoudsmelding kon niet opgeslagen worden: ' + err.message, 5000);
               });
             };
+
             $scope.cancel = $mdDialog.cancel;
           }],
-        })
-        .then(function(res) {
-          //don't update files
-          res.masterMaintenance.files = [];
-          res.maintenance.files = [];
-          var newProps = difference(res.masterMaintenance, res.maintenance);
-
-          //only change garage id
-          if(newProps.garage) {
-            newProps.garage = newProps.garage.id;
-          }
-          
-          return maintenanceService.alter({
-            maintenance: maintenance.id,
-            newProps: newProps
-          }, {
-            'files[0]': res.files[0] ? res.files[0] : undefined,
-            'files[1]': res.files[1] ? res.files[1] : undefined,
-            'files[2]': res.files[2] ? res.files[2] : undefined,
-            'files[3]': res.files[3] ? res.files[3] : undefined,
-            'files[4]': res.files[4] ? res.files[4] : undefined,
-            'files[5]': res.files[5] ? res.files[5] : undefined,
-            'files[6]': res.files[6] ? res.files[6] : undefined,
-            'files[7]': res.files[7] ? res.files[7] : undefined,
-            'files[8]': res.files[8] ? res.files[8] : undefined,
-            'files[9]': res.files[9] ? res.files[9] : undefined
-          })
-          .then(function(res) {
-            alertService.add('success', 'De onderhoudsmelding is succesvol opgeslagen.', 5000);
-          })
-          .catch(function(err) {
-            alertService.add('warning', 'De onderhoudsmelding kon niet opgeslagen worden: ' + err.message, 5000);
-          });
         });
       };
 

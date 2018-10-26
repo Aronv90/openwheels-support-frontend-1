@@ -18,13 +18,16 @@ angular.module('addMaintenanceDialogDirective', [])
           parent: angular.element(document.body),
           clickOutsideToClose:true,
           locals: {
+            maintenances: $scope.maintenances,
             booking: $scope.booking,
             contract: $scope.contract,
             resource: $scope.resource   
           },
-          controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', function($scope, $mdDialog, booking, contract, resource) {
+          controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', 'maintenances', function($scope, $mdDialog, booking,
+            contract, resource, maintenances) {
             $scope.maintenance = [];
             $scope.maintenance.files = [];
+            $scope.maintenances = maintenances;
 
             //create maintenance with or without a booking
             if (booking) {
@@ -89,57 +92,51 @@ angular.module('addMaintenanceDialogDirective', [])
               return newDate.format('YYYY-MM-DD');
             }
 
-            $scope.done = function() {
-              $mdDialog.hide({
-                maintenance: $scope.maintenance,
-                maintenanceDate: makeNewDateString($scope.maintenance.maintenanceDate),
-                resource: $scope.resource,
-                files: $scope.maintenance.files,
-                booking: $scope.booking
+            $scope.save = function() {
+              //save new maintenance
+              maintenanceService.add({
+                booking: $scope.booking ? $scope.booking.id : undefined,
+                resource: $scope.resource.id,
+                garage: $scope.maintenance.garage ? $scope.maintenance.garage.id : undefined,
+                newProps: {
+                  amountAgreed: $scope.maintenance.amountAgreed,
+                  amountInvoice: $scope.maintenance.amountInvoice,
+                  description: $scope.maintenance.description,
+                  type: $scope.maintenance.type,
+                  odo: $scope.maintenance.odo,
+                  apk: $scope.maintenance.apk,
+                  regular: $scope.maintenance.regular,
+                  finalized: $scope.maintenance.finalized,
+                  maintenanceDate: makeNewDateString($scope.maintenance.maintenanceDate),
+                  paidBy: $scope.maintenance.paidBy
+                }
+              }, {
+                'files[0]': $scope.maintenance.files[0] ? $scope.maintenance.files[0] : undefined,
+                'files[1]': $scope.maintenance.files[1] ? $scope.maintenance.files[1] : undefined,
+                'files[2]': $scope.maintenance.files[2] ? $scope.maintenance.files[2] : undefined,
+                'files[3]': $scope.maintenance.files[3] ? $scope.maintenance.files[3] : undefined,
+                'files[4]': $scope.maintenance.files[4] ? $scope.maintenance.files[4] : undefined,
+                'files[5]': $scope.maintenance.files[5] ? $scope.maintenance.files[5] : undefined,
+                'files[6]': $scope.maintenance.files[6] ? $scope.maintenance.files[6] : undefined,
+                'files[7]': $scope.maintenance.files[7] ? $scope.maintenance.files[7] : undefined,
+                'files[8]': $scope.maintenance.files[8] ? $scope.maintenance.files[8] : undefined,
+                'files[9]': $scope.maintenance.files[9] ? $scope.maintenance.files[9] : undefined
+              })
+              .then(function(res) {
+                $mdDialog.hide();
+                if(!$scope.booking) {
+                  $scope.maintenances.unshift(res);
+                }
+                alertService.add('success', 'De onderhoudsmelding is succesvol opgeslagen.', 5000);
+              })
+              .catch(function(err) {
+                $scope.maintenance.files = [];
+                alertService.add('warning', 'De onderhoudsmelding kon niet opgeslagen worden: ' + err.message, 5000);
               });
             };
+
             $scope.cancel = $mdDialog.cancel;
           }]
-        })
-        .then(function(res) {
-          //save new maintenance
-          return maintenanceService.add({
-            booking: res.booking ? res.booking.id : undefined,
-            resource: res.resource.id,
-            garage: res.maintenance.garage.id,
-            newProps: {
-              amountAgreed: res.maintenance.amountAgreed,
-              amountInvoice: res.maintenance.amountInvoice,
-              description: res.maintenance.description,
-              type: res.maintenance.type,
-              odo: res.maintenance.odo,
-              apk: res.maintenance.apk,
-              regular: res.maintenance.regular,
-              finalized: res.maintenance.finalized,
-              maintenanceDate: res.maintenanceDate,
-              paidBy: res.maintenance.paidBy
-            }
-          }, {
-            'files[0]': res.files[0] ? res.files[0] : undefined,
-            'files[1]': res.files[1] ? res.files[1] : undefined,
-            'files[2]': res.files[2] ? res.files[2] : undefined,
-            'files[3]': res.files[3] ? res.files[3] : undefined,
-            'files[4]': res.files[4] ? res.files[4] : undefined,
-            'files[5]': res.files[5] ? res.files[5] : undefined,
-            'files[6]': res.files[6] ? res.files[6] : undefined,
-            'files[7]': res.files[7] ? res.files[7] : undefined,
-            'files[8]': res.files[8] ? res.files[8] : undefined,
-            'files[9]': res.files[9] ? res.files[9] : undefined
-          })
-          .then(function(res) {
-            if(!res.booking) {
-              $scope.maintenances.unshift(res);
-            }
-            alertService.add('success', 'De onderhoudsmelding is succesvol opgeslagen.', 5000);
-          })
-          .catch(function(err) {
-            alertService.add('warning', 'De onderhoudsmelding kon niet opgeslagen worden: ' + err.message, 5000);
-          });
         });
       };
 
