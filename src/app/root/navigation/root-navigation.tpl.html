@@ -13,17 +13,8 @@
 
   <div class="collapse navbar-collapse navbar-main-collapse">
     <ul class="nav navbar-nav" ng-if="user.identity.provider.id === 1">
-      <li show-if-user-has-role="ROLE_PROVIDER_ADMIN"
-          ng-class="{ dropdown: true, active: $state.includes('phoneLog') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Calls <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('phoneLog.current') }">
-            <a ui-sref="phoneLog.current">Current calls</a>
-          </li>
-          <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('phoneLog.history') }">
-            <a ui-sref="phoneLog.history">Call history</a>
-          </li>
-        </ul>
+      <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('phoneLog.current') }">
+        <a ui-sref="phoneLog.current">Phone calls</a>
       </li>
     </ul>
     <ul class="nav navbar-nav">
@@ -44,6 +35,7 @@
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Resource <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li><a ui-sref="root.resource.create">Add resource</a></li>
+          <li><a ui-sref="root.resource.creategarage">Add garage</a></li>
         </ul>
       </li>
     </ul>
@@ -77,9 +69,6 @@
           <li ng-class="{ active: $state.includes('root.trip.list.current') }">
             <a ui-sref="root.trip.list.current">Current</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.jobs') }">
-            <a ui-sref="root.trip.list.jobs">Unfinished jobs</a>
-          </li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.trip.list.notactive') }">
             <a ui-sref="root.trip.list.notactive">Not active bookings</a>
           </li>
@@ -92,9 +81,6 @@
           </li>
           <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }" show-if-user-has-role="ROLE_ADMIN">
             <a ui-sref="root.trip.list.returned-late">Returned late</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.farfromhome') }" show-if-user-has-role="ROLE_ADMIN">
-            <a ui-sref="root.trip.list.farfromhome">Far from home</a>
           </li>
         </ul>
       </li>
@@ -200,15 +186,6 @@
       <li class="dropdown" ng-class="{ active: $state.includes('root.checklist') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Checklists <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li ng-class="{ active: $state.includes('root.checklist.driverlicense') }">
-            <a ui-sref="root.checklist.driverlicense">Driver License</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.checklist.ownerNotActive') }">
-            <a ui-sref="root.checklist.ownerNotActive">Owner not active</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.checklist.bankcheck') }">
-            <a ui-sref="root.checklist.bankcheck">Bank not verified</a>
-          </li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('ow-dashboard') }">
             <a ui-sref="ow-dashboard">Dashboard</a>
           </li>
@@ -219,32 +196,8 @@
       </li>
     </ul>
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
-      <li class="dropdown" ng-class="{ active: $state.includes('root.report') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Lists <b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li ng-class="{ active: $state.includes('root.report.report1') }">
-            <a ui-sref="root.report.report1">Report 1</a>
-          </li>
-
-          <li ng-class="{ active: $state.includes('root.provider') }">
-            <a ui-sref="root.provider.list">Providers</a>
-          </li>
-
-          <li ng-class="{ active: $state.includes('root.fleet') }">
-            <a ui-sref="root.fleet.list">Fleets</a>
-          </li>
-
-          <li ng-class="{ active: $state.includes('root.contract.type') }">
-            <a ui-sref="root.contract.type.list">Contract Types</a>
-          </li>
-
-          <li ng-class="{ active: $state.includes('root.mailer') }">
-            <a ui-sref="root.mailer.list">Mailings</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.querytool.list') }">
-            <a ui-sref="root.querytool">Database</a>
-          </li>
-        </ul>
+      <li ng-class="{ active: $state.includes('root.querytool') }">
+        <a ui-sref="root.querytool">Database</a>
       </li>
     </ul>
 

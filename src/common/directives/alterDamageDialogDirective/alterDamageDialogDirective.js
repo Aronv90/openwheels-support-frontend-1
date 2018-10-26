@@ -93,44 +93,41 @@ angular.module('alterDamageDialogDirective', [])
                 $scope.age = 'Onbekend';
               }
             }
-            $scope.done = function() {
-              $mdDialog.hide({
-                damage: $scope.damage,
-                masterDamage: masterDamage,
-                damageDate: makeNewDateString($scope.damage.damageDate),
-                files: $scope.damage.newFiles
+
+            $scope.save = function() {
+              //don't update files
+              masterDamage.files = [];
+              $scope.damage.files = [];
+              $scope.damage.damageDate = makeNewDateString($scope.damage.damageDate);
+              var newProps = difference(masterDamage, $scope.damage);
+              
+              damageService.alter({
+                damage: $scope.damage.id,
+                newProps: newProps
+              }, {
+                'files[0]': $scope.damage.newFiles[0] ? $scope.damage.newFiles[0] : undefined,
+                'files[1]': $scope.damage.newFiles[1] ? $scope.damage.newFiles[1] : undefined,
+                'files[2]': $scope.damage.newFiles[2] ? $scope.damage.newFiles[2] : undefined,
+                'files[3]': $scope.damage.newFiles[3] ? $scope.damage.newFiles[3] : undefined,
+                'files[4]': $scope.damage.newFiles[4] ? $scope.damage.newFiles[4] : undefined,
+                'files[5]': $scope.damage.newFiles[5] ? $scope.damage.newFiles[5] : undefined,
+                'files[6]': $scope.damage.newFiles[6] ? $scope.damage.newFiles[6] : undefined,
+                'files[7]': $scope.damage.newFiles[7] ? $scope.damage.newFiles[7] : undefined,
+                'files[8]': $scope.damage.newFiles[8] ? $scope.damage.newFiles[8] : undefined,
+                'files[9]': $scope.damage.newFiles[9] ? $scope.damage.newFiles[9] : undefined
+              })
+              .then(function(res) {
+                $mdDialog.hide();
+                alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
+              })
+              .catch(function(err) {
+                $scope.damage.files = [];
+                alertService.add('warning', 'De schademelding kon niet opgeslagen worden: ' + err.message, 5000);
               });
             };
+
             $scope.cancel = $mdDialog.cancel;
           }],
-        })
-        .then(function(res) {
-          //don't update files
-          res.masterDamage.files = [];
-          res.damage.files = [];
-          var newProps = difference(res.masterDamage, res.damage);
-          
-          return damageService.alter({
-            damage: damage.id,
-            newProps: newProps
-          }, {
-            'files[0]': res.files[0] ? res.files[0] : undefined,
-            'files[1]': res.files[1] ? res.files[1] : undefined,
-            'files[2]': res.files[2] ? res.files[2] : undefined,
-            'files[3]': res.files[3] ? res.files[3] : undefined,
-            'files[4]': res.files[4] ? res.files[4] : undefined,
-            'files[5]': res.files[5] ? res.files[5] : undefined,
-            'files[6]': res.files[6] ? res.files[6] : undefined,
-            'files[7]': res.files[7] ? res.files[7] : undefined,
-            'files[8]': res.files[8] ? res.files[8] : undefined,
-            'files[9]': res.files[9] ? res.files[9] : undefined
-          })
-          .then(function(res) {
-            alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
-          })
-          .catch(function(err) {
-            alertService.add('warning', 'De schademelding kon niet opgeslagen worden: ' + err.message, 5000);
-          });
         });
       };
 

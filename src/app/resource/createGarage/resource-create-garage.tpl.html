@@ -1,0 +1,43 @@
+<div class="panel panel-default card">
+    <div class="panel-heading">
+        <h1>Create new garage</h1>
+    </div>
+</div>
+
+<div class="panel panel-default card">
+    <div class="panel-body">
+        <form ng-submit="save(garage)" name="createGarageForm">
+
+            <div ng-show="message" ng-class="{'text-success': saveSuccess, 'text-danger': !saveSuccess }">
+                <strong>{{ message }}</strong>
+                <br><br>
+            </div>
+
+            <div class="form-group">
+                <label for="name">Garage name</label>
+                <input class="form-control" type="text" id="name" name="name" ng-model="garage.name" required />
+            </div>
+
+            <div class="form-group">
+                <label for="address">Garage address</label>
+                <input class="form-control" type="text" id="address" name="address" ng-model="garage.address" required />
+            </div>
+
+            <div class="form-group">
+                <label for="email">Garage email</label>
+                <input class="form-control" type="text" id="email" name="email" ng-model="garage.email" required />
+            </div>
+
+            <div class="form-group">
+                <label for="number">Garage number</label>
+                <input class="form-control" type="text" id="number" name="number" ng-model="garage.number" required />
+            </div>
+
+            <div class="form-group">
+                <button id="clear" type="reset" class="btn btn-default" >Cancel</button>
+                <button id="submitForm" type="submit" class="btn btn-primary" ng-disabled="createGarageForm.$pristine">Submit</button>
+            </div>
+
+        </form>
+    </div>
+</div>
