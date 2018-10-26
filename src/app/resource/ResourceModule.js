@@ -4,6 +4,7 @@ angular.module('openwheels.resource', [
 	'openwheels.resource.show',
 	'openwheels.resource.edit',
 	'openwheels.resource.create',
+	'openwheels.resource.creategarage',
 	'openwheels.resource.list',
   	'infinite-scroll'
 ])
@@ -40,6 +41,16 @@ angular.module('openwheels.resource', [
 				return resourceService.allFleets();
 			}]
 		}
+	});
+
+	/**
+	 * resource/creategarage
+	 */
+	$stateProvider.state('root.resource.creategarage', {
+		url: '/creategarage',
+		controller: 'ResourceCreateGarageController',
+		templateUrl: 'resource/createGarage/resource-create-garage.tpl.html',
+		data: {pageTitle: 'Create Garage'}
 	});
 
 	/**
