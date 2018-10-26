@@ -21,6 +21,27 @@
         </tr>
       </tbody>
     </table>
+    <h5 ng-if="resource.garage"><strong>Garage</strong></h5>
+    <table class="table table-condensed" ng-if="resource.garage">
+      <tbody>
+        <tr>
+          <td>Name</td>
+          <td>{{ resource.garage.name }}</td>
+        </tr>
+        <tr>
+          <td>Address</td>
+          <td>{{ resource.garage.address }}</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>{{ resource.garage.email }}</td>
+        </tr>
+        <tr>
+          <td>Phone</td>
+          <td>{{ resource.garage.number }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <div class="col-md-4">
