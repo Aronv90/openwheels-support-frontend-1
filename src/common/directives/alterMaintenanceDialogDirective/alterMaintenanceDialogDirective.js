@@ -137,7 +137,6 @@ angular.module('alterMaintenanceDialogDirective', [])
             'files[9]': res.files[9] ? res.files[9] : undefined
           })
           .then(function(res) {
-            $scope.maintenances.push(res);
             alertService.add('success', 'De onderhoudsmelding is succesvol opgeslagen.', 5000);
           })
           .catch(function(err) {

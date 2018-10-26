@@ -22,16 +22,32 @@
 
           <div class="md-block" flex-gt-sm>
             <span layout="row">
-              <span flex="50"><strong>Auto:</strong></span>
-              <span flex="50">{{ resource.alias }}</span>
+              <span flex="40"><strong>Auto:</strong></span>
+              <span flex="60">{{ resource.alias }}</span>
             </span>
             <span layout="row" ng-if="booking">
-              <span flex="50"><strong>Huurder:</strong></span>
-              <span flex="50">{{ booking.person | fullname }}</span>
+              <span flex="40"><strong>Huurder:</strong></span>
+              <span flex="60">{{ booking.person | fullname }}</span>
             </span>
             <span layout="row">
-              <span flex="50"><strong>Toestemmingscode:</strong></span>
-              <span flex="50">{{ maintenance.authorizationCode }}</span>
+              <span flex="40"><strong>Toestemmingscode:</strong></span>
+              <span flex="60">{{ maintenance.authorizationCode }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage name:</strong></span>
+              <span flex="60">{{ maintenance.garage.name }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage address:</strong></span>
+              <span flex="60">{{ maintenance.garage.address }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage email:</strong></span>
+              <span flex="60">{{ maintenance.garage.email }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage phone:</strong></span>
+              <span flex="60">{{ maintenance.garage.number }}</span>
             </span>
           </div>
         </div>
