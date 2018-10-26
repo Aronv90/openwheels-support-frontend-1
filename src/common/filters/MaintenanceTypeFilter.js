@@ -5,14 +5,12 @@ angular.module('filters.maintenanceType', [])
 .filter('maintenanceTypeFilter', function () {
   return function(type) {
     var typeTranslated;
-    if(type === 'coating') {
-      typeTranslated = 'APK';
-    } else if(type === 'apk') {
-      typeTranslated = 'Garantie';
+    if(type === 'boardcomputer') {
+      typeTranslated = 'Boordcomputer';
     } else if(type === 'guarantee') {
-      typeTranslated = 'Onderhoudsbeurt';
+      typeTranslated = 'Garantie';
     } else if(type === 'regular') {
-      typeTranslated = 'Onderhoudsbeurt + APK';
+      typeTranslated = 'Onderhoudsbeurt';
     }
     return typeTranslated;
   };

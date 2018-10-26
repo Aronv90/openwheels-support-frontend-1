@@ -42,6 +42,7 @@ angular.module('alterDamageDialogDirective', [])
             $scope.damageTypes = [
               {label: 'Banden', value: 'tires'},
               {label: 'Bekleding', value: 'coating'},
+              {label: 'Bestickering', value: 'stickers'},
               {label: 'Diefstal', value: 'theft'},
               {label: 'Lakschade', value: 'paint'},
               {label: 'Motorisch', value: 'motor'},
