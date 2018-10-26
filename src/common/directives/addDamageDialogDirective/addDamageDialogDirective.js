@@ -17,13 +17,15 @@ angular.module('addDamageDialogDirective', [])
           templateUrl: 'directives/addDamageDialogDirective/addDamageDialog.tpl.html',
           parent: angular.element(document.body),
           locals: {
+            damages: $scope.damages,
             booking: $scope.booking,
             contract: $scope.contract,
             resource: $scope.resource
           },
-          controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', function($scope, $mdDialog, booking, contract, resource) {
+          controller: ['$scope', '$mdDialog', 'booking', 'contract', 'resource', 'damages', function($scope, $mdDialog, booking, contract, resource, damages) {
             $scope.damage = [];
             $scope.damage.files = [];
+            $scope.damages = damages;
 
             //create damage with or without a booking
             if (booking) {
@@ -69,61 +71,55 @@ angular.module('addDamageDialogDirective', [])
               return newDate.format('YYYY-MM-DD');
             }
 
-            $scope.done = function() {
-              $mdDialog.hide({
-                damage: $scope.damage,
-                damageDate: makeNewDateString($scope.damage.damageDate),
-                booking: $scope.booking,
-                resource: $scope.resource,
-                files: $scope.damage.files
+            $scope.save = function() {
+              if(!$scope.booking) {
+                $scope.damage.withoutBooking = true;
+              }
+              //save new damage
+              return damageService.add({
+                booking: $scope.damage.withoutBooking ? undefined : $scope.booking.id,
+                resource: $scope.resource.id,
+                person: $scope.damage.withoutBooking ? undefined : $scope.booking.person.id,
+                newProps: {
+                  ownRiskAmountMyWheels: $scope.damage.ownRiskAmountMyWheels,
+                  ownRiskAmountPerson: $scope.damage.ownRiskAmountPerson,
+                  amountAgreed: $scope.damage.amountAgreed,
+                  amountInvoice: $scope.damage.amountInvoice,
+                  description: $scope.damage.description,
+                  type: $scope.damage.type,
+                  odo: $scope.damage.odo,
+                  ticketNumbers: $scope.damage.ticketNumbers,
+                  notify: $scope.damage.notify,
+                  finalized: $scope.damage.finalized,
+                  damageDate: makeNewDateString($scope.damage.damageDate),
+                  paidBy: $scope.damage.paidBy,
+                  reminderAccidentReport: $scope.damage.reminderAccidentReport
+                }
+              }, {
+                'files[0]': $scope.damage.files[0] ? $scope.damage.files[0] : undefined,
+                'files[1]': $scope.damage.files[1] ? $scope.damage.files[1] : undefined,
+                'files[2]': $scope.damage.files[2] ? $scope.damage.files[2] : undefined,
+                'files[3]': $scope.damage.files[3] ? $scope.damage.files[3] : undefined,
+                'files[4]': $scope.damage.files[4] ? $scope.damage.files[4] : undefined,
+                'files[5]': $scope.damage.files[5] ? $scope.damage.files[5] : undefined,
+                'files[6]': $scope.damage.files[6] ? $scope.damage.files[6] : undefined,
+                'files[7]': $scope.damage.files[7] ? $scope.damage.files[7] : undefined,
+                'files[8]': $scope.damage.files[8] ? $scope.damage.files[8] : undefined,
+                'files[9]': $scope.damage.files[9] ? $scope.damage.files[9] : undefined
+              })
+              .then(function(res) {
+                $mdDialog.hide();
+                $scope.damages.unshift(res);
+                alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
+              })
+              .catch(function(err) {
+                $scope.damage.files = [];
+                alertService.add('warning', 'De schademelding kon niet opgeslagen worden: ' + err.message, 5000);
               });
             };
+
             $scope.cancel = $mdDialog.cancel;
           }]
-        })
-        .then(function(res) {
-          if(!res.booking) {
-            res.damage.withoutBooking = true;
-          }
-          //save new damage
-          return damageService.add({
-            booking: res.damage.withoutBooking ? undefined : res.booking.id,
-            resource: res.resource.id,
-            person: res.damage.withoutBooking ? undefined : res.booking.person.id,
-            newProps: {
-              ownRiskAmountMyWheels: res.damage.ownRiskAmountMyWheels,
-              ownRiskAmountPerson: res.damage.ownRiskAmountPerson,
-              amountAgreed: res.damage.AmountAgreed,
-              amountInvoice: res.damage.AmountInvoice,
-              description: res.damage.description,
-              type: res.damage.type,
-              odo: res.damage.odo,
-              ticketNumbers: res.damage.ticketNumbers,
-              notify: res.damage.notify,
-              finalized: res.damage.finalized,
-              damageDate: res.damageDate,
-              paidBy: res.damage.paidBy,
-              reminderAccidentReport: res.damage.reminderAccidentReport
-            }
-          }, {
-            'files[0]': res.files[0] ? res.files[0] : undefined,
-            'files[1]': res.files[1] ? res.files[1] : undefined,
-            'files[2]': res.files[2] ? res.files[2] : undefined,
-            'files[3]': res.files[3] ? res.files[3] : undefined,
-            'files[4]': res.files[4] ? res.files[4] : undefined,
-            'files[5]': res.files[5] ? res.files[5] : undefined,
-            'files[6]': res.files[6] ? res.files[6] : undefined,
-            'files[7]': res.files[7] ? res.files[7] : undefined,
-            'files[8]': res.files[8] ? res.files[8] : undefined,
-            'files[9]': res.files[9] ? res.files[9] : undefined
-          })
-          .then(function(res) {
-            $scope.damages.unshift(res);
-            alertService.add('success', 'De schademelding is succesvol opgeslagen.', 5000);
-          })
-          .catch(function(err) {
-            alertService.add('warning', 'De schademelding kon niet opgeslagen worden: ' + err.message, 5000);
-          });
         });
       };
 
