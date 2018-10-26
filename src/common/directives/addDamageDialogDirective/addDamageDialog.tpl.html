@@ -1,0 +1,153 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Nieuwe schade melden</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content layout-padding>
+    <div layout="column" layout-margin class="md-dialog-content">
+
+      <form name="addDamage">
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Schadedatum</label>
+            <md-datepicker ng-change="change(newDamageDate)" ng-model="damage.damageDate" md-placeholder="Kies een datum"></md-datepicker>
+          </md-input-container>
+
+          <div class="md-block" flex-gt-sm>
+            <span layout="row">
+              <span flex="50"><strong>Auto:</strong></span>
+              <span flex="50">{{ resource.alias }}</span>
+            </span>
+            <span layout="row" ng-if="booking">
+              <span flex="50"><strong>Huurder:</strong></span>
+              <span flex="50">{{ booking.person | fullname }}</span>
+            </span>
+            <span layout="row" ng-if="contract.contractor.id !== booking.person.id && booking">
+              <span flex="50"><strong>Contractant:</strong></span>
+              <span flex="50">{{ contract.contractor | fullname }}</span>
+            </span>
+            <span layout="row" ng-if="booking">
+              <span flex="50"><strong>Eigen risico:</strong></span>
+              <span flex="50">{{ (booking.riskReduction || contract.ownRiskWaiver !== 'not') ? '250 euro (verlaagd)' : '500 euro (niet verlaagd)' }}</span>
+            </span>
+            <span layout="row" ng-if="age">
+              <span flex="50"><strong>Leeftijd:</strong></span>
+              <span flex="50">{{ age }}</span>
+            </span>
+          </div>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Type schade</label>
+            <md-select ng-model="damage.type">
+              <md-option ng-repeat="damage in damageTypes" value="{{damage.value}}">
+                {{damage.label}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Kilometerstand</label>
+            <input ng-model="damage.odo" type="number">
+          </md-input-container>
+        </div>
+
+        <md-input-container class="md-block">
+          <label>Ticketnummers</label>
+          <textarea ng-model="damage.ticketNumbers" rows="1" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Omschrijving van de schade</label>
+          <textarea ng-model="damage.description" rows="3" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Eigen risico betaald door huurder</label>
+            <input ng-model="damage.ownRiskAmountPerson" type="number">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Eigen risico betaald door MyWheels</label>
+            <input ng-model="damage.ownRiskAmountMyWheels" type="number">
+          </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Schadebedrag MyWheels (excl. btw)</label>
+            <input ng-model="damage.amountAgreed" type="number">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Schadebedrag op factuur (excl. btw)</label>
+            <input ng-model="damage.amountInvoice" type="number">
+          </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Schade betaald door</label>
+            <md-select ng-model="damage.paidBy">
+              <md-option ng-repeat="paidBy in paidByOptions" value="{{paidBy.value}}">
+                {{paidBy.label}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <br>
+
+        <div layout-gt-sm="row">
+          <md-checkbox ng-model="damage.notify" aria-label="Mails versturen?" class="md-block" ng-if="booking" flex-gt-sm>
+            Schademails versturen?
+          </md-checkbox>
+
+          <md-checkbox ng-model="damage.reminderAccidentReport" aria-label="Follow-up schadeformulier?" class="md-block" ng-if="booking" flex-gt-sm>
+            Follow-up schadeformulier?
+          </md-checkbox>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-checkbox ng-model="damage.withoutBooking" aria-label="Niet in deze rit" class="md-block" ng-if="booking" flex-gt-sm>
+            Niet tijdens deze rit gebeurd
+          </md-checkbox>
+
+          <md-checkbox ng-model="damage.finalized" aria-label="Schade afgehandeld?" class="md-block" flex-gt-sm>
+            Schade afgehandeld?
+          </md-checkbox>
+        </div>
+
+        <br><br>
+
+        <span class="md-headline">Bijlage(s) toevoegen</span>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <input type="file" name="files[]" file-upload multiple aria-label="Upload bestanden" />
+            <div class="hint">Bijvoorbeeld schadeformulieren, foto's of facturen. Maximaal 10 bestanden per schade.</div>
+          </md-input-container>
+        </div>
+
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Annuleren
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="done()">
+      Versturen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

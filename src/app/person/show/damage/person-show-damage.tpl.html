@@ -1,0 +1,71 @@
+<div class="row">
+
+  <div class="col-sm-2">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Filter</h3>
+        <form class="form">
+          <div class="form-group">
+            <label for="finalized">Finalized?</label>
+            <select id="finalized" class="form-control" ng-model="params.finalized" ng-options="p.value as p.label for p in finalizedOptions"></select>
+          </div>
+          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-10">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Damages</h3>
+        <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
+        <p class="btn"> {{curPage}} </p>
+        <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Booking</th>
+              <th>Resource</th>
+              <th>Admin</th>
+              <th>Type</th>
+              <th>Code</th>
+              <th>Finalized?</th>
+              <th>Actions</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="damage in damages">
+              <td>{{ damage.id }}</td>
+              <td>{{ damage.damageDate | amDateFormat : 'DD-MM-YYYY' }}</td>
+              <td>
+                <a ui-sref="root.trip.dashboard({tripId: damage.booking.id})">
+                  {{ damage.booking.id }}
+                </a>
+              </td>
+              <td>
+                <a ui-sref="root.resource.show.summary({ resourceId: damage.resource.id })">
+                  {{ damage.resource.id }}
+                </a>
+              </td>
+              <td>
+                <a ui-sref="root.person.show.summary({ personId: damage.admin.id })">
+                  {{ damage.admin.firstName }}
+                </a>
+              </td>
+              <td>{{ damage.type | damageTypeFilter }}</td>
+              <td>{{ damage.authorizationCode }}</td>
+              <td>{{ damage.finalized ? 'Yes' : 'No' }}</td>
+              <td><alter-damage-dialog ng-click="alterDamage(damage)""></alter-damage-dialog></td>
+              <td><a ng-click="deleteDamage(damage)">Remove</a></td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -124,6 +124,12 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.discount') }">
                     <a ui-sref="root.resource.show.discount({ resourceId: resource.id })">Discount</a>
                 </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.damage') }">
+                    <a ui-sref="root.resource.show.damage({ resourceId: resource.id })">Damage</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }">
+                    <a ui-sref="root.resource.show.maintenance({ resourceId: resource.id })">Maintenance</a>
+                </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
                     <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Revisions</a>
                 </li>

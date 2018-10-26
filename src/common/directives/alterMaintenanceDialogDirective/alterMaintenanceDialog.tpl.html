@@ -1,0 +1,154 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Schade {{ maintenance.id }} wijzigen</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content layout-padding>
+    <div layout="column" layout-margin class="md-dialog-content">
+
+      <form name="addMaintenance">
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Onderhoudsdatum</label>
+            <md-datepicker ng-change="change(newMaintenanceDate)" ng-model="maintenance.maintenanceDate" md-placeholder="Kies een datum"></md-datepicker>
+          </md-input-container>
+
+          <div class="md-block" flex-gt-sm>
+            <span layout="row">
+              <span flex="40"><strong>Auto:</strong></span>
+              <span flex="60">{{ resource.alias }}</span>
+            </span>
+            <span layout="row" ng-if="booking">
+              <span flex="40"><strong>Huurder:</strong></span>
+              <span flex="60">{{ booking.person | fullname }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Toestemmingscode:</strong></span>
+              <span flex="60">{{ maintenance.authorizationCode }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage name:</strong></span>
+              <span flex="60">{{ maintenance.garage.name }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage address:</strong></span>
+              <span flex="60">{{ maintenance.garage.address }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage email:</strong></span>
+              <span flex="60">{{ maintenance.garage.email }}</span>
+            </span>
+            <span layout="row">
+              <span flex="40"><strong>Garage phone:</strong></span>
+              <span flex="60">{{ maintenance.garage.number }}</span>
+            </span>
+          </div>
+        </div>
+
+        <br>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Type onderhoud</label>
+            <md-select ng-model="maintenance.type">
+              <md-option ng-repeat="maintenance in maintenanceTypes" value="{{maintenance.value}}">
+                {{maintenance.label}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Kilometerstand</label>
+            <input ng-model="maintenance.odo" type="number">
+          </md-input-container>
+        </div>
+
+        <md-input-container class="md-block">
+          <label>Garage</label>
+          <input type="text" id="garage" class="typeahead" placeholder="Zoek garage"
+           ng-model="maintenance.garage"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label>Omschrijving van het onderhoud</label>
+          <textarea ng-model="maintenance.description" rows="3" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Bedrag MyWheels voor toestemmingscode (excl. btw)</label>
+            <input ng-model="maintenance.amountAgreed">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Bedrag op factuur (excl. btw)</label>
+            <input ng-model="maintenance.amountInvoice">
+          </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Onderhoud betaald door</label>
+            <md-select ng-model="maintenance.paidBy">
+              <md-option ng-repeat="paidBy in paidByOptions" value="{{paidBy.value}}">
+                {{paidBy.label}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <br>
+
+        <div layout-gt-sm="row">
+          <md-checkbox ng-model="maintenance.apk" aria-label="Inclusief APK?" class="md-block" flex-gt-sm>
+            Inclusief APK?
+          </md-checkbox>
+
+          <md-checkbox ng-model="maintenance.regular" aria-label="Jaarlijks onderhoud?" class="md-block" flex-gt-sm>
+            Jaarlijks onderhoud?
+          </md-checkbox>
+
+          <md-checkbox ng-model="maintenance.finalized" aria-label="Onderhoud afgehandeld?" class="md-block" flex-gt-sm>
+            Onderhoud afgehandeld?
+          </md-checkbox>
+        </div>
+
+        <span class="md-headline">Bijlages ({{maintenance.files.length}})</span>
+        <br><br>
+        <div ng-repeat="file in currentFiles">
+          <a ng-href="{{ file.url }}" target="_blank"><i class="fa fa-external-link"></i> {{ file.originalName }}</a>
+        </div>
+        
+        <br>
+
+        <span class="md-headline">Bijlage(s) toevoegen</span>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <input type="file" name="files[]" file-upload multiple aria-label="Upload bestanden" />
+            <div class="hint">Bijvoorbeeld foto's of facturen. Maximaal 10 bestanden per schade.</div>
+          </md-input-container>
+        </div>
+
+      </form>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Annuleren
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="done()">
+      Versturen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

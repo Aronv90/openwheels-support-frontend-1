@@ -7,8 +7,9 @@ angular.module('openwheels.person', [
 	'openwheels.person.search',
 	'openwheels.person.edit.data',
 	'openwheels.person.rentalcheck',
-  'openwheels.person.show.payouts',
-  'openwheels.contract.request'
+	'openwheels.person.show.payouts',
+	'openwheels.contract.request',
+	'openwheels.person.show.damage'
 ])
 
 	.config(function ($stateProvider) {
@@ -329,96 +330,96 @@ angular.module('openwheels.person', [
     });
 
 
-		/**
-		 * person/:id/invoice-group/:id
-		 * @resolve {promise} person, from parent
-		 * @resolve {promise} invoiceGroup
-		 */
-		$stateProvider.state('root.person.show.invoice-group.show', {
-			url: '/:invoiceGroupId',
-			controller: 'InvoiceGroupShowController',
-			templateUrl: 'invoice/group/show/invoice-group-show.tpl.html',
-			data: {pageTitle: 'Person invoice group'}
-			/*resolve: {
-			 invoiceGroupId: function ($stateParams) {
-			 return $stateParams.invoiceGroupId;
-			 }
-			 }*/
-		});
+	/**
+	 * person/:id/invoice-group/:id
+	 * @resolve {promise} person, from parent
+	 * @resolve {promise} invoiceGroup
+	 */
+	$stateProvider.state('root.person.show.invoice-group.show', {
+		url: '/:invoiceGroupId',
+		controller: 'InvoiceGroupShowController',
+		templateUrl: 'invoice/group/show/invoice-group-show.tpl.html',
+		data: {pageTitle: 'Person invoice group'}
+		/*resolve: {
+		 invoiceGroupId: function ($stateParams) {
+		 return $stateParams.invoiceGroupId;
+		 }
+		 }*/
+	});
 
-		/**
-		 * person/:id/contracts
-		 * @resolve {promise} person, from parent
-		 * @resolve {promise} ownerContracts
-		 * @resolve {promise} driverContracts
-		 */
-		$stateProvider.state('root.person.show.contracts', {
-			url: '/contracts',
-			controller: 'PersonShowContractsController',
-			templateUrl: 'person/show/contracts/person-show-contracts.tpl.html',
-			data: {pageTitle: 'Person contracts'},
-			resolve: {
-				contracts: ['$stateParams', '$q', 'contractService', function ($stateParams, $q, contractService) {
-					return contractService.forDriver({
-						person: $stateParams.personId,
-						onlyActive: false
-					});
+	/**
+	 * person/:id/contracts
+	 * @resolve {promise} person, from parent
+	 * @resolve {promise} ownerContracts
+	 * @resolve {promise} driverContracts
+	 */
+	$stateProvider.state('root.person.show.contracts', {
+		url: '/contracts',
+		controller: 'PersonShowContractsController',
+		templateUrl: 'person/show/contracts/person-show-contracts.tpl.html',
+		data: {pageTitle: 'Person contracts'},
+		resolve: {
+			contracts: ['$stateParams', '$q', 'contractService', function ($stateParams, $q, contractService) {
+				return contractService.forDriver({
+					person: $stateParams.personId,
+					onlyActive: false
+				});
 
-				}]
-			}
-		});
+			}]
+		}
+	});
 
-		/**
-		 * person/:id/chipcards
-		 * @resolve {promise} person, from parent
-		 * @resolve {promise} chipcards
-		 */
-		$stateProvider.state('root.person.show.chipcards', {
-			url: '/chipcards',
-			controller: 'PersonShowChipcardsController',
-			templateUrl: 'person/show/chipcards/person-show-chipcards.tpl.html',
-			data: {pageTitle: 'Person chipcards'},
-			resolve: {
-				chipcards: ['$stateParams', 'chipcardService', function ($stateParams, chipcardService) {
-					return chipcardService.forPerson({
-						person: $stateParams.personId,
-						onlyActive: false
-					});
-				}],
-				fish: ['$stateParams', 'chipcardService', function ($stateParams, chipcardService) {
-					return chipcardService.getFish({person: $stateParams.personId});
-				}]
-			}
-		});
+	/**
+	 * person/:id/chipcards
+	 * @resolve {promise} person, from parent
+	 * @resolve {promise} chipcards
+	 */
+	$stateProvider.state('root.person.show.chipcards', {
+		url: '/chipcards',
+		controller: 'PersonShowChipcardsController',
+		templateUrl: 'person/show/chipcards/person-show-chipcards.tpl.html',
+		data: {pageTitle: 'Person chipcards'},
+		resolve: {
+			chipcards: ['$stateParams', 'chipcardService', function ($stateParams, chipcardService) {
+				return chipcardService.forPerson({
+					person: $stateParams.personId,
+					onlyActive: false
+				});
+			}],
+			fish: ['$stateParams', 'chipcardService', function ($stateParams, chipcardService) {
+				return chipcardService.getFish({person: $stateParams.personId});
+			}]
+		}
+	});
 
-		/**
-		 * person/:id/rating
-		 * @resolve {promise} person, from parent
-		 */
-		$stateProvider.state('root.person.show.rating', {
-			url: '/rating',
-			controller: 'PersonShowRatingController',
-			templateUrl: 'person/show/rating/person-show-rating.tpl.html',
-			data: {pageTitle: 'Person rating'},
-			resolve: {
-				ratings: ['$stateParams', 'ratingService', function ($stateParams, ratingService) {
-					return ratingService.getDriverRatings({
-						driver: $stateParams.personId
-					});
-				}]
-			}
-		});
+	/**
+	 * person/:id/rating
+	 * @resolve {promise} person, from parent
+	 */
+	$stateProvider.state('root.person.show.rating', {
+		url: '/rating',
+		controller: 'PersonShowRatingController',
+		templateUrl: 'person/show/rating/person-show-rating.tpl.html',
+		data: {pageTitle: 'Person rating'},
+		resolve: {
+			ratings: ['$stateParams', 'ratingService', function ($stateParams, ratingService) {
+				return ratingService.getDriverRatings({
+					driver: $stateParams.personId
+				});
+			}]
+		}
+	});
 
-		/**
-		 * person/:id/badges
-		 * @resolve {promise} person, from parent
-		 */
-		$stateProvider.state('root.person.show.badges', {
-			url: '/badges',
-			controller: 'PersonShowBadgesController',
-			templateUrl: 'person/show/badges/person-show-badges.tpl.html',
-			data: {pageTitle: 'Person Badges'}
-		});
+	/**
+	 * person/:id/badges
+	 * @resolve {promise} person, from parent
+	 */
+	$stateProvider.state('root.person.show.badges', {
+		url: '/badges',
+		controller: 'PersonShowBadgesController',
+		templateUrl: 'person/show/badges/person-show-badges.tpl.html',
+		data: {pageTitle: 'Person Badges'}
+	});
 
     $stateProvider.state('root.person.show.messages', {
       url: '/messages',
@@ -474,173 +475,198 @@ angular.module('openwheels.person', [
       }
     });
 
-		/* Vouchers */
-		$stateProvider.state('root.person.show.vouchers', {
-			url: '/vouchers',
-			controller: 'PersonShowVouchersController',
-			templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
-			data: {pageTitle: 'Person Vouchers'},
-		});
+	/* Vouchers */
+	$stateProvider.state('root.person.show.vouchers', {
+		url: '/vouchers',
+		controller: 'PersonShowVouchersController',
+		templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
+		data: {pageTitle: 'Person Vouchers'},
+	});
 
-		/* Payouts */
-		$stateProvider.state('root.person.show.payouts', {
-			url: '/payouts',
-			controller: 'PersonShowPayoutsController',
-			templateUrl: 'person/show/payouts/payouts.tpl.html',
-			data: {pageTitle: 'Person Payouts'},
-      resolve: {payouts: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
-        return paymentService.getPayouts({person: $stateParams.personId});
-      }]}
-		});
+	/* Payouts */
+	$stateProvider.state('root.person.show.payouts', {
+		url: '/payouts',
+		controller: 'PersonShowPayoutsController',
+		templateUrl: 'person/show/payouts/payouts.tpl.html',
+		data: {pageTitle: 'Person Payouts'},
+  		resolve: {
+  			payouts: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
+    			return paymentService.getPayouts({person: $stateParams.personId});
+			}]
+		}
+	});
 
-		$stateProvider.state('root.person.show.revisions', {
-			url: '/revisions',
-			controller: 'PersonShowRevisionsController',
-			templateUrl: 'person/show/revisions/person-show-revisions.tpl.html',
-			data: {pageTitle: 'Person Revisions'},
-			resolve: {
-				contracts: ['$stateParams', 'contractService', function ($stateParams, contractService) {
-					var personId = $stateParams.personId;
-					return contractService.forDriver({
-						person: personId,
-						onlyActive: false
-					});
-				}]
-			}
-		});
+	$stateProvider.state('root.person.show.revisions', {
+		url: '/revisions',
+		controller: 'PersonShowRevisionsController',
+		templateUrl: 'person/show/revisions/person-show-revisions.tpl.html',
+		data: {pageTitle: 'Person Revisions'},
+		resolve: {
+			contracts: ['$stateParams', 'contractService', function ($stateParams, contractService) {
+				var personId = $stateParams.personId;
+				return contractService.forDriver({
+					person: personId,
+					onlyActive: false
+				});
+			}]
+		}
+	});
 
-		$stateProvider.state('root.person.show.actions', {
-			url: '/actions',
-			controller: 'PersonShowActionsController',
-			templateUrl: 'person/show/actions/person-show-actions.tpl.html',
-			data: {pageTitle: 'Person Actions'},
-			resolve: {
-				actions: ['$stateParams', 'actionsService', function ($stateParams, actionsService) {
-					var personId = $stateParams.personId;
-					return actionsService.all({
-						person: personId
-					});
-				}]
-			}
-		});
+	$stateProvider.state('root.person.show.actions', {
+		url: '/actions',
+		controller: 'PersonShowActionsController',
+		templateUrl: 'person/show/actions/person-show-actions.tpl.html',
+		data: {pageTitle: 'Person Actions'},
+		resolve: {
+			actions: ['$stateParams', 'actionsService', function ($stateParams, actionsService) {
+				var personId = $stateParams.personId;
+				return actionsService.all({
+					person: personId
+				});
+			}]
+		}
+	});
 
 
-		/**
-		 * person/:id/transaction
-		 * @resolve {promise} person, from parent
-		 */
-		$stateProvider.state('root.person.show.transaction', {
-			abstract: true,
-			url: '/transaction',
-			template: '<div ui-view></div>',
-			data: {pageTitle: 'Person transaction list'},
-			resolve: {
-				account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
-					var personId = $stateParams.personId;
-					return accountService.get({
-						person: personId
-					});
-				}]
-			}
-		});
+	/**
+	 * person/:id/transaction
+	 * @resolve {promise} person, from parent
+	 */
+	$stateProvider.state('root.person.show.transaction', {
+		abstract: true,
+		url: '/transaction',
+		template: '<div ui-view></div>',
+		data: {pageTitle: 'Person transaction list'},
+		resolve: {
+			account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
+				var personId = $stateParams.personId;
+				return accountService.get({
+					person: personId
+				});
+			}]
+		}
+	});
 
-		/**
-		 * person/:id/transaction?page=
-		 * @resolve {promise} person, from parent
-		 * @resolve {promise} invoiceGroups
-		 */
-		$stateProvider.state('root.person.show.transaction.list', {
-			url: '?page&limit',
-			controller: 'InvoiceTransactionListController',
-			templateUrl: 'invoice/transaction/list/invoice-transaction-list.tpl.html',
-			data: {pageTitle: 'Person transaction list'},
-			resolve: {
-				transactions: ['$stateParams', 'accountService', 'account', function ($stateParams, accountService, account) {
-					return accountService.transactions({
-						id: account.id
-					});
-				}]
-			}
-		});
+	/**
+	 * person/:id/transaction?page=
+	 * @resolve {promise} person, from parent
+	 * @resolve {promise} invoiceGroups
+	 */
+	$stateProvider.state('root.person.show.transaction.list', {
+		url: '?page&limit',
+		controller: 'InvoiceTransactionListController',
+		templateUrl: 'invoice/transaction/list/invoice-transaction-list.tpl.html',
+		data: {pageTitle: 'Person transaction list'},
+		resolve: {
+			transactions: ['$stateParams', 'accountService', 'account', function ($stateParams, accountService, account) {
+				return accountService.transactions({
+					id: account.id
+				});
+			}]
+		}
+	});
 
-		/**
-		 * person/:id/resource
-		 * @resolve {promise} person, from parent
-		 */
-		$stateProvider.state('root.person.show.resource', {
-			abstract: true,
-			url: '/resource',
-			template: '<div ui-view></div>',
-			data: {pageTitle: 'Person resource list'}
-		});
+	/**
+	 * person/:id/resource
+	 * @resolve {promise} person, from parent
+	 */
+	$stateProvider.state('root.person.show.resource', {
+		abstract: true,
+		url: '/resource',
+		template: '<div ui-view></div>',
+		data: {pageTitle: 'Person resource list'}
+	});
 
-		/**
-		 * person/:id/resource?page=
-		 * @resolve {promise} person, from parent
-		 * @resolve {promise} resource
-		 */
-		$stateProvider.state('root.person.show.resource.list', {
-			url: '?page',
-			controller: 'ResourceListController',
-			templateUrl: 'resource/list/resource-list.tpl.html',
-			data: {pageTitle: 'Person resource list'},
-			resolve: {
-				resources: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
-					var personId = $stateParams.personId;
-					return resourceService.search({
-						owner: personId,
-						page: 0,
-						perPage: 25
-					});
-				}],
-				resourceMembers: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
-					var personId = $stateParams.personId;
-					return resourceService.getMemberResources({
-						person: personId
-					});
-				}]
-			}
-		});
+	/**
+	 * person/:id/resource?page=
+	 * @resolve {promise} person, from parent
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.person.show.resource.list', {
+		url: '?page',
+		controller: 'ResourceListController',
+		templateUrl: 'resource/list/resource-list.tpl.html',
+		data: {pageTitle: 'Person resource list'},
+		resolve: {
+			resources: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
+				var personId = $stateParams.personId;
+				return resourceService.search({
+					owner: personId,
+					page: 0,
+					perPage: 25
+				});
+			}],
+			resourceMembers: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
+				var personId = $stateParams.personId;
+				return resourceService.getMemberResources({
+					person: personId
+				});
+			}]
+		}
+	});
 
-		/**
-		 * person/:id/driverlicense
-		 * @resolve {promise} person, from parent
-		 */
-		$stateProvider.state('root.person.show.data.driverlicense', {
-			url: '/driverlicense',
-			controller: 'PersonEditDriverlicenseController',
-			templateUrl: 'person/edit/driverlicense/person-edit-driverlicense.tpl.html',
-			data: {pageTitle: 'Person Driver License'},
-			resolve: {
-				blockedLike: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
-					var personId = $stateParams.personId;
-          return personService.blockedLike({
-            person: personId
-          });
-				}],
-				similar: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
-					var personId = $stateParams.personId;
-          return personService.similar({
-            person: personId
-          });
-				}],
-				account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
-					return accountService.get({
-						person: $stateParams.personId
-					});
-				}]
-			}
-		});
+	/**
+	 * person/:id/driverlicense
+	 * @resolve {promise} person, from parent
+	 */
+	$stateProvider.state('root.person.show.data.driverlicense', {
+		url: '/driverlicense',
+		controller: 'PersonEditDriverlicenseController',
+		templateUrl: 'person/edit/driverlicense/person-edit-driverlicense.tpl.html',
+		data: {pageTitle: 'Person Driver License'},
+		resolve: {
+			blockedLike: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
+				var personId = $stateParams.personId;
+      return personService.blockedLike({
+        person: personId
+      });
+			}],
+			similar: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
+				var personId = $stateParams.personId;
+      return personService.similar({
+        person: personId
+      });
+			}],
+			account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
+				return accountService.get({
+					person: $stateParams.personId
+				});
+			}]
+		}
+	});
 
-		/**
-		 * person/:id/rentalcheck
-		 * @resolve {promise} person, from parent
-		 */
-		$stateProvider.state('root.person.show.data.rentalcheck', {
-			url: '/rentalcheck',
-			controller: 'PersonRentalcheckController',
-			templateUrl: 'person/rentalcheck/person-rentalcheck.tpl.html'
-		});
+	/**
+	 * person/:id/rentalcheck
+	 * @resolve {promise} person, from parent
+	 */
+	$stateProvider.state('root.person.show.data.rentalcheck', {
+		url: '/rentalcheck',
+		controller: 'PersonRentalcheckController',
+		templateUrl: 'person/rentalcheck/person-rentalcheck.tpl.html'
+	});
+
+
+	/**
+	 * person /:id/damage
+	 * @resolve {promise} person
+	 */
+	$stateProvider.state('root.person.show.damage', {
+		url: '/damage?finalized&max&offset',
+		controller: 'PersonShowDamageController',
+		templateUrl: 'person/show/damage/person-show-damage.tpl.html',
+		data: {pageTitle: 'Person damage'},
+		resolve: {
+			damages: ['$stateParams', 'damageService', 'person', 'perPage', function ($stateParams, discountService, person, perPage) {
+				var params = {};
+				params.personId = person.id;
+      			params.finalized = $stateParams.finalized;
+      			params.max = perPage;
+      			params.offset = 0;
+				return discountService.search(params);
+			}],
+			perPage: function(){ return 20;},
+		}
+	});
 
 
 	})

@@ -2,7 +2,14 @@
 
 angular.module('openwheels.resource.edit', [])
 
-  .controller('ResourceEditController', function ($q, $scope, $log, $state, $stateParams, resource, fleets, alertService, resourceService) {
+  .controller('ResourceEditController', function ($q, $scope, $log, $state, $stateParams, resource,
+    fleets, alertService, resourceService, maintenanceService) {
+
+    if(!resource.garage){
+      $scope.resource.garage = {};
+      $scope.resource.garage.id = null;
+      $scope.resource.garage.name = null;
+    }
 
     var masterResource = resource;
     var masterResourceProperties = createResourceProperties(resource);
@@ -114,6 +121,26 @@ angular.module('openwheels.resource.edit', [])
     $scope.completePlacesOptions = {
       country: 'nl',
       watchEnter: true
+    };
+
+    /**
+     * Typeahead Garages
+     */
+    $scope.searchGarages = function ($viewValue) {
+      return maintenanceService.searchGarage({
+        search: $viewValue
+      })
+      .then(function(garages){
+        return garages.result;
+      });
+    };
+
+    $scope.formatGarage = function ($model) {
+      var inputLabel = '';
+      if ($model) {
+        inputLabel = $model.name + ' ' + '[' + $model.id + ']';
+      }
+      return inputLabel;
     };
 
     $scope.$watch('searchPlace.details', function (newVal, oldVal) {
