@@ -24,6 +24,9 @@ angular.module('alterMaintenanceDialogDirective', [])
           .then(function(contract) {
             $scope.contract = contract;
           });
+        } else {
+          $scope.maintenance.booking = [];
+          $scope.maintenance.booking.id = null;
         }
 
         $mdDialog.show({
@@ -109,6 +112,10 @@ angular.module('alterMaintenanceDialogDirective', [])
 
               if($scope.maintenance.garage) {
                 newProps.garage = $scope.maintenance.garage.id;
+              }
+
+              if($scope.maintenance.booking && !masterMaintenance.booking) {
+                newProps.booking = $scope.maintenance.booking.id;
               }
 
               maintenanceService.alter({

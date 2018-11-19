@@ -25,6 +25,9 @@ angular.module('alterDamageDialogDirective', [])
           .then(function(contract) {
             $scope.contract = contract;
           });
+        } else {
+          $scope.damage.booking = [];
+          $scope.damage.booking.id = null;
         }
 
         $mdDialog.show({
@@ -123,6 +126,10 @@ angular.module('alterDamageDialogDirective', [])
 
               if($scope.damage.garage) {
                 newProps.garage = $scope.damage.garage.id;
+              }
+
+              if($scope.damage.booking && !masterDamage.booking) {
+                newProps.booking = $scope.damage.booking.id;
               }
 
               damageService.alter({
