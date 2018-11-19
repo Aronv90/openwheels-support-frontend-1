@@ -15,10 +15,19 @@
       <form name="addDamage">
 
         <div layout-gt-sm="row">
-          <md-input-container class="md-block" flex-gt-sm>
-            <label>Schadedatum</label>
-            <md-datepicker ng-change="change(newDamageDate)" ng-model="damage.damageDate" md-placeholder="Kies een datum"></md-datepicker>
-          </md-input-container>
+          <div class="md-block" flex-gt-sm>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Schadedatum</label>
+              <md-datepicker ng-change="change(newDamageDate)" ng-model="damage.damageDate" md-placeholder="Kies een datum"></md-datepicker>
+            </md-input-container>
+
+            <br><br>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Boeking</label>
+              <input ng-model="damage.booking.id" type="number">
+            </md-input-container>
+          </div>
 
           <div class="md-block" flex-gt-sm>
             <span layout="row">
