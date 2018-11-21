@@ -132,6 +132,10 @@ angular.module('alterDamageDialogDirective', [])
                 newProps.booking = $scope.damage.booking.id;
               }
 
+              if(newProps.booking === undefined || newProps.booking === null) {
+                delete newProps.booking;
+              }
+
               damageService.alter({
                 damage: $scope.damage.id,
                 newProps: newProps
