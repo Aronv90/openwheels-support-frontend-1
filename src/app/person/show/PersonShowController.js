@@ -12,7 +12,8 @@ angular.module('openwheels.person.show', [
   'openwheels.person.show.communication',
   'openwheels.person.show.vouchers',
   'openwheels.person.show.revisions',
-  'openwheels.person.show.actions'
+  'openwheels.person.show.actions',
+  'openwheels.person.show.remarklog'
   //'openwheels.trip.list'
 ])
 

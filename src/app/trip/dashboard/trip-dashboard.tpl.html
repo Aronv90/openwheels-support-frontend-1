@@ -698,18 +698,21 @@
         </div>
 
         <div class="row remark" ng-if="remark.type == 'custom'" ng-repeat-start="remark in remarks">
-          <div class="col-sm-2 col-xs-4">
+          <div class="col-xs-4 col-sm-2">
             <span class="remark__person">
               {{remark.creator.firstName}}
               <small class="remark__date">{{remark.created | amDateFormat:'DD-MM-YYYY HH:mm'}}</small>
             </span>
           </div>
-          <div class="col-xs-6 col-sm-8">
+          <div class="col-xs-5 col-sm-7">
             <span class="remark__message">{{remark.message}}</span>
           </div>
           <div class="col-xs-2 col-sm-2 remark__follow-up">
             <span class="hidden-xs" ng-if="remark.followUpDate">Follow-up: {{remark.followUpDate | amDateFormat:'DD-MM-YYYY'}}</span>
             <span class="hidden-sm hidden-md hidden-lg" ng-if="remark.followUpDate"><span uib-tooltip="Follow-up: {{remark.followUpDate | amDateFormat:'DD-MM-YYYY'}}">FO</span></span>
+          </div>
+          <div class="col-xs-1 col-sm-1">
+            <button class="btn btn-default pull-right" ng-click="deleteRemark(remark);" style="margin-right: 12px;"><i class="fa fa-trash"></i></button>
           </div>
         </div>
 
