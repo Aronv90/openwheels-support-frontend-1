@@ -68,22 +68,37 @@ angular.module('openwheels.person.edit.data.settings', [])
     };
 
     $scope.save = function () {
+      if(masterPerson.status === 'active' && $scope.person.status !== 'active') {
+        dialogService.showModal({}, {
+          closeButtonText: 'Cancel',
+          actionButtonText: 'OK',
+          headerText: 'Wijziging status',
+          bodyText: 'Wil je de status van ' + $scope.person.firstName + ' wijzigen van ' + masterPerson.status + ' naar ' + $scope.person.status + '? LET OP: de ritten van ' + $scope.person.firstName + ' kunnen geannuleerd worden!'
+        })
+        .then(function(){
+          $scope.alterPerson();
+        });
+      } else {
+        $scope.alterPerson();
+      }
+    };
+
+    $scope.alterPerson = function () {
       var newProps = difference(masterPerson, $scope.person);
       personService.alter({
         id: masterPerson.id,
         newProps: newProps
       })
-        .then(function (returnedPerson) {
-          angular.extend(person, returnedPerson);
-          masterPerson = returnedPerson;
-          alertService.add('success', 'Person Modified.', 2000);
-          $scope.cancel();
-        },
-        function (error) {
-          alertService.add('danger', 'Edit Person failed: ' + error.message, 5000);
-          $scope.cancel();
-        });
-
+      .then(function (returnedPerson) {
+        angular.extend(person, returnedPerson);
+        masterPerson = returnedPerson;
+        alertService.add('success', 'Person Modified.', 2000);
+        $scope.cancel();
+      },
+      function (error) {
+        alertService.add('danger', 'Edit Person failed: ' + error.message, 5000);
+        $scope.cancel();
+      });
     };
 
     $scope.isCancelDisabled = function () {

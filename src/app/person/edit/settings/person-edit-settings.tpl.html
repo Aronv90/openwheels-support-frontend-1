@@ -8,7 +8,7 @@
         <select class="form-control" id="status" ng-model="person.status"
                 ng-options="status.value as status.label for status in statusOptions"></select>
       </div>
-      <div class="col-xs-6">
+      <div class="col-xs-6" show-if-user-has-role="ROLE_ADMIN">
         <select class="form-control" id="role" ng-model="person.role"
                 ng-options="role.value as role.label for role in roleOptions">
           <option value="">-- select role --</option>

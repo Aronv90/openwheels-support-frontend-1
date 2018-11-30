@@ -12,7 +12,7 @@
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Person</th>
+                        <th>Resource</th>
                         <th>Booking</th>
                         <th>Message/Type</th>
                         <th>followUpDate</th>
@@ -23,8 +23,8 @@
                     <tr ng-repeat="remark in remarklog">
                         <td>{{ remark.id }}</td>
                         <td>
-                            <a class="pull-left" ui-sref="root.person.show.summary({personId: remark.booking.person.id })">
-                                {{ remark.booking.person.firstName }}
+                            <a class="pull-left" ui-sref="root.resource.show.trip({resourceId: remark.booking.resource.id })">
+                                {{ remark.booking.resource.alias }}
                             </a>
                         </td>
                         <td>

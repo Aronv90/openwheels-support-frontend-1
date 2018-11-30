@@ -23,7 +23,7 @@
             <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
 
             <td ng-if="!payout.paid">
-                <a ng-click="processPayout(payout)">Payout now</a><br/>
+                <a ng-click="processPayout(payout)" show-if-user-has-role="ROLE_ADMIN">Payout now</a><br/>
                 <a ng-click="deletePayout(payout)">Delete</a><br/>
             </td>
 
