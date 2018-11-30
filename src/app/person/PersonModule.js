@@ -668,6 +668,27 @@ angular.module('openwheels.person', [
 		}
 	});
 
+	/**
+	 * resource/:id/remark
+	 * @resolve {promise} person
+	 */
+	$stateProvider.state('root.person.show.remarklog', {
+		url: '/remarks',
+		controller: 'PersonShowRemarkController',
+		templateUrl: 'person/show/remark/person-show-remark.tpl.html',
+		data: {pageTitle: 'Person Remark Log'},
+		resolve: {
+			remarklog: ['$stateParams', 'person', 'remarkService', 'perPage', function ($stateParams, person, remarkService, perPage) {
+				var params = {};
+				params.person = person.id;
+				params.limit = perPage;
+				params.offset = 0;
+
+				return remarkService.forPerson(params);
+			}],
+			perPage: function(){ return 20;}
+		}
+	});
 
 	})
 

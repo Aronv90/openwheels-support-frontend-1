@@ -17,6 +17,8 @@ angular.module('rpcServices', [])
       this.add = m('add');
       this.forBooking = m('forBooking');
       this.forResource = m('forResource');
+      this.forPerson = m('forPerson');
+      this.delete = m('delete');
     })
 
     .service('personService', function (api) {
