@@ -16,7 +16,8 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 			}
 		};
 	})
-  .controller('PersonEditDriverlicenseController', function ($scope, alertService, personService,  person, blockedLike, similar, account) {
+  .controller('PersonEditDriverlicenseController', function ($scope, alertService, dialogService, personService,
+    person, blockedLike, similar, account) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
 		$scope.blockedLike = blockedLike;
@@ -90,7 +91,28 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
         newProps.drivingLicenseValidUntil = getDriverLicenseDate();
       }
 
-			personService.alter({id: person.id, newProps: newProps}).then(
+      if(newProps.status === 'blocked' && $scope.person.status === 'active') {
+        dialogService.showModal({}, {
+          closeButtonText: 'Cancel',
+          actionButtonText: 'OK',
+          headerText: 'Wijziging status',
+          bodyText: 'Wil je de status van ' + $scope.person.firstName + ' wijzigen van ' + $scope.person.status + ' naar ' + newProps.status + '? LET OP: de ritten van ' + $scope.person.firstName + ' kunnen geannuleerd worden!'
+        })
+        .then(function(){
+          $scope.alterPerson(newProps);
+        });
+      } else {
+        $scope.alterPerson(newProps);
+      }
+
+		};
+
+    $scope.alterPerson = function (newProps) {
+      personService.alter({
+        id: person.id, 
+        newProps: newProps
+      })
+      .then(
         function(returnedPerson){
           $scope.person = returnedPerson;
           angular.extend(person, returnedPerson);
@@ -100,14 +122,14 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
           var msg = returnedPerson.driverLicenseStatus === 'ok' ? 'Driver license approved' : 'Driver license dismissed';
           if ('blocked' === returnedPerson.status){
             msg += ' and person blocked';
-					}
-					alertService.add('success', msg, 2000);
-				},
-				function (error) {
+          }
+          alertService.add('success', msg, 2000);
+        },
+        function (error) {
           var msg = error ? error.message : '';
           alertService.add('danger', 'Moderating license failed: ' + msg, 4000);
-				});
-		};
+      });
+    };
 
     var images = {
       front: null

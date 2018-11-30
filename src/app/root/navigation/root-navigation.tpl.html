@@ -120,7 +120,7 @@
     </ul>
 
     <!-- INVOICE MODULE VERSION 2 -->
-    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
       <li id="invoiceroot" ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Invoice <b class="caret"></b></a>
         <ul class="dropdown-menu">
