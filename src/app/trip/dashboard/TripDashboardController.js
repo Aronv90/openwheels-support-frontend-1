@@ -1586,6 +1586,29 @@ angular.module('openwheels.trip.dashboard', [])
     });
   };
 
+  $scope.deleteRemark = function(remark) {
+
+    var confirm = $mdDialog.confirm()
+      .title('Remark verwijderen')
+      .textContent('Weet je zeker dat je deze remark wil verwijderen?')
+      .ok('Ja')
+      .cancel('Nee');
+
+      $mdDialog.show(confirm)
+      .then(function(res) {
+        remarkService.delete({ remark: remark.id })
+          .then(function (result) {
+            alertService.add('success', 'Remark removed.', 5000);
+            var index = $scope.remarks.indexOf(remark);
+            if(index >= 0) {
+              $scope.remarks.splice(index, 1);
+            }
+          })
+          .catch(alertService.addError)
+          .finally(alertService.loaded);
+      });
+  };
+
   $scope.contractInfo = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
