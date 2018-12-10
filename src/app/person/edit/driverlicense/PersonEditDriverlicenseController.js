@@ -20,6 +20,7 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
     person, blockedLike, similar, account) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
+    
     $scope.similar = _.map(similar, function(similar) {
       if(_.findWhere(similar.accounts, {iban: $scope.person.account.iban})) {
         similar.ibanmatch = $scope.person.account.iban;
@@ -29,7 +30,7 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       return similar;
     });
 
-		$scope.blockedLike = _.map(blockedLike, function(blockedLike) {
+    $scope.blockedLike = _.map(blockedLike, function(blockedLike) {
       if(_.findWhere(blockedLike.accounts, {iban: $scope.person.account.iban})) {
         blockedLike.ibanmatch = $scope.person.account.iban;
       } else {
