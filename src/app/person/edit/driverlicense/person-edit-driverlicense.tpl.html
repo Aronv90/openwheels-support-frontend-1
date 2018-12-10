@@ -16,10 +16,10 @@
       <tr>
         <th>Remark</th>
         <td>{{person.remark}}</td>
-      </tr>    
+      </tr>
       <tr>
         <th>Email verified</th>
-        <td>{{person.emailVerified ? 'Yes' : 'No'}}</td>
+        <td>{{person.emailVerified ? 'yes' : 'no'}}</td>
       </tr>
       <tr>
         <th>Preference</th>
@@ -28,6 +28,10 @@
       <tr>
         <th>Facebook</th>
         <td><a href="http://facebook.com/{{ person.facebookUid }}" target="_blank">{{person.facebookUid}}</a></td>
+      </tr>
+      <tr>
+        <th>Facebook surname</th>
+        <td>{{person.facebookSurname}}</td>
       </tr>
       <tr>
         <th>Twitter</th>
