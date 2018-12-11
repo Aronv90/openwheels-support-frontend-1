@@ -24,53 +24,96 @@
       <hr/>
 
       <fieldset class="standard" ng-if="damageOptions === 'atBegin'">
-        <p>De huurder heeft de schade niet zelf veroorzaakt, maar de voorgaande huurder. Plaats een Opmerking bij de rit dat de huurder bij aanvang van de rit de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe. Als er in de auto gereden kan worden, mag de huurder met de auto rijden. Zo niet, klik dan op de knop [Boeken] om de reservering over te zetten op een andere auto in de buurt.</p>
+        <p>De huurder heeft de schade niet zelf veroorzaakt, maar de voorgaande huurder. Plaats een <strong>Opmerking</strong> bij de rit dat de huurder bij aanvang van de rit de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als <strong>follow-up datum</strong> aan de opmerking toe.
+        <br><br>
+        Als er in de auto gereden kan worden, mag de huurder met de auto rijden. Zo niet, klik dan op de knop [Boeken] om de reservering over te zetten op een andere auto in de buurt.</p>
       </fieldset>
 
       <fieldset class="standard" ng-if="damageOptions === 'ownDamage'">
         <p>De huurder geeft aan zelf de schade veroorzaakt te hebben zonder dat er een tegenpartij bij betrokken is (eenzijdig ongeluk). Bepaal in overleg met de huurder of doorrijden veilig kan of dat de auto weggesleept moet worden.</p>
 
-        <p ng-if="booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving: {{ booking.resource.roadAssistance }}
-        <br/><br/>
-        De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
-        <br><br>
-        Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
+        <p ng-if="booking.resource.roadAssistance">
+          <strong>Kan de auto niet verder rijden?</strong>
+          <br>
+          Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving:
+          <br>
+          {{ booking.resource.roadAssistance }}
+          <br/><br/>
+          De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
+          <br><br>
+          Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.
+        </p>
 
-        <p ng-if="!booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
-        <br/><br/>
-        De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
-        <br><br>
-        Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
+        <p ng-if="!booking.resource.roadAssistance">
+          <strong>Kan de auto niet verder rijden?</strong>
+          <br>
+          Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
+          <br/><br/>
+          De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
+          <br><br>
+          Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.
+        </p>
 
-        <p>Kan de huurder veilig doorrijden? Vraag de huurder dan om foto's van de schade te mailen naar support@mywheels.nl. Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
+        <p>
+          <strong>Kan de huurder veilig doorrijden?</strong>
+          <br>
+          Vraag de huurder dan om foto's van de schade te mailen naar support@mywheels.nl. Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.
+        </p>
 
       </fieldset>
 
       <fieldset class="standard" ng-if="damageOptions === 'collision'">
-        <p>De huurder geeft aan dat de schade veroorzaakt is door een ongeluk met een tegenpartij. Vraag de huurder om een schadeformulier volledig in te vullen en te ondertekenen. Op het formulier moeten de volgende gegevens ingevuld worden:</p>
-        <p>Verzekeringsnemer: MyWheels<br/>
-        Keizersgracht 264<br/>
-        1016EV, Amsterdam<br/>
-        support@mywheels.nl<br/>
-        <span ng-if="!booking.resource.boardcomputer">Verzekeringsmaatschappij: Centraal Beheer Achmea (055-5798600)</br>
-        Polisnummer: 100697201</br></span>
-        <span ng-if="booking.resource.owner.id === 282">Verzekeringsmaatschappij: Interpolis (013-5801234)</span></p>
+        <p>De huurder geeft aan dat de schade veroorzaakt is door een ongeluk met een tegenpartij. Vraag de huurder om een schadeformulier volledig in te vullen en te ondertekenen.</p>  
+
+        <strong>Verzekeringsgegevens schadeformulier</strong>
+
+        <p ng-if="booking.resource.insuranceRemarks && booking.resource.insuranceNumber">
+          <span style="white-space: pre-line">{{booking.resource.insuranceRemarks}}</span>
+          <br>
+          Polisnummer: {{booking.resource.insuranceNumber}}
+        </p>
+
+        <p ng-if="booking.resource.insuranceRemarks && !booking.resource.insuranceNumber">
+          <span style="white-space: pre-line">{{booking.resource.insuranceRemarks}}</span>
+        </p>
+
+        <p ng-if="!booking.resource.insuranceRemarks && !booking.resource.insuranceNumber">
+          Verzekeringsmaatschappij: Centraal Beheer (055-5798600)
+          <br>
+          Is het voertuig all-risk verzekerd: Ja
+          <br>
+          Polisnummer: 100697201
+        </p>
         
         <p>Bepaal in overleg met de huurder of doorrijden veilig kan of dat de auto weggesleept moet worden.</p>
 
-        <p ng-if="booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving: {{ booking.resource.roadAssistance }}
-        <br/><br/>
-        De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
-        <br><br>
-        Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
+        <p ng-if="booking.resource.roadAssistance">
+          <strong>Kan de auto niet verder rijden?</strong>
+          <br>
+          Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving:
+          <br>
+          {{ booking.resource.roadAssistance }}
+          <br/><br/>
+          De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
+          <br><br>
+          Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.
+        </p>
 
-        <p ng-if="!booking.resource.roadAssistance">Kan de auto niet verder rijden? Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
-        <br/><br/>
-        De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. De huurder moet aanwezig zijn bij de auto als deze door de berger wordt opgehaald anders wordt deze niet meegenomen, er dient namelijk voor het ophalen getekend te worden. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering.
-        <br><br>
-        Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
+        <p ng-if="!booking.resource.roadAssistance">
+          <strong>Kan de auto niet verder rijden?</strong>
+          <br>
+          Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
+          <br/><br/>
+          De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. De huurder moet aanwezig zijn bij de auto als deze door de berger wordt opgehaald anders wordt deze niet meegenomen, er dient namelijk voor het ophalen getekend te worden. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering.
+          <br><br>
+          Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.
+        </p>
 
-        <p>Kan de huurder veilig doorrijden? Vraag de huurder dan om foto's van de schade te mailen naar support@mywheels.nl. Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.</p>
+        <p>
+          <strong>Kan de huurder veilig doorrijden?</strong>
+          <br>
+          Vraag de huurder dan om foto's van de schade te mailen naar support@mywheels.nl. Plaats een Opmerking bij de rit dat de huurder de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als follow-up datum aan de opmerking toe.
+        </p>
       </fieldset>
 
     </div>
