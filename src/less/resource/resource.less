@@ -46,3 +46,32 @@ input.ng-invalid {
     margin: 3px;
   }
 }
+
+.damage_dirty {
+  &[type='damage'] {
+    font-weight: bold;
+  }
+  &[type='dirty'] {
+    font-style: italic;
+  }
+}
+
+.answer {
+
+  &[answer='yes'] .yes_no {
+    font-weight: bold;
+    color: red;
+  }
+
+  .description {
+    max-width: 100%;
+    overflow: hidden;
+
+    &.ellipsis {
+      max-height: 40px;
+
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+  }
+}
