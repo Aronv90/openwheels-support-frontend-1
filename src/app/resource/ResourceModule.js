@@ -237,10 +237,10 @@ angular.module('openwheels.resource', [
         var params = {};
         // personId
         // bookingId
-        params.resource = resource.id;
-        if ($stateParams.type) {
-          params.type = $stateParams.type;
-        }
+        params.resourceId = resource.id;
+        //if ($stateParams.type) {
+        //  params.type = $stateParams.type;
+        //}
 
         params.max = perPage;
         params.offset = 0;
