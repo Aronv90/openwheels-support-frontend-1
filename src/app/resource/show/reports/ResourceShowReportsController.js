@@ -28,7 +28,7 @@ angular.module('openwheels.resource.show.reports', [])
 
   function buildParams() {
     var params = {};
-    params.resource = $stateParams.resourceId;
+    params.resourceId = $stateParams.resourceId;
 //    params.type = $scope.filters.type;
 //    if (params.type === 'both') {
 //      delete params.type;
