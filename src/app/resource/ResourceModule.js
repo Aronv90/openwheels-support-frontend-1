@@ -201,27 +201,54 @@ angular.module('openwheels.resource', [
 		}
 	});
 
-	/**
-	 * resource/:id/damage
-	 * @resolve {promise} resource
-	 */
-	$stateProvider.state('root.resource.show.damage', {
-		url: '/damage?finalized&max&offset',
-		controller: 'ResourceShowDamageController',
-		templateUrl: 'resource/show/damage/resource-show-damage.tpl.html',
-		data: {pageTitle: 'Resource damage'},
-		resolve: {
-			damages: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
-				var params = {};
-				params.resourceId = resource.id;
-      			params.finalized = $stateParams.finalized;
-      			params.max = perPage;
-      			params.offset = 0;
-				return damageService.search(params);
-			}],
-			perPage: function(){ return 20;},
-		}
-	});
+  /**
+   * resource/:id/damage
+   * @resolve {promise} resource
+   */
+  $stateProvider.state('root.resource.show.damage', {
+    url: '/damage?finalized&max&offset',
+    controller: 'ResourceShowDamageController',
+    templateUrl: 'resource/show/damage/resource-show-damage.tpl.html',
+    data: {pageTitle: 'Resource damage'},
+    resolve: {
+      damages: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
+        var params = {};
+        params.resourceId = resource.id;
+            params.finalized = $stateParams.finalized;
+            params.max = perPage;
+            params.offset = 0;
+        return damageService.search(params);
+      }],
+      perPage: function(){ return 20;},
+    }
+  });
+
+  /**
+   * resource/:id/reports
+   * @resolve {promise} resource
+   */
+  $stateProvider.state('root.resource.show.reports', {
+    url: '/reports?finalized&type&person&booking&max&offset',
+    controller: 'ResourceShowReportsController',
+    templateUrl: 'resource/show/reports/resource-show-reports.tpl.html',
+    data: {pageTitle: 'Resource reports'},
+    resolve: {
+      reports: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
+        var params = {};
+        // personId
+        // bookingId
+        params.resource = resource.id;
+        if ($stateParams.type) {
+          params.type = $stateParams.type;
+        }
+
+        params.max = perPage;
+        params.offset = 0;
+        return damageService.searchReports(params);
+      }],
+      perPage: function(){ return 20;},
+    }
+  });
 
 	/**
 	 * resource/:id/maintenance

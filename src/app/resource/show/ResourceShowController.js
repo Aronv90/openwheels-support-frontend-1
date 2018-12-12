@@ -7,6 +7,7 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.discount',
   'openwheels.resource.show.discount.create',
   'openwheels.resource.show.damage',
+  'openwheels.resource.show.reports',
   'openwheels.resource.show.maintenance',
   'openwheels.resource.show.boardcomputer',
   'openwheels.resource.show.log',
