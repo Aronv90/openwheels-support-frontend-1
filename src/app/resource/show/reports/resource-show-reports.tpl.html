@@ -1,0 +1,92 @@
+<div class="row">
+
+  <div class="col-sm-2" ng-if="false">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Filter</h3>
+        <form class="form">
+          <!--
+          <div class="form-group">
+            <label for="finalized">Finalized?</label>
+            <select id="finalized" class="form-control" ng-model="params.finalized" ng-options="finalized.value as finalized.label for finalized in finalizedOptions"></select>
+          </div>
+          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          -->
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12">
+    <div class="panel panel-default card">
+      <div class="panel-body">
+        <h3>Damage/dirty reports</h3>
+        <div>
+          <!--<button class="btn"><add-damage-dialog ng-click="addDamage()"></add-damage-dialog></button>-->
+          <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
+          <p class="btn">{{ curPage }}</p>
+          <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
+          <!--
+          <select ng-model="params.type">
+            <option selected>Damage + Dirty</option>
+            <option value="damage">Damage</option>
+            <option value="dirty">Dirty</option>
+          </select>
+          <button class="btn btn-primary" ng-click="refresh()">Apply filters</button>
+          -->
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Booking</th>
+              <th>Person</th>
+              <th>Type</th>
+              <th>Answer</th>
+              <!--<th>Finalized?</th>-->
+              <!--<th>Actions</th>-->
+              <!--<th></th>-->
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="report in reports">
+              <td>{{ report.id }}</td>
+              <td>
+                <div>{{ report.createdAt | amDateFormat : 'DD-MM-YYYY' }}</div>
+                <div ng-if="report.updatedAt && (report.updatedAt !== report.createdAt)">{{ report.updatedAt | amDateFormat : 'DD-MM-YYYY' }} (updated)</div>
+              </td>
+              <td>
+                <a ui-sref="root.trip.dashboard({tripId: report.booking.id})">
+                  {{ report.booking.id }}
+                </a>
+              </td>
+              <td>
+                <a ui-sref="root.person.show.summary({ personId: report.person.id })">
+                  {{ report.person.firstName }}
+                </a>
+              </td>
+              <td>
+                <div class="damage_dirty" ng-attr-type="{{ report.type }}">{{ report.type }}</div>
+              </td>
+              <td style="max-width: 300px;">
+                <div class="answer" ng-attr-answer="{{ report.answer }}" ng-click="toggleFullDescription(report)">
+                  <div class="yes_no">{{ report.answer }}</div>
+                  <div class="description"
+                       ng-class="{ 'ellipsis': !report.showFullDescription }"
+                       ng-if="report.description">
+                    {{ report.description }}
+                  </div>
+                </div>
+              </td>
+              <!--<td>{{ report.finalized ? 'Yes' : 'No' }}</td>-->
+              <!--<td><alter-damage-dialog ng-click="alterDamage(damage)""></alter-damage-dialog></td>-->
+              <!--<td><a ng-click="deleteDamage(damage)">Remove</a></td>-->
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>

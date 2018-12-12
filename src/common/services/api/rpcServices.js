@@ -216,6 +216,7 @@ angular.module('rpcServices', [])
       this.dirty = m('dirty');
       this.remove = m('remove');
       this.search = m('search');
+      this.searchReports = m('searchReports');
     })
 
     .service('maintenanceService', function (api) {
