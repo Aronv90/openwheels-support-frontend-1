@@ -490,6 +490,7 @@ angular.module('openwheels.trip.dashboard', [])
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', 'contract', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
         $scope.declaration = {description: '', booking: booking.id};
         $scope.contract= contract;
         $scope.done = function() {
