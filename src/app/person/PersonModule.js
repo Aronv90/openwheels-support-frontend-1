@@ -9,7 +9,8 @@ angular.module('openwheels.person', [
 	'openwheels.person.rentalcheck',
 	'openwheels.person.show.payouts',
 	'openwheels.contract.request',
-	'openwheels.person.show.damage'
+	'openwheels.person.show.damage',
+	'openwheels.person.show.discount'
 ])
 
 	.config(function ($stateProvider) {
@@ -617,15 +618,15 @@ angular.module('openwheels.person', [
 		resolve: {
 			blockedLike: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
 				var personId = $stateParams.personId;
-      return personService.blockedLike({
-        person: personId
-      });
+				return personService.blockedLike({
+					person: personId
+				});
 			}],
 			similar: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
 				var personId = $stateParams.personId;
-      return personService.similar({
-        person: personId
-      });
+		      	return personService.similar({
+		       		person: personId
+		      	});
 			}],
 			account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
 				return accountService.get({
@@ -665,6 +666,31 @@ angular.module('openwheels.person', [
 				return discountService.search(params);
 			}],
 			perPage: function(){ return 20;},
+		}
+	});
+
+	/**
+	 * resource/:id/discount
+	 * @resolve {promise} person
+	 */
+	$stateProvider.state('root.person.show.discount', {
+		url: '/discount?validFrom&validUntil&global&multiple',
+		controller: 'PersonShowDiscountController',
+		templateUrl: 'person/show/discount/person-show-discount.tpl.html',
+		data: {pageTitle: 'Person discount'},
+		resolve: {
+			discounts: ['$stateParams', 'discountService', 'person', 'perPage', function ($stateParams, discountService, person, perPage) {
+				var params = {};
+				params.recipient = person.id;
+				if ($stateParams.validFrom) { params.validFrom = $stateParams.validFrom; }
+				if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
+				params.multiple = $stateParams.multiple === 'true' || null;
+				params.global = $stateParams.global === 'true' || null;
+      			params.limit = perPage;
+      			params.offset = 0;
+				return discountService.search(params);
+			}],
+    		perPage: function(){ return 20;},
 		}
 	});
 
