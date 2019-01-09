@@ -35,7 +35,7 @@
             </span>
             <span layout="row" ng-if="booking">
               <span flex="50"><strong>Eigen risico:</strong></span>
-              <span flex="50">{{ (booking.riskReduction || contract.ownRiskWaiver !== 'not') ? '250 euro (verlaagd)' : '500 euro (niet verlaagd)' }}</span>
+              <span flex="50">{{ (booking.riskReduction || contract.ownRiskWaiver === 'month') ? '250 euro (verlaagd)' : '500 euro (niet verlaagd)' }}</span>
             </span>
             <span layout="row" ng-if="age">
               <span flex="50"><strong>Leeftijd:</strong></span>
