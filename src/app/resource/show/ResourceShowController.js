@@ -70,7 +70,7 @@ angular.module('openwheels.resource.show', [
     }, {
       headerText: 'Are you sure?',
       bodyText: 'Do you really want to create a parking permit for  ' + resource.alias + '?',
-      cities: ['Den Haag', 'Rijswijk', 'Gooise Meren', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Utrecht']
+      cities: ['Den Haag', 'Rijswijk', 'Gooise Meren', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Tilburg', 'Utrecht']
     }).then(function (city){
       return resourceService.createParkingpermit({resource: resource.id, city: city});
     }).then(function (permit) {
