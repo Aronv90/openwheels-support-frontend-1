@@ -46,7 +46,7 @@
 
               <td>
                 <span ng-if="account.approved">
-                  <i class="fa fa-check fa-fw text-success"></i> Approved (<a href="" ng-click="disapprove(account)" show-if-user-has-role="ROLE_ADMIN">(disapprove)</a>
+                  <i class="fa fa-check fa-fw text-success"></i> Approved <a href="" ng-click="disapprove(account)" show-if-user-has-role="ROLE_ADMIN">(disapprove)</a>
                 </span>
                 <span ng-if="!account.approved">
                   <i class="fa fa-times fa-fw text-danger"></i> Not approved <a href="" ng-click="approve(account)" show-if-user-has-role="ROLE_ADMIN">(approve)</a>
