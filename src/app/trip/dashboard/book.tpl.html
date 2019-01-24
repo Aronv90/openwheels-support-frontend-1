@@ -10,7 +10,11 @@
   </md-toolbar>
 
   <md-dialog-content>
-    <div layout="column" layout-margin class="md-dialog-content">
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="helyUser">
+      <p>Deze huurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De huurder kan in de Hely app zelf een nieuwe rit maken of een andere auto claimen. Dit kan jij helaas niet doen.</p>
+    </div>
+
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
       <h3>Boeken</h3>
       <p>Selecteer hieronder wat voor boeking je wil maken:</p>
       <form>

@@ -10,7 +10,11 @@
   </md-toolbar>
 
   <md-dialog-content>
-    <div layout="column" layout-margin class="md-dialog-content">
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="helyUser">
+      <p>Deze huurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De huurder kan in de Hely app de auto claimen.</p>
+    </div>
+
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
       <h3>
         Nieuwe begintijd
       </h3>
