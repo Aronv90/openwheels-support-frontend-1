@@ -18,7 +18,18 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.remarklog'
 ])
 
-.controller('ResourceShowController', function ($scope, $stateParams, $uibModal, $log, alertService, dialogService, resourceService, resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {
+.controller('ResourceShowController', function ($scope, $stateParams, $uibModal, $log, alertService, dialogService, resourceService,
+  resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {
+
+  $scope.hide = false;
+  $scope.toggleHide = function() {
+    if (!$scope.hide) {
+      $scope.hide = true;
+    } else {
+      $scope.hide = false;
+    }
+  };
+
   $scope.resource = resource;
   $scope.frontResources = settingsService.settings.server + FRONT_RENT + '/' + ( resource.city ? resource.city : 'onbekend' ) + '/' + resource.id + '/wijzigen' + FRONT_SWITCHUSER;
 
@@ -120,6 +131,24 @@ angular.module('openwheels.resource.show', [
       $scope.permits = [];
     }, function(error) {
       alertService.add('danger', 'Parking permit not removed: ' + error.message, 5000);
+    });
+  };
+
+  //save remark
+  $scope.save = function () {
+    resourceService.alter({
+      id: $scope.resource.id,
+      newProps: {
+        remark: $scope.resource.remark
+      }
+    })
+    .then(function (resource) {
+      alertService.add('success', 'De opmerking is opgeslagen.', 3000);
+      $scope.resource = resource;
+      $scope.toggleHide();
+    })
+    .catch(function (error) {
+      alertService.add('danger', error.message, 5000);
     });
   };
 
