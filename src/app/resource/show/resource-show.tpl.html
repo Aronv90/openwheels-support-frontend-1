@@ -46,6 +46,12 @@
               <li ng-if="resource.locktypes.indexOf('smartphone') < 0 && resource.locktypes.indexOf('chipcard') < 0">
                 <h4>Meeting</h4>
               </li>
+              <li>
+                <i class="fa fa-circle"></i>
+              </li>
+              <li>
+                <a ng-href="{{ FRONT_BASE }}/auto-huren/{{resource.city}}/{{ resource.id}}/kalender" target="_blank">Beschikbaarheidskalender</a>
+              </li>
             </ul>
           </div>
 
