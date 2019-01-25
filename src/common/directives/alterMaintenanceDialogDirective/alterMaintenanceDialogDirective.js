@@ -17,7 +17,7 @@ angular.module('alterMaintenanceDialogDirective', [])
         $scope.resource = maintenance.resource;
 
         //only if maintenance is linked to a booking
-        if(maintenance.booking) {
+        if(maintenance.booking && maintenance.booking.id) {
           $scope.booking = maintenance.booking;
 
           contractService.get({contract: maintenance.booking.contract.id})
