@@ -103,7 +103,7 @@ angular.module('addMaintenanceDialogDirective', [])
                   amountInvoice: $scope.maintenance.amountInvoice,
                   description: $scope.maintenance.description,
                   type: $scope.maintenance.type,
-                  odo: $scope.maintenance.odo,
+                  odo: $scope.maintenance.odo ? $scope.maintenance.odo : undefined,
                   apk: $scope.maintenance.apk,
                   regular: $scope.maintenance.regular,
                   finalized: $scope.maintenance.finalized,

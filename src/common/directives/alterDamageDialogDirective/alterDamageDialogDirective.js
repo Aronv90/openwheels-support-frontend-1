@@ -18,8 +18,11 @@ angular.module('alterDamageDialogDirective', [])
         $scope.resource = damage.resource;
 
         //only if damage is linked to a booking
-        if(damage.booking) {
+        if(damage.booking && damage.booking.id) {
           $scope.booking = damage.booking;
+
+          console.log($scope.booking);
+          console.log(damage.booking.contract.id);
 
           contractService.get({contract: damage.booking.contract.id})
           .then(function(contract) {

@@ -117,7 +117,7 @@ angular.module('addDamageDialogDirective', [])
                   amountInvoice: $scope.damage.amountInvoice,
                   description: $scope.damage.description,
                   type: $scope.damage.type,
-                  odo: $scope.damage.odo,
+                  odo: $scope.damage.odo ? $scope.damage.odo : undefined,
                   ticketNumbers: $scope.damage.ticketNumbers,
                   notify: $scope.damage.notify,
                   finalized: $scope.damage.finalized,
