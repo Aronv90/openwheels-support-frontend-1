@@ -17,10 +17,38 @@ angular.module('openwheels.person.show', [
   //'openwheels.trip.list'
 ])
 
-.controller('PersonShowController', function ($scope, person, settingsService, FRONT_DASHBOARD, FRONT_SWITCHUSER, authService) {
+.controller('PersonShowController', function ($scope, person, settingsService, FRONT_DASHBOARD, FRONT_SWITCHUSER,
+  authService, personService, alertService) {
+
+  $scope.hide = false;
+  $scope.toggleHide = function() {
+    if (!$scope.hide) {
+      $scope.hide = true;
+    } else {
+      $scope.hide = false;
+    }
+  };
 
   $scope.person = person;
   $scope.user = authService.user;
   $scope.frontDashboard = settingsService.settings.server + FRONT_DASHBOARD + FRONT_SWITCHUSER;
-  
+
+  //save remark
+  $scope.save = function () {
+    personService.alter({
+      id: $scope.person.id,
+      newProps: {
+        remark: $scope.person.remark
+      }
+    })
+    .then(function (person) {
+      alertService.add('success', 'De opmerking is opgeslagen.', 3000);
+      $scope.person = person;
+      $scope.toggleHide();
+    })
+    .catch(function (error) {
+      alertService.add('danger', error.message, 5000);
+    });
+  };
+
 });

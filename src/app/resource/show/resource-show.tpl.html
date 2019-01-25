@@ -146,6 +146,24 @@
         </div>
     </nav>
 
+    <div style="margin: 1em;">
+      <div style="margin-bottom: 0;" uib-alert ng-click="toggleHide()" ng-hide="hide || !resource.remark" class="alert-warning">
+        <span style="white-space: pre-line;">{{resource.remark}}</span>
+      </div>
+      <div style="margin-bottom: 0;" uib-alert ng-click="toggleHide()" ng-hide="hide || resource.remark" class="alert-warning">
+        <span style="white-space: pre-line;">Geen opmerkingen.</span>
+      </div>
+
+      <form name="mywheelsRemarkForm" ng-hide="!hide">
+        <div class="form-group">
+          <textarea id="remark" class="form-control" ng-model="resource.remark" placeholder="Remark" rows="4"></textarea>
+        </div>
+        <div class="form-group" style="margin-bottom: 0;">
+          <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+
     <div class="panel-body">
         <div ui-view></div>
     </div>
