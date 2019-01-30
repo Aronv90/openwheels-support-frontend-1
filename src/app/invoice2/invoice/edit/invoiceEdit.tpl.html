@@ -25,6 +25,7 @@
               <button type="button" ng-click="swapSenderRecipient()" class="btn-link" style="float: right"><i class="fa fa-exchange"></i></button>
               <label>Sender (owner)</label>
               <input find-person name="sender" model="invoice.sender" class="form-control" class="error" />
+              <span class="text-danger" ng-if="invoice.sender.id === 281 && invoice.type === 'receipt'"><br/>Bij tankbonnen van Justlease moet MyWheels (282) de zender zijn.</span>
             </div>
 
             <div class="form-group col-xs-6">
@@ -39,6 +40,7 @@
             <select ng-model="invoice.type" ng-options="item.value as item.label for item in typeOptions" class="form-control" required>
               <option value="">Select...</option>
             </select>
+              <span class="text-danger" ng-if="invoice.recipient.id !== 282 && (invoice.type == 'provider_penalty' || invoice.type == 'administration_costs')"><br/>MyWheels (#282) moet zender zijn bij administratiekosten en boetes.</span>
           </div>
 
           <div class="form-group">
@@ -76,7 +78,7 @@
             <p ng-if="invoice.quantity * invoice.price < 0" >
               <em>{{invoice.recipient.firstName + ' ' + (invoice.recipient.surname || '')}}</em> moet <strong>{{-1 * invoice.quantity * invoice.price | currency}}</strong> ontvangen van <em>{{invoice.sender.firstName + ' ' + (invoice.sender.surname || '')}}</em>
             </p>
-            <button ng-click="save(invoice)" class="btn btn-primary" ng-disabled="invoice.recipient.id === 282">Correct</button>
+            <button ng-click="save(invoice)" class="btn btn-primary" ng-disabled="invoice.recipient.id === 282 || (invoice.sender.id === 281 && invoice.type === 'receipt')">Correct</button>
           </div>
 
         </form>

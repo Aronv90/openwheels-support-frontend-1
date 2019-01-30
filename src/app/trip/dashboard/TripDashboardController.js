@@ -41,6 +41,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.damages = [];
   $scope.extraPersons = [];
   $scope.now = moment().format('YYYY-MM-DD HH:mm');
+  $scope.helyUser = $scope.booking.person.email.slice(-9) === '@hely.com';
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
@@ -490,6 +491,7 @@ angular.module('openwheels.trip.dashboard', [])
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', 'contract', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
         $scope.declaration = {description: '', booking: booking.id};
         $scope.contract= contract;
         $scope.done = function() {
@@ -562,13 +564,14 @@ angular.module('openwheels.trip.dashboard', [])
     $window.scrollTo(0, 0);
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
-      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
         var originalEnd = moment(booking.endBooking, API_DATE_FORMAT);
 
         $scope.newDt = {};
         $scope.newDt.date = new Date(originalEnd);
         $scope.newDt.time = originalEnd.format('HH:mm');
         $scope.times = generateTimes();
+        $scope.helyUser = helyUser;
 
         $scope.tripIsNow = moment().isAfter(moment(booking.beginBooking, API_DATE_FORMAT)) && moment().isBefore(moment(booking.endBooking, API_DATE_FORMAT));
         $scope.tripHasEnded = moment().isAfter(moment(booking.endBooking, API_DATE_FORMAT));
@@ -597,7 +600,8 @@ angular.module('openwheels.trip.dashboard', [])
       templateUrl: 'trip/dashboard/changeEndTime.tpl.html',
       clickOutsideToClose:true,
       locals: {
-        booking: booking
+        booking: booking,
+        helyUser: $scope.helyUser
       }
     })
     .then(function(res) {
@@ -638,13 +642,14 @@ angular.module('openwheels.trip.dashboard', [])
     $window.scrollTo(0, 0);
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
-      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
         var originalBegin = moment(booking.beginBooking, API_DATE_FORMAT);
 
         $scope.newDt = {};
         $scope.newDt.date = new Date(originalBegin);
         $scope.newDt.time = originalBegin.format('HH:mm');
         $scope.times = generateTimes();
+        $scope.helyUser = helyUser;
 
         $scope.tripIsNow = moment().isAfter(moment(booking.beginBooking, API_DATE_FORMAT)) && moment().isBefore(moment(booking.endBooking, API_DATE_FORMAT));
         $scope.tripHasEnded = moment().isAfter(moment(booking.endBooking, API_DATE_FORMAT));
@@ -663,7 +668,8 @@ angular.module('openwheels.trip.dashboard', [])
       templateUrl: 'trip/dashboard/changeBeginTime.tpl.html',
       clickOutsideToClose:true,
       locals: {
-        booking: booking
+        booking: booking,
+        helyUser: $scope.helyUser
       }
     })
     .then(function(res) {
@@ -695,45 +701,71 @@ angular.module('openwheels.trip.dashboard', [])
   };
 
   $scope.stop = function() {
-    var confirm = $mdDialog.confirm()
-    .title('Rit inkorten')
-    .textContent('Weet je zeker dat je deze rit wil inkorten? Annuleer de rit alleen als er nog niet gereden is.')
-    .ok('Ja')
-    .cancel('Nee');
-
-    $mdDialog.show(confirm)
-    .then(function(res) {
-      bookingService.stop({booking: $scope.booking.id})
-      .then(function(booking) {
-        $scope.booking.endBooking = booking.endBooking;
-        return alertService.add('success', 'De rit is ingekort.', 5000);
-      })
-      .catch(function(err) {
-        return alertService.add('danger', 'De rit kon niet ingekort worden: ' + err.message, 5000);
+    if ($scope.helyUser) {
+      var alert = $mdDialog.alert({
+        title: 'Inkorten niet mogeljk',
+        textContent: 'Deze huurder rijdt via onze partner Hely. De huurder kan in de Hely app zelf de rit beëindigen.',
+        ok: 'Sluit'
       });
-    })
-    ;
+
+      $mdDialog
+        .show(alert)
+        .finally(function() {
+          alert = undefined;
+        });
+    } else {
+      var confirm = $mdDialog.confirm()
+      .title('Rit inkorten')
+      .textContent('Weet je zeker dat je deze rit wil inkorten? Annuleer de rit alleen als er nog niet gereden is.')
+      .ok('Ja')
+      .cancel('Nee');
+
+      $mdDialog.show(confirm)
+      .then(function(res) {
+        bookingService.stop({booking: $scope.booking.id})
+        .then(function(booking) {
+          $scope.booking.endBooking = booking.endBooking;
+          return alertService.add('success', 'De rit is ingekort.', 5000);
+        })
+        .catch(function(err) {
+          return alertService.add('danger', 'De rit kon niet ingekort worden: ' + err.message, 5000);
+        });
+      });
+    }
   };
 
   $scope.cancel = function() {
-    var confirm = $mdDialog.confirm()
-    .title('Rit annuleren')
-    .textContent('Weet je zeker dat je deze rit wil annuleren?')
-    .ok('Ja')
-    .cancel('Nee');
-
-    $mdDialog.show(confirm)
-    .then(function(res) {
-      bookingService.cancel({booking: $scope.booking.id})
-      .then(function(booking) {
-        $scope.booking.status = booking.status;
-        return alertService.add('success', 'De rit is geannuleerd.', 5000);
-      })
-      .catch(function(err) {
-        return alertService.add('danger', 'De rit kon niet geannuleerd worden: ' + err.message, 5000);
+    if ($scope.helyUser) {
+      var alert = $mdDialog.alert({
+        title: 'Annuleren niet mogeljk',
+        textContent: 'Deze huurder rijdt via onze partner Hely. De huurder kan in de Hely app zelf de rit beëindigen.',
+        ok: 'Sluit'
       });
-    })
-    ;
+
+      $mdDialog
+        .show(alert)
+        .finally(function() {
+          alert = undefined;
+        });
+    } else {
+      var confirm = $mdDialog.confirm()
+      .title('Rit annuleren')
+      .textContent('Weet je zeker dat je deze rit wil annuleren?')
+      .ok('Ja')
+      .cancel('Nee');
+
+      $mdDialog.show(confirm)
+      .then(function(res) {
+        bookingService.cancel({booking: $scope.booking.id})
+        .then(function(booking) {
+          $scope.booking.status = booking.status;
+          return alertService.add('success', 'De rit is geannuleerd.', 5000);
+        })
+        .catch(function(err) {
+          return alertService.add('danger', 'De rit kon niet geannuleerd worden: ' + err.message, 5000);
+        });
+      });
+    }
   };
 
   $scope.accept = function() {
@@ -1311,8 +1343,9 @@ angular.module('openwheels.trip.dashboard', [])
     $window.scrollTo(0, 0);
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
-      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
         $scope.booking = booking;
+        $scope.helyUser = helyUser;
         $scope.bookForPerson = undefined;
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
         $scope.contract = {};
@@ -1409,7 +1442,8 @@ angular.module('openwheels.trip.dashboard', [])
       templateUrl: 'trip/dashboard/book.tpl.html',
       clickOutsideToClose:true,
       locals: {
-        booking: booking
+        booking: booking,
+        helyUser: $scope.helyUser
       }
     })
     .then(function(res) {
