@@ -1,0 +1,122 @@
+<div class="row" >
+
+    <div class="col-md-12">
+        <div class="panel panel-default card">
+
+            <div class="panel-body">
+
+                <h3>Add subscription</h3>
+                <form name="subscriptionDataForm">
+
+                    <div class="row">
+                        <div class="form-group col-md-1">
+                            <label>Active</label>
+                            <div class="input-group" style="margin-top: 6px;">
+                                <input type="checkbox" ng-model="subscription.active">
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label>Type</label>
+                            <select class="form-control" ng-model="subscription.type" required>
+                                <option ng-selected="subscription.type == item.value" ng-repeat="item in typeOptions" ng-value="item.value">{{item.label}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Description</label>
+                            <input ng-model="subscription.description" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Sender</label>
+                            <input find-person name="sender" model="params.sender" class="form-control" class="error" required />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Recipient</label>
+                            <input find-person name="recipient" model="params.recipient" class="form-control" required />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <label>Resource</label>
+                            <input type="text" class="form-control input-sm typeahead" placeholder="Search resource"
+                                   ng-model="params.resource"
+                                   uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+                                   typeahead-min-length="3" typeahead-input-formatter="formatResource($model)">
+                        </div>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="form-group col-md-6">
+                            <label>Interval</label>
+                            <input type="number" ng-model="subscription.interval" class="form-control" required />
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label>Group Invoice Expiration Interval</label>
+                            <input type="number" ng-model="subscription.groupInvoiceExpirationInterval" class="form-control" required />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Active From</label>
+                            <div class="input-group">
+                                <input type="text" id="date-active-from" placeholder="pick a date" class="form-control pickadate-input" ng-change="onOptionSubscriptionChange()" ng-model="subscription.activeFrom" pickadate="subscriptionDateConfig" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Active Until</label>
+                            <div class="input-group">
+                                <input type="text" id="date-active-until" placeholder="pick a date" class="form-control pickadate-input" ng-model="subscription.activeUntil" pickadate="subscriptionDateConfig" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>First Execution Date</label>
+                            <div class="input-group">
+                                <input type="text" id="date-next-execution-date" placeholder="pick a date" class="form-control pickadate-input" ng-model="subscription.nextExecutionDate" pickadate="subscriptionDateConfig" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label>Amount</label>
+                            <div class="input-group">
+                                <span class="input-group-addon">€</span>
+                                <input ng-model="subscription.amount" type="text" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Group Invoice</label>
+                            <div class="input-group" style="margin-top: 6px;">
+                                <input type="checkbox" ng-model="subscription.groupInvoice">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-4">
+                            <label>Direct Debit</label>
+                            <div class="input-group" style="margin-top: 6px;">
+                                <input type="checkbox" ng-model="subscription.directDebit">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="save()" ng-disabled="isSaveDisabled()" >Save</button>
+                        <button type="button" class="btn btn-default pull-right" ng-click="goToListPage()" >Back to subscriptions</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
