@@ -105,6 +105,7 @@ angular.module('openwheels', [
   'openwheels.checklist',
   'openwheels.report',
   'openwheels.phoneLog',
+  'openwheels.subscription',
   'flatObjectInterceptService',
   'settingsService',
   'transactionService',

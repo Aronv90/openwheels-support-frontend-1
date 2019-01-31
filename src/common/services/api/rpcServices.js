@@ -99,6 +99,16 @@ angular.module('rpcServices', [])
       this.get = m('get');
     })
 
+    .service('subscriptionService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('subscription.' + name);
+      };
+      this.create = m('create');
+      this.update = m('update');
+      this.search = m('search');
+      this.get = m('get');
+    })
+
     .service('chipcardService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('chipcard.' + name);

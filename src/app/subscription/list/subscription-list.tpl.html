@@ -1,0 +1,74 @@
+<div class="row">
+
+    <div class="col-md-2">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <form class="form">
+                    <button class="btn btn-primary" ng-click="goToCreatePage()">Add Subscription</button>
+                </form>
+            </div>
+        </div>
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Filter</h3>
+                <form class="form">
+                    <div class="form-group">
+                        <label for="active-subscriptions">Active</label>
+                        <select id="active-subscriptions" class="form-control" ng-model="subscriptionsOption" ng-options="p.value as p.label for p in subscriptionsOptions"></select>
+                    </div>
+                    <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Subscriptions</h3>
+                <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
+                <p class="btn"> {{curPage}} </p>
+                <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Active</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Sender</th>
+                        <th>Recipient</th>
+                        <th>Amount</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="subscription in subscriptions.result">
+                        <td>{{ subscription.id }}</td>
+                        <td>{{ subscription.active }}</td>
+                        <td>{{ subscription.type }}</td>
+                        <td>{{ subscription.description }}</td>
+                        <td>
+                            <a ui-sref="root.person.show.summary({ personId: subscription.sender.id })">
+                                {{ subscription.recipient.firstName }}
+                            </a>
+                        </td>
+                        <td>
+                            <a ui-sref="root.person.show.summary({ personId: subscription.recipient.id })">
+                                {{ subscription.recipient.firstName }}
+                            </a>
+                        </td>
+                        <td>&euro; {{ subscription.amount }}</td>
+                        <td>
+                            <a ui-sref="root.subscription.edit({ id: subscription.id })">
+                                <i class="icon fa fa-pencil"></i> Edit
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
