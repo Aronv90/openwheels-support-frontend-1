@@ -17,9 +17,8 @@
                         </div>
                         <div class="form-group col-md-3">
                             <label>Type</label>
-                            <select class="form-control" ng-model="subscription.type" required>
-                                <option ng-selected="subscription.type == item.value" ng-repeat="item in typeOptions" ng-value="item.value">{{item.label}}</option>
-                            </select>
+                            <select id="subscriptionType" class="form-control" ng-model="subscription.type"
+                                    ng-selected="subscription.type === o.value" ng-options="o.value as o.label for o in typeOptions"></select>
                         </div>
                         <div class="form-group col-md-8">
                             <label>Description</label>
@@ -53,7 +52,8 @@
 
                         <div class="form-group col-md-6">
                             <label>Interval</label>
-                            <input type="number" ng-model="subscription.interval" class="form-control" required />
+                            <select id="subscriptionInterval" class="form-control" ng-model="subscription.interval"
+                                    ng-selected="subscription.interval === o.value" ng-options="o.value as o.label for o in intervalOptions"></select>
                         </div>
 
                         <div class="form-group col-md-6">
