@@ -14,7 +14,22 @@ angular.module('openwheels.subscription.edit', [])
     $scope.typeOptions = [
       { label: 'MyWheels Open', value: 'subscription_open' },
       { label: 'MyWheels Business', value: 'subscription_business' },
-      { label: 'MyWheels Resource', value: 'subscription_resource' }
+      { label: 'MyWheels Resource', value: 'subscription_resource' },
+      { label: 'MyWheels Platform', value: 'subscription_platform' },
+      { label: 'MyWheels VGA', value: 'subscription_vga' }
+    ];
+
+    $scope.intervalOptions = [
+      { label: 'Eerste dag van de volgende maand', value: 'first day of next month' },
+      { label: 'Laatste dag van de volgende maand', value: 'last day of next month' },
+      { label: 'Eerste dag van de volgende jaar', value: 'first day of next year' },
+      { label: 'Laatste dag van de volgende jaar', value: 'last day of next year' },
+      { label: 'Volgende week', value: '+1 week' },
+      { label: 'Over 4 week', value: '+4 week' },
+      { label: 'Over 3 maanden', value: '+3 months' },
+      { label: 'Over 6 maanden', value: '+6 months' },
+      { label: 'Over 9 maanden', value: '+9 months' },
+      { label: 'Over 1 jaar', value: '+1 year' }
     ];
 
     $scope.selectedOption = $scope.subscription.type;
