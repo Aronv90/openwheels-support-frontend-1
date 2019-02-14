@@ -1,4 +1,5 @@
-<article class="panel panel-default card" ng-if="show()" >
+<article class="panel panel-default card" ng-if="show()"
+    style="overflow-x: scroll;">
 <table class="table table-condensed table-hover">
     <caption> <h4>{{result.title}} 
             <small>totaal:{{result.total}}
@@ -19,7 +20,7 @@
                     {{row[key].value}}
                 </a> 
             </td>
-            <td> 
+            <td style="white-space: nowrap; min-width: 70px;">
                 <a ng-click="snooze(result.id, row._key, row)" class="btn btn-warning btn-xs btn-round-hover">
                     <i class="fa fa-clock-o" aria-hidden="true"></i></a>
                 <a ng-click="done(result.id, row._key, row)" class="btn btn-success btn-xs btn-round-hover">
