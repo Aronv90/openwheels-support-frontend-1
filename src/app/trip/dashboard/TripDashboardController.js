@@ -26,6 +26,7 @@ angular.module('openwheels.trip.dashboard', [])
   invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT,
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
+  extraDriverService,
   driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia) {
 
   /* INIT  */
@@ -72,6 +73,21 @@ angular.module('openwheels.trip.dashboard', [])
       $scope.extraPersons = res.persons;
     });
   }
+
+
+  // new
+  var inviteRequestsPromise = (contract.type.id === 60)  ?
+    extraDriverService.driversForBooking({ booking: $scope.booking.id }) :
+    extraDriverService.getRequestsForContract({ contract: $scope.contract.id });
+
+  inviteRequestsPromise
+  .then(function (inviteRequests) {
+    if (inviteRequests.result && _.isArray(inviteRequests.result)) {
+      inviteRequests = inviteRequests.result;
+    }
+    $scope.inviteRequests = inviteRequests;
+  });
+
 
   voucherService.calculateRequiredCredit({person: booking.person.id})
   .then(function(res) {
