@@ -169,7 +169,7 @@
         <div class="row box__row">
           <div class="col-xs-12">
             <span class="box__slabel">
-            Medebestuurders [nieuw]:
+            Medebestuurders {{ contract.type.id === 60 ? 'rit' : 'contract' }} [nieuw]:
             </span>
           </div>
         </div>
@@ -191,7 +191,7 @@
           </div>
           <div class="col-xs-2">
             <span class="box__slabel">
-              <i ng-click="removeDriver(booking.id, inviteRequest.recipient.email)" class="fa fa-close"></i>
+              <i ng-click="removeInviteRequest(inviteRequest)" class="fa fa-close"></i>
             </span>
           </div>
         </div>

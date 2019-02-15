@@ -76,17 +76,37 @@ angular.module('openwheels.trip.dashboard', [])
 
 
   // new
+  function unwrapResult (inviteRequests) {
+    if (inviteRequests.result && _.isArray(inviteRequests.result)) {
+      inviteRequests = inviteRequests.result;
+    }
+    return inviteRequests;
+  }
+
   var inviteRequestsPromise = (contract.type.id === 60)  ?
     extraDriverService.driversForBooking({ booking: $scope.booking.id }) :
     extraDriverService.getRequestsForContract({ contract: $scope.contract.id });
 
   inviteRequestsPromise
+  .then(unwrapResult)
   .then(function (inviteRequests) {
-    if (inviteRequests.result && _.isArray(inviteRequests.result)) {
-      inviteRequests = inviteRequests.result;
-    }
     $scope.inviteRequests = inviteRequests;
   });
+
+  $scope.removeInviteRequest = function (inviteRequest) {
+    var removalPromise = (contract.type.id === 60)  ?
+      extraDriverService.removeDriver({ booking: $scope.booking.id, email: inviteRequest.recipient.email }) :
+      extraDriverService.removePersonFromContract({ contract: $scope.contract.id, person: inviteRequest.recipient.id });
+
+    removalPromise
+    .then(unwrapResult)
+    .then(function (inviteRequests) {
+      $scope.inviteRequests = inviteRequests;
+    })
+    .catch(function (e) {
+      alertService.addError(e);
+    });
+  };
 
 
   voucherService.calculateRequiredCredit({person: booking.person.id})
