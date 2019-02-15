@@ -26,6 +26,7 @@ angular.module('openwheels.trip.dashboard', [])
   invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT,
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
+  extraDriverService,
   driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia) {
 
   /* INIT  */
@@ -72,6 +73,41 @@ angular.module('openwheels.trip.dashboard', [])
       $scope.extraPersons = res.persons;
     });
   }
+
+
+  // new
+  function unwrapResult (inviteRequests) {
+    if (inviteRequests.result && _.isArray(inviteRequests.result)) {
+      inviteRequests = inviteRequests.result;
+    }
+    return inviteRequests;
+  }
+
+  var inviteRequestsPromise = (contract.type.id === 60)  ?
+    extraDriverService.driversForBooking({ booking: $scope.booking.id }) :
+    extraDriverService.getRequestsForContract({ contract: $scope.contract.id });
+
+  inviteRequestsPromise
+  .then(unwrapResult)
+  .then(function (inviteRequests) {
+    $scope.inviteRequests = inviteRequests;
+  });
+
+  $scope.removeInviteRequest = function (inviteRequest) {
+    var removalPromise = (contract.type.id === 60)  ?
+      extraDriverService.removeDriver({ booking: $scope.booking.id, email: inviteRequest.recipient.email }) :
+      extraDriverService.removePersonFromContract({ contract: $scope.contract.id, person: inviteRequest.recipient.id });
+
+    removalPromise
+    .then(unwrapResult)
+    .then(function (inviteRequests) {
+      $scope.inviteRequests = inviteRequests;
+    })
+    .catch(function (e) {
+      alertService.addError(e);
+    });
+  };
+
 
   voucherService.calculateRequiredCredit({person: booking.person.id})
   .then(function(res) {

@@ -129,7 +129,7 @@
         <div class="row box__row">
           <div class="col-xs-12">
             <span class="box__slabel">
-            Extra personen:
+            Extra personen [oud]:
             </span>
           </div>
         </div>
@@ -162,6 +162,47 @@
             </small>
           </div>
         </div>
+
+        <hr style="margin: 5px 0;" />
+
+        <!-- new -->
+        <div class="row box__row">
+          <div class="col-xs-12">
+            <span class="box__slabel">
+            Medebestuurders {{ contract.type.id === 60 ? 'rit' : 'contract' }} [nieuw]:
+            </span>
+          </div>
+        </div>
+        <div class="row box__row" ng-if="inviteRequests.length === 0">
+          <div class="col-xs-12" >
+            <small class="box__slabel">
+              Geen (geaccepteerde) medebestuurder-uitnodigingen
+            </small>
+          </div>
+        </div>
+        <div class="row box__row box__row--hover" ng-repeat="inviteRequest in inviteRequests | limitTo: 5" ng-if="inviteRequests.length > 0">
+          <div class="col-xs-10" >
+            <span class="box__slabel" ng-if="inviteRequest.recipient.firstName">
+              <a ui-sref="root.person.show.trip({personId: inviteRequest.recipient.id})">{{inviteRequest.recipient | fullname}}</a>
+            </span>
+            <span class="box__slabel" ng-if="!inviteRequest.recipient.firstName">
+              <a ui-sref="root.person.show.trip({personId: inviteRequest.recipient.id})">{{inviteRequest.recipient.email}}</a>
+            </span>
+          </div>
+          <div class="col-xs-2">
+            <span class="box__slabel">
+              <i ng-click="removeInviteRequest(inviteRequest)" class="fa fa-close"></i>
+            </span>
+          </div>
+        </div>
+        <div class="row box__row" ng-if="inviteRequests.length > 5">
+          <div class="col-xs-12" >
+            <small class="box__slabel">
+              Meer dan 5 extra personen.
+            </small>
+          </div>
+        </div>
+        <!-- /new -->
 
       </div>
     </div>
