@@ -104,7 +104,7 @@ angular.module('openwheels.resource.show', [
           resource: $scope.resource,
           resourceList: $scope.resourceList,
           members: members,
-          cities: ['Den Haag', 'Rijswijk', 'Gooise Meren', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Utrecht']
+          cities: ['Den Haag', 'Rijswijk', 'Gooise Meren', 'Groningen', 'Haarlem', 'Leiden', 'Nijmegen', 'Tilburg', 'Utrecht']
         });
       }).then(function (resource) {
         return resourceService.alterParkingpermit({
