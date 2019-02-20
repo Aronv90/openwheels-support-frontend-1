@@ -1178,6 +1178,67 @@ angular.module('openwheels.trip.dashboard', [])
     });
   };
 
+  function doTransferExtraDriversFrom (originalBooking) {
+    return function (newBooking) {
+      return $q(function (resolve, reject) {
+        extraDriverService.driversForBooking({ booking: originalBooking.id })
+        .then(unwrapResult)
+        .then(function (originalInviteRequests) {
+          originalInviteRequests = originalInviteRequests.filter(function (inviteRequest) {
+            return inviteRequest.status === 'invited' || inviteRequest.status === 'accepted';
+          });
+          $q.all(originalInviteRequests.map(function (originalInviteRequest) {
+            return extraDriverService.addDriver({
+              booking: newBooking.id,
+              email: originalInviteRequest.recipient.email,
+            })
+            .then(unwrapResult)
+            .then(function (_result_inviteRequests) {
+              return _.find(_result_inviteRequests, function (newInviteRequest) {
+                return newInviteRequest.status === 'invited' && (newInviteRequest.recipient.email === originalInviteRequest.recipient.email);
+              });
+            })
+            .then(function (newInviteRequest) {
+              if (originalInviteRequest.status === 'invited') {
+                return newInviteRequest;
+              } else {
+                return extraDriverService.acceptRequest({ id: newInviteRequest.id })
+                  .then(function (__) {
+                    return newInviteRequest;
+                  })
+                  .catch(function (err) {
+                    // TODO
+                    throw err;
+                  });
+              }
+            });
+          }))
+          .then(function (newInviteRequests) {
+            resolve(newBooking);
+          })
+          .catch(function (err) {
+            alertService.addError(err);
+
+            // I'd rather err on the side of not being able
+            //  to transfer extra drivers,
+            //  than have the rebooking feature fail as well
+            resolve(newBooking);
+          });
+        });
+      });
+    };
+  }
+
+  function dontTransferExtraDriversFrom (originalBooking) {
+    return function (newBooking) {
+      return $q(function (resolve) {
+        resolve(originalBooking);
+      });
+    };
+  }
+
+  var possiblyTransferExtraDriversFrom = (contract.type.id === 60) ? doTransferExtraDriversFrom : dontTransferExtraDriversFrom;
+
   $scope.start = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -1320,6 +1381,7 @@ angular.module('openwheels.trip.dashboard', [])
               remark: booking.remark,
               riskReduction: booking.riskReduction
             })
+            .then(possiblyTransferExtraDriversFrom(selectedBooking))
             .then(function(newBooking) {
               if(booking.approved === 'OK') {
                 bookingService.approve({booking: newBooking.id})
@@ -1419,7 +1481,7 @@ angular.module('openwheels.trip.dashboard', [])
 
         $scope.bookOtherResource = function(resource) {
           bookingService.cancel({booking: $scope.booking.id})
-          .then(function(booking) {
+          .then(function(canceledBooking) {
             bookingService.create({
               resource: resource.id,
               person: $scope.booking.person.id,
@@ -1431,6 +1493,7 @@ angular.module('openwheels.trip.dashboard', [])
               remark: $scope.booking.remark,
               riskReduction: $scope.booking.riskReduction
             })
+            .then(possiblyTransferExtraDriversFrom(canceledBooking))
             .then(function(booking) {
               if($scope.booking.approved === 'OK') {
                 bookingService.approve({booking: booking.id})
@@ -1511,6 +1574,7 @@ angular.module('openwheels.trip.dashboard', [])
           },
           contract: res.booking.contract.id
         })
+        .then(possiblyTransferExtraDriversFrom(res.booking))
         .then(function(booking) {
           $mdDialog.cancel();
           alertService.add('success', 'De boeking is gemaakt.', 5000);
