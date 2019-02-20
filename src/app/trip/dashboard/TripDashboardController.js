@@ -1382,7 +1382,7 @@ angular.module('openwheels.trip.dashboard', [])
       controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
         $scope.booking = booking;
         $scope.helyUser = helyUser;
-        $scope.bookForPerson = undefined;
+        $scope.bookForPerson = { val: undefined };
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
         $scope.contract = {};
 
@@ -1466,7 +1466,7 @@ angular.module('openwheels.trip.dashboard', [])
 
         $scope.done = function() {
           $mdDialog.hide({
-            bookForPerson: $scope.bookForPerson,
+            bookForPerson: $scope.bookForPerson.val,
             newBeginDt: makeNewDateString($scope.newBeginDt),
             newEndDt: makeNewDateString($scope.newEndDt),
             contract: $scope.contract.id,
