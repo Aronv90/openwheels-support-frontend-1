@@ -27,6 +27,7 @@ angular.module('openwheels.trip.dashboard', [])
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
   extraDriverService,
+  $log,
   driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia) {
 
   /* INIT  */
@@ -87,10 +88,13 @@ angular.module('openwheels.trip.dashboard', [])
     extraDriverService.driversForBooking({ booking: $scope.booking.id }) :
     extraDriverService.getRequestsForContract({ contract: $scope.contract.id });
 
+  $scope.loadingInviteRequests = true;
+
   inviteRequestsPromise
   .then(unwrapResult)
   .then(function (inviteRequests) {
     $scope.inviteRequests = inviteRequests;
+    $scope.loadingInviteRequests = false;
   });
 
   $scope.removeInviteRequest = function (inviteRequest) {
@@ -1181,13 +1185,18 @@ angular.module('openwheels.trip.dashboard', [])
   function doTransferExtraDriversFrom (originalBooking) {
     return function (newBooking) {
       return $q(function (resolve, reject) {
+        $log.log('transferring extra drivers from ' + originalBooking.id + ' to ' + newBooking.id + '...');
+        $log.log('(1) loading extra drivers...');
         extraDriverService.driversForBooking({ booking: originalBooking.id })
         .then(unwrapResult)
         .then(function (originalInviteRequests) {
+          $log.log('(2) filtering invite requests...');
           originalInviteRequests = originalInviteRequests.filter(function (inviteRequest) {
             return inviteRequest.status === 'invited' || inviteRequest.status === 'accepted';
           });
+          $log.log('(3) transferring invite requests...');
           $q.all(originalInviteRequests.map(function (originalInviteRequest) {
+            $log.log('(3 > ' + originalInviteRequest.id + ') add driver...');
             return extraDriverService.addDriver({
               booking: newBooking.id,
               email: originalInviteRequest.recipient.email,
@@ -1200,8 +1209,10 @@ angular.module('openwheels.trip.dashboard', [])
             })
             .then(function (newInviteRequest) {
               if (originalInviteRequest.status === 'invited') {
+                $log.log('(3 > ' + originalInviteRequest.id + ' -> ' + newInviteRequest.id + ') OK');
                 return newInviteRequest;
               } else {
+                $log.log('(3 > ' + originalInviteRequest.id + ' -> ' + newInviteRequest.id + ') auto-accepting...');
                 return extraDriverService.acceptRequest({ id: newInviteRequest.id })
                   .then(function (__) {
                     return newInviteRequest;
@@ -1214,11 +1225,12 @@ angular.module('openwheels.trip.dashboard', [])
             });
           }))
           .then(function (newInviteRequests) {
-            resolve(newBooking);
+            $log.log('(4) transfer complete!');
           })
           .catch(function (err) {
             alertService.addError(err);
-
+          })
+          .finally(function () {
             // I'd rather err on the side of not being able
             //  to transfer extra drivers,
             //  than have the rebooking feature fail as well
@@ -1367,6 +1379,7 @@ angular.module('openwheels.trip.dashboard', [])
         });
 
         $scope.bookResource = function(booking, resource) {
+          alertService.load();
           bookingService.cancel({booking: booking.id})
           .then(function(booking) {
             $scope.now = moment().format('YYYY-MM-DD HH:mm');
@@ -1398,6 +1411,9 @@ angular.module('openwheels.trip.dashboard', [])
             })
             .catch(function(err) {
               alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+            })
+            .finally(function () {
+              alertService.loaded();
             });
           });
         };
@@ -1480,6 +1496,8 @@ angular.module('openwheels.trip.dashboard', [])
         };
 
         $scope.bookOtherResource = function(resource) {
+          alertService.load();
+
           bookingService.cancel({booking: $scope.booking.id})
           .then(function(canceledBooking) {
             bookingService.create({
@@ -1510,6 +1528,9 @@ angular.module('openwheels.trip.dashboard', [])
             })
             .catch(function(err) {
               alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+            })
+            .finally(function () {
+              alertService.loaded();
             });
           });
         };
@@ -1547,6 +1568,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .then(function(res) {
       if (res.bookForPerson === 'blockResource') {
+        alertService.load();
         bookingService.create({
           resource: res.booking.resource.id,
           person: res.booking.resource.owner.id,
@@ -1563,8 +1585,12 @@ angular.module('openwheels.trip.dashboard', [])
         })
         .catch(function(err) {
           alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+        })
+        .finally(function () {
+          alertService.loaded();
         });
       } else if (res.bookForPerson === 'sameResource') {
+        alertService.load();
         bookingService.create({
           resource: res.booking.resource.id,
           person: res.booking.person.id,
@@ -1582,6 +1608,9 @@ angular.module('openwheels.trip.dashboard', [])
         })
         .catch(function(err) {
           alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+        })
+        .finally(function () {
+          alertService.loaded();
         });
       }
     });
