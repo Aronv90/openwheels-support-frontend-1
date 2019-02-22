@@ -27,6 +27,7 @@ angular.module('openwheels.trip.dashboard', [])
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
   extraDriverService,
+  $log,
   driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia) {
 
   /* INIT  */
@@ -85,12 +86,15 @@ angular.module('openwheels.trip.dashboard', [])
 
   var inviteRequestsPromise = (contract.type.id === 60)  ?
     extraDriverService.driversForBooking({ booking: $scope.booking.id }) :
-    extraDriverService.getRequestsForContract({ contract: $scope.contract.id });
+    extraDriverService.getRequestsForContract({ contract: $scope.contract.id, limit: 999 });
+
+  $scope.loadingInviteRequests = true;
 
   inviteRequestsPromise
   .then(unwrapResult)
   .then(function (inviteRequests) {
     $scope.inviteRequests = inviteRequests;
+    $scope.loadingInviteRequests = false;
   });
 
   $scope.removeInviteRequest = function (inviteRequest) {
@@ -1178,6 +1182,69 @@ angular.module('openwheels.trip.dashboard', [])
     });
   };
 
+  function doTransferExtraDriversFrom (originalBooking) {
+    return function (newBooking) {
+      return $q(function (resolve, reject) {
+        $log.log('transferring extra drivers from ' + originalBooking.id + ' to ' + newBooking.id + '...');
+        $log.log('(1) loading extra drivers...');
+        extraDriverService.driversForBooking({ booking: originalBooking.id })
+        .then(unwrapResult)
+        .then(function (originalInviteRequests) {
+          $log.log('(2) filtering invite requests...');
+          originalInviteRequests = originalInviteRequests.filter(function (inviteRequest) {
+            return inviteRequest.status === 'invited' || inviteRequest.status === 'accepted';
+          });
+          $log.log('(3) transferring invite requests...');
+          $q.all(originalInviteRequests.map(function (originalInviteRequest) {
+            $log.log('(3 > ' + originalInviteRequest.id + ') add driver...');
+            return extraDriverService.addDriver({
+              booking: newBooking.id,
+              email: originalInviteRequest.recipient.email,
+            })
+            .then(function (newInviteRequest) {
+              if (originalInviteRequest.status === 'invited') {
+                $log.log('(3 > ' + originalInviteRequest.id + ' -> ' + newInviteRequest.id + ') OK');
+                return newInviteRequest;
+              } else {
+                $log.log('(3 > ' + originalInviteRequest.id + ' -> ' + newInviteRequest.id + ') auto-accepting...');
+                return extraDriverService.acceptRequest({ id: newInviteRequest.id })
+                  .then(function (__) {
+                    return newInviteRequest;
+                  })
+                  .catch(function (err) {
+                    // TODO
+                    throw err;
+                  });
+              }
+            });
+          }))
+          .then(function (newInviteRequests) {
+            $log.log('(4) transfer complete!');
+          })
+          .catch(function (err) {
+            alertService.addError(err);
+          })
+          .finally(function () {
+            // I'd rather err on the side of not being able
+            //  to transfer extra drivers,
+            //  than have the rebooking feature fail as well
+            resolve(newBooking);
+          });
+        });
+      });
+    };
+  }
+
+  function dontTransferExtraDriversFrom (originalBooking) {
+    return function (newBooking) {
+      return $q(function (resolve) {
+        resolve(originalBooking);
+      });
+    };
+  }
+
+  var possiblyTransferExtraDriversFrom = (contract.type.id === 60) ? doTransferExtraDriversFrom : dontTransferExtraDriversFrom;
+
   $scope.start = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -1306,6 +1373,7 @@ angular.module('openwheels.trip.dashboard', [])
         });
 
         $scope.bookResource = function(booking, resource) {
+          alertService.load();
           bookingService.cancel({booking: booking.id})
           .then(function(booking) {
             $scope.now = moment().format('YYYY-MM-DD HH:mm');
@@ -1320,6 +1388,7 @@ angular.module('openwheels.trip.dashboard', [])
               remark: booking.remark,
               riskReduction: booking.riskReduction
             })
+            .then(possiblyTransferExtraDriversFrom(selectedBooking))
             .then(function(newBooking) {
               if(booking.approved === 'OK') {
                 bookingService.approve({booking: newBooking.id})
@@ -1336,6 +1405,9 @@ angular.module('openwheels.trip.dashboard', [])
             })
             .catch(function(err) {
               alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+            })
+            .finally(function () {
+              alertService.loaded();
             });
           });
         };
@@ -1382,7 +1454,7 @@ angular.module('openwheels.trip.dashboard', [])
       controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
         $scope.booking = booking;
         $scope.helyUser = helyUser;
-        $scope.bookForPerson = undefined;
+        $scope.bookForPerson = { val: undefined };
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
         $scope.contract = {};
 
@@ -1418,8 +1490,10 @@ angular.module('openwheels.trip.dashboard', [])
         };
 
         $scope.bookOtherResource = function(resource) {
+          alertService.load();
+
           bookingService.cancel({booking: $scope.booking.id})
-          .then(function(booking) {
+          .then(function(canceledBooking) {
             bookingService.create({
               resource: resource.id,
               person: $scope.booking.person.id,
@@ -1431,6 +1505,7 @@ angular.module('openwheels.trip.dashboard', [])
               remark: $scope.booking.remark,
               riskReduction: $scope.booking.riskReduction
             })
+            .then(possiblyTransferExtraDriversFrom(canceledBooking))
             .then(function(booking) {
               if($scope.booking.approved === 'OK') {
                 bookingService.approve({booking: booking.id})
@@ -1447,6 +1522,9 @@ angular.module('openwheels.trip.dashboard', [])
             })
             .catch(function(err) {
               alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+            })
+            .finally(function () {
+              alertService.loaded();
             });
           });
         };
@@ -1466,7 +1544,7 @@ angular.module('openwheels.trip.dashboard', [])
 
         $scope.done = function() {
           $mdDialog.hide({
-            bookForPerson: $scope.bookForPerson,
+            bookForPerson: $scope.bookForPerson.val,
             newBeginDt: makeNewDateString($scope.newBeginDt),
             newEndDt: makeNewDateString($scope.newEndDt),
             contract: $scope.contract.id,
@@ -1484,6 +1562,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .then(function(res) {
       if (res.bookForPerson === 'blockResource') {
+        alertService.load();
         bookingService.create({
           resource: res.booking.resource.id,
           person: res.booking.resource.owner.id,
@@ -1500,8 +1579,12 @@ angular.module('openwheels.trip.dashboard', [])
         })
         .catch(function(err) {
           alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+        })
+        .finally(function () {
+          alertService.loaded();
         });
       } else if (res.bookForPerson === 'sameResource') {
+        alertService.load();
         bookingService.create({
           resource: res.booking.resource.id,
           person: res.booking.person.id,
@@ -1511,6 +1594,7 @@ angular.module('openwheels.trip.dashboard', [])
           },
           contract: res.booking.contract.id
         })
+        .then(possiblyTransferExtraDriversFrom(res.booking))
         .then(function(booking) {
           $mdDialog.cancel();
           alertService.add('success', 'De boeking is gemaakt.', 5000);
@@ -1518,6 +1602,9 @@ angular.module('openwheels.trip.dashboard', [])
         })
         .catch(function(err) {
           alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+        })
+        .finally(function () {
+          alertService.loaded();
         });
       }
     });
