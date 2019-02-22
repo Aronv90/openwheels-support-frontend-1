@@ -86,7 +86,7 @@ angular.module('openwheels.trip.dashboard', [])
 
   var inviteRequestsPromise = (contract.type.id === 60)  ?
     extraDriverService.driversForBooking({ booking: $scope.booking.id }) :
-    extraDriverService.getRequestsForContract({ contract: $scope.contract.id });
+    extraDriverService.getRequestsForContract({ contract: $scope.contract.id, limit: 999 });
 
   $scope.loadingInviteRequests = true;
 
@@ -1200,12 +1200,6 @@ angular.module('openwheels.trip.dashboard', [])
             return extraDriverService.addDriver({
               booking: newBooking.id,
               email: originalInviteRequest.recipient.email,
-            })
-            .then(unwrapResult)
-            .then(function (_result_inviteRequests) {
-              return _.find(_result_inviteRequests, function (newInviteRequest) {
-                return newInviteRequest.status === 'invited' && (newInviteRequest.recipient.email === originalInviteRequest.recipient.email);
-              });
             })
             .then(function (newInviteRequest) {
               if (originalInviteRequest.status === 'invited') {

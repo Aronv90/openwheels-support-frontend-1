@@ -30,15 +30,14 @@
                 <th>Person</th>
                 <th>Name</th>
                 <th>E-mail</th>
-                <th>Status</th>
+                <th>
+                    Status
+                    <label>(<input type="checkbox" ng-model="all" ng-change="loadInviteRequests()" /> Toon alles)</label>
+                </th>
             </tr>
             </thead>
 
-            <tr ng-if="loadingInviteRequests">
-                <td colspan="5">Laden...</td>
-            </tr>
-
-            <tr ng-repeat="inviteRequest in inviteRequests">
+            <tr ng-show="!loadingInviteRequests" ng-repeat="inviteRequest in inviteRequests">
                 <td>{{contract.contractorId}}</td>
                 <td>{{inviteRequest.recipient.id}}</td>
                 <td><a ui-sref="root.person.show.summary({ personId: inviteRequest.recipient.id })" ng-click="dismiss()">{{inviteRequest.recipient.firstName}}</a></td>
@@ -59,26 +58,37 @@
                     ></select>
                 </td>
             </tr>
+
+            <tr ng-if="loadingInviteRequests">
+                <td colspan="5"><strong>Laden...</strong></td>
+            </tr>
+
         </table>
 
-        <h4>Oud:</h4>
-        <table class="table" style="margin-bottom: 0;">
-            <thead>
-            <tr>
-                <th>Contractor</th>
-                <th>Person</th>
-                <th>Name</th>
-                <th>E-mail</th>
-            </tr>
-            </thead>
+        <div ng-init="showOld = false;">
+            <h4 ng-click="showOld = !showOld">
+                Oud
+                <i class="fa fa-caret-down" ng-show="!showOld"></i>
+                <i class="fa fa-caret-up" ng-show="showOld"></i>
+            </h4>
+            <table class="table" style="margin-bottom: 0;" ng-show="showOld">
+                <thead>
+                <tr>
+                    <th>Contractor</th>
+                    <th>Person</th>
+                    <th>Name</th>
+                    <th>E-mail</th>
+                </tr>
+                </thead>
 
-            <tr ng-repeat="contractPerson in contract.persons">
-                <td>{{contract.contractorId}}</td>
-                <td>{{contractPerson.id}}</td>
-                <td><a ui-sref="root.person.show.summary({ personId: contractPerson.id })" ng-click="dismiss()">{{contractPerson.firstName}}</a></td>
-                <td>{{contractPerson.email}}</td>
-            </tr>
-        </table>
+                <tr ng-repeat="contractPerson in contract.persons">
+                    <td>{{contract.contractorId}}</td>
+                    <td>{{contractPerson.id}}</td>
+                    <td><a ui-sref="root.person.show.summary({ personId: contractPerson.id })" ng-click="dismiss()">{{contractPerson.firstName}}</a></td>
+                    <td>{{contractPerson.email}}</td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <div class="modal-footer">

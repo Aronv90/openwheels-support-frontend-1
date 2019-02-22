@@ -42,12 +42,7 @@ angular.module('openwheels.contract.persons', [])
       $uibModalInstance.dismiss();
     };
 
-    function possiblyUnwrapResult (inviteRequests) {
-      if (inviteRequests.result && _.isArray(inviteRequests.result)) {
-        inviteRequests = inviteRequests.result;
-      }
-      return inviteRequests;
-    }
+    $scope.all = false;
 
     $scope.loadingInviteRequests = true;
     $scope.loadInviteRequests = function () {
@@ -55,11 +50,13 @@ angular.module('openwheels.contract.persons', [])
         $scope.loadingInviteRequests = true;
 
         extraDriverService.getRequestsForContract({
-          contract: contract.id
+          contract: contract.id,
+          limit: 999,
+          offset: 0,
+          all: $scope.all, // also return "removed", "revoked", and "declined" requests
         })
-        .then(possiblyUnwrapResult)
-        .then(function (inviteRequests) {
-          $scope.inviteRequests = inviteRequests.map(function (req) {
+        .then(function (response) {
+          $scope.inviteRequests = response.result.map(function (req) {
             req.newStatus = req.status;
             return req;
           });
@@ -88,31 +85,18 @@ angular.module('openwheels.contract.persons', [])
 
       extraDriverService.invitePersonForContract({
         contract: contract.id,
-        email: newPerson.email,
+        email: newPerson.email || newPerson,
       })
-      .then(function (addedPerson) {
-        $scope.loadInviteRequests()
-        .then(function () {
-          alertService.add('success', 'Person added', 2000);
+      .then(function (newInviteRequest) {
+        newInviteRequest.newStatus = newInviteRequest.status;
+        $scope.inviteRequests.push(newInviteRequest);
 
-          if (accept) {
+        alertService.add('success', 'Person added', 2000);
 
-            // find the new inviteRequest
-            var inviteRequest = _.find($scope.inviteRequests, function (inviteRequest) {
-              return inviteRequest.status === 'invited' && (inviteRequest.recipient.id === addedPerson.id);
-            });
-
-            if (!inviteRequest) {
-              alertService.addError({
-                message: 'Kon de nieuw-toegevoegde invite request niet vinden ?!'
-              });
-              return;
-            }
-
-            // try to accept it
-            $scope.updateInviteRequestStatus(inviteRequest, 'accepted');
-          }
-        });
+        if (accept) {
+          // try to accept it
+          $scope.updateInviteRequestStatus(newInviteRequest, 'accepted');
+        }
       })
       .catch(function (error) {
         alertService.add('danger', error.message, 5000);
@@ -145,7 +129,7 @@ angular.module('openwheels.contract.persons', [])
       promise
       .then(function (resp) {
         $log.log('api response:', resp);
-        $scope.loadInviteRequests();
+        alertService.add('success', 'Uitnodiging succesvol gewijzigd', 2000);
       })
       .catch(function (err) {
         inviteRequest.newStatus = inviteRequest.status; // revert change
