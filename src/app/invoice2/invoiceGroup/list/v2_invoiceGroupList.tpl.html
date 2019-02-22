@@ -149,7 +149,8 @@
               <th>Sender</th>
               <th>Description</th>
               <th class="text-right">Total</th>
-            </tr>
+              <th>&nbsp;</th>
+              </tr>
           </thead>
           <tr ng-repeat="invoice in ungroupedReceivedInvoices">
             <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
@@ -158,6 +159,7 @@
             <td>{{ invoice.sender | fullname }}</a>
             <td>{{ invoice.description }}</td>
             <td class="text-right">{{ invoice.total | currency }}</td>
+            <td ng-click="removeInvoice(invoice.id)"><i class="fa fa-trash"></i></td>
           </tr>
           <tr>
             <td colspan="5"><b>Total</b></td>
@@ -185,6 +187,7 @@
               <th>Recipient</th>
               <th>Description</th>
               <th class="text-right">Total</th>
+              <th>&nbsp;</th>
             </tr>
           </thead>
           <tr ng-repeat="invoice in ungroupedSentInvoices">
@@ -194,6 +197,7 @@
             <td>{{ invoice.recipient | fullname }}</a>
             <td>{{ invoice.description }}</td>
             <td class="text-right">{{ invoice.total | currency }}</td>
+            <td ng-click="removeInvoice(invoice.id)"><i class="fa fa-trash"></i></td>
           </tr>
           <tr>
             <td colspan="5"><b>Total</b></td>

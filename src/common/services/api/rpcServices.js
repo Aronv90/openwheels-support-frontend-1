@@ -289,20 +289,21 @@ angular.module('rpcServices', [])
 
   .service('invoice2Service', function (api) {
     var m = function (name) { return api.createRpcMethod('invoice2.' + name ); };
-    this.approve                      = m('approve');
-    this.disapprove                   = m('disapprove');
-    this.calculatePrice               = m('calculatePrice');
-    this.get                          = m('get');
-    this.getSent                      = m('getSent');
-    this.getReceived                  = m('getReceived');
-    this.getInvoiceGroup              = m('getInvoiceGroup');
-    this.getDebtors                   = m('getDebtors');
-    this.getCreditors                 = m('getCreditors');
-    this.create                       = m('create');
-    this.alter                        = m('alter');
-    this.createSenderInvoiceGroup     = m('createSenderInvoiceGroup');
-    this.createRecipientInvoiceGroup  = m('createRecipientInvoiceGroup');
-    this.removeInvoiceGroup           = m('removeInvoiceGroup');
+    this.approve                        = m('approve');
+    this.disapprove                     = m('disapprove');
+    this.calculatePrice                 = m('calculatePrice');
+    this.get                            = m('get');
+    this.getSent                        = m('getSent');
+    this.getReceived                    = m('getReceived');
+    this.getInvoiceGroup                = m('getInvoiceGroup');
+    this.getDebtors                     = m('getDebtors');
+    this.getCreditors                   = m('getCreditors');
+    this.create                         = m('create');
+    this.alter                          = m('alter');
+    this.createSenderInvoiceGroup       = m('createSenderInvoiceGroup');
+    this.createRecipientInvoiceGroup    = m('createRecipientInvoiceGroup');
+    this.removeInvoiceGroup             = m('removeInvoiceGroup');
+    this.removeUnGroupedAbstractInvoice = m('removeUnGroupedAbstractInvoice');
   })
 
   .service('paymentService', function (api) {
