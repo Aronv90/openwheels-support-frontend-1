@@ -56,6 +56,22 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
     .catch(alertService.addError).finally(alertService.loaded);
 
   };
+  
+  $scope.removeInvoice = function(id) {
+    alertService.load();
+    alertService.closeAll();
+    invoice2Service.removeUnGroupedAbstractInvoice({invoice: id})
+    .then(function(res) {
+      $scope.ungroupedReceivedInvoices = _.without($scope.ungroupedReceivedInvoices, _.findWhere($scope.ungroupedReceivedInvoices, {
+          id: id 
+      }));
+      $scope.ungroupedSentInvoices = _.without($scope.ungroupedSentInvoices, _.findWhere($scope.ungroupedSentInvoices, {
+          id: id 
+      }));
+    })
+    .catch(alertService.addError).finally(alertService.loaded);
+
+  };
 
   $scope.createSenderGroup = function(userId) {
     alertService.load($scope, 'Bundeling invoices');
