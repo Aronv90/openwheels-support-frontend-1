@@ -1350,16 +1350,18 @@ angular.module('openwheels.trip.dashboard', [])
           $scope.personGet = personGet;
         });
 
+        $scope.loadingAvailableResources =  true;
+
         resourceService.searchV3({
           person: $scope.booking.person.id,
           timeFrame: { 
             startDate: $scope.booking.beginBooking ? $scope.booking.beginBooking : $scope.booking.beginRequested, 
             endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested              
           },
-          radius: 10000,
+          radius: 15000,
           sort: 'relevance',
           offest: 0,
-          maxresults: 15, 
+          maxresults: 20, 
           filters: {
             smartwheels: $scope.booking.resource.boardcomputer ? true : null
           },
@@ -1369,6 +1371,7 @@ angular.module('openwheels.trip.dashboard', [])
           }
         })
         .then(function(resources) {
+          $scope.loadingAvailableResources =  false;
           $scope.availableResources = resources.results;
         });
 
@@ -1459,16 +1462,17 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.contract = {};
 
         $scope.loadAvailableResources = function(resource) {
+          $scope.loadingAvailableResources =  true;
           resourceService.searchV3({
             person: $scope.booking.person.id,
             timeFrame: { 
               startDate: $scope.booking.beginBooking ? $scope.booking.beginBooking : $scope.booking.beginRequested, 
               endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested
             },
-            radius: 10000,
+            radius: 15000,
             sort: 'relevance',
             offest: 0,
-            maxresults: 15, 
+            maxresults: 20, 
             filters: {
               smartwheels: $scope.booking.resource.boardcomputer ? true : null
             },
@@ -1479,6 +1483,9 @@ angular.module('openwheels.trip.dashboard', [])
           })
           .then(function(resources) {
             $scope.availableResources = resources.results;
+          })
+          .finally(function () {
+            $scope.loadingAvailableResources =  false;
           });
         };
 

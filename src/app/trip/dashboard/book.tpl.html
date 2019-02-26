@@ -30,6 +30,10 @@
       <fieldset class="standard" ng-if="bookForPerson.val === 'otherResource'">
         <p>Klik achter de gewenste auto op [Boeken] om de reservering om te zetten op de betreffende auto. De huurder kan dan naar die auto gaan om alsnog op weg te kunnen. <span ng-if="booking.resource.boardcomputer">De onderstaande auto's worden met een OV-chipkaart of de smartphone geopend.</span><br/><br/></p>
 
+        <div ng-if="!availableResources.length && !loadingAvailableResources">Geen auto's gevonden.</div>
+
+        <div ng-if="loadingAvailableResources"><i class="fa fa-fw fa-spin fa-spinner"></i></div>
+
         <div ng-repeat="resource in availableResources">
           <div class="row">
             <div class="col-xs-3">
