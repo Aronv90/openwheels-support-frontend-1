@@ -56,7 +56,7 @@ angular.module('openwheels.phoneLog', [
                 telecomService.assignPerson({ sExtId: call.sExtId, iPerson: oPerson.id });
 
                 // Go to check out the person
-                $state.go('root.person.show.summary', { personId: oPerson.id });
+                $state.go('root.person.show.trip', { personId: oPerson.id });
             };
 
             $scope.editCall = function (call)
