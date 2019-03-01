@@ -14,38 +14,38 @@
   <div class="collapse navbar-collapse navbar-main-collapse">
     <ul class="nav navbar-nav" ng-if="user.identity.provider.id === 1">
       <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('phoneLog.current') }">
-        <a ui-sref="phoneLog.current">Phone calls</a>
+        <a ui-sref="phoneLog.current">Telefoongesprekken</a>
       </li>
     </ul>
     <ul class="nav navbar-nav">
       <li show-if-user-has-role="ROLE_PROVIDER_ADMIN"
           ng-class="{ dropdown: true, active: $state.includes('root.person') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Person <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Persoon <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li show-if-user-has-role="ROLE_ADMIN"><a ui-sref="root.person.create">Add person</a></li>
-          <li><a ui-sref="root.person.search">Advanced search</a></li>
+          <li show-if-user-has-role="ROLE_ADMIN"><a ui-sref="root.person.create">Persoon toevoegen</a></li>
+          <li><a ui-sref="root.person.search">Uitgebreid zoeken</a></li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
-            ui-sref="root.person.blacklist">Blacklist</a>
+            ui-sref="root.person.blacklist">Zwarte lijst</a>
           </li>
         </ul>
       </li>
     </ul>
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
       <li ng-class="{ dropdown: true, active: $state.includes('root.resource') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Resource <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Auto <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a ui-sref="root.resource.create">Add resource</a></li>
-          <li><a ui-sref="root.resource.creategarage">Add garage</a></li>
+          <li><a ui-sref="root.resource.create">Auto toevoegen</a></li>
+          <li><a ui-sref="root.resource.creategarage">Garage toevoegen</a></li>
         </ul>
       </li>
     </ul>
     <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav">
       <li id="triproot" ng-class="{ dropdown: true, active: $state.includes('root.trip') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Trip <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Rit <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li>
             <form ng-submit="followTripId(tripId)" ng-click="stopPropagation($event)">
-              <input ng-model="tripId" class="form-control" placeholder="Jump to trip id" style="width: 90%; margin: 5px 5% 0 5%;" />
+              <input ng-model="tripId" class="form-control" placeholder="Naar ritnummer" style="width: 90%; margin: 5px 5% 0 5%;" />
             </form>
           </li>
           <li class="divider"></li>
@@ -64,29 +64,29 @@
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.trip.list.requested') }">
-            <a ui-sref="root.trip.list.requested">Requested</a>
+            <a ui-sref="root.trip.list.requested">In aanvraag</a>
           </li>
           <li ng-class="{ active: $state.includes('root.trip.list.current') }">
-            <a ui-sref="root.trip.list.current">Current</a>
+            <a ui-sref="root.trip.list.current">Lopende ritten</a>
           </li>
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.trip.list.notactive') }">
-            <a ui-sref="root.trip.list.notactive">Not active bookings</a>
+            <a ui-sref="root.trip.list.notactive">Nog niet actieve ritten</a>
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }" show-if-user-has-role="ROLE_ADMIN">
-            <a ui-sref="root.trip.list.strange-kms">Strange kms</a>
+            <a ui-sref="root.trip.list.strange-kms">Vreende kilometerstanden</a>
           </li>
           <li ng-class="{ active: $state.includes('root.trip.list.remarked') }" show-if-user-has-role="ROLE_ADMIN">
-            <a ui-sref="root.trip.list.remarked">Remarks</a>
+            <a ui-sref="root.trip.list.remarked">Opmerkingen</a>
           </li>
           <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }" show-if-user-has-role="ROLE_ADMIN">
-            <a ui-sref="root.trip.list.returned-late">Returned late</a>
+            <a ui-sref="root.trip.list.returned-late">Te laat teruggebracht</a>
           </li>
         </ul>
       </li>
     </ul>
 
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" hide>
+  <!--<ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" hide>
       <li ng-class="{ dropdown: true, active: $state.includes('root.invoice') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Bill <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -110,59 +110,44 @@
           <li>
             <a href="" ng-click="printBills()">Print Bills</a>
           </li>
-          <!-- <li ng-class="{ active: $state.includes('root.invoice.account.list') }">
+          <li ng-class="{ active: $state.includes('root.invoice.account.list') }">
             <a ui-sref="root.invoice.account.list" >Rekeningen</a>
           </li> -->
           <!-- <li><a href="">Transactions</a></li>
-          <li><a href="">Invoices</a></li> -->
+          <li><a href="">Invoices</a></li>
         </ul>
       </li>
-    </ul>
+    </ul> -->
 
     <!-- INVOICE MODULE VERSION 2 -->
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
       <li id="invoiceroot" ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Invoice <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Facturen <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li>
             <form ng-submit="followInvoiceGroupId(invoiceGroupId)" ng-click="stopPropagation($event)">
-              <input ng-model="invoiceGroupId" class="form-control" placeholder="Jump to invoicegroup id" style="width: 90%; margin: 5px 5% 0 5%;" />
+              <input ng-model="invoiceGroupId" class="form-control" placeholder="Naar factuurnummer" style="width: 90%; margin: 5px 5% 0 5%;" />
             </form>
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.invoice2.account.list') }">
-            <a ui-sref="root.invoice2.account.list">Accounts</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.invoice2.invoiceGroup.list') }">
-            <a ui-sref="root.invoice2.invoiceGroup.list({max: 50})">Invoice groups</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.invoice2.invoice.debtors-list') }">
-            <a ui-sref="root.invoice2.invoice.debtors-list">Debtors</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.invoice2.invoice.creditors-list') }">
-            <a ui-sref="root.invoice2.invoice.creditors-list">Creditors</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.invoice2.voucher.list') }">
-            <a ui-sref="root.invoice2.voucher.list">Vouchers</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.invoice2.payment.list') }">
-            <a ui-sref="root.invoice2.payment.list">Payments</a>
+            <a ui-sref="root.invoice2.account.list">IBAN-nummers</a>
           </li>
           <li ng-class="{ active: $state.includes('root.invoice2.payout.list') }">
-            <a ui-sref="root.invoice2.payout.list({gateway: 'paynl_gateway_mywheels', state: 'unpaid'})">Payouts</a>
+            <a ui-sref="root.invoice2.payout.list({gateway: 'paynl_gateway_mywheels', state: 'unpaid'})">Uitbetalingen</a>
           </li>
           <li ng-class="{ active: $state.includes('root.subscription.list') }">
-            <a ui-sref="root.subscription.list">Subscriptions</a>
+            <a ui-sref="root.subscription.list">Abonnementen</a>
           </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoice.create') }">
-            <a ui-sref="root.invoice2.invoice.create">Create invoice</a>
+            <a ui-sref="root.invoice2.invoice.create">Maak factuurregel</a>
           </li>
         </ul>
       </li>
     </ul>
 
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" hide>
+    <!-- <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" hide>
       <li class="dropdown" ng-class="{ active: $state.includes('root.bank') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Bank <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -184,10 +169,11 @@
           </li>
         </ul>
       </li>
-    </ul>
+    </ul> -->
+
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li class="dropdown" ng-class="{ active: $state.includes('root.checklist') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Checklists <b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Controlelijsten <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('ow-dashboard') }">
             <a ui-sref="ow-dashboard">Dashboard</a>
@@ -206,15 +192,15 @@
 
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
       <li ng-class="{ dropdown: true, active: $state.includes('root.globaldiscount') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Discount<b class="caret"></b></a>
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Kortingscode<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a ui-sref="root.globaldiscount.create">Create global discount</a></li>
+          <li><a ui-sref="root.globaldiscount.create">Kortingscode toevoegen</a></li>
         </ul>
       </li>
     </ul>
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
       <div class="form-group">
-        <input type="text" class="form-control input-sm typeahead" placeholder="Search person by name"
+        <input type="text" class="form-control input-sm typeahead" placeholder="Zoek persoon"
                ng-model="selectedPerson"
                uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '<br> ' + (person.preference | toTitleCase) + ' - <b>Provider ' + person.provider.id + '</b></small></p>') for person in searchPersons($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectPerson()"
@@ -224,24 +210,24 @@
                typeahead-wait-ms="300">
         <span ng-if="noPersonResults && !searchingForPersonResults && !personsOverflow" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
-            <li class="uib-typeahead-match">No persons found.</li>
+            <li class="uib-typeahead-match">Geen persoon gevonden.</li>
           </ul>
         </span>
         <span ng-if="searchingForPersonResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
-            <li class="uib-typeahead-match">Searching...</li>
+            <li class="uib-typeahead-match">Zoeken...</li>
           </ul>
         </span>
         <span ng-if="personsOverflow && !searchingForPersonResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
-            <li class="uib-typeahead-match">Too many results. Limit your search by adding a firstname or surname.</li>
+            <li class="uib-typeahead-match">Te veel personen gevonden. Beperk de zoekopdracht door een voor- of achternaam toe te voegen.</li>
           </ul>
         </span>
       </div>
     </form>
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
       <div class="form-group">
-        <input type="text" class="form-control input-sm typeahead" placeholder="Search resource"
+        <input type="text" class="form-control input-sm typeahead" placeholder="Zoek auto"
                ng-model="selectedResource"
                uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
                typeahead-min-length="3" typeahead-on-select="selectResource()"
@@ -251,30 +237,30 @@
                typeahead-wait-ms="300">
         <span ng-if="noResourceResults && !searchingForResourceResults && !resourcesOverflow" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
-            <li class="uib-typeahead-match">No resources found.</li>
+            <li class="uib-typeahead-match">Geen auto's gevonden.</li>
           </ul>
         </span>
         <span ng-if="searchingForResourceResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
-            <li class="uib-typeahead-match">Searching...</li>
+            <li class="uib-typeahead-match">Zoeken...</li>
           </ul>
         </span>
         <span ng-if="resourcesOverflow && !searchingForResourceResults" auto-close="disabled" is-open="true" uib-dropdown uib-dropdown-toggle>
           <ul class="dropdown-menu" style="top:28px; padding:15px; width:168px;">
-            <li class="uib-typeahead-match">Too many results. Search for a registration plate.</li>
+            <li class="uib-typeahead-match">Te veel auto's gevonden. Beperk de zoekopdracht door op kenteken te zoeken.</li>
           </ul>
         </span>
       </div>
     </form>
 
     <div show-if-user-has-role="ROLE_ADMIN" style="float:left;line-height:40px;">
-      <div style="float:left;padding-right:8px;line-height:38px;">Limit:</div>
+      <div style="float:left;padding-right:8px;line-height:38px;">Limiteer:</div>
         <input type="checkbox" ng-model="$root.limit" checked="true">
     </div>
 
     <ul class="nav navbar-nav">
       <li ng-if="!user.isAuthenticated">
-        <a ng-click="logIn()">Log In</a>
+        <a ng-click="logIn()">Inloggen</a>
       </li>
     </ul>
     <ul class="nav navbar-nav">
@@ -282,10 +268,10 @@
         <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>
         <ul class="dropdown-menu">
           <li ng-if="user.isAuthenticated">
-            <a ng-click="logOut()">Log out</a>
+            <a ng-click="logOut()">Uitloggen</a>
           </li>
           <li ng-class="{ active: $state.includes('root.settings') }">
-            <a href="" ui-sref="root.settings">Settings</a>
+            <a href="" ui-sref="root.settings">Instellingen</a>
           </li>
         </ul>
       </li>
