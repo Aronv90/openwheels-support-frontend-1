@@ -2,11 +2,11 @@
   <thead>
   <tr>
     <th></th>
-    <th>Incoming</th>
-    <th>Caller Number</th>
-    <th>MyWheels User</th>
-    <th>Answered by</th>
-    <th>Remark</th>
+    <th>Datum</th>
+    <th>Telefoonnummer</th>
+    <th>Persoon</th>
+    <th>Opgenomen door</th>
+    <th>Opmerking</th>
   </tr>
   </thead>
   <tbody>
@@ -27,14 +27,14 @@
           </ul>
 
           <span ng-if="call.oAssignedPerson">
-            Assigned (first click):
+            Geklikt op (eerste klik):
             <a ng-click="checkOutPerson(call, call.oAssignedPerson)">{{ call.oAssignedPerson | fullname }}</a>
           </span>
 
         </span>
 
         <span ng-if="call.aPeople.length === 1"><a ng-click="checkOutPerson(call, call.aPeople[0])">{{ call.aPeople[0] | fullname }}</a></span>
-        <span ng-if="call.aPeople.length < 1">Not Found</span>
+        <span ng-if="call.aPeople.length < 1">Niet gevonden</span>
 
       </td>
       <td><span ng-if="call.oAdmin">{{ call.oAdmin | fullname }}</span></td>
@@ -44,9 +44,9 @@
               {{ call.sRemark.substring(0,20) }}...
             </span>
             <span ng-if="call.sRemark.length <= 20">{{ call.sRemark }}</span>
-          (<a ng-click="editCall(call)">Edit</a>)
+          (<a ng-click="editCall(call)">Wijzig</a>)
         </span>
-        <span ng-if="!call.sRemark">(<a ng-click="editCall(call)">Add</a>)</span>
+        <span ng-if="!call.sRemark">(<a ng-click="editCall(call)">Toevoegen</a>)</span>
       </td>
 
     </tr>

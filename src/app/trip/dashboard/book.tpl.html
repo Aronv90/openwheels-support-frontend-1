@@ -11,7 +11,7 @@
 
   <md-dialog-content>
     <div layout="column" layout-margin class="md-dialog-content" ng-if="helyUser">
-      <p>Deze huurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De huurder kan in de Hely app zelf een nieuwe rit maken of een andere auto claimen. Dit kan jij helaas niet doen.</p>
+      <p>Deze bestuurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De bestuurder kan in de Hely app zelf een nieuwe rit maken of een andere auto claimen. Dit kan jij helaas niet doen.</p>
     </div>
 
     <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
@@ -19,7 +19,7 @@
       <p>Selecteer hieronder wat voor boeking je wil maken:</p>
       <form>
         <md-radio-group ng-model="bookForPerson.val">
-          <md-radio-button value="otherResource" ng-click="loadAvailableResources()">Ik wil de huurder omboeken naar een andere auto</md-radio-button>
+          <md-radio-button value="otherResource" ng-click="loadAvailableResources()">Ik wil de bestuurder omboeken naar een andere auto</md-radio-button>
           <md-radio-button value="sameResource">Ik wil een nieuwe reservering maken voor deze huurder</md-radio-button>
           <md-radio-button value="blockResource" ng-click="loadContracts()">Ik wil de auto blokkeren</md-radio-button>
         </md-radio-group>

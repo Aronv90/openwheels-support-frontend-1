@@ -26,8 +26,7 @@ angular.module('openwheels.trip.dashboard', [])
   invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT,
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
-  extraDriverService,
-  $log,
+  extraDriverService, $log, account2Service,
   driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia) {
 
   /* INIT  */
@@ -44,6 +43,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.extraPersons = [];
   $scope.now = moment().format('YYYY-MM-DD HH:mm');
   $scope.helyUser = $scope.booking.person.email.slice(-9) === '@hely.com';
+  $scope.automaticGear = $scope.booking.resource.properties.map(function(o) { return o.id;}).indexOf('automaat') ? false : true;
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
@@ -55,6 +55,38 @@ angular.module('openwheels.trip.dashboard', [])
     lastTrips = lastTrips.slice(0, 10);
   }
   localStorageService.set('dashboard.last_trips', lastTrips);
+
+  $scope.getAccounts = function () {
+    account2Service.search({
+      person: $scope.booking.person.id, 
+      unchecked: null
+    })
+    .then(function (accounts) {
+      $scope.accounts = accounts;
+
+      if(elm.length > 0) {
+        accounts.every(function (elm) {
+          if (elm.approved === true) {
+            $scope.isApproved = true;
+          } else {
+            $scope.isApproved = false;
+          }
+        });
+      } else {
+        $scope.isApproved = undefined;
+      }
+    })
+    .catch(function (e) {
+      alertService.addError(e);
+    })
+    .finally(function() {
+      console.log($scope.isApproved);
+    });
+  };
+
+  if($scope.booking.approved !== 'OK') {
+    $scope.getAccounts();
+  }
 
   if(contract.type.id === 60) {
     bookingService.driversForBooking({booking: booking.id})
@@ -111,7 +143,6 @@ angular.module('openwheels.trip.dashboard', [])
       alertService.addError(e);
     });
   };
-
 
   voucherService.calculateRequiredCredit({person: booking.person.id})
   .then(function(res) {
@@ -1623,6 +1654,29 @@ angular.module('openwheels.trip.dashboard', [])
       fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
+        $scope.getLastCommand = false;
+        $scope.now = moment().format('YYYY-MM-DD HH:mm');
+
+        //get last command to see if immobilizer is on
+        $scope.getLastCommand = function() {
+          chipcardService.logs({
+            resource: $scope.booking.resource.id,
+            max: 1,
+            offset: 0
+          })
+          .then(function(lastCommand) {
+            $scope.lastCommand = lastCommand.result[0];
+          })
+          .finally(function() {
+            $scope.loadingLastCommand = false;
+          });
+        };
+
+        //only get last command if boardcomputer is MyFMS
+        if($scope.booking.resource.boardcomputer && $scope.booking.resource.boardcomputer !== 'ccome') {
+          $scope.loadingLastCommand = true;
+          $scope.getLastCommand();
+        }
         
         $scope.done = function() {
           $mdDialog.hide();

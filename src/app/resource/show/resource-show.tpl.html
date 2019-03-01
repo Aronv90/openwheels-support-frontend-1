@@ -90,57 +90,63 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="root.resource.show.summary({ tripId: resource.id })">Summary</a>
+            <a class="navbar-brand" ui-sref="root.resource.show.summary({ tripId: resource.id })">Samenvatting</a>
         </div>
         <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
             <ul class="nav navbar-nav">
                 <li ng-class="{ active: $state.includes('root.resource.show.edit') }">
-                  <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Edit</a>
-                </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.members') }">
-                    <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Members</a>
+                  <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Gegevens</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.trip') }">
-                    <a ui-sref="root.resource.show.trip({ resourceId: resource.id })">Trips</a>
+                    <a ui-sref="root.resource.show.trip({ resourceId: resource.id })">Ritten</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktype === 'smartphone' || resource.locktype === 'chipcard'">
-                    <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Open & close</a>
+                    <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Openen & sluiten</a>
                 </li>
                 <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') || $state.includes('root.person.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0">
                     <a class="dropdown-toggle" data-toggle="dropdown">MyFMS<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') }">
-                            <a ui-sref=".myfmschipcard">Chipcard</a>
+                            <a ui-sref=".myfmschipcard">Chipkaarten</a>
                         </li>
                         <li ng-class="{ active: $state.includes('root.resource.show.myfmslog') }">
-                            <a ui-sref=".myfmslog">Open & close Log</a>
+                            <a ui-sref=".myfmslog">Open & sluit log</a>
                         </li>
                         <li ng-class="{ active: $state.includes('root.resource.show.log') }">
-                          <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boardcomputer Log</a>
+                          <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boordcomputer log</a>
                         </li>
                     </ul>
                 </li>
-
-                <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
-                    <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Ratings</a>
-                </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.discount') }">
-                    <a ui-sref="root.resource.show.discount({ resourceId: resource.id })">Discount</a>
-                </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.damage') }">
-                    <a ui-sref="root.resource.show.damage({ resourceId: resource.id })">Damage</a>
+                    <a ui-sref="root.resource.show.damage({ resourceId: resource.id })">Schade</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }">
-                    <a ui-sref="root.resource.show.maintenance({ resourceId: resource.id })">Maintenance</a>
+                    <a ui-sref="root.resource.show.maintenance({ resourceId: resource.id })">Onderhoud</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
-                    <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Revisions</a>
-                </li>
+
                 <li ng-class="{ active: $state.includes('root.resource.show.remarklog') }">
-                    <a ui-sref="root.resource.show.remarklog({ resourceId: resource.id })">Remark</a>
+                    <a ui-sref="root.resource.show.remarklog({ resourceId: resource.id })">Opmerkingen</a>
                 </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.reports') }">
-                    <a ui-sref="root.resource.show.reports({ resourceId: resource.id })">Reports</a>
+                    <a ui-sref="root.resource.show.reports({ resourceId: resource.id })">Meldingen</a>
+                </li>
+
+                <li class="dropdown pull-right">
+                <a class="dropdown-toggle" data-toggle="dropdown">Meer <big><i class="fa fa-fw fa fa-ellipsis-v"></i></big></a>
+                  <ul class="dropdown-menu">
+                    <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
+                        <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Reviews</a>
+                    </li>
+                    <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
+                        <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Wijzigingen</a>
+                    </li>
+                    <li ng-class="{ active: $state.includes('root.resource.show.discount') }">
+                        <a ui-sref="root.resource.show.discount({ resourceId: resource.id })">Kortingscodes</a>
+                    </li>
+                    <li ng-class="{ active: $state.includes('root.resource.show.members') }">
+                        <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Vrienden</a>
+                    </li>
+                  </ul>
                 </li>
             </ul>
         </div>
@@ -159,7 +165,7 @@
           <textarea id="remark" class="form-control" ng-model="resource.remark" placeholder="Remark" rows="4"></textarea>
         </div>
         <div class="form-group" style="margin-bottom: 0;">
-          <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+          <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Opslaan</button>
         </div>
       </form>
     </div>

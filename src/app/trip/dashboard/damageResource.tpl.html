@@ -12,7 +12,7 @@
   <md-dialog-content>
     <div layout="column" layout-margin class="md-dialog-content">
       <h3>Schade</h3>
-      <p>Meld de huurder schade aan de auto? Vraag de huurder of de schade tijdens zijn of haar rit ontstaan is. Selecteer vervolgens hieronder de optie die van toepassing is:</p>
+      <p>Meldt de huurder schade aan de auto? Vraag de huurder of de schade tijdens zijn of haar rit ontstaan is. Selecteer vervolgens hieronder de optie die van toepassing is:</p>
       <form>
         <md-radio-group ng-model="damageOptions">
           <md-radio-button value="atBegin">De schade is door de vorige huurder veroorzaakt</md-radio-button>
@@ -26,7 +26,7 @@
       <fieldset class="standard" ng-if="damageOptions === 'atBegin'">
         <p>De huurder heeft de schade niet zelf veroorzaakt, maar de voorgaande huurder. Plaats een <strong>Opmerking</strong> bij de rit dat de huurder bij aanvang van de rit de schade heeft gemeld. Omschrijf duidelijk wat de schade is en waar deze op de auto zit. Voeg de eerstvolgende werkdag als <strong>follow-up datum</strong> aan de opmerking toe.
         <br><br>
-        Als er in de auto gereden kan worden, mag de huurder met de auto rijden. Zo niet, klik dan op de knop [Boeken] om de reservering over te zetten op een andere auto in de buurt.</p>
+        Als er in de auto gereden kan worden, mag de huurder met de auto rijden. Zo niet, klik dan op de knop <strong>[Boeken]</strong> om de reservering over te zetten op een andere auto in de buurt.</p>
       </fieldset>
 
       <fieldset class="standard" ng-if="damageOptions === 'ownDamage'">
@@ -35,7 +35,7 @@
         <p ng-if="booking.resource.roadAssistance">
           <strong>Kan de auto niet verder rijden?</strong>
           <br>
-          Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving:
+          Schakel de huurder door naar het telefoonnummer in de volgende omschrijving:
           <br>
           {{ booking.resource.roadAssistance }}
           <br/><br/>
@@ -47,7 +47,7 @@
         <p ng-if="!booking.resource.roadAssistance">
           <strong>Kan de auto niet verder rijden?</strong>
           <br>
-          Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
+          Schakel de huurder door naar Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. De huurder moet erop aandringen dat niet het kenteken, maar het polisnummer geregistreerd staat.
           <br/><br/>
           De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.
           <br><br>
@@ -90,7 +90,7 @@
         <p ng-if="booking.resource.roadAssistance">
           <strong>Kan de auto niet verder rijden?</strong>
           <br>
-          Vraag dan aan de huurder wat zijn of haar huidige locatie is. Bel het nummer in de volgende omschrijving:
+          Schakel de huurder door naar het telefoonnummer in de volgende omschrijving:
           <br>
           {{ booking.resource.roadAssistance }}
           <br/><br/>
@@ -102,7 +102,8 @@
         <p ng-if="!booking.resource.roadAssistance">
           <strong>Kan de auto niet verder rijden?</strong>
           <br>
-          Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.
+          Schakel de huurder door naar Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. De huurder moet erop aandringen dat niet het kenteken, maar het polisnummer geregistreerd staat.
+
           <br/><br/>
           De wegsleepdienst arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen de auto meenemen en de huurder naar de gewenste locatie brengen. De huurder moet aanwezig zijn bij de auto als deze door de berger wordt opgehaald anders wordt deze niet meegenomen, er dient namelijk voor het ophalen getekend te worden. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering.
           <br><br>
