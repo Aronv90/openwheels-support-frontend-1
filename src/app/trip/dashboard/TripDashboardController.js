@@ -64,7 +64,7 @@ angular.module('openwheels.trip.dashboard', [])
     .then(function (accounts) {
       $scope.accounts = accounts;
 
-      if(elm.length > 0) {
+      if($scope.accounts.length > 0) {
         accounts.every(function (elm) {
           if (elm.approved === true) {
             $scope.isApproved = true;
