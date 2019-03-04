@@ -97,13 +97,16 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.edit') }">
                   <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Gegevens</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.trip') }">
+                <li ng-class="{ active: $state.includes('root.resource.show.members') }" ng-if="user.identity.provider.id === 5">
+                    <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Vrienden</a>
+                </li>
+                <li ng-class="{ active: $state.includes('root.resource.show.trip') }" ng-if="user.identity.provider.id !== 5">
                     <a ui-sref="root.resource.show.trip({ resourceId: resource.id })">Ritten</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktype === 'smartphone' || resource.locktype === 'chipcard'">
+                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="(resource.locktype === 'smartphone' || resource.locktype === 'chipcard') && user.identity.provider.id !== 5">
                     <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Openen & sluiten</a>
                 </li>
-                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') || $state.includes('root.person.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0">
+                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') || $state.includes('root.person.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0 && user.identity.provider.id !== 5">
                     <a class="dropdown-toggle" data-toggle="dropdown">MyFMS<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') }">
@@ -120,30 +123,30 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.damage') }">
                     <a ui-sref="root.resource.show.damage({ resourceId: resource.id })">Schade</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }">
+                <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }" ng-if="user.identity.provider.id !== 5">
                     <a ui-sref="root.resource.show.maintenance({ resourceId: resource.id })">Onderhoud</a>
                 </li>
 
-                <li ng-class="{ active: $state.includes('root.resource.show.remarklog') }">
+                <li ng-class="{ active: $state.includes('root.resource.show.remarklog') }" ng-if="user.identity.provider.id !== 5">
                     <a ui-sref="root.resource.show.remarklog({ resourceId: resource.id })">Opmerkingen</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.reports') }">
+                <li ng-class="{ active: $state.includes('root.resource.show.reports') }" ng-if="user.identity.provider.id !== 5">
                     <a ui-sref="root.resource.show.reports({ resourceId: resource.id })">Meldingen</a>
                 </li>
 
                 <li class="dropdown pull-right">
                 <a class="dropdown-toggle" data-toggle="dropdown">Meer <big><i class="fa fa-fw fa fa-ellipsis-v"></i></big></a>
                   <ul class="dropdown-menu">
-                    <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
+                    <li ng-class="{ active: $state.includes('root.resource.show.rating') }" ng-if="user.identity.provider.id !== 5">
                         <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Reviews</a>
                     </li>
                     <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
                         <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Wijzigingen</a>
                     </li>
-                    <li ng-class="{ active: $state.includes('root.resource.show.discount') }">
+                    <li ng-class="{ active: $state.includes('root.resource.show.discount') }" ng-if="user.identity.provider.id !== 5">
                         <a ui-sref="root.resource.show.discount({ resourceId: resource.id })">Kortingscodes</a>
                     </li>
-                    <li ng-class="{ active: $state.includes('root.resource.show.members') }">
+                    <li ng-class="{ active: $state.includes('root.resource.show.members') }" ng-if="user.identity.provider.id !== 5">
                         <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Vrienden</a>
                     </li>
                   </ul>
