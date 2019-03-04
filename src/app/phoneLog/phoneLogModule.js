@@ -12,6 +12,7 @@ angular.module('openwheels.phoneLog', [
   $stateProvider.state('phoneLog', {
     parent: 'root',
     url: '/phone-log',
+    data: {pageTitle: 'Telefoongesprekken'},
     abstract: true,
     views: {
       'main@': {
@@ -22,18 +23,21 @@ angular.module('openwheels.phoneLog', [
 
   $stateProvider.state('phoneLog.history', {
     url: '/history/:sDate',
+    data: {pageTitle: 'Telefoongesprekken'},
     templateUrl: 'phoneLog/history/phoneHistory.tpl.html',
     controller: 'PhoneHistoryController'
   });
 
   $stateProvider.state('phoneLog.current', {
     url: '/current',
+    data: {pageTitle: 'Telefoongesprekken'},
     templateUrl: 'phoneLog/current/phoneCurrent.tpl.html',
     controller: 'PhoneCurrentController'
   });
 
   $stateProvider.state('phoneLog.edit', {
     url: '/edit/:iCall',
+    data: {pageTitle: 'Telefoongesprekken'},
     templateUrl: 'phoneLog/edit/phoneEdit.tpl.html',
     controller: 'PhoneEditController'
   });
@@ -44,6 +48,7 @@ angular.module('openwheels.phoneLog', [
     return {
         restrict: 'E',
         scope: false,
+        data: {pageTitle: 'Telefoongesprekken'},
         templateUrl: 'phoneLog/phoneCallTable.tpl.html',
         controller: function($scope, $state, telecomService) {
 

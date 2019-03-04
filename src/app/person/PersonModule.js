@@ -35,7 +35,7 @@ angular.module('openwheels.person', [
 			url: '/search',
 			controller: 'PersonSearchController',
 			templateUrl: 'person/search/person-search.tpl.html',
-			data: {pageTitle: 'Search person'}
+			data: {pageTitle: 'Uitgebreid zoeken'}
 		});
 
 		/**
@@ -45,7 +45,7 @@ angular.module('openwheels.person', [
 			url: '/create',
 			controller: 'PersonCreateController',
 			templateUrl: 'person/create/person-create.tpl.html',
-			data: {pageTitle: 'Create Resource'}
+			data: {pageTitle: 'Persoon toevoegen'}
 		});
 
 		/**
@@ -56,7 +56,7 @@ angular.module('openwheels.person', [
 			url: '/blacklist',
 			controller: 'PersonBlacklistController',
 			templateUrl: 'person/blacklist/person-blacklist.tpl.html',
-			data: {pageTitle: 'Person Blacklist'},
+			data: {pageTitle: 'Zwarte lijst'},
 			resolve: {
 				persons: ['$stateParams', 'personService', function ($stateParams, personService) {
 					return personService.blocked({params: {}});
@@ -93,7 +93,7 @@ angular.module('openwheels.person', [
 			url: '',
 			controller: 'PersonShowSummaryController',
 			templateUrl: 'person/show/summary/person-show-summary.tpl.html',
-			data: {pageTitle: 'Person summary'},
+			data: {pageTitle: 'Persoon samenvatting'},
 			resolve: {
 				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
 					var startDate = moment().subtract(1, 'd');
@@ -121,7 +121,7 @@ angular.module('openwheels.person', [
 			url: '/trip?startDate&endDate',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list.tpl.html',
-			data: {pageTitle: 'Person Trip list'},
+			data: {pageTitle: 'Persoon ritten'},
 			resolve: {
 				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
 					var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
@@ -148,7 +148,7 @@ angular.module('openwheels.person', [
 			abstract: true,
 			url: '/data',
 			templateUrl: 'person/show/data/person-show-data.tpl.html',
-			data: {pageTitle: 'Person data'}
+			data: {pageTitle: 'Persoonsgegevens'}
 		});
 
 		/**
@@ -159,7 +159,7 @@ angular.module('openwheels.person', [
 			url: '',
 			controller: 'PersonEditPersonalController',
 			templateUrl: 'person/edit/personal/person-edit-personal.tpl.html',
-			data: {pageTitle: 'Personal data'}
+			data: {pageTitle: 'Persoonsgegevens'}
 		});
 
 		/**
@@ -170,7 +170,7 @@ angular.module('openwheels.person', [
 			url: '/account',
 			controller: 'PersonEditAccountController',
 			templateUrl: 'person/edit/account/person-edit-account.tpl.html',
-			data: {pageTitle: 'Person account data'},
+			data: {pageTitle: 'Persoon IBAN-nummer'},
 			resolve: {
 				account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
 					return accountService.get({
@@ -188,7 +188,7 @@ angular.module('openwheels.person', [
 			url: '/contact',
 			controller: 'PersonEditContactController',
 			templateUrl: 'person/edit/contact/person-edit-contact.tpl.html',
-			data: {pageTitle: 'Person data'}
+			data: {pageTitle: 'Persoonsgegevens'}
 		});
 
 		/**
