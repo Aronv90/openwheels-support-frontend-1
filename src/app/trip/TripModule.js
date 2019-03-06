@@ -48,7 +48,7 @@ angular.module('openwheels.trip', [
 			url: '',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list.tpl.html',
-			data: {pageTitle: 'Trip list'},
+			data: {pageTitle: 'Ritten lijst'},
 			resolve: {
 				bookings: function () {
 					return [];
@@ -66,7 +66,7 @@ angular.module('openwheels.trip', [
 			url: '/returned-late',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--returned-late.tpl.html',
-			data: {pageTitle: 'Trip list - Returned late'},
+			data: {pageTitle: 'Te laat teruggebracht'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.allLateBack();
@@ -83,7 +83,7 @@ angular.module('openwheels.trip', [
 			url: '/remarked',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--remarked.tpl.html',
-			data: {pageTitle: 'Trip list - Returned late'},
+			data: {pageTitle: 'Ritten te laat teruggebracht'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.marked();
@@ -100,7 +100,7 @@ angular.module('openwheels.trip', [
 			url: '/strange-kms',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--strange-kms.tpl.html',
-			data: {pageTitle: 'Trip list - Strange Kms'},
+			data: {pageTitle: 'Vreemde kilometerstanden'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.strangeKms();
@@ -117,7 +117,7 @@ angular.module('openwheels.trip', [
 			url: '/current',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--current.tpl.html',
-			data: {pageTitle: 'Trip list - Current'},
+			data: {pageTitle: 'Lopende ritten'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.actualBooking();
@@ -134,7 +134,7 @@ angular.module('openwheels.trip', [
 			url: '/requested',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--requested.tpl.html',
-			data: {pageTitle: 'Trip list - Requested'},
+			data: {pageTitle: 'Ritten in aanvraag'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.requested();
@@ -151,7 +151,7 @@ angular.module('openwheels.trip', [
 			url: '/joblist',
 			controller: 'TripJobsListController',
 			templateUrl: 'trip/list/trip-job-list.tpl.html',
-			data: {pageTitle: 'Job list'},
+			data: {pageTitle: 'CCome opdrachten lijst'},
 			resolve: {
 				jobs: ['ccomeService', function (ccomeService) {
 					return ccomeService.unfinishedJobs();
@@ -168,7 +168,7 @@ angular.module('openwheels.trip', [
 			url: '/notactive',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--not-active.tpl.html',
-			data: {pageTitle: 'Trip list - Not Active'},
+			data: {pageTitle: 'Niet actieve ritten'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.futureByNotActiveDriver();
@@ -186,7 +186,7 @@ angular.module('openwheels.trip', [
 			url: '/disapproved',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--disapproved.tpl.html',
-			data: {pageTitle: 'Trip list - Disapproved'},
+			data: {pageTitle: 'Afgekeurde ritten'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.disapprovedBookings();
@@ -203,7 +203,7 @@ angular.module('openwheels.trip', [
 			url: '/farfromhome',
 			controller: 'TripListController',
 			templateUrl: 'trip/list/trip-list--farfromhome.tpl.html',
-			data: {pageTitle: 'Trip list - Far From Home'},
+			data: {pageTitle: 'Ritten uit de buurt'},
 			resolve: {
 				bookings: ['bookingService', function (bookingService) {
 					return bookingService.getFarFromHome({});
@@ -221,7 +221,7 @@ angular.module('openwheels.trip', [
 			url: '/:tripId',
 			controller: 'TripShowController',
 			templateUrl: 'trip/show/trip-show.tpl.html',
-			data: {pageTitle: 'Trip'},
+			data: {pageTitle: 'Rit'},
 			resolve: {
 				booking: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
 					var bookingId = $stateParams.tripId;
@@ -309,7 +309,7 @@ angular.module('openwheels.trip', [
 			url: '/overview?person',
 			controller: 'InvoiceTripShowController',
 			templateUrl: 'invoice/trip/show/invoice-trip-show.tpl.html',
-			data: {pageTitle: 'Trip overview'},
+			data: {pageTitle: 'Rit overzicht'},
 			resolve: {
 				overview: ['$stateParams', 'invoiceService', 'booking', function ($stateParams, invoiceService, booking) {
 					var bookingId = $stateParams.tripId;
@@ -333,7 +333,7 @@ angular.module('openwheels.trip', [
 			url: '/log',
 			controller: 'ResourceShowLogController',
 			templateUrl: 'resource/show/log/resource-show-log.tpl.html',
-			data: {pageTitle: 'Boardcomputer log'},
+			data: {pageTitle: 'Rit boordcomputer log'},
 			resolve: {
 				logs: ['boardcomputerService', 'booking', function (boardcomputerService, booking) {
 					var from;
@@ -354,7 +354,7 @@ angular.module('openwheels.trip', [
 			url: '/edit_booking',
 			controller: 'TripShowEditBookingController',
 			templateUrl: 'trip/show/edit_booking/trip-show-edit-booking.tpl.html',
-			data: {pageTitle: 'Edit Booking'},
+			data: {pageTitle: 'Rit wijzigen'},
 			role: 'ROLE_PROVIDER_ADMIN'
 		});
 
@@ -366,7 +366,7 @@ angular.module('openwheels.trip', [
 			url: '/admin',
 			controller: 'TripShowAdminController',
 			templateUrl: 'trip/show/admin/trip-show-admin.tpl.html',
-			data: {pageTitle: 'Trip Admin'},
+			data: {pageTitle: 'Rit admin'},
 			resolve: {
 				driverContracts: ['$stateParams', 'contractService', 'booking', function ($stateParams, contractService, booking) {
 					return contractService.forDriver({
@@ -388,7 +388,7 @@ angular.module('openwheels.trip', [
 			url: '/lock',
 			controller: 'ResourceShowBoardcomputerController',
 			templateUrl: 'resource/show/boardcomputer/resource-show-boardcomputer.tpl.html',
-			data: {pageTitle: 'Trip Resource Lock / Unlock'},
+			data: {pageTitle: 'Rit auto openen / sluiten'},
 			resolve: {
 				resource: ['booking', function (booking) {
 					return booking.resource;
@@ -401,7 +401,7 @@ angular.module('openwheels.trip', [
 			url: '/revisions',
 			templateUrl: 'trip/show/revisions/trip-show-revisions.tpl.html',
 			controller: 'TripShowRevisionsController',
-			data: {pageTitle: 'Trip Revisions'}
+			data: {pageTitle: 'Rit wijzigingen'}
 		});
 
 	})
