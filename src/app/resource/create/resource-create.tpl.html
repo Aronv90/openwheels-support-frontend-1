@@ -1,6 +1,6 @@
 <div class="panel panel-default card">
     <div class="panel-heading">
-        <h1>Create new resource</h1>
+        <h1>Auto toevoegen</h1>
     </div>
 </div>
 
@@ -9,8 +9,8 @@
         <form ng-submit="save(resource)" name="createResourceForm">
 
             <div class="form-group">
-                <label for="owner">Owner</label>
-                <input name="owner" id="owner" type="text" class="form-control input-sm typeahead" placeholder="Search person"
+                <label for="owner">Eigenaar</label>
+                <input name="owner" id="owner" type="text" class="form-control input-sm typeahead" placeholder="Zoek persoon"
                        ng-model="resource.owner"
                        uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)"
                        typeahead-min-length="3"
@@ -18,13 +18,13 @@
             </div>
 
             <div class="form-group">
-                <label for="registrationPlate">Registration Plate</label>
+                <label for="registrationPlate">Kenteken</label>
                 <input class="form-control" type="text" id="registrationPlate" name="registrationPlate" ng-model="resource.registrationPlate" required />
             </div>
 
             <div class="form-group">
-                <button id="clear" type="reset" class="btn btn-default" >Cancel</button>
-                <button id="submitForm" type="submit" class="btn btn-primary" ng-disabled="createResourceForm.$pristine">Submit</button>
+                <button id="clear" type="reset" class="btn btn-default" >Annuleer</button>
+                <button id="submitForm" type="submit" class="btn btn-primary" ng-disabled="createResourceForm.$pristine">Opslaan</button>
             </div>
 
         </form>

@@ -1,6 +1,6 @@
 <div class="panel panel-default card">
     <div class="panel-heading">
-        <h1>Create new garage</h1>
+        <h1>Garage toevoegen</h1>
     </div>
 </div>
 
@@ -14,28 +14,28 @@
             </div>
 
             <div class="form-group">
-                <label for="name">Garage name</label>
+                <label for="name">Garage naam</label>
                 <input class="form-control" type="text" id="name" name="name" ng-model="garage.name" required />
             </div>
 
             <div class="form-group">
-                <label for="address">Garage address</label>
+                <label for="address">Garage adres</label>
                 <input class="form-control" type="text" id="address" name="address" ng-model="garage.address" required />
             </div>
 
             <div class="form-group">
-                <label for="email">Garage email</label>
+                <label for="email">Garage e-mail</label>
                 <input class="form-control" type="text" id="email" name="email" ng-model="garage.email" required />
             </div>
 
             <div class="form-group">
-                <label for="number">Garage number</label>
+                <label for="number">Garage telefoonnummer</label>
                 <input class="form-control" type="text" id="number" name="number" ng-model="garage.number" required />
             </div>
 
             <div class="form-group">
-                <button id="clear" type="reset" class="btn btn-default" >Cancel</button>
-                <button id="submitForm" type="submit" class="btn btn-primary" ng-disabled="createGarageForm.$pristine">Submit</button>
+                <button id="clear" type="reset" class="btn btn-default" >Annuleer</button>
+                <button id="submitForm" type="submit" class="btn btn-primary" ng-disabled="createGarageForm.$pristine">Opslaan</button>
             </div>
 
         </form>
