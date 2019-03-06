@@ -70,6 +70,7 @@ angular.module('openwheels.trip.dashboard', [])
             $scope.isApproved = true;
           } else {
             $scope.isApproved = false;
+            $scope.accountName = elm.lastName;
           }
         });
       } else {
