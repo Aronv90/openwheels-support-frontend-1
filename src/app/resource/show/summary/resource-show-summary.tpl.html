@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-md-4">
-    <h5><strong>Owner / Contact person</strong></h5>
+    <h5><strong>Contactgegevens</strong></h5>
     <table class="table table-condensed">
       <tbody>
         <tr>
-          <td>Owner</td>
+          <td>Eigenaar</td>
           <td><a ui-sref="root.person.show.summary({ personId: resource.owner.id })">{{ resource.owner | fullname }}</a></td>
         </tr>
         <tr>
-          <td>Contact person</td>
+          <td>Beheerder</td>
           <td><a ui-sref="root.person.show.summary({ personId: resource.contactPerson.id })">{{ resource.contactPerson | fullname }}</a></td>
         </tr>
         <tr>
@@ -16,7 +16,7 @@
           <td>{{ resource.providerId }}</td>
         </tr>
         <tr>
-          <td>Fleet</td>
+          <td>Vloot</td>
           <td>{{ resource.fleet.id }}</td>
         </tr>
       </tbody>
@@ -25,19 +25,19 @@
     <table class="table table-condensed" ng-if="resource.garage">
       <tbody>
         <tr>
-          <td>Name</td>
+          <td>Naam</td>
           <td>{{ resource.garage.name }}</td>
         </tr>
         <tr>
-          <td>Address</td>
+          <td>Adres</td>
           <td>{{ resource.garage.address }}</td>
         </tr>
         <tr>
-          <td>Email</td>
+          <td>E-mailadres</td>
           <td>{{ resource.garage.email }}</td>
         </tr>
         <tr>
-          <td>Phone</td>
+          <td>Telefoonnummer</td>
           <td>{{ resource.garage.number }}</td>
         </tr>
       </tbody>
@@ -45,31 +45,31 @@
   </div>
 
   <div class="col-md-4">
-  <h5><strong>Resource</strong></h5>
+  <h5><strong>Auto</strong></h5>
     <table class="table table-condensed">
       <tbody>
         <tr ng-class="{ 'text-danger': !resource.isActive }">
-          <td>Active</td>
-          <td>{{ resource.isActive }}</td>
+          <td>Beschikbaar</td>
+          <td>{{ resource.isActive ? 'Ja' : 'Nee' }}</td>
         </tr>
         <tr ng-class="{ 'text-danger': !resource.isAvailableOthers }">
-          <td>Avalability others</td>
-          <td>{{ resource.isAvailableOthers }}, confirmation {{ resource.isConfirmationRequiredOthers ? 'required' : 'not required' }}</td>
+          <td>Beschikbaar voor anderen</td>
+          <td>{{ resource.isAvailableOthers ? 'Ja' : 'Nee' }}, bevesting {{ resource.isConfirmationRequiredOthers ? 'nodig' : 'niet nodig' }}</td>
         </tr>
         <tr ng-class="{ 'text-danger': !resource.isAvailableFriends }">
-          <td>Avalability friends</td>
-            <td>{{ resource.isAvailableFriends }}, confirmation {{ resource.isConfirmationRequiredFriends ? 'required' : 'not required' }}</td>
+          <td>Beschikbaar voor vrienden</td>
+            <td>{{ resource.isAvailableFriends ? 'Ja' : 'Nee' }}, bevesting {{ resource.isConfirmationRequiredFriends ? 'nodig' : 'niet nodig' }}</td>
         </tr>
         <tr>
-          <td>Fuel card code</td>
+          <td>Tankcode</td>
           <td>{{ resource.fuelCardCode }}</td>
         </tr>
         <tr>
-          <td>Number of bookings</td>
+          <td>Aantal verhuringen</td>
           <td>{{ resource.numberOfBookings }}</td>
         </tr>
         <tr>
-          <td>Response accept</td>
+          <td>Acceptatiepercentage</td>
           <td>{{ resource.response_accept | percentage:0 }}</td>
         </tr>
       </tbody>
@@ -77,32 +77,32 @@
   </div>
 
   <div class="col-md-4">
-    <h5><strong>Price</strong></h5>
+    <h5><strong>Prijs</strong></h5>
     <table class="table table-condensed">
       <tbody>
         <tr>
-          <td>Day rate</td>
+          <td>Prijs per dag</td>
           <td>{{ resource.dayRateTotal | currency }}</td>
         </tr>
         <tr>
-          <td>Hour rate</td>
+          <td>Prijs per uur</td>
           <td>{{ resource.hourRate | currency }}</td>
         </tr>
         <tr>
-          <td>KM rate</td>
-          <td>{{ resource.kilometerRate | currency }} + {{ resource.fuelPerKilometer | currency }} (fuel)</td>
+          <td>Prijs per kilometer</td>
+          <td>{{ resource.kilometerRate | currency }} + {{ resource.fuelPerKilometer | currency }} (brandstof)</td>
         </tr>
         <tr>
-          <td>Insurance rate</td>
+          <td>Verzekeringspercentage</td>
           <td>{{ resource.insuranceRate | percentage:2 }}</td>
         </tr>
         <tr>
-          <td>KM free</td>
-          <td>{{ resource.kmFree }}</td>
+          <td>100 km vrij?</td>
+          <td>{{ resource.kmFree ? 'Ja' : 'Nee' }}</td>
         </tr>
          <tr>
-          <td>Refuel by renter</td>
-          <td>{{ resource.refuelByRenter }}</td>
+          <td>Zelf tanken?</td>
+          <td>{{ resource.refuelByRenter ? 'Ja' : 'Nee'}}</td>
         </tr>
       </tbody>
     </table>
@@ -112,30 +112,43 @@
 <br>
 
 <div class="alert alert-info" ng-hide="bookings.length > 0">
-  No bookings found in this timeframe
+  Geen ritten gevonden.
 </div>
 <table class="table table-hover" ng-show="bookings.length > 0">
   <thead>
-  <tr>
-    <th>Trip</th>
-    <th>Begin booking</th>
-    <th>End booking</th>
-    <th>Begin trip</th>
-    <th>Begin requested</th>
-    <th>Person</th>
-  </tr>
+    <tr>
+      <th>Ritnummer</th>
+      <th>Status</th>
+      <th colspan="2">Tijdframe</th>
+      <th>Begin trip</th>
+      <th ng-if="!$state.includes('root.resource')">Auto</th>
+      <th ng-if="!$state.includes('root.person')">Persoon</th>
+      <th ng-if="!$state.includes('root.person')">E-mail</th>
+      <th>Betaald</th>
+    </tr>
   </thead>
   <tbody>
-  <tr ng-repeat="booking in bookings | orderBy:'beginBooking':true">
-    <td><a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a></td>
-    <td>{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td>{{ booking.endBooking | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td>{{ booking.trip.begin | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td>{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
-    <td><a ui-sref="root.person.show.summary({ personId: booking.person.id })">{{ booking.person | fullname }}</a></td>
-    <td>
-      <span class="text-success" ng-if="booking.trip.finalized">finalized</span>
-    </td>
-  </tr>
+    <tr 
+      ng-class="{
+        danger: ['cancelled', 'owner_cancelled'].indexOf(booking.status) >= 0, 
+        warning: booking.status === 'rejected', 
+        success: booking.beginBooking < now && booking.endBooking > now
+      }" 
+      ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']"
+    >
+      <td><a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a></td>
+      <td>{{ booking.status }}</td>
+      <td colspan="2">
+        <booking-date ng-if="booking.beginBooking" booking="booking"></booking-date>
+        <booking-date ng-if="booking.beginRequested && !booking.beginBooking" booking="booking" type="requested"></booking-date>
+      </td>
+      <td>{{ booking.trip.begin | amDateFormat:'DD-MM HH:mm' }}</td>
+      <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.trip({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
+      <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
+      <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
+      <td>
+        <span>{{ booking.approved }}</span>
+      </td>
+    </tr>
   </tbody>
 </table>
