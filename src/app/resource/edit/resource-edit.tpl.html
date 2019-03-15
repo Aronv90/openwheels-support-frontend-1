@@ -346,7 +346,7 @@
 <h3>Locatie van de auto</h3>
 
 <div class="form-group">
-    <label for="zipcode">Postcode en huisnummer</label>
+    <label for="zipcode">Zoek een locatie op met postcode & huisnummer</label>
     <div class="row">
       <div class="col-xs-3">
         <input type="text" id="zipcode" class="form-control" ng-model="zipcode" placeholder="Postcode">
@@ -368,6 +368,8 @@
 <div ng-if="lookupError" class="text-danger">
     <p>Foutmelding: {{lookupError}}</p>
 </div>
+
+<hr>
 
 <div class="form-group">
     <label for="streetName">Straatnaam</label>

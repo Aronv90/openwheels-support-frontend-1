@@ -152,11 +152,12 @@ angular.module('openwheels.resource.edit', [])
         var item = data && data.length && data[0];
         if (item) {
           result = {
-            location   : item.street,
-            zipcode    : item.nl_sixpp,
-            city       : item.city,
-            latitude   : item.lat,
-            longitude  : item.lng
+            location        : item.street,
+            streetNumber    : $scope.streetNumber,
+            zipcode         : item.nl_sixpp,
+            city            : item.city,
+            latitude        : item.lat,
+            longitude       : item.lng
           };
         }
       })
