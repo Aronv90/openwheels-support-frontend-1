@@ -27,7 +27,7 @@ angular.module('openwheels.resource.create', [])
         'owner': resource.owner.id,
         'registrationPlate': resource.registrationPlate
       }).then(function (resource) {
-          alertService.add('success', 'Resource Created', 3000);
+          alertService.add('success', 'Auto toegevoegd', 3000);
           $state.go('^.show.edit', {'resourceId': resource.id});
         }, function (error) {
           console.log(error);
