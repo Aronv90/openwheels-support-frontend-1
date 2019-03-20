@@ -44,6 +44,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.now = moment().format('YYYY-MM-DD HH:mm');
   $scope.helyUser = $scope.booking.person.email.slice(-9) === '@hely.com';
   $scope.automaticGear = $scope.booking.resource.properties.map(function(o) { return o.id;}).indexOf('automaat') ? false : true;
+  $scope.isApproved = false;
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
@@ -66,15 +67,14 @@ angular.module('openwheels.trip.dashboard', [])
 
       if($scope.accounts.length > 0) {
         accounts.every(function (elm) {
+          $scope.accountName = elm.lastName;
           if (elm.approved === true) {
             $scope.isApproved = true;
+            return false;
           } else {
-            $scope.isApproved = false;
-            $scope.accountName = elm.lastName;
+            return true;
           }
         });
-      } else {
-        $scope.isApproved = undefined;
       }
     })
     .catch(function (e) {
