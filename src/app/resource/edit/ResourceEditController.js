@@ -14,7 +14,7 @@ angular.module('openwheels.resource.edit', [])
     var masterResource = resource;
     var masterResourceProperties = createResourceProperties(resource);
 
-    if($scope.resource.owner.id === $scope.resource.contactPerson.id) {
+    if($scope.resource.contactPerson && $scope.resource.owner.id === $scope.resource.contactPerson.id) {
       $scope.resource.contactPerson = null;
     }
     if(!$scope.resource.garage.id) {
@@ -193,7 +193,7 @@ angular.module('openwheels.resource.edit', [])
         }
       })
       .then(function (resource) {
-        alertService.add('success', 'resource edited', 3000);
+        alertService.add('success', 'Auto gewijzigd', 3000);
         masterResourceProperties = $scope.resourceProperties;
         masterResource = resource;
         $scope.cancel();

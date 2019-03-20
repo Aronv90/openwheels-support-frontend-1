@@ -14,7 +14,7 @@
       <div class="media-body">
         <div>
           <a ui-sref="root.resource.show.summary({resourceId: r.id })">{{ r.alias }}</a>
-          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }"> {{ r.isActive ? 'Active' : 'Inactive' }}</span>
+          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }"> {{ r.isActive ? 'Actief' : 'INactief' }}</span>
         </div>
         <div>{{ r.brand }} {{ r.model }}</div>
         <div><i class="fa fa-map-marker fa-fw"></i> {{ r.location }} {{ r.streetNumber }}, {{ r.city }}</div>
@@ -33,13 +33,13 @@
 
 <hr>
 
-  <h4>Member of resources</h4>
+  <h4>Vrienden van de auto</h4>
 <ul class="list-unstyled list-block">
   <li ng-repeat="r in resourceMembers">
     <div class="media">
 
       <a class="pull-left" ui-sref="root.resource.show.summary({resourceId: r.id })">
-        <img class="media-object img-square" ng-src="{{ r.pictures[0] | resourceAvatar:'small' }}" alt="Resource">
+        <img class="media-object img-square" ng-src="{{ r.pictures[0] | resourceAvatar:'small' }}" alt="Auto">
       </a>
 
       <div class="pull-left">
@@ -49,7 +49,7 @@
       <div class="media-body">
         <div>
           <a ui-sref="root.resource.show.summary({resourceId: r.id })">{{ r.alias }}</a>
-          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }"> {{ r.isActive ? 'Active' : 'Inactive' }}</span>
+          <span class="text-muted">{{ r.registrationPlate }}</span><span ng-class="{ 'text-success': r.isActive, 'text-warning': !r.isActive }"> {{ r.isActive ? 'Actief' : 'Inactief' }}</span>
         </div>
         <div>{{ r.brand }} {{ r.model }}</div>
         <div><i class="fa fa-map-marker fa-fw"></i> {{ r.location }} {{ r.streetNumber }}, {{ r.city }}</div>

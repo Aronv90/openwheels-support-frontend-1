@@ -6,7 +6,7 @@ angular.module('openwheels.resource.show.summary', [])
 	$scope.resource = resource;
 	$scope.bookings = bookings;
 
-	if($scope.resource.owner.id === $scope.resource.contactPerson.id) {
+	if($scope.resource.contactPerson && $scope.resource.owner.id === $scope.resource.contactPerson.id) {
 	  $scope.resource.contactPerson = null;
 	}
 });
