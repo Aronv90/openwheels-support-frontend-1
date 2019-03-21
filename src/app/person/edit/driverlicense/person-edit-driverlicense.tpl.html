@@ -42,7 +42,9 @@
       </tr>
       <tr>
         <th>Voorkeur</th>
-        <td>{{person.preference}}</td>
+        <td ng-if="person.preference === 'both'">Huren & verhuren</td>
+        <td ng-if="person.preference === 'renter'">Huren</td>
+        <td ng-if="person.preference === 'owner'">Verhuren</td>
       </tr>
       <tr>
         <th>Facebook</th>

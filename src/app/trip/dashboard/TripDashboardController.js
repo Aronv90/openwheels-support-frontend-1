@@ -787,8 +787,8 @@ angular.module('openwheels.trip.dashboard', [])
         });
     } else {
       var confirm = $mdDialog.confirm()
-      .title('Rit inkorten')
-      .textContent('Weet je zeker dat je deze rit wil inkorten?')
+      .title('Rit inkorten / beëindigen')
+      .textContent('Weet je zeker dat je deze rit wil inkorten / beëindigen?')
       .ok('Ja')
       .cancel('Nee');
 

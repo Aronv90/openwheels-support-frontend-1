@@ -2,29 +2,29 @@
   <div class="row">
     <div class="col-sm-6">
       <div class="form-group">
-        <label for="accountName">Account name</label>
-        <input type="text" id="accountName" name="accountName" class="form-control" ng-model="account.name" placeholder="Name for bank account">
+        <label for="accountName">Tenaamstelling</label>
+        <input type="text" id="accountName" name="accountName" class="form-control" ng-model="account.name" placeholder="Tenaamstelling van het IBAN-nummer">
       </div>
 
       <div class="form-group">
-        <label for="accountName">Account adres</label>
-        <input type="text" id="accountAadres" name="accountAdres" class="form-control" ng-model="account.adres" placeholder="Adres for bank account">
+        <label for="accountName">Adres</label>
+        <input type="text" id="accountAadres" name="accountAdres" class="form-control" ng-model="account.adres" placeholder="Adres">
       </div>
 
       <div class="form-group">
-        <label for="iban">Iban account</label>
-        <input type="text" id="iban" name="iban" class="form-control" ng-model="account.iban" placeholder="Iban number" null-if-empty>
+        <label for="iban">IBAN-nummer</label>
+        <input type="text" id="iban" name="iban" class="form-control" ng-model="account.iban" placeholder="IBAN-nummer" null-if-empty>
       </div>
 
       <div class="form-group">
-        <label for="accountName">Factuuradres</label>
+        <label for="accountName">Facturatie e-mailadres</label>
         <input type="text" id="invoiceAddress" name="invoiceAddress" class="form-control" ng-model="account.invoiceAddress" placeholder="Naar welk emailadres moet de factuur?">
       </div>
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <label for="credit">Credit</label>
         <input type="text" smart-float id="credit" name="credit" class="form-control" ng-model="account.credit" placeholder="Credit">
-      </div>
+      </div> -->
     </div>
     <div class="col-sm-6">
 
@@ -36,19 +36,19 @@
         </div>
       </div> -->
 
-      <div ng-click="toggleVerified(person)" style="cursor:pointer;">
+      <!-- <div ng-click="toggleVerified(person)" style="cursor:pointer;">
         <h2 ng-if="person.bankCheck">
           <i class="fa fa-check"></i> Verified
         </h2>
         <h2 ng-if="!person.bankCheck">
           <i class="fa fa-times"></i> Not verified
         </h2>
-      </div>
+      </div> -->
 
       <div class="form-group">
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="account.machtiging"> Wil incasso
+            <input type="checkbox" ng-model="account.machtiging"> Wil automatische incasso
           </label>
           <span ng-if="account.datumMachtiging" class="help-block">gemachtigd op: {{ account.datumMachtiging | amDateFormat: 'DD-MM-YYYY' }}</span>
         </div>
@@ -57,7 +57,7 @@
       <div class="form-group">
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-model="account.mail"> Factuur per post
+            <input type="checkbox" ng-model="account.mail"> Wil factuur per post
           </label>
         </div>
       </div>
@@ -68,8 +68,8 @@
 
 
   <div class="form-group">
-    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Cancel</button>
-    <button  ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+    <button ng-click="cancel()" ng-disabled="isCancelDisabled()" class="btn">Annuleer</button>
+    <button  ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Opslaan</button>
   </div>
 
 </form>

@@ -10,7 +10,7 @@ angular.module('openwheels.person.edit.data.settings', [])
       {label: 'New', value: 'new'},
       {label: 'Active', value: 'active'},
       {label: 'Blocked', value: 'blocked'},
-      {label: 'Unsubscribed', value: 'unsubscribed'},
+      {label: 'Uitgeschreven', value: 'unsubscribed'},
       {label: 'Book only', value: 'book-only'}
     ];
 
@@ -21,28 +21,28 @@ angular.module('openwheels.person.edit.data.settings', [])
     ];
 
     $scope.visibilityOptions = [
-      {label: 'Public', value: 'public'},
-      {label: 'Rental relations', value: 'rentalrelation_only'},
-      {label: 'Members', value: 'members'},
-      {label: 'None', value: 'none'}
+      {label: 'Openbaar', value: 'public'},
+      {label: 'Mijn huurders/verhuurders', value: 'rentalrelation_only'},
+      {label: 'Alleen leden', value: 'members'},
+      {label: 'Niet', value: 'none'}
     ];
 
     $scope.driverLicenseStatusOptions = [
       {label: 'Niet gecontroleerd', value: 'unchecked'},
-      {label: 'Ok', value: 'ok'},
-      {label: 'Niet ok', value: 'nok'}
+      {label: 'Rijbewijs goedgekeurd', value: 'ok'},
+      {label: 'Rijbewijs niet goedgekeurd', value: 'nok'}
     ];
 
     $scope.preferenceOptions = [
-      {label: 'Renter', value: 'renter'},
-      {label: 'Owner', value: 'owner'},
-      {label: 'Renter & Owner', value: 'both'}
+      {label: 'Huren', value: 'renter'},
+      {label: 'Verhuren', value: 'owner'},
+      {label: 'Huren & verhuren', value: 'both'}
     ];
 
     $scope.emailPreferenceOptions = [
-      {label: 'All', value: 'all'},
-      {label: 'Some', value: 'some'},
-      {label: 'Minimum', value: 'min'}
+      {label: 'Alle', value: 'all'},
+      {label: 'Enkele', value: 'some'},
+      {label: 'Minimaal', value: 'min'}
     ];
 
     $scope.$watch('person.isCompany', function (newValue) {
@@ -53,10 +53,10 @@ angular.module('openwheels.person.edit.data.settings', [])
 
     $scope.enable2Step = function enable2Step() {
       dialogService.showModal({}, {
-        closeButtonText: 'Cancel',
-        actionButtonText: 'OK',
-        headerText: 'Are you sure?',
-        bodyText: 'Do you really want to enable 2 step verification for ' + $filter('fullname')($scope.person) + ' (' + $scope.person.email + ')?'
+        closeButtonText: 'Nee',
+        actionButtonText: 'Ja',
+        headerText: 'Weet je het zeker?',
+        bodyText: 'Wil je tweestaps verificatie activeren voor ' + $filter('fullname')($scope.person) + ' (' + $scope.person.email + ')?'
       })
       .then(function(){
         personService.enableGoogle2steps({person: person.id});
@@ -92,11 +92,11 @@ angular.module('openwheels.person.edit.data.settings', [])
       .then(function (returnedPerson) {
         angular.extend(person, returnedPerson);
         masterPerson = returnedPerson;
-        alertService.add('success', 'Person Modified.', 2000);
+        alertService.add('success', 'Persoon gewijzigd.', 2000);
         $scope.cancel();
       },
       function (error) {
-        alertService.add('danger', 'Edit Person failed: ' + error.message, 5000);
+        alertService.add('danger', 'Foutmelding bij het wijzigen: ' + error.message, 5000);
         $scope.cancel();
       });
     };

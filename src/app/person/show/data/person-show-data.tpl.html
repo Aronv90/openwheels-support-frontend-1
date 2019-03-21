@@ -1,21 +1,21 @@
 <ul class="nav nav-pills">
     <li ng-class="{ active: $state.includes('root.person.show.data.personal') }">
-        <a ui-sref="root.person.show.data.personal({ personId: person.id })">Personal</a>
+        <a ui-sref="root.person.show.data.personal({ personId: person.id })">Persoonsgegevens</a>
     </li>
     <li ng-class="{ active: $state.includes('root.person.show.data.contact') }">
-        <a ui-sref="root.person.show.data.contact({ personId: person.id })">Contact</a>
+        <a ui-sref="root.person.show.data.contact({ personId: person.id })">Contactgegevens</a>
     </li>
     <li ng-class="{ active: $state.includes('root.person.show.data.settings') }">
-        <a ui-sref="root.person.show.data.settings({ personId: person.id })">Settings</a>
+        <a ui-sref="root.person.show.data.settings({ personId: person.id })">Profiel</a>
     </li>
     <li ng-class="{ active: $state.includes('root.person.show.data.phonenumbers') }">
-        <a ui-sref="root.person.show.data.phonenumbers({ personId: person.id })">Phones</a>
+        <a ui-sref="root.person.show.data.phonenumbers({ personId: person.id })">Telefoonnummers</a>
     </li>
     <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.account') }">
-        <a ui-sref="root.person.show.data.account({ personId: person.id })">Account</a>
+        <a ui-sref="root.person.show.data.account({ personId: person.id })">IBAN-nummers</a>
     </li>
     <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.driverlicense') }">
-      <a ui-sref="root.person.show.data.driverlicense({ personId: person.id })">Driver License</a>
+      <a ui-sref="root.person.show.data.driverlicense({ personId: person.id })">Rijbewijsgegevens</a>
     </li>
     <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.rentalcheck') }">
       <a ui-sref="root.person.show.data.rentalcheck({ personId: person.id })">Rental Check</a>
