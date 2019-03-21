@@ -18,7 +18,7 @@ angular.module('openwheels.person.edit.data.account', [])
     }).then(function () {
         masterAccount = $scope.account;
         $scope.cancel();
-        alertService.add('success', 'Account gewijzigd', 2000);
+        alertService.add('success', 'IBAN-gegevens gewijzigd', 2000);
       }, function(error) {
         alertService.add('danger', error.message, 5000);
       });

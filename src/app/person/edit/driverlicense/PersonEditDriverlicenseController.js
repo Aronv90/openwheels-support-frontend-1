@@ -128,15 +128,15 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
           parseDate();
           $scope.form.$setPristine();
 
-          var msg = returnedPerson.driverLicenseStatus === 'ok' ? 'Driver license approved' : 'Driver license dismissed';
+          var msg = returnedPerson.driverLicenseStatus === 'ok' ? 'Rijbewijs goedgekeurd' : 'Rijbewijs niet goedgekeurd';
           if ('blocked' === returnedPerson.status){
-            msg += ' and person blocked';
+            msg += ' en persoon geblokkeerd';
           }
           alertService.add('success', msg, 2000);
         },
         function (error) {
           var msg = error ? error.message : '';
-          alertService.add('danger', 'Moderating license failed: ' + msg, 4000);
+          alertService.add('danger', 'Het wijzigen van het rijbewijs is mislukt: ' + msg, 4000);
       });
     };
 
@@ -202,10 +202,10 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
         angular.extend(person, returnedPerson);
         parseDate();
         $scope.form.$setPristine();
-        alertService.add('success', 'Driver license data saved', 3000);
+        alertService.add('success', 'Rijbewijsgegevens opgeslagen.', 3000);
       })
       .catch(function (err) {
-        alertService.add('danger', 'Error saving driver license data', 4000);
+        alertService.add('danger', 'Foutmelding bij het opslaan van de rijbewijsgegevens: ', 4000);
       })
       .finally(function () {
         alertService.loaded();

@@ -2,10 +2,10 @@
     <thead>
         <tr>
             <td></td>
-            <th class="text-right">Order</th>
-            <th>Number</th>
+            <th>Volgorde</th>
+            <th>Telefoonnummer</th>
             <th>Type</th>
-            <th>Verified</th>
+            <th>Geverifieerd</th>
             <th><i class="fa fa-eye"></i></th>
         </tr>
     </thead>
@@ -18,9 +18,9 @@
             <td class="text-right">{{ phone.sortOrder }}</td>
             <td>{{ phone.number }}</td>
             <td>{{ phone.type }}</td>
-            <td>{{ phone.verified ? 'Yes' : 'No' }}</td>
+            <td>{{ phone.verified ? 'Ja' : 'Nee' }}</td>
             <td><i ng-class="{ 'fa fa-eye': !phone.confidential, 'fa fa-eye-slash': phone.confidential }"></i></td>
         </tr>
     </tbody>
 </table>
-<button ng-click="addPhone()" class="btn">Add phone number</button>
+<button ng-click="addPhone()" class="btn">Voeg telefoonnummer toe</button>

@@ -22,8 +22,8 @@ angular.module('openwheels.person.edit.data.personal', [])
   };
 
   $scope.genderOptions = [
-    {label: 'Male', value: true},
-    {label: 'Female', value: false}
+    {label: 'Man', value: true},
+    {label: 'Vrouw', value: false}
   ];
 
   $scope.cancel = function () {
@@ -35,7 +35,7 @@ angular.module('openwheels.person.edit.data.personal', [])
       id: masterPerson.id,
       newProps: difference(masterPerson, $scope.person)
     }).then(function (person) {
-        alertService.add('success', 'Person edited', 3000);
+        alertService.add('success', 'Persoon gewijzigd', 3000);
         masterPerson = person;
         angular.extend(person, masterPerson);
         $scope.cancel();

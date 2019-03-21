@@ -9,9 +9,9 @@
         <thead>
           <tr>
             <th></th>
-            <th>Report type</th>
-            <th>Date generated</th>
-            <th colspan="2">View on www.rentalcheck.nl</th>
+            <th>Rapporttype</th>
+            <th>Aanvraagdatum</th>
+            <th colspan="2">Bekijk op www.rentalcheck.nl</th>
             <th></th>
           </tr>
         </thead>
@@ -22,43 +22,43 @@
               </td>
               <td>
                 {{ check.type }}
-                <span ng-show="check.includeDocumentCheck"> + document check</span>
+                <span ng-show="check.includeDocumentCheck"> + rijbewijscontrole</span>
               </td>
               <td>{{ check.checkDate }}</td>
             <td class="text-right">
-              <button class="btn btn-default btn-xs"ng-click="delete(check)">Delete</button>
+              <button class="btn btn-default btn-xs"ng-click="delete(check)">Verwijder</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <button type="button" class="btn btn-default" ng-click="showCreate()">Perform a new Rental Check</button>
+    <button type="button" class="btn btn-default" ng-click="showCreate()">Nieuwe RentalCheck uitvoeren</button>
   </div>
 
   <!-- create -->
 
   <div ng-show="activeSection==='create'">
-    <h4>Perform a new Rental Check</h4>
+    <h4>Nieuwe RentalCheck uitvoeren</h4>
     <form name="form">
       <div class="form-group">
         <select class="form-control" required ng-model="checkRequest.type">
-          <option value="">- Select a report type --</option>
-          <option value="basic_plus">Basic Plus (free)</option>
-          <option value="standard">Standard (€ 1,50)</option>
-          <option value="extended">Extended (€ 2,25)</option>
+          <option value="">- Selecteer rapporttype --</option>
+          <option value="basic_plus">Basis (free)</option>
+          <option value="standard">Standaard (€ 1,50)</option>
+          <option value="extended">Uitgebreid (€ 2,24)</option>
         </select>
       </div>
       <div class="form-group">
         <div class="checkbox">
           <label>
             <input type="checkbox" ng-model="checkRequest.includeDocumentCheck" />
-            Include document check
+            Inclusief rijbewijscontrole
           </label>
         </div>
       </div>
       <div class="form-group">
-        <button type="button" class="btn btn-default" ng-click="showList()">Cancel</button>
-        <button type="button" class="btn btn-primary" ng-disabled="!form.$valid" ng-click="performCheck()">Send request</button>
+        <button type="button" class="btn btn-default" ng-click="showList()">Annuleer</button>
+        <button type="button" class="btn btn-primary" ng-disabled="!form.$valid" ng-click="performCheck()">Verzoek versturen</button>
       </div>
     </form>
   </div>
