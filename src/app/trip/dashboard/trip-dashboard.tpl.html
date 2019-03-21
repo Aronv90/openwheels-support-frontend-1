@@ -790,7 +790,7 @@
     </a>
     <li ng-click="changeEndTime()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verlengen</span></li>
     <li ng-click="changeBeginTime()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.beginBooking > now"><span tooltip-placement="right" uib-tooltip="Vervroeg deze rit">Vervroegen</span></li>
-    <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.endBooking > now && booking.beginBooking < now"><span tooltip-placement="right" uib-tooltip="Rit inkorten">Inkorten</span></li>
+    <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.endBooking > now && booking.beginBooking < now"><span tooltip-placement="right" uib-tooltip="Rit inkorten" style="padding-top:3px; line-height:1;">Inkorten / Beëindigen</span></li>
 
     <li ng-click="accept()" ng-if="booking.status === 'requested' || booking.beginRequested" ng-hide="hideMain" class="quickaction__item--trip">
       <span tooltip-placement="right" uib-tooltip="Rit accepteren">Accepteren</span>
