@@ -12,7 +12,7 @@
         <a ui-sref="root.person.show.data.phonenumbers({ personId: person.id })">Telefoonnummers</a>
     </li>
     <li show-if-user-has-role="ROLE_PROVIDER_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.account') }">
-        <a ui-sref="root.person.show.data.account({ personId: person.id })">IBAN-nummers</a>
+        <a ui-sref="root.person.show.data.account({ personId: person.id })">IBAN-nummer</a>
     </li>
     <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.data.driverlicense') }">
       <a ui-sref="root.person.show.data.driverlicense({ personId: person.id })">Rijbewijsgegevens</a>
