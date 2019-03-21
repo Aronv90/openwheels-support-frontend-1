@@ -53,7 +53,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="person in persons | orderBy:'id'" ui-sref="root.person.show.summary({personId: person.id})" style="cursor:pointer">
-                  <td>{{ person.providerId }}</td>
+                  <td>{{ person.provider.id }}</td>
                   <td>{{ person.id }}</td>
                   <td>{{ person.status }}</td>
                   <td>{{ person.firstName }} {{ person.preposition }} {{ person.surname }}</td>
