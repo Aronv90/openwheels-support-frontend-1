@@ -103,7 +103,7 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="allowedArea">Toegestaand gebied</label>
+            <label for="allowedArea">Toegestaan gebied</label>
             <select id="allowedArea" name="allowedArea" class="form-control" ng-model="resource.allowedArea" null-if-empty
                   ng-options="o.value as o.label for o in allowedAreaOptions">
             </select>
@@ -161,7 +161,7 @@
   </div>
   <div class="col-md-6">
     <div class="form-group">
-        <label for="resourceType">Resource type</label>
+        <label for="resourceType">Type auto</label>
         <select id="resourceType" class="form-control" ng-model="resource.resourceType"
                 ng-options="o.value as o.label for o in resourceTypeOptions"></select>
     </div>
@@ -171,9 +171,9 @@
 <hr>
 
 <div class="form-group">
-    <label for="advertisement">Advertentie</label>
+    <label for="advertisement">Advertentietekst</label>
     <textarea id="advertisement" rows="6" class="form-control" ng-model="resource.advertisement"
-              placeholder="Advertentie"></textarea>
+              placeholder="Advertentietekst"></textarea>
 </div>
 
 <div class="form-group">
