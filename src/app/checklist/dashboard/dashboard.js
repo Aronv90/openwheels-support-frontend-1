@@ -16,11 +16,12 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
       var list = result[0];
       var data = $scope.chartData.data = new window.google.visualization.DataTable();
       data.addColumn('string', 'week');
-      data.addColumn('number', 'own cars');
-      data.addColumn('number', 'peer2peer cars');
+      data.addColumn('number', 'MyWheels auto\'s');
+      data.addColumn('number', 'Overige auto\'s');
+      data.addColumn('number', 'Alle auto\'s');
 
       list.forEach(function(item) {
-        data.addRow([item['weekNr'], parseInt(item['rittenEigenAutos']), parseInt(item['rittenP2pAutosS'])]);
+        data.addRow([item['weekNr'], parseInt(item['rittenEigenAutos']), parseInt(item['rittenP2pAutosS']), parseInt(item['rittenEigenAutos'] + item['rittenP2pAutosS'])]);
       });
     },
     /*resolveDot = function (row, resolveto) {
@@ -40,16 +41,17 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
   $scope.queries = queries;
     
   $scope.chartData = {
-    'type': 'AreaChart',
+    'type': 'ColumnChart',
     'displayed': true,
     'options': {
-      'title': 'Trips per week',
-      'isStacked': 'true',
+      'title': 'Ritten per week',
+      'isStacked': 'false',
+      'showRowNumber': true,
       'displayExactValues': true,
       'vAxis': {
-        'title': 'Trips',
+        'title': 'Aantal ritten',
         'gridlines': {
-          'count': 5
+          'count': 7
         }
       },
       'hAxis': {
