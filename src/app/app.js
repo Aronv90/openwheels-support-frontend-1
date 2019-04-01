@@ -209,8 +209,6 @@ angular.module('openwheels', [
     $rootScope.previousStateParams = fromParams;
     alertService.loaded();
 
-    console.log(toParams);
-
     $rootScope.showNavigationOnDashboard = $state.current.name === 'ow-dashboard' && toParams.showNavigation === 'false' ? true : false;
 
   });
