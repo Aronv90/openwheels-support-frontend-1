@@ -26,7 +26,7 @@ angular.module('openwheels.checklist', [
 		 */
 		$stateProvider.state('ow-dashboard', {
 	      parent: 'root.checklist',
-	      url: '/dashboard',
+	      url: '/dashboard?showNavigation',
 	      controller: 'DashboardController',
 	      templateUrl: 'checklist/dashboard/dashboard.tpl.html',
 	      data: {pageTitle: 'Dashboard'},
