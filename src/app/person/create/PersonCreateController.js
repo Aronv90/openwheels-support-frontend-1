@@ -26,7 +26,7 @@ angular.module('openwheels.person.create', [])
     $scope.save = function (newPerson) {
       personService.subscribe({email: newPerson.email, password: newPerson.password})
         .then(function (returnedPerson) {
-          alertService.add('success', 'Person created successfully', 2000);
+          alertService.add('success', 'Pesoon succesvol aangemaakt', 2000);
           $state.go('root.person.show.data.personal', {
             personId: returnedPerson.id
           });
