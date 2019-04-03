@@ -1,14 +1,16 @@
 <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="close()">&times;</button>
-      <h4 class="modal-title" ng-hide="badge.created">Snooze record</h4>
+      <h4 class="modal-title" ng-hide="badge.created">Snooze melding</h4>
     </div>
     <div class="modal-body">
-        <div class="btn-group-vertical" role="group" aria-label="...">
-            <button ng-if="isMorning" type="button" class="btn btn-default" ng-click="snooze('12:00')">afternoon</button>
-            <button type="button" class="btn btn-default" ng-click="snooze('next day 8:00')">tomorow</button>
-            <button type="button" class="btn btn-default" ng-click="snooze('next monday 8:00')">next week</button>
-            <button type="button" class="btn btn-default" ng-click="close()">cancel</button>
+        <div class="btn-group-horizontal" role="group" aria-label="...">
+            <button ng-if="isMorning" type="button" class="btn btn-default" ng-click="snooze('12:00')" style="margin-bottom: 10px;">Vandaag 12.00 uur</button>
+            <button type="button" class="btn btn-default" ng-click="snooze('next day 8:00')" style="margin-bottom: 10px;">Morgen 08.00 uur</button>
+            <button type="button" class="btn btn-default" ng-click="snooze('next day 12:00')" style="margin-bottom: 10px;">Morgen 12.00 uur</button>
+            <button type="button" class="btn btn-default" ng-click="snooze('next donderdag 8:00')" style="margin-bottom: 10px;">Donderdag 08.00 uur</button>
+            <button type="button" class="btn btn-default" ng-click="snooze('next monday 8:00')" style="margin-bottom: 10px;">Maandag 08.00 uur</button>
+            <button type="button" class="btn btn-default" ng-click="close()" style="margin-bottom: 10px;">Annuleer</button>
         </div>
     </div>
 </div>
