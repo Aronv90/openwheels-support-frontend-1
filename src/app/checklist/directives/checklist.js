@@ -51,7 +51,7 @@ angular.module('openwheels.checklist.directive', [])
   };
 })
 .controller('SnoozablechecklistController', function ($scope, $log, storedqueryService, $uibModal, $interval,
-  resolveMutingQuery, $state) {
+  resolveMutingQuery, $state, $window) {
 
   var doUpdate = function () {
       $log.debug('timer gone off, querieng');
@@ -125,22 +125,22 @@ angular.module('openwheels.checklist.directive', [])
   $scope.execute = function(obj) {
     if(obj.link === 'person') {
       $log.debug('linking to person '  + obj.value);
-      $state.go('root.person.show.summary', {personId: obj.value});
+      $window.open($state.href('root.person.show.summary', {personId: obj.value}, {absolute: true}), '_blank');
       return;
     }
     if(obj.link === 'personInvs') {
       $log.debug('linking to person invoises '  + obj.value);
-      $state.go('root.person.show.invoiceGroupV2.list', {personId: obj.value});
+      $window.open($state.href('root.person.show.invoiceGroupV2.list', {personId: obj.value}, {absolute: true}), '_blank');
       return;
     }
     if(obj.link === 'booking') {
       $log.debug('linking to booking '  + obj.value);
-      $state.go('root.trip.dashboard', {tripId: obj.value});
+      $window.open($state.href('root.trip.dashboard', {tripId: obj.value}, {absolute: true}), '_blank');
       return;
     }
     if(obj.link === 'resource') {
       $log.debug('linking to resource '  + obj.value);
-      $state.go('root.resource.show.summary', {resourceId: obj.value});
+      $window.open($state.href('root.resource.show.summary', {resourceId: obj.value}, {absolute: true}), '_blank');
       return;
     }
   };
