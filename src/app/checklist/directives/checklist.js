@@ -125,22 +125,22 @@ angular.module('openwheels.checklist.directive', [])
   $scope.execute = function(obj) {
     if(obj.link === 'person') {
       $log.debug('linking to person '  + obj.value);
-      $window.open($state.href('root.person.show.summary', {personId: obj.value}, {absolute: true}), '_blank');
+      $window.open($state.href('root.person.show.summary', {personId: obj.value}), '_blank');
       return;
     }
     if(obj.link === 'personInvs') {
       $log.debug('linking to person invoises '  + obj.value);
-      $window.open($state.href('root.person.show.invoiceGroupV2.list', {personId: obj.value}, {absolute: true}), '_blank');
+      $window.open($state.href('root.person.show.invoiceGroupV2.list', {personId: obj.value}), '_blank');
       return;
     }
     if(obj.link === 'booking') {
       $log.debug('linking to booking '  + obj.value);
-      $window.open($state.href('root.trip.dashboard', {tripId: obj.value}, {absolute: true}), '_blank');
+      $window.open($state.href('root.trip.dashboard', {tripId: obj.value}), '_blank');
       return;
     }
     if(obj.link === 'resource') {
       $log.debug('linking to resource '  + obj.value);
-      $window.open($state.href('root.resource.show.summary', {resourceId: obj.value}, {absolute: true}), '_blank');
+      $window.open($state.href('root.resource.show.summary', {resourceId: obj.value}), '_blank');
       return;
     }
   };
