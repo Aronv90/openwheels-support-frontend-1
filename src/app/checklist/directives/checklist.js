@@ -20,7 +20,7 @@ angular.module('openwheels.checklist.directive', [])
       }
       return row;
     };
-  return function (query, limit, offset = 0) {
+  return function (query, limit, offset) {
     var data = storedqueryService.unmuted({
         storedquery: query.query.id,
         limit: limit,
@@ -55,7 +55,7 @@ angular.module('openwheels.checklist.directive', [])
 
   var doUpdate = function () {
       $log.debug('timer gone off, querieng');
-      resolveMutingQuery($scope.query, $scope.limit)
+      resolveMutingQuery($scope.query, $scope.limit, 0)
       .then(function(result) {
         $scope.refreshing = false;
         $scope.result = result;
@@ -68,7 +68,7 @@ angular.module('openwheels.checklist.directive', [])
     doUpdate();
   };
 
-  $scope.loadMore = function(offset = 0) {
+  $scope.loadMore = function(offset) {
     resolveMutingQuery($scope.query, $scope.limit, offset)
     .then(function(result) {
       $scope.result.result = $scope.result.result.concat(result.result);
