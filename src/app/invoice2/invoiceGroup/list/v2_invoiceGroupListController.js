@@ -74,7 +74,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   };
 
   $scope.createSenderGroup = function(userId) {
-    alertService.load($scope, 'Bundeling invoices');
+    alertService.load($scope, 'Factuuregels worden gegroepeerd.');
     invoice2Service.createSenderInvoiceGroup({ person: $stateParams.personId })
     .then(function (invoiceGroup) {
       if(invoiceGroup !== null) {
@@ -156,7 +156,7 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
   
   // bundle alle ontvangen invoice lines tot een invoiceGroup
   $scope.createRecipientGroup = function (user) {
-    alertService.load($scope, 'Bundeling invoices');
+    alertService.load($scope, 'Factuuregels worden gegroepeerd.');
     invoice2Service.createRecipientInvoiceGroup({person: user, positiveOnly: false})
     .then(function (invoiceGroup) {
       if(invoiceGroup !== null) {
@@ -191,9 +191,9 @@ angular.module('openwheels.invoice2.invoiceGroup.list', [])
 
   $scope.statusOptions = [
     {label: '', value: '' },
-    {label: 'Unpaid', value: 'unpaid'},
-    {label: 'Paid', value: 'paid'},
-    {label: 'Both', value: 'both'}
+    {label: 'Niet betaald', value: 'unpaid'},
+    {label: 'Betaald', value: 'paid'},
+    {label: 'Beide', value: 'both'}
   ];
 
   $scope.dateConfig = {

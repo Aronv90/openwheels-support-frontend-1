@@ -6,7 +6,7 @@
         <form class="form">
 
           <div class="form-group">
-            <label for="max">Max results</label>
+            <label for="max">Aantal resultaten</label>
             <select id="max" class="form-control" ng-model="params.max"
                     ng-options="max.value as max.label for max in maxOptions">
             </select>
@@ -20,18 +20,18 @@
           </div>
 
           <div class="form-group">
-            <label for="from">From</label>
-            <input type="text" id="from" placeholder="pick a date" class="form-control pickadate-input"
+            <label for="from">Van</label>
+            <input type="text" id="from" placeholder="Selecteer datum" class="form-control pickadate-input"
                    ng-model="params.from" pickadate="dateConfig">
           </div>
 
           <div class="form-group">
-            <label for="until">Until</label>
-            <input type="text" id="until" placeholder="pick a date" class="form-control pickadate-input"
+            <label for="until">Tot</label>
+            <input type="text" id="until" placeholder="Selecteer datum" class="form-control pickadate-input"
                    ng-model="params.until" pickadate="dateConfig">
           </div>
 
-          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          <button class="btn btn-primary" ng-click="refresh()">Vernieuw</button>
         </form>
       </div>
     </div>
@@ -43,23 +43,22 @@
     <div class="panel panel-default card">
       <div class="panel-body">
         <h3>
-          Invoice groups
-          <a ui-sref="root.invoice2.invoice.create({person: personId})" class="btn btn-default" ng-if="$state.includes('root.person')">Create invoice</a>
+          Facturen
+          <a ui-sref="root.invoice2.invoice.create({person: personId})" class="btn btn-default" ng-if="$state.includes('root.person')">Maak factuurregel</a>
         </h3>
 
         <table class="table table-condensed table-hover table-invoice">
 
           <thead>
           <tr>
-            <th colspan="2">Invoice group</th>
-            <th ng-if="!$state.includes('root.person')">Person</th>
-            <th>Date</th>
-            <th>Expires</th>
-            <th class="text-center">Sent / received</th>
-            <th>Paid</th>
-            <th>Approved</th>
-            <th class="text-right">Total</th>
-            <th>Payout</th>
+            <th colspan="2">Factuur</th>
+            <th ng-if="!$state.includes('root.person')">Persoon</th>
+            <th>Datum</th>
+            <th>Verloopdatum</th>
+            <th>Betaald</th>
+            <th>Goedgekeurd</th>
+            <th class="text-right">Bedrag</th>
+            <th>Uitbetalen</th>
           </tr>
           </thead>
 
@@ -91,23 +90,18 @@
               {{ elm.expirationDate | amDateFormat: 'DD-MM-YYYY' }}
             </td>
 
-            <!-- sent/received -->
-            <td class="text-center">
-              {{ elm.sentInvoices.length }} / {{ elm.receivedInvoices.length }}
-            </td>
-
             <!-- paid -->
             <td>
               {{ elm.paid | amDateFormat: 'DD-MM-YYYY' }}
               <span ng-if="!elm.paid && elm.total !== 0" class="text-danger">
-                  <i class="fa fa-exclamation-triangle fa-fw"></i>To be paid
+                  <i class="fa fa-exclamation-triangle fa-fw"></i>Te betalen
               </span>
             </td>
 
             <!-- approved -->
             <td class="text-right">
               <span ng-if="!elm.approved" class="text-danger">
-                <i class="fa fa-exclamation-triangle fa-fw"></i>Not approved
+                <i class="fa fa-exclamation-triangle fa-fw"></i>Niet goedgekeurd
               </span>
             </td>
 
@@ -118,9 +112,9 @@
 
             <!-- payout invoiceGroup -->
             <td ng-if="elm.total < 0">
-              <span ng-if="elm.payoutRequest && !elm.paid" class="text-muted">Requested</span>
-              <a href="" ng-if="!elm.payoutRequest && !elm.paid" ng-click="payoutInvoiceGroup(elm)" show-if-user-has-role="ROLE_ADMIN">Payout now<br/></a>
-              <a href="" ng-if="!elm.payoutRequest && !elm.paid" ng-click="payoutToVoucher(elm)">Make voucher<br/></a>
+              <span ng-if="elm.payoutRequest && !elm.paid" class="text-muted">In aanvraag</span>
+              <a href="" ng-if="!elm.payoutRequest && !elm.paid" ng-click="payoutInvoiceGroup(elm)" show-if-user-has-role="ROLE_ADMIN">Uitbetalen<br/></a>
+              <a href="" ng-if="!elm.payoutRequest && !elm.paid" ng-click="payoutToVoucher(elm)">Als rijtegoed uitbetalen<br/></a>
               <div ng-if="elm.paid" class="text-success text-center"><i class="fa fa-check"></i></div>
 
             </td>
@@ -138,35 +132,43 @@
 
     <div ng-if="$state.includes('root.person')" class="panel panel-default card">
       <div class="panel-body">
-        <h3>Ungrouped received invoices</h3> 
+        <h3>Te betalen</h3> 
           
         <table class="table">
           <thead>
-            <tr>
-              <th>Invoice</th>
-              <th>Trip</th>
-              <th>Date</th>
-              <th>Sender</th>
-              <th>Description</th>
-              <th class="text-right">Total</th>
-              <th>&nbsp;</th>
-              </tr>
+            <tr ng-if="ungroupedReceivedInvoices.length > 0">
+              <th>#</th>
+              <th>Rit</th>
+              <th>Datum</th>
+              <th>Aan</th>
+              <th>Omschrijving</th>
+              <th>Totaal</th>
+              <th>Actie</th>
+            </tr>
           </thead>
-          <tr ng-repeat="invoice in ungroupedReceivedInvoices">
-            <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
-            <td><a ui-sref="root.trip.dashboard({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
-            <td>{{ invoice.date | amDateFormat: 'DD-MM-YY hh:mm'}}</td>
-            <td>{{ invoice.sender | fullname }}</a>
-            <td>{{ invoice.description }}</td>
-            <td class="text-right">{{ invoice.total | currency }}</td>
-            <td ng-click="removeInvoice(invoice.id)"><i class="fa fa-trash"></i></td>
-          </tr>
-          <tr>
-            <td colspan="5"><b>Total</b></td>
-            <td class="text-right">
-              <strong>{{ ungroupedReceivedInvoicesTotal | currency }}</strong>
-            </td>
-          </tr>
+          <tbody>
+            <tr ng-repeat="invoice in ungroupedReceivedInvoices" ng-if="ungroupedReceivedInvoices.length > 0">
+              <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
+              <td><a ui-sref="root.trip.dashboard({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
+              <td>{{ invoice.date | amDateFormat: 'DD-MM-YY hh:mm'}}</td>
+              <td>{{ invoice.sender | fullname }}</a>
+              <td>{{ invoice.description }}</td>
+              <td>{{ invoice.total | currency }}</td>
+              <td ng-click="removeInvoice(invoice.id)"><i class="fa fa-trash"></i></td>
+            </tr>
+            <tr ng-if="ungroupedReceivedInvoices.length === 0">
+              <td>Geen factuurregels</td>
+            </tr>
+          </tbody>
+          <tfoot ng-if="ungroupedReceivedInvoices.length > 0">
+            <tr>
+              <td colspan="5"><b>Totaal</b></td>
+              <td class="text-right">
+                <strong>{{ ungroupedReceivedInvoicesTotal | currency }}</strong>
+              </td>
+              <td colspan="1">&nbsp;</td>
+            </tr>
+          </tfoot>
         </table>
 
       </div>
@@ -176,64 +178,71 @@
 
     <div ng-if="$state.includes('root.person')" class="panel panel-default card">
       <div class="panel-body">
-        <h3>Ungrouped sent invoices</h3>
+        <h3>Te ontvangen</h3>
 
         <table class="table">
           <thead>
-            <tr>
-              <th>Invoice</th>
-              <th>Trip</th>
-              <th>Date</th>
-              <th>Recipient</th>
-              <th>Description</th>
-              <th class="text-right">Total</th>
-              <th>&nbsp;</th>
+            <tr ng-if="ungroupedSentInvoices.length > 0">
+              <th>#</th>
+              <th>Rit</th>
+              <th>Datum</th>
+              <th>Van</th>
+              <th>Omschrijving</th>
+              <th>Totaal</th>
+              <th>Actie</th>
             </tr>
           </thead>
-          <tr ng-repeat="invoice in ungroupedSentInvoices">
-            <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
-            <td><a ui-sref="root.trip.dashboard({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
-            <td>{{ invoice.date | amDateFormat: 'DD-MM-YY hh:mm'}}</td>
-            <td>{{ invoice.recipient | fullname }}</a>
-            <td>{{ invoice.description }}</td>
-            <td class="text-right">{{ invoice.total | currency }}</td>
-            <td ng-click="removeInvoice(invoice.id)"><i class="fa fa-trash"></i></td>
-          </tr>
-          <tr>
-            <td colspan="5"><b>Total</b></td>
-            <td class="text-right">
-              <strong>{{ ungroupedSentInvoicesTotal | currency }}</strong>
-            </td>
-          </tr>
-          <tr>
-            <td colspan="5"></td>
-            <td class="text-right">
-              <button type="button" class="btn btn-primary" ng-click="createSenderGroup(person.id)">
-                Bundle
-              </button>
-              <button type="button" class="btn btn-primary" ng-click="payoutInvoices()">
-                Bundle + uitbetalen
-              </button>
-            </td>
-          </tr>
+          <tbody>
+            <tr ng-repeat="invoice in ungroupedSentInvoices" ng-if="ungroupedSentInvoices.length > 0">
+              <td><a ui-sref="root.invoice2.invoice.edit({ invoiceId: invoice.id })">{{ invoice.id }}</a></td>
+              <td><a ui-sref="root.trip.dashboard({ tripId: invoice.booking.id })">{{ invoice.booking.id }}</a></td>
+              <td>{{ invoice.date | amDateFormat: 'DD-MM-YY hh:mm'}}</td>
+              <td>{{ invoice.recipient | fullname }}</a>
+              <td>{{ invoice.description }}</td>
+              <td>{{ invoice.total | currency }}</td>
+              <td ng-click="removeInvoice(invoice.id)"><i class="fa fa-trash"></i></td>
+            </tr>
+            <tr ng-if="ungroupedSentInvoices.length === 0">
+              <td>Geen factuurregels</td>
+            </tr>
+          </tbody>
+          <tfoot ng-if="ungroupedSentInvoices.length > 0">
+            <tr>
+              <td colspan="5"><b>Totaal</b></td>
+              <td class="text-right">
+                <strong>{{ ungroupedSentInvoicesTotal | currency }}</strong>
+              </td>
+              <td colspan="1">&nbsp;</td>
+            </tr>
+          </tfoot>
         </table>
 
       </div>
+    </div>
+
+    <!-- Grouping invoices -->
+    <div class="text-right">
+      <button type="button" class="btn btn-primary" ng-click="createSenderGroup(person.id)">
+        Groeperen
+      </button>
+      <button type="button" class="btn btn-primary" ng-click="payoutInvoices()">
+        Groeperen + uitbetalen
+      </button>
     </div>
 
     <!-- Accounts -->
 
     <div ng-if="$state.includes('root.person')" class="panel panel-default card">
       <div class="panel-body">
-        <h3>Accounts</h3>
+        <h3>IBAN-nummers</h3>
 
         <table class="table">
           <thead>
             <tr>
-              <th>Person</th>
-              <th>Name</th>
-              <th>IBAN</th>
-              <th>Approved</th>
+              <th>Persoon</th>
+              <th>Naam</th>
+              <th>IBAN-nummer</th>
+              <th>Goedgekeurd</th>
             </tr>
           </thead>
           <tbody>
@@ -250,10 +259,10 @@
 
               <td>
                 <span ng-if="account.approved">
-                  <i class="fa fa-check fa-fw text-success"></i> Approved <a href="" ng-click="disapprove(account)" show-if-user-has-role="ROLE_ADMIN">(disapprove)</a>
+                  <i class="fa fa-check fa-fw text-success"></i> Goedgekeurd <a href="" ng-click="disapprove(account)" show-if-user-has-role="ROLE_ADMIN">(Afkeuren)</a>
                 </span>
                 <span ng-if="!account.approved">
-                  <i class="fa fa-times fa-fw text-danger"></i> Not approved <a href="" ng-click="approve(account)" show-if-user-has-role="ROLE_ADMIN">(approve)</a>
+                  <i class="fa fa-times fa-fw text-danger"></i> Afgekeurd <a href="" ng-click="approve(account)" show-if-user-has-role="ROLE_ADMIN">(Goedkeuren)</a>
                 </span>
               </td>
 

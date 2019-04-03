@@ -20,10 +20,11 @@ angular.module('openwheels.checklist.directive', [])
       }
       return row;
     };
-  return function (query, limit) {
+  return function (query, limit, offset = 0) {
     var data = storedqueryService.unmuted({
         storedquery: query.query.id,
-        limit: limit
+        limit: limit,
+        offset: offset
       }).then(function (data) {
         var result = data.result.map(function(row) {
           var result = {};
@@ -49,16 +50,31 @@ angular.module('openwheels.checklist.directive', [])
     return data;
   };
 })
-.controller('SnoozablechecklistController', function ($scope, $log, storedqueryService, $uibModal, $interval, resolveMutingQuery, $state) {
+.controller('SnoozablechecklistController', function ($scope, $log, storedqueryService, $uibModal, $interval,
+  resolveMutingQuery, $state) {
+
   var doUpdate = function () {
       $log.debug('timer gone off, querieng');
       resolveMutingQuery($scope.query, $scope.limit)
       .then(function(result) {
+        $scope.refreshing = false;
         $scope.result = result;
       });
     },
-    intervalHandle = $interval(doUpdate, $scope.query.refresh * 1000);
+    intervalHandle = $interval(doUpdate(), $scope.query.refresh * 1000);
     
+  $scope.refreshList = function() {
+    $scope.refreshing = true;
+    doUpdate();
+  };
+
+  $scope.loadMore = function(offset = 0) {
+    resolveMutingQuery($scope.query, $scope.limit, offset)
+    .then(function(result) {
+      $scope.result.result = $scope.result.result.concat(result.result);
+    });
+  };
+
   $scope.show = function () {
     if(!$scope.hideIfNull) {
       return true;
@@ -78,7 +94,7 @@ angular.module('openwheels.checklist.directive', [])
   $scope.snooze = function (query, key, row) {
     $uibModal.open({
       templateUrl: 'checklist/dashboard/snoze.tpl.html',
-      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+      controller: ['$scope', 'storedqueryService', function ($scope, storedqueryService) {
         $scope.isMorning = moment().isBefore(moment('12', 'HH'));
         $scope.snooze = function (timeout) {
           storedqueryService.mute({
@@ -87,10 +103,11 @@ angular.module('openwheels.checklist.directive', [])
             until: timeout
           });
           row._class = 'warning';
-          $modalInstance.dismiss();
+          this.$close();
         };
         $scope.close = function () {
-          $modalInstance.dismiss();
+          console.log('sluit');
+          this.$close();
         };
       }]
     });
