@@ -10,8 +10,6 @@ angular.module('openwheels.person.show.messages', [])
     function handleMessages(messages) {
       $scope.messages = messages.result;
       $scope.lastPage = Math.ceil(messages.total / $scope.perPage);
-
-      console.log(messages.total);
     }
 
     $scope.nextPage = function() {
