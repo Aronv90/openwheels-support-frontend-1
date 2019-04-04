@@ -3,7 +3,6 @@
 angular.module('openwheels.invoice.trip.line', [])
 
 .controller('InvoiceTripLineDialogController', function ($scope, $uibModalInstance, invoiceService, invoiceSenders, invoiceLine, person) {
-  console.log(person);
   $scope.invoiceLine = invoiceLine;
   $scope.invoiceSenders = invoiceSenders;
   $scope.btwOptions = [

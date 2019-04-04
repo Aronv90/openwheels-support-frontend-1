@@ -39,7 +39,6 @@ angular.module('openwheels.checklist.dashboard', ['googlechart', 'openwheels.che
       ]).then(populateRitten);
     };
   $scope.queries = queries;
-  console.log($scope.queries);
     
   $scope.chartData = {
     'type': 'ColumnChart',
