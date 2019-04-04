@@ -41,6 +41,7 @@ angular.module('openwheels.checklist.directive', [])
         });
         return {
           id: query.query.id,
+          dashboard: query.id,
           total: data.total,
           result: result,
           title: query.title,
