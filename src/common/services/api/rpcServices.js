@@ -417,6 +417,13 @@ angular.module('rpcServices', [])
       this.getAll = m('getAll');
     })
 
+    .service('providerInfoService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('providerinfo.' + name);
+      };
+      this.create = m('create');
+    })
+
     .service('rentalcheckService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('rentalcheck.' + name);
