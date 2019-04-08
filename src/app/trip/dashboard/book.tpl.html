@@ -11,15 +11,15 @@
 
   <md-dialog-content>
     <div layout="column" layout-margin class="md-dialog-content" ng-if="helyUser">
-      <p>Deze huurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De huurder kan in de Hely app zelf een nieuwe rit maken of een andere auto claimen. Dit kan jij helaas niet doen.</p>
+      <p>Deze bestuurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De bestuurder kan in de Hely app zelf een nieuwe rit maken of een andere auto claimen. Dit kan jij helaas niet doen.</p>
     </div>
 
     <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
       <h3>Boeken</h3>
       <p>Selecteer hieronder wat voor boeking je wil maken:</p>
       <form>
-        <md-radio-group ng-model="bookForPerson">
-          <md-radio-button value="otherResource" ng-click="loadAvailableResources()">Ik wil de huurder omboeken naar een andere auto</md-radio-button>
+        <md-radio-group ng-model="bookForPerson.val">
+          <md-radio-button value="otherResource" ng-click="loadAvailableResources()">Ik wil de bestuurder omboeken naar een andere auto</md-radio-button>
           <md-radio-button value="sameResource">Ik wil een nieuwe reservering maken voor deze huurder</md-radio-button>
           <md-radio-button value="blockResource" ng-click="loadContracts()">Ik wil de auto blokkeren</md-radio-button>
         </md-radio-group>
@@ -27,8 +27,12 @@
 
       <hr/>
 
-      <fieldset class="standard" ng-if="bookForPerson === 'otherResource'">
+      <fieldset class="standard" ng-if="bookForPerson.val === 'otherResource'">
         <p>Klik achter de gewenste auto op [Boeken] om de reservering om te zetten op de betreffende auto. De huurder kan dan naar die auto gaan om alsnog op weg te kunnen. <span ng-if="booking.resource.boardcomputer">De onderstaande auto's worden met een OV-chipkaart of de smartphone geopend.</span><br/><br/></p>
+
+        <div ng-if="!availableResources.length && !loadingAvailableResources">Geen auto's gevonden.</div>
+
+        <div ng-if="loadingAvailableResources"><i class="fa fa-fw fa-spin fa-spinner"></i></div>
 
         <div ng-repeat="resource in availableResources">
           <div class="row">
@@ -74,7 +78,7 @@
         </div>
       </fieldset>
 
-      <fieldset class="standard" ng-if="bookForPerson === 'sameResource'">
+      <fieldset class="standard" ng-if="bookForPerson.val === 'sameResource'">
         <p>Hieronder kun je een nieuwe reservering voor de huurder maken op deze auto. Selecteer de juiste datum en tijd en klik op [Versturen] om de reservering te maken.</p>
         <div layout="column" layout-margin class="md-dialog-content">
           <div layout="row">
@@ -104,7 +108,7 @@
         </div>
       </fieldset>
 
-      <fieldset class="standard" ng-show="bookForPerson === 'blockResource'">
+      <fieldset class="standard" ng-show="bookForPerson.val === 'blockResource'">
         <p>Hieronder kun je een reservering maken om de auto te blokkeren. Voer de huidige datum als Begindatum en -tijd in en zet de Einddatum en -tijd op de eerstvolgende werkdag 18.00 uur. Selecteer vervolgens het bovenste contract in de drop-down en klik op [Versturen] om de auto te blokkeren.</p>
         <div layout="column" layout-margin class="md-dialog-content">
           <div layout="row">
@@ -150,7 +154,7 @@
     <md-button ng-click="cancel()">
      Sluiten
     </md-button>
-    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!newBeginDt.date || !newBeginDt.time || !newEndDt.date || !newEndDt.time" ng-if="bookForPerson !== 'otherResource' && bookForPerson">
+    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="!newBeginDt.date || !newBeginDt.time || !newEndDt.date || !newEndDt.time" ng-if="bookForPerson.val !== 'otherResource' && bookForPerson.val">
       Versturen
     </md-button>
   </md-dialog-actions>

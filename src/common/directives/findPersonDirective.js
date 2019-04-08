@@ -33,7 +33,7 @@ angular.module('findperson', [])
       compile: function(tElement, attrs){
         attrs.$set('type', 'text');
         attrs.$set('class', 'form-control input-sm typeahead');
-        attrs.$set('placeholder', 'Search person');
+        attrs.$set('placeholder', 'Zoek persoon');
         attrs.$set('uib-typeahead', 'person as (\'<p>\' + (person|fullname) + \' [\' + person.id + \']' +
           '<br><small>\' + person.city + \'<br>\' + person.email + \'<br>Provider \' + person.provider.id + \'</small></p>\') ' +
           'for person in searchPersons($viewValue)');

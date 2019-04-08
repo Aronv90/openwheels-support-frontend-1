@@ -1,6 +1,6 @@
 <div class="panel panel-default card">
     <div class="panel-heading card__heading">
-        <h1>Advanced search</h1>
+        <h1>Uitgebreid zoeken</h1>
     </div>
 </div>
 
@@ -9,16 +9,16 @@
 
         <form>
             <div class="form-group">
-                <label for="zipcode">Zip code & street number</label>
+                <label for="zipcode">Postcode & huisnummer</label>
                 <div class="row">
                   <div class="col-xs-4 col-md-2">
-                    <input type="text" id="zipcode" class="form-control" ng-model="data.zipcode" placeholder="Zip code">
+                    <input type="text" id="zipcode" class="form-control" ng-model="data.zipcode" placeholder="Postcode">
                   </div>
                   <div class="col-xs-4 col-md-2">
-                    <input type="text" id="streetNumber" class="form-control" ng-model="data.streetNumber" placeholder="Street number">
+                    <input type="text" id="streetNumber" class="form-control" ng-model="data.streetNumber" placeholder="Huisnummer">
                   </div>
                   <div class="col-xs-4 col-md-8">
-                    <button type="submit" class="btn btn-primary" ng-click="searchZip()" ng-disabled="!(data.zipcode && data.streetNumber)">Search</button>
+                    <button type="submit" class="btn btn-primary" ng-click="searchZip()" ng-disabled="!(data.zipcode && data.streetNumber)">Zoek</button>
                   </div>
                 </div>
             </div>
@@ -29,10 +29,10 @@
                 <label for="iban">IBAN-number</label>
                 <div class="row">
                   <div class="col-xs-8 col-md-4">
-                    <input type="text" id="iban" class="form-control" ng-model="data.iban">
+                    <input type="text" id="iban" class="form-control" ng-model="data.iban" placeholder="IBAN-nummer">
                   </div>
                   <div class="col-xs-4 col-md-8">
-                    <button type="submit" class="btn btn-primary" ng-disabled="!data.iban">Search</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="!data.iban">Zoek</button>
                   </div>
                 </div>
             </div>
@@ -44,16 +44,16 @@
                   <th>Provider</th>
                   <th>Id</th>
                   <th>Status</th>
-                  <th>Name</th>
-                  <th>Address</th>
-                  <th>Zip code and city</th>
-                  <th>Email</th>
-                  <th>Preference</th>
+                  <th>Naam</th>
+                  <th>Adres</th>
+                  <th>Postcode & stad</th>
+                  <th>E-mail</th>
+                  <th>Voorkeur</th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="person in persons | orderBy:'id'" ui-sref="root.person.show.summary({personId: person.id})" style="cursor:pointer">
-                  <td>{{ person.providerId }}</td>
+                  <td>{{ person.provider.id }}</td>
                   <td>{{ person.id }}</td>
                   <td>{{ person.status }}</td>
                   <td>{{ person.firstName }} {{ person.preposition }} {{ person.surname }}</td>

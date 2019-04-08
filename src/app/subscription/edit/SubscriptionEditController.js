@@ -14,6 +14,7 @@ angular.module('openwheels.subscription.edit', [])
     $scope.typeOptions = [
       { label: 'MyWheels Open', value: 'subscription_open' },
       { label: 'MyWheels Business', value: 'subscription_business' },
+      { label: 'MyWheels Parking Permit', value: 'subscription_parking_permit' },
       { label: 'MyWheels Resource', value: 'subscription_resource' },
       { label: 'MyWheels Platform', value: 'subscription_platform' },
       { label: 'MyWheels VGA', value: 'subscription_vga' }

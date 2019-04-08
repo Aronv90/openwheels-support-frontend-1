@@ -13,8 +13,6 @@ angular.module('openwheels.person.show.discount', [])
     $scope.lastPage = Math.ceil(discounts.total / $scope.perPage);
   }
 
-  console.log($stateParams.personId);
-
   function buildParams() {
     var params = {};
     params.recipient = $stateParams.personId;

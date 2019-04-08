@@ -1,6 +1,6 @@
 <div class="panel panel-default card" ng-show="resource.removed">
     <div class="panel-heading">
-        <h1>Resource with id: {{resource.id}} was removed.</h1>
+        <h1>Autonummer {{resource.id}} is verwijderd.</h1>
     </div>
 </div>
 <div class="panel panel-default card summary-resource">
@@ -13,17 +13,17 @@
 
           <div class="col-md-7" style="margin-top:10px;">
             <h3 class="card__title">
-              {{ resource.alias | limitTo: 25}}{{resource.alias.length > 25 ? '...' : ''}}
+              {{ resource.alias | limitTo: 22}}{{resource.alias.length > 22 ? '...' : ''}}
               van 
               <a ui-sref="root.person.show.summary({ personId: resource.ownerId })">{{ resource.owner.firstName }}</a>
               <small>({{ resource.registrationPlate }}, {{ resource.id }})</small>
             </h3>
             <ul class="list-inline card__subtitle">
               <li ng-class="{'text-success': resource.isActive, 'text-danger': !resource.isActive}">
-                <i class="fa fa-check"></i> {{ resource.isActive ? 'Active' : 'Inactive' }}
+                <i class="fa fa-check"></i> {{ resource.isActive ? 'Beschikbaar' : 'Niet beschikbaar' }}
               </li>
               <li ng-class="{'text-success': resource.isAvailableOthers, 'text-danger': !resource.isAvailableOthers}">
-                <i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Available for others' : 'Not available for others'}}
+                <i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Beschikbaar voor anderen' : 'Niet beschikbaar voor anderen'}}
               </li>
               <li>
                 <i class="fa fa-calendar"></i> {{ resource.created | amDateFormat:'DD-MM-YYYY' }}
@@ -38,13 +38,13 @@
                 <h4>Micpoint: smartphone</h4>
               </li>
               <li ng-if="resource.locktypes.indexOf('smartphone') >= 0 && resource.locktypes.indexOf('chipcard') >= 0">
-                <h4>Micpoint: smartphone & chipcard</h4>
+                <h4>Micpoint: smartphone & OV-chipkaart</h4>
               </li>
               <li ng-if="resource.locktypes.indexOf('smartphone') < 0 && resource.locktypes.indexOf('chipcard') >= 0">
-                <h4>Convadis: chipcard</h4>
+                <h4>Convadis: OV-chipkaart</h4>
               </li>
               <li ng-if="resource.locktypes.indexOf('smartphone') < 0 && resource.locktypes.indexOf('chipcard') < 0">
-                <h4>Meeting</h4>
+                <h4>Afspraak maken</h4>
               </li>
               <li>
                 <i class="fa fa-circle"></i>
@@ -56,17 +56,17 @@
           </div>
 
           <div class="col-md-2" id="resourceSummaryActions">
-            <button class="btn btn-primary" ng-click="bookResource(resource)">Book Resource</button>
+            <button class="btn btn-primary" ng-click="bookResource(resource)">Maak boeking</button>
 
             <div id="resourceParkingpermit">
               <button ng-if="resource.fleet.id == 5 && permits.length == 0" class="btn btn-info" ng-click="createParkingPermit(resource)">
-                <i class="fa fa-plus"></i> create parking permit
+                <i class="fa fa-plus"></i> parkeervergunning aanvragen
               </button>
               <button ng-if="resource.fleet.id == 5 && permits.length > 0" class="btn btn-warning" ng-click="removeParkingPermit(permits)">
-                <i class="fa fa-times"></i> remove parking permit
+                <i class="fa fa-times"></i> parkeervergunning verwijderen
               </button>
               <button ng-if="resource.fleet.id == 5 && permits.length > 0" class="btn btn-warning" ng-click="updateParkingPermit(permits)">
-                <i class="fa fa-edit"></i> alter parking permit
+                <i class="fa fa-edit"></i> parkeervergunning wijzigen
               </button>
             </div>
 
@@ -90,57 +90,66 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" ui-sref="root.resource.show.summary({ tripId: resource.id })">Summary</a>
+            <a class="navbar-brand" ui-sref="root.resource.show.summary({ tripId: resource.id })">Samenvatting</a>
         </div>
         <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
             <ul class="nav navbar-nav">
                 <li ng-class="{ active: $state.includes('root.resource.show.edit') }">
-                  <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Edit</a>
+                  <a ui-sref="root.resource.show.edit({ resourceId: resource.id })">Gegevens</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.members') }">
-                    <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Members</a>
+                <li ng-class="{ active: $state.includes('root.resource.show.members') }" ng-if="user.identity.provider.id === 5">
+                    <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Vrienden</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.trip') }">
-                    <a ui-sref="root.resource.show.trip({ resourceId: resource.id })">Trips</a>
+                <li ng-class="{ active: $state.includes('root.resource.show.trip') }" ng-if="user.identity.provider.id !== 5">
+                    <a ui-sref="root.resource.show.trip({ resourceId: resource.id })">Ritten</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="resource.locktype === 'smartphone' || resource.locktype === 'chipcard'">
-                    <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Open & close</a>
+                <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="(resource.locktype === 'smartphone' || resource.locktype === 'chipcard') && user.identity.provider.id !== 5">
+                    <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Openen & sluiten</a>
                 </li>
-                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') || $state.includes('root.person.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0">
+                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') || $state.includes('root.person.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0 && user.identity.provider.id !== 5">
                     <a class="dropdown-toggle" data-toggle="dropdown">MyFMS<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') }">
-                            <a ui-sref=".myfmschipcard">Chipcard</a>
+                            <a ui-sref=".myfmschipcard">Chipkaarten</a>
                         </li>
                         <li ng-class="{ active: $state.includes('root.resource.show.myfmslog') }">
-                            <a ui-sref=".myfmslog">Open & close Log</a>
+                            <a ui-sref=".myfmslog">Open & sluit log</a>
                         </li>
                         <li ng-class="{ active: $state.includes('root.resource.show.log') }">
-                          <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boardcomputer Log</a>
+                          <a ui-sref="root.resource.show.log({ resourceId: resource.id })">Boordcomputer log</a>
                         </li>
                     </ul>
                 </li>
-
-                <li ng-class="{ active: $state.includes('root.resource.show.rating') }">
-                    <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Ratings</a>
-                </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.discount') }">
-                    <a ui-sref="root.resource.show.discount({ resourceId: resource.id })">Discount</a>
-                </li>
                 <li ng-class="{ active: $state.includes('root.resource.show.damage') }">
-                    <a ui-sref="root.resource.show.damage({ resourceId: resource.id })">Damage</a>
+                    <a ui-sref="root.resource.show.damage({ resourceId: resource.id })">Schade</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }">
-                    <a ui-sref="root.resource.show.maintenance({ resourceId: resource.id })">Maintenance</a>
+                <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }" ng-if="user.identity.provider.id !== 5">
+                    <a ui-sref="root.resource.show.maintenance({ resourceId: resource.id })">Onderhoud</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
-                    <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Revisions</a>
+
+                <li ng-class="{ active: $state.includes('root.resource.show.remarklog') }" ng-if="user.identity.provider.id !== 5">
+                    <a ui-sref="root.resource.show.remarklog({ resourceId: resource.id })">Opmerkingen</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.remarklog') }">
-                    <a ui-sref="root.resource.show.remarklog({ resourceId: resource.id })">Remark</a>
+                <li ng-class="{ active: $state.includes('root.resource.show.reports') }" ng-if="user.identity.provider.id !== 5">
+                    <a ui-sref="root.resource.show.reports({ resourceId: resource.id })">Meldingen</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.reports') }">
-                    <a ui-sref="root.resource.show.reports({ resourceId: resource.id })">Reports</a>
+
+                <li class="dropdown pull-right">
+                <a class="dropdown-toggle" data-toggle="dropdown">Meer <big><i class="fa fa-fw fa fa-ellipsis-v"></i></big></a>
+                  <ul class="dropdown-menu">
+                    <li ng-class="{ active: $state.includes('root.resource.show.rating') }" ng-if="user.identity.provider.id !== 5">
+                        <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Reviews</a>
+                    </li>
+                    <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
+                        <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Wijzigingen</a>
+                    </li>
+                    <li ng-class="{ active: $state.includes('root.resource.show.discount') }" ng-if="user.identity.provider.id !== 5">
+                        <a ui-sref="root.resource.show.discount({ resourceId: resource.id })">Kortingscodes</a>
+                    </li>
+                    <li ng-class="{ active: $state.includes('root.resource.show.members') }" ng-if="user.identity.provider.id !== 5">
+                        <a ui-sref="root.resource.show.members({ resourceId: resource.id })">Vrienden</a>
+                    </li>
+                  </ul>
                 </li>
             </ul>
         </div>
@@ -159,7 +168,7 @@
           <textarea id="remark" class="form-control" ng-model="resource.remark" placeholder="Remark" rows="4"></textarea>
         </div>
         <div class="form-group" style="margin-bottom: 0;">
-          <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+          <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Opslaan</button>
         </div>
       </form>
     </div>

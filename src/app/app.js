@@ -208,6 +208,9 @@ angular.module('openwheels', [
     $rootScope.previousState = fromState;
     $rootScope.previousStateParams = fromParams;
     alertService.loaded();
+
+    $rootScope.showNavigationOnDashboard = $state.current.name === 'ow-dashboard' && toParams.showNavigation === 'false' ? true : false;
+
   });
 
   // loading route message

@@ -19,7 +19,7 @@ angular.module('openwheels.resource.show', [
 ])
 
 .controller('ResourceShowController', function ($scope, $stateParams, $uibModal, $log, alertService, dialogService, resourceService,
-  resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER) {
+  resource, settingsService, FRONT_RENT, FRONT_SWITCHUSER, authService) {
 
   $scope.hide = false;
   $scope.toggleHide = function() {
@@ -29,6 +29,8 @@ angular.module('openwheels.resource.show', [
       $scope.hide = false;
     }
   };
+
+  $scope.user = authService.user;
 
   $scope.resource = resource;
   $scope.frontResources = settingsService.settings.server + FRONT_RENT + '/' + ( resource.city ? resource.city : 'onbekend' ) + '/' + resource.id + '/wijzigen' + FRONT_SWITCHUSER;

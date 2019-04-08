@@ -3,7 +3,7 @@
 angular.module('openwheels.resource.edit', [])
 
   .controller('ResourceEditController', function ($q, $scope, $log, $state, $stateParams, resource,
-    fleets, alertService, resourceService, maintenanceService) {
+    fleets, alertService, resourceService, maintenanceService, dutchZipcodeService, $timeout) {
 
     if(!resource.garage){
       $scope.resource.garage = {};
@@ -14,6 +14,13 @@ angular.module('openwheels.resource.edit', [])
     var masterResource = resource;
     var masterResourceProperties = createResourceProperties(resource);
 
+    if($scope.resource.contactPerson && $scope.resource.owner.id === $scope.resource.contactPerson.id) {
+      $scope.resource.contactPerson = null;
+    }
+    if(!$scope.resource.garage.id) {
+      $scope.resource.garage = null;
+    }
+
     function createResourceProperties (resource) {
       var resourceProperties = {};
       angular.forEach(resource.properties, function (resourceProperty) {
@@ -22,16 +29,6 @@ angular.module('openwheels.resource.edit', [])
       return resourceProperties;
     }
 
-    var resetCenter = function () {
-      $scope.map.center = {
-        latitude: $scope.resource.latitude,
-        longitude: $scope.resource.longitude
-      };
-      $scope.map.resourceMarker = {
-        latitude: $scope.resource.latitude,
-        longitude: $scope.resource.longitude
-      };
-    };
     $scope.fleetOptions = fleets;
 
     $scope.fuelTypeOptions = [
@@ -40,8 +37,7 @@ angular.module('openwheels.resource.edit', [])
       {label: 'LPG', value: 'lpg'},
       {label: 'Elektrisch', value: 'elektrisch'},
       {label: 'Hybride', value: 'hybride'},
-      {label: 'Aardgas', value: 'cng'},
-      {label: 'Onbekend', value: 'onbekend'}
+      {label: 'Aardgas', value: 'cng'}
     ];
 
     $scope.insurancePolicyOptions = [
@@ -52,19 +48,12 @@ angular.module('openwheels.resource.edit', [])
     ];
 
     $scope.resourceTypeOptions = [
-      {label: 'Car', value: 'car'},
+      {label: 'Auto', value: 'car'},
       {label: 'Cabrio', value: 'cabrio'},
       {label: 'Camper', value: 'camper'},
       {label: 'Oldtimer', value: 'oldtimer'},
       {label: 'Station', value: 'station'},
-      {label: 'Van', value: 'van'}
-    ];
-
-    $scope.typeOptions = [
-      {label: 'Car', value: 'car'},
-      {label: 'Bike', value: 'bike'},
-      {label: 'Boat', value: 'boat'},
-      {label: 'Scooter', value: 'scooter'}
+      {label: 'Bus', value: 'van'}
     ];
 
     $scope.numberOfSeatsOptions = [
@@ -100,9 +89,9 @@ angular.module('openwheels.resource.edit', [])
     }());
 
     $scope.locktypeOptions = [
-      {label: 'Chipcard', value: 'chipcard'},
-      {label: 'Locker', value: 'locker'},
-      {label: 'Meeting', value: 'meeting'},
+      {label: 'OV-chipkaart', value: 'chipcard'},
+      {label: 'Sleutelkluisje', value: 'locker'},
+      {label: 'Afspraak maken', value: 'meeting'},
       {label: 'Smartphone', value: 'smartphone'}
     ];
 
@@ -117,11 +106,6 @@ angular.module('openwheels.resource.edit', [])
       { value: 'mp3-aansluiting'    , label: 'mp3-aansluiting' },
       { value: 'rolstoelvriendelijk', label: 'rolstoelvriendelijk' }
     ];
-
-    $scope.completePlacesOptions = {
-      country: 'nl',
-      watchEnter: true
-    };
 
     /**
      * Typeahead Garages
@@ -143,38 +127,51 @@ angular.module('openwheels.resource.edit', [])
       return inputLabel;
     };
 
-    $scope.$watch('searchPlace.details', function (newVal, oldVal) {
-      if (newVal === oldVal) {
-        return;
-      }
+    /**
+     * Location lookup
+     */
+    $scope.isZipLookupBusy = false;
+    $scope.lookupZip = function () {
 
-      var ac = $scope.searchPlace.details.address_components;
-      var address = {};
-      for (var i = 0; i < ac.length; ++i) {
-        if (ac[i].types[0] === 'route') {
-          address.route = ac[i].long_name;
-        }
-        if (ac[i].types[0] === 'street_number') {
-          address.streetNumber = ac[i].long_name;
-        }
-        if (ac[i].types[0] === 'locality') {
-          address.city = ac[i].long_name;
-        }
-      }
-      if (!(address.route && address.streetNumber && address.city)) {
-        return alertService.add('danger', 'Please select a full address: including a street name, street number and city', 3000);
-      }
+      // Clear address fields immediately
+      var result = {
+        location : null,
+        city       : null,
+        latitude   : null,
+        longitude  : null
+      };
+      angular.extend($scope.resource, result);
 
-      //set new values on scope
-      $scope.resource.location = address.route + ' ' + address.streetNumber;
-      $scope.resource.city = address.city;
-      $scope.resource.latitude = $scope.searchPlace.details.geometry.location.lat();
-      $scope.resource.longitude = $scope.searchPlace.details.geometry.location.lng();
-    });
-
-    $scope.$watch('[resource.latitude, resource.longitude]', function () {
-      resetCenter();
-    }, true);
+      // Start lookup
+      $scope.isZipLookupBusy = true;
+      dutchZipcodeService.autocomplete({
+        zipcode      : $scope.zipcode,
+        streetNumber : $scope.streetNumber
+      })
+      .then(function(data) {
+        var item = data && data.length && data[0];
+        if (item) {
+          result = {
+            location        : item.street,
+            streetNumber    : $scope.streetNumber,
+            zipcode         : item.nl_sixpp,
+            city            : item.city,
+            latitude        : item.lat,
+            longitude       : item.lng
+          };
+        }
+      })
+      .catch(function(error) {
+        $scope.lookupError = error.message;
+      })
+      .finally(function() {
+        // Fill results
+        angular.extend($scope.resource, result);
+        $timeout(function() {
+          $scope.isZipLookupBusy = false;
+        }, 0);
+      });
+    };
 
     $scope.cancel = function () {
       $scope.resource = angular.copy(masterResource);
@@ -182,25 +179,6 @@ angular.module('openwheels.resource.edit', [])
     };
 
     $scope.cancel();
-
-    angular.extend($scope, {
-      map: {
-        center: {
-          latitude: $scope.resource.latitude,
-          longitude: $scope.resource.longitude
-        },
-        draggable: 'true',
-        zoom: 14,
-        options: {
-          scrollwheel: false
-        },
-        resourceMarker: {
-          latitude: $scope.resource.latitude,
-          longitude: $scope.resource.longitude,
-          title: $scope.resource.alias
-        }
-      }
-    });
 
     $scope.save = function () {
       resourceService.alter({
@@ -215,7 +193,7 @@ angular.module('openwheels.resource.edit', [])
         }
       })
       .then(function (resource) {
-        alertService.add('success', 'resource edited', 3000);
+        alertService.add('success', 'Auto gewijzigd', 3000);
         masterResourceProperties = $scope.resourceProperties;
         masterResource = resource;
         $scope.cancel();

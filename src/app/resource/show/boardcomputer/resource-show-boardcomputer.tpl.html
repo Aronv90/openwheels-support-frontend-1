@@ -4,13 +4,13 @@
   </div>
   <div class="form-group">
     <button ng-click="openDoor(resource)" class="btn btn-primary">Open</button>
-    <button ng-click="closeDoor(resource)" class="btn btn-primary">Close</button>
+    <button ng-click="closeDoor(resource)" class="btn btn-primary">Sluit</button>
   </div>
 </div>
 
 <div ng-if="resource.locktypes.indexOf('chipcard') !== -1">
   <div ng-if="'root.trip' | includedByState" class="form-group">
     <button ng-click="openDoor(resource)" class="btn btn-primary">Open</button>
-    <button ng-click="closeDoor(resource)" class="btn btn-primary">Close</button>
+    <button ng-click="closeDoor(resource)" class="btn btn-primary">Sluit</button>
   </div>
 </div>

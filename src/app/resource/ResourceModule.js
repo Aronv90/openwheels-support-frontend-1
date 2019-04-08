@@ -32,7 +32,7 @@ angular.module('openwheels.resource', [
 		url: '/create',
 		controller: 'ResourceCreateController',
 		templateUrl: 'resource/create/resource-create.tpl.html',
-		data: {pageTitle: 'Create Resource'},
+		data: {pageTitle: 'Auto toevoegen'},
 		resolve: {
 			resource: function () {
 				return {latitude: 0, longtitude: 0, fleet: {}};
@@ -50,7 +50,7 @@ angular.module('openwheels.resource', [
 		url: '/creategarage',
 		controller: 'ResourceCreateGarageController',
 		templateUrl: 'resource/createGarage/resource-create-garage.tpl.html',
-		data: {pageTitle: 'Create Garage'}
+		data: {pageTitle: 'Garage toevoegen'}
 	});
 
 	/**
@@ -62,7 +62,7 @@ angular.module('openwheels.resource', [
 		url: '/:resourceId',
 		controller: 'ResourceShowController',
 		templateUrl: 'resource/show/resource-show.tpl.html',
-		data: {pageTitle: 'Resource'},
+		data: {pageTitle: 'Auto'},
 		resolve: {
 			resource: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 				var resourceId = $stateParams.resourceId;
@@ -124,7 +124,7 @@ angular.module('openwheels.resource', [
 		url: '/trip?startDate&endDate',
 		controller: 'TripListController',
 		templateUrl: 'trip/list/trip-list.tpl.html',
-		data: {pageTitle: 'Resource Trip list'},
+		data: {pageTitle: 'Auto ritten lijst'},
 		resolve: {
 			bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
 				var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
@@ -150,7 +150,7 @@ angular.module('openwheels.resource', [
 		url: '/edit',
 		controller: 'ResourceEditController',
 		templateUrl: 'resource/edit/resource-edit.tpl.html',
-		data: {pageTitle: 'Resource edit'},
+		data: {pageTitle: 'Auto wijzigen'},
 		resolve: {
 			fleets: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 				return resourceService.allFleets();
@@ -166,7 +166,7 @@ angular.module('openwheels.resource', [
 		url: '/members',
 		controller: 'ResourceShowMembersController',
 		templateUrl: 'resource/show/members/resource-show-members.tpl.html',
-		data: {pageTitle: 'Resource members'},
+		data: {pageTitle: 'Auto vrienden'},
 		resolve: {
 			members: ['$stateParams', 'resourceService', 'resource', function ($stateParams, resourceService, resource) {
 				return resourceService.getMembers({
@@ -184,7 +184,7 @@ angular.module('openwheels.resource', [
 		url: '/discount?validFrom&validUntil&global&multiple',
 		controller: 'ResourceShowDiscountController',
 		templateUrl: 'resource/show/discount/resource-show-discount.tpl.html',
-		data: {pageTitle: 'Resource discount'},
+		data: {pageTitle: 'Auto kortingscodes'},
 		resolve: {
 			discounts: ['$stateParams', 'discountService', 'resource', 'perPage', function ($stateParams, discountService, resource, perPage) {
 				var params = {};
@@ -209,7 +209,7 @@ angular.module('openwheels.resource', [
     url: '/damage?finalized&max&offset',
     controller: 'ResourceShowDamageController',
     templateUrl: 'resource/show/damage/resource-show-damage.tpl.html',
-    data: {pageTitle: 'Resource damage'},
+    data: {pageTitle: 'Auto schade'},
     resolve: {
       damages: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
         var params = {};
@@ -231,7 +231,7 @@ angular.module('openwheels.resource', [
     url: '/reports?finalized&type&person&booking&max&offset',
     controller: 'ResourceShowReportsController',
     templateUrl: 'resource/show/reports/resource-show-reports.tpl.html',
-    data: {pageTitle: 'Resource reports'},
+    data: {pageTitle: 'Auto rapporten'},
     resolve: {
       reports: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
         var params = {};
@@ -258,7 +258,7 @@ angular.module('openwheels.resource', [
 		url: '/maintenance?finalized&max&offset',
 		controller: 'ResourceShowMaintenanceController',
 		templateUrl: 'resource/show/maintenance/resource-show-maintenance.tpl.html',
-		data: {pageTitle: 'Resource maintenance'},
+		data: {pageTitle: 'Auto onderhoud'},
 		resolve: {
 			maintenances: ['$stateParams', 'maintenanceService', 'resource', 'perPage', function ($stateParams, maintenanceService, resource, perPage) {
 				var params = {};
@@ -280,7 +280,7 @@ angular.module('openwheels.resource', [
 			url: '/boardcomputer',
 			controller: 'ResourceShowBoardcomputerController',
 			templateUrl: 'resource/show/boardcomputer/resource-show-boardcomputer.tpl.html',
-			data: {pageTitle: 'Resource boardcomputer'},
+			data: {pageTitle: 'Auto boordcomputer'},
 			resolve: {
 				booking: function () {
 					return;

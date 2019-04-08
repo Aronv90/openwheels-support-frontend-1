@@ -12,9 +12,16 @@
   <md-dialog-content>
     <div layout="column" layout-margin class="md-dialog-content">
       <h3>Pechhulp inschakelen</h3>
+
+      <strong ng-if="!loadingLastCommand && lastCommand.action === 'CloseDoorStartDisable'" class="text-danger">
+        Let op: De auto start waarschijnlijk niet omdat de startblokkering automatisch ingeschakeld is op {{ lastCommand.dateRequested | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik op <strong>[Openen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen.
+      </strong>
+
       <p>Als een huurder tijdens de rit pech heeft en niet meer verder kan rijden met de auto, kan de pechhulp ingeschakeld worden.</p>
-      <p ng-if="booking.resource.roadAssistance">{{ booking.resource.roadAssistance }} Vraag aan de huurder wat zijn huidige locatie is en bel het telefoonnummer. De pechhulp staat op kenteken of polisnummer geregistreerd.</p>
-      <p ng-if="!booking.resource.roadAssistance">De pechhulp is geregeld via Eurocross. Vraag aan de huurder wat zijn huidige locatie is en bel Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. Dring erop aan dat niet het kenteken maar het polisnummer geregistreerd moet staan.</p>
+      <p ng-if="booking.resource.roadAssistance">{{ booking.resource.roadAssistance }} De pechhulp staat op kenteken of polisnummer geregistreerd. Schakel de huurder door naar het pechhulpnummer.</p>
+
+      <p ng-if="!booking.resource.roadAssistance">De pechhulp is geregeld via Eurocross. Schakel de huurder door naar Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. De huurder moet erop aandringen dat niet het kenteken, maar het polisnummer geregistreerd staat.</p>
+
       <p>De pechhulp arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen eerst proberen de huurder weer op weg te helpen. Mocht dit niet lukken, zullen ze de auto meenemen en de huurder naar de gewenste locatie in Nederland brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.</p>
     </div>
   </md-dialog-content>

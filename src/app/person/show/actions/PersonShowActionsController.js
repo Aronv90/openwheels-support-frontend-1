@@ -10,10 +10,10 @@ angular.module('openwheels.person.show.actions', [])
 			idx = $scope.actions.indexOf(action);
 
 			dialogService.showModal({}, {
-				closeButtonText: 'Cancel',
-				actionButtonText: 'OK',
-				headerText: 'Are you sure?',
-				bodyText: 'Do you really want to remove the "' + action.descriptor.name +'" action with id: ' + action.id
+				closeButtonText: 'Annuleer',
+				actionButtonText: 'Ja',
+				headerText: 'Bevestiging',
+				bodyText: 'Wil je de actie "' + action.descriptor.name +'" met id ' + action.id + ' verwijderen?'
 			})
 				.then(function () {
 					return actionsService.delete({action: action.id});
@@ -24,9 +24,9 @@ angular.module('openwheels.person.show.actions', [])
 					if(response){
 						if(response.deleted){
 							$scope.actions.splice(idx, 1);
-							alertService.add('success', 'Action removed', 2000);
+							alertService.add('success', 'De actie is verwijderd.', 2000);
 						}else{
-							alertService.add('warning', 'Removing action failed', 2000);
+							alertService.add('warning', 'Het verwijderen van de actie is mislukt.', 2000);
 						}
 					}
 				}, function (error) {

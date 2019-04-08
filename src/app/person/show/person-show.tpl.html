@@ -38,78 +38,76 @@
     <div class="collapse navbar-collapse" id="ow-navbar-collapse-person">
       <ul class="nav navbar-nav navbar__full-width">
         <li ng-class="{ active: $state.includes('root.person.show.summary') }">
-          <a ui-sref="root.person.show.summary">Summary</a>
+          <a ui-sref="root.person.show.summary">Samenvatting</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.data') }">
-          <a ui-sref=".data.personal">Data</a>
+          <a ui-sref=".data.personal">Gegevens</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.trip') }">
-          <a ui-sref=".trip">Trips</a>
-        </li>
-        <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }">
-          <a ui-sref=".invoice-group.list">Verzamelfacturen</a>
+        <li ng-class="{ active: $state.includes('root.person.show.trip') }" ng-if="user.identity.provider.id !== 5">
+          <a ui-sref=".trip">Ritten</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }" ng-if="user.identity.id !== 542476">
-          <a ui-sref=".invoiceGroupV2.list">Invoice</a>
+          <a ui-sref=".invoiceGroupV2.list">Facturen</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.vouchers') }" ng-if="user.identity.id !== 542476">
-          <a ui-sref=".vouchers">Vouchers</a>
-        </li>
-        <li ng-class="{ active: $state.includes('root.person.show.damage') }">
-          <a ui-sref="root.person.show.damage({ personId: person.id })">Damage</a>
+          <a ui-sref=".vouchers">Rijtegoed</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.payouts') }" ng-if="user.identity.id !== 542476">
-          <a ui-sref=".payouts">Payouts</a>
+          <a ui-sref=".payouts">Uitbetalingen</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.damage') }">
+          <a ui-sref="root.person.show.damage({ personId: person.id })">Schade</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.contracts') }">
-          <a ui-sref=".contracts">Contracts</a>
+          <a ui-sref=".contracts">Contracten</a>
+        </li>
+        <li ng-class="{ active: $state.includes('root.person.show.chipcards') }" ng-if="user.identity.provider.id !== 5">
+          <a ui-sref=".chipcards">Chipkaarten</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.resource.list') }">
-          <a ui-sref=".resource.list">Resources</a>
+          <a ui-sref=".resource.list">Auto's</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.chipcards') }">
-          <a ui-sref=".chipcards">Chipcards</a>
-        </li>
-
-        <li class="dropdown" ng-class="{ active: $state.includes('root.person.show.messages') || $state.includes('root.person.show.communication') || $state.includes('root.person.show.messagesms') }">
-          <a class="dropdown-toggle" data-toggle="dropdown">Messages</a>
+        <li class="dropdown" ng-class="{ active: $state.includes('root.person.show.messages') || $state.includes('root.person.show.communication') || $state.includes('root.person.show.messagesms') }" ng-if="user.identity.provider.id !== 5">
+          <a class="dropdown-toggle" data-toggle="dropdown">Communicatie</a>
           <ul class="dropdown-menu">
             <li ng-class="{ active: $state.includes('root.person.show.messages') }">
-              <a ui-sref=".messages">PM Messages</a>
+              <a ui-sref=".messages">Berichten</a>
             </li>
             <li ng-class="{ active: $state.includes('root.person.show.messagesms') }">
-              <a ui-sref=".messagesms">Push Messages</a>
+              <a ui-sref=".messagesms">SMS</a>
             </li>
             <li ng-class="{ active: $state.includes('root.person.show.communication') }">
-              <a ui-sref=".communication">Communication</a>
+              <a ui-sref=".communication">Mail</a>
             </li>
           </ul>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.remarklog') }">
-          <a ui-sref=".remarklog">Remarks</a>
+          <a ui-sref=".remarklog">Opmerkingen</a>
         </li>
 
         <li class="dropdown pull-right">
-        <a class="dropdown-toggle" data-toggle="dropdown">More <big><i class="fa fa-fw fa fa-ellipsis-v"></i></big></a>
+        <a class="dropdown-toggle" data-toggle="dropdown">Meer <big><i class="fa fa-fw fa fa-ellipsis-v"></i></big></a>
           <ul class="dropdown-menu">
-            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }">
-              <a ui-sref=".transaction.list">Transactions</a>
+            <li ng-class="{ active: $state.includes('root.person.show.rating') }" ng-if="user.identity.provider.id !== 5">
+              <a ui-sref=".rating">Reviews</a>
             </li>
-            <li ng-class="{ active: $state.includes('root.person.show.rating') }">
-              <a ui-sref=".rating">Ratings</a>
-            </li>
-            <li ng-class="{ active: $state.includes('root.person.show.badges') }">
+            <li ng-class="{ active: $state.includes('root.person.show.badges') }" ng-if="user.identity.provider.id !== 5">
               <a ui-sref=".badges">Badges ( {{ person.badges.length }} )</a>
             </li>
             <li ng-class="{ active: $state.includes('root.person.show.actions') }">
-              <a ui-sref=".actions">Actions</a>
+              <a ui-sref=".actions">Acties</a>
             </li>
             <li ng-class="{ active: $state.includes('root.person.show.revisions') }">
-              <a ui-sref=".revisions">Revisions</a>
+              <a ui-sref=".revisions">Wijzigingen</a>
             </li>
-
-            <li ng-class="{ active: $state.includes('root.person.show.discount') }">
-              <a ui-sref=".discount">Discount</a>
+            <li ng-class="{ active: $state.includes('root.person.show.discount') }" ng-if="user.identity.provider.id !== 5">
+              <a ui-sref=".discount">Kortingscodes</a>
+            </li>
+            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }">
+              <a ui-sref=".invoice-group.list">Verzamelfacturen</a>
+            </li>
+            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }" ng-if="user.identity.provider.id !== 5">
+              <a ui-sref=".transaction.list">Transacties</a>
             </li>
           </ul>
         </li>

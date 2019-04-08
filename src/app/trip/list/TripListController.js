@@ -33,13 +33,13 @@ angular.module('openwheels.trip.list')
 
   var filterOptions = $scope.filterOptions = [
     {
-      label: 'Show all',
+      label: 'Toon alle ritten',
       filter: function (bookings) {
         return bookings;
       }
     },
     {
-      label: 'Select by provider...',
+      label: 'Selecteer een provider...',
       selectFrom: providerOptions,
       filter: function (bookings, option) {
         if (!option) {
@@ -51,30 +51,11 @@ angular.module('openwheels.trip.list')
       }
     },
     {
-      label: 'In progress',
+      label: 'Lopende riten',
       filter: function (bookings) {
         var now = moment();
         return bookings.filter(function (booking) {
           return !( moment(booking.endBooking).isBefore(now) || moment(booking.beginBooking).isAfter(now) );
-        });
-      }
-    },
-    {
-      label: 'In progress or yet to be started',
-      filter: function (bookings) {
-        var now = moment();
-        return bookings.filter(function (booking) {
-          return !moment(booking.endBooking).isBefore(now);
-        });
-      }
-    },
-    {
-      label: 'Starting within the next two weeks',
-      filter: function (bookings) {
-        var now = moment();
-        var today = moment().startOf('day');
-        return bookings.filter(function (booking) {
-          return moment(booking.beginBooking).isAfter(now) && moment(booking.beginBooking).isBefore(today.add(14, 'days'));
         });
       }
     }

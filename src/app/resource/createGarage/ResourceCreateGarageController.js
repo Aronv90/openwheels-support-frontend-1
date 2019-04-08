@@ -15,7 +15,7 @@ angular.module('openwheels.resource.creategarage', [])
         'number': garage.number
       }).then(function (garage) {
           $scope.saveSuccess = true;
-          $scope.message = 'Garage ' + $scope.garage.name + ' successfully created';
+          $scope.message = 'Garage ' + $scope.garage.name + ' toegevoegd';
           $scope.garage = {};
         }, function (error) {
           $scope.saveSuccess = false;

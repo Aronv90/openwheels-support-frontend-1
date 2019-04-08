@@ -1,11 +1,11 @@
 <div class="panel panel-default card">
   <div class="panel-body">
-    <h3>Call history per day</h3>
+    <h3>Telefoongesprekken per dag</h3>
 
     <div style="margin-bottom: 20px">
 
-      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sPrevDay })">&laquo; Previous</button>
-      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sNextDay })">Next &raquo;</button>
+      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sPrevDay })">&laquo; Vorige dag</button>
+      <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sNextDay })">Volgende dag &raquo;</button>
 
       {{ sCurrentDate | amDateFormat: 'DD MMM YYYY'}}
 
