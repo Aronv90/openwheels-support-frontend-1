@@ -11,6 +11,7 @@ angular.module('openwheels.provider.create', [])
 
     $scope.providerInfo.provider = {};
     $scope.providerInfo.provider.url = 'openwheels.nl/,mywheels.nl/,test.openwheels.nl/';
+    $scope.providerInfo.provider.canBookAllowedStatus = 'active';
 
     $scope.providerInfo.contract = {};
     $scope.providerInfo.contract.bookingFee = 0.00;
@@ -33,6 +34,7 @@ angular.module('openwheels.provider.create', [])
 
       var clientIds = $scope.providerInfo.clientIds.split(',').map(Number);
       $scope.providerInfo.provider.url = $scope.providerInfo.provider.url.split(',');
+      $scope.providerInfo.provider.canBookAllowedStatus = $scope.providerInfo.provider.canBookAllowedStatus.split(',');
 
       providerInfoService.create({
         name: $scope.providerInfo.name,
