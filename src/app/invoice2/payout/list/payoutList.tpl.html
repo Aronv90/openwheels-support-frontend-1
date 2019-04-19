@@ -72,7 +72,7 @@
                 <b>{{ ( -1 * payout.paymentInstruction.amount) | currency }}</b>
               </td>
 
-              <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+              <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
 
               <td ng-if="!payout.paid">
                 <a ng-click="processPayout(payout)" show-if-user-has-role="ROLE_ADMIN">Payout now</a><br/>

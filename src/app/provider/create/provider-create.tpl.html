@@ -1,0 +1,242 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default card">
+
+            <div class="panel-body">
+
+                <h3>Provider toevoegen</h3>
+                <form name="providerInfoDataForm">
+
+                    <div id="provider-details">
+                        <div class="row">
+                            <div class="form-group col-md-5">
+                                <label>Naam</label>
+                                <input type="text" ng-model="providerInfo.name" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-5">
+                                <label>Email</label>
+                                <input type="email" ng-model="providerInfo.provider.email" class="form-control" required />
+                            </div>
+
+
+                            <div class="form-group col-md-2">
+                                <label>Zakelijk</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.business">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Person</label>
+                                <input find-person name="person" model="providerInfo.person" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Url (kommagescheiden)</label>
+                                <input type="text" ng-model="providerInfo.provider.url" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>Client ids (kommagescheiden)</label>
+                                <input type="text" ng-model="providerInfo.clientIds" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>Allowed Can Book Status (kommagescheiden)</label>
+                                <input type="text" ng-model="providerInfo.provider.canBookAllowedStatus" class="form-control" required />
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-3">
+                                <label>Can Book</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.canBook">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Send Text</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.sendText">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Send Push</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.sendPush">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Send Mail</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.sendMail">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label>Set New Person Active</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.setNewPersonActive">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>create Active Default Contract</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.createActiveDefaultContract">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Credit Check</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.creditCheck">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Invoice Subscriber</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.provider.invoiceSubscriber">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Contract</h3>
+                    <div id="contract-details">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label>Beschrijving</label>
+                                <input ng-model="providerInfo.contract.description" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label>Boekingskosten</label>
+                                <input type="number" ng-model="providerInfo.contract.bookingFee" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>Dagkosten</label>
+                                <input type="number" ng-model="providerInfo.contract.dayFee" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-4">
+                                <label>Abbonementskosten</label>
+                                <input type="number" ng-model="providerInfo.contract.subscriptionFee" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-3">
+                                <label>Invoice Strategy</label>
+                                <input type="text" ng-model="providerInfo.contract.invoiceGenerationStrategyName" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Booking Strategy</label>
+                                <input type="text" ng-model="providerInfo.contract.bookingAlterationStrategyName" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Credit Strategy</label>
+                                <input type="text" ng-model="providerInfo.contract.creditStrategyName" class="form-control" required />
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Own Risk Strategy</label>
+                                <input type="text" ng-model="providerInfo.contract.ownRiskWaiver" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label>Maximaal aantal personen</label>
+                                <input type="number" ng-model="providerInfo.contract.maxDrivers" class="form-control" required />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label>Meerdere boekingen</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.multiBooking">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Credit Check</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.creditCheck">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Voucher Collector</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.voucherCollector">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label>Send Voucher Booking Mail</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.sendVoucherBookingMail">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="form-group col-md-3">
+                                <label>Prepaid</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.prepaid">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Voucher Subscriber</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.voucherSubscriber">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Invoice Subscriber</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.invoiceSubscriber">
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label>Mandate Check</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" ng-model="providerInfo.contract.mandateCheck">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" ng-click="save()" ng-disabled="isSaveDisabled()">Opslaan</button>
+                        <button type="button" class="btn btn-default pull-right" ng-click="goToListPage()" >Terug naar providers</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

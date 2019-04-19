@@ -96,8 +96,8 @@ angular.module('openwheels.person', [
 			data: {pageTitle: 'Persoon samenvatting'},
 			resolve: {
 				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
-					var startDate = moment().subtract(1, 'd');
-					var endDate = moment().add(1, 'w');
+					var startDate = moment().subtract(1, 'months');
+					var endDate = moment().add(1, 'months');
 
 					return bookingService.getBookingList({
 						person: $stateParams.personId,

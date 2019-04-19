@@ -1,13 +1,13 @@
-<h3>Payouts</h3>
+<h3>Uitbetalingen</h3>
 <table class="table">
     <thead>
         <tr>
-            <th>Payout ID</th>
-            <th>Created</th>
-            <th>Invoice group</th>
-            <th>Voucher</th>
-            <th>Amount</th>
-            <th>Paid</th>
+            <th>#</th>
+            <th>Aangemaakt op</th>
+            <th>Factuurnummer</th>
+            <th>Rijtegoed</th>
+            <th>Bedrag</th>
+            <th>Uitbetaald op</th>
         </tr>
     </thead>
     <tbody>
@@ -20,11 +20,11 @@
                 <b>{{ (-1 * payout.paymentInstruction.amount) | currency}}</b>
             </td>
 
-            <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+            <td ng-if="payout.paid">{{ payout.paid | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
 
             <td ng-if="!payout.paid">
-                <a ng-click="processPayout(payout)" show-if-user-has-role="ROLE_ADMIN">Payout now</a><br/>
-                <a ng-click="deletePayout(payout)">Delete</a><br/>
+                <a ng-click="processPayout(payout)" show-if-user-has-role="ROLE_ADMIN">Uitbetalen</a><br/>
+                <a ng-click="deletePayout(payout)">Verwijderen</a><br/>
             </td>
 
         </tr>

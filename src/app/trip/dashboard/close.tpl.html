@@ -1,0 +1,29 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Sluit de auto op afstand</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content">
+      <p>Deze auto kun je op afstand sluiten. Zorg dat de sleutel in de auto ligt, de deuren dicht zijn en de verlichting (ook de binnenverlichting) uit is. <strong>Klik hieronder op [Versturen] en vraag de huurder om te controleren of de auto op slot is.</strong></p>
+
+      <p>Krijg je een foutmelding of gaat de auto niet dicht? Klik dan <a ng-click="closeWithoutBooking()"><strong>[hier]</strong></a> voor een nood-commando. De auto sluit dan wel.</p>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="done()" ng-disabled="booking.person.status !== 'active' || booking.approved === 'BUY_VOUCHER' || booking.status !== 'accepted' || booking.beginBooking > now">
+      Versturen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
