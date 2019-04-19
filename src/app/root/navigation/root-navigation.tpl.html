@@ -139,9 +139,12 @@
           <li ng-class="{ active: $state.includes('root.subscription.list') }">
             <a ui-sref="root.subscription.list">Abonnementen</a>
           </li>
+          <li ng-class="{ active: $state.includes('root.globaldiscount.create') }">
+            <a ui-sref="root.globaldiscount.create">Kortingscode toevoegen</a>
+          </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoice.create') }">
-            <a ui-sref="root.invoice2.invoice.create">Maak factuurregel</a>
+            <a ui-sref="root.invoice2.invoice.create">Factuurregel toevoegen</a>
           </li>
         </ul>
       </li>
@@ -191,10 +194,15 @@
     </ul>
 
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
-      <li ng-class="{ dropdown: true, active: $state.includes('root.globaldiscount') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Kortingscode<b class="caret"></b></a>
+      <li ng-class="{ dropdown: true, active: $state.includes('root.provider') }">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Provider<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a ui-sref="root.globaldiscount.create">Kortingscode toevoegen</a></li>
+          <li ng-class="{ active: $state.includes('root.provider.create') }">
+            <a ui-sref="root.provider.create">Provider toevoegen</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.provider.list') }">
+            <a ui-sref="root.provider.list">Providerlijst</a>
+          </li>
         </ul>
       </li>
     </ul>

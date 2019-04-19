@@ -1,10 +1,10 @@
 <h4>{{ person | fullname }}
-  <small>{{ person.male ? "male" : "female"}}</small>
+  <small>{{ person.male ? "man" : "vrouw"}}</small>
 </h4>
 <div class="alert alert-warning" ng-show="warnings.total()">
 
   <div ng-show="warnings.personal">
-    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.personal">personal data</a>
+    <strong>{{ warnings.total() }} meldingen</strong> bij <a ui-sref="^.data.personal">persoonsgegevens/a>
     <ul>
       <li ng-repeat="warning in warnings.personal">
         {{ warning.message }}
@@ -13,7 +13,7 @@
   </div>
 
   <div ng-show="warnings.mywheels">
-    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.mywheels">Mywheels data</a>
+    <strong>{{ warnings.total() }} meldingen</strong> bij <a ui-sref="^.data.mywheels">profiel</a>
     <ul>
       <li ng-repeat="warning in warnings.mywheels">
         {{ warning.message }}
@@ -22,7 +22,7 @@
   </div>
 
   <div ng-show="warnings.contact">
-    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.contact">contact data</a>
+    <strong>{{ warnings.total() }} meldingen</strong> bij <a ui-sref="^.data.contact">contactgegevens</a>
     <ul>
       <li ng-repeat="warning in warnings.contact">
         {{ warning.message }}
@@ -31,7 +31,7 @@
   </div>
 
   <div ng-show="warnings.phone">
-    <strong>{{ warnings.total() }} warnings</strong> in <a ui-sref="^.data.phones">phone data</a>
+    <strong>{{ warnings.total() }} meldingen</strong> bij <a ui-sref="^.data.phones">telefoonnummers</a>
     <ul>
       <li ng-repeat="warning in warnings.phone">
         {{ warning.message }}
@@ -65,17 +65,17 @@
 </ul>
 
 <div class="alert alert-info" ng-hide="bookings.length > 0">
-  No bookings found in this timeframe
+  Geen ritten gevonden.
 </div>
 <table class="table table-hover" ng-show="bookings.length > 0">
   <thead>
     <tr>
-      <th>Booking</th>
+      <th>Ritnummer</th>
       <th>Status</th>
-      <th colspan="2">Timeframe</th>
+      <th colspan="2">Tijdframe</th>
       <th>Begin trip</th>
-      <th>Resource</th>
-      <th>Paid</th>
+      <th>Auto</th>
+      <th>Betaald</th>
     </tr>
   </thead>
   <tbody>
