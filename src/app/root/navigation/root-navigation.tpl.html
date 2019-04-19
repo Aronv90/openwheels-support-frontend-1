@@ -181,7 +181,7 @@
           <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('ow-dashboard') }">
             <a ui-sref="ow-dashboard">Dashboard</a>
           </li>
-          <li ui-sref-active="active" ng-repeat="item in checklists"> 
+          <li ui-sref-active="active" ng-repeat="item in checklists | filter:{onDashboard:false}"> 
             <a ui-sref="root.checklist.generic({queryid: item.id})">{{item.title}}</a>
           </li>
         </ul>
