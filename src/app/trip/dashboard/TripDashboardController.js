@@ -1152,7 +1152,7 @@ angular.module('openwheels.trip.dashboard', [])
           $mdDialog.show(confirm)
           .then(function(res) {
             return boardcomputerService.control({
-              action: 'OpenDoorStartEnable',
+              action: 'CloseDoorStartDisable',
               resource: $scope.booking.resource.id
             })
             .then(function(res) {
@@ -1179,7 +1179,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .then(function(res) {
       return boardcomputerService.control({
-        action: 'OpenDoorStartEnable',
+        action: 'CloseDoorStartDisable',
         resource: $scope.booking.resource.id,
         booking: $scope.booking.id
       })
