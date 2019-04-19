@@ -26,7 +26,7 @@
           <tr ng-repeat="voucher in vouchers | orderBy: '-created'">
             <td>{{ voucher.id }}</td>
             <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
-            <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+            <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
             <td><b>{{ voucher.currency }} {{ voucher.value | number:2 }}</b></td>
             <td>{{ voucher.currency }} {{ voucher.initialValue | number:2 }}</td>
             <td ng-if="!voucher.payoutRequest && voucher.value >= 0.1"><a href="" ng-click="payoutVoucher(voucher)">Payout</a></td>
