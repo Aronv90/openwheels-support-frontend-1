@@ -10,6 +10,7 @@ angular.module('openwheels.provider.create', [])
     $scope.providerInfo.clientIds = '1,3,4';
 
     $scope.providerInfo.provider = {};
+    $scope.providerInfo.provider.email = 'support@mywheels.nl';
     $scope.providerInfo.provider.url = 'openwheels.nl/,mywheels.nl/,test.openwheels.nl/';
     $scope.providerInfo.provider.canBookAllowedStatus = 'active';
 
