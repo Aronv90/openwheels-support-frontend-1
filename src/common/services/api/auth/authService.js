@@ -196,6 +196,10 @@ angular.module('authService', [])
 				if (asyncUser) {
 					asyncUser.resolve(user);
 				}
+
+				//check if user is customer care 
+			    $rootScope.isInterswitch = user.identity && user.identity.id === 583599 ? true : false;
+			    console.log($rootScope.isInterswitch);
 			})
 				.catch(function (err) {
 					$log.debug('<!! got identity error');
