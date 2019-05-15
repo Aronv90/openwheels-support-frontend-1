@@ -2,7 +2,7 @@
   <div class="panel-heading card__heading">
     <div class="media">
       <div class="pull-left">
-        <img class="img-responsive media-object img-square" ng-src="{{ person | personAvatar:'square' }}">
+        <img class="img-responsive media-object" ng-src="https://mywheels.nl/person/{{person.id}}/90/90/profile.png">
       </div>
       <div class="media-body">
         <h3 class="card__title"><a target="_blank" href="{{ frontDashboard }}{{ person.email }}"><i
@@ -46,16 +46,16 @@
         <li ng-class="{ active: $state.includes('root.person.show.trip') }" ng-if="user.identity.provider.id !== 5">
           <a ui-sref=".trip">Ritten</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }" ng-if="user.identity.id !== 542476">
+        <li ng-class="{ active: $state.includes('root.person.show.invoiceGroupV2') }" ng-if="!$root.isInterswitch">
           <a ui-sref=".invoiceGroupV2.list">Facturen</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.vouchers') }" ng-if="user.identity.id !== 542476">
+        <li ng-class="{ active: $state.includes('root.person.show.vouchers') }" ng-if="!$root.isInterswitch">
           <a ui-sref=".vouchers">Rijtegoed</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.payouts') }" ng-if="user.identity.id !== 542476">
+        <li ng-class="{ active: $state.includes('root.person.show.payouts') }" ng-if="!$root.isInterswitch">
           <a ui-sref=".payouts">Uitbetalingen</a>
         </li>
-        <li ng-class="{ active: $state.includes('root.person.show.damage') }">
+        <li ng-class="{ active: $state.includes('root.person.show.damage') }" ng-if="!$root.isInterswitch">
           <a ui-sref="root.person.show.damage({ personId: person.id })">Schade</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.contracts') }">
@@ -97,16 +97,16 @@
             <li ng-class="{ active: $state.includes('root.person.show.actions') }">
               <a ui-sref=".actions">Acties</a>
             </li>
-            <li ng-class="{ active: $state.includes('root.person.show.revisions') }">
+            <li ng-class="{ active: $state.includes('root.person.show.revisions') }" ng-if="!$root.isInterswitch">
               <a ui-sref=".revisions">Wijzigingen</a>
             </li>
             <li ng-class="{ active: $state.includes('root.person.show.discount') }" ng-if="user.identity.provider.id !== 5">
               <a ui-sref=".discount">Kortingscodes</a>
             </li>
-            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }">
+            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }" ng-if="!$root.isInterswitch">
               <a ui-sref=".invoice-group.list">Verzamelfacturen</a>
             </li>
-            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }" ng-if="user.identity.provider.id !== 5">
+            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }" ng-if="user.identity.provider.id !== 5 && !$root.isInterswitch">
               <a ui-sref=".transaction.list">Transacties</a>
             </li>
           </ul>

@@ -583,7 +583,7 @@
   </div>
 </div><!--/ third row, declarations -->
 
-<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN">
+<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
   <div class="col-sm-12">
     <div class="box">
       <div class="box__title box__title--trip">
@@ -681,7 +681,7 @@
   </div>
 </div><!--/ fifth row, revisions -->
 
-<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN">
+<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
   <div class="col-sm-12">
     <div class="box">
       <div class="box__title box__title--trip">
