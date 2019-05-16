@@ -6,7 +6,8 @@ angular.module('front.paths', [])
 .constant('FRONT_USER_RESOURCES', '/dashboard/autos')
 .constant('FRONT_USER_INVOICEGROUP', '/dashboard/facturen-verzamel')
 .constant('FRONT_TRIP_OVERVIEW', '/dashboard/ritten')
-.constant('FRONT_DRIVERLICENSE', '/license/')
+.constant('DRIVERLICENSE', '/license/')
+.constant('BACK_DRIVERLICENSE', '/back')
 
 .constant('FRONT_RENT', '/auto-huren')
 

@@ -141,7 +141,8 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
     };
 
     var images = {
-      front: null
+      front: null,
+      back: null
     };
 
     $scope.images = images;
@@ -153,8 +154,14 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       });
     });
 
+    angular.element('#licenseBackFile').on('change', function (e) {
+      $scope.$apply(function () {
+        images.back = e.target.files[0];
+      });
+    });
+
     $scope.startUpload = function () {
-      if (!images.front) { return; }
+      if (!images.front || !images.back) { return; }
 
       $scope.isBusy = true;
       alertService.load();
@@ -162,7 +169,8 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       personService.addLicenseImages({
         person: person.id
       }, {
-        frontImage: images.front
+        frontImage: images.front,
+        backImage: images.back
       })
       .then(function (returnedPerson) {
         alertService.add('success', 'Bedankt voor het uploaden van het rijbewijs', 5000);
