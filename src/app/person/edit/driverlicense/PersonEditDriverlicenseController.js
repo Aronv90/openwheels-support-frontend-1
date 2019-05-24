@@ -17,7 +17,7 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 		};
 	})
   .controller('PersonEditDriverlicenseController', function ($scope, alertService, dialogService, personService,
-    person, blockedLike, similar, account) {
+    person, blockedLike, similar, account, driverlicenseService) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
     
@@ -166,8 +166,9 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       $scope.isBusy = true;
       alertService.load();
 
-      personService.addLicenseImages({
-        person: person.id
+      driverlicenseService.upload({
+        person: person.id,
+        driverLicenseCountry: 'BE'
       }, {
         frontImage: images.front,
         backImage: images.back
