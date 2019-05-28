@@ -17,9 +17,31 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 		};
 	})
   .controller('PersonEditDriverlicenseController', function ($scope, alertService, dialogService, personService,
-    person, blockedLike, similar, account, driverlicenseService) {
+    person, blockedLike, similar, account, driverlicenseService, rentalcountryService, rentalcheckService) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
+
+    $scope.loadRentalCheckCountries = function () {
+      rentalcountryService.all()
+      .then(function (rentalCheckCountries) {
+        $scope.rentalCheckCountries = rentalCheckCountries;
+      })
+      .catch(function (err) {
+        alertService.addError(err);
+      });
+    };
+    $scope.loadRentalCheckCountries();
+
+    $scope.loadReasoning = function () {
+      rentalcheckService.reasoning({
+          person: $scope.person.id
+      })
+      .then(function (reason) {
+        $scope.reason = reason;
+        console.log($scope.reason);
+      });
+    };
+    $scope.loadReasoning();
     
     $scope.similar = _.map(similar, function(similar) {
       if(_.findWhere(similar.accounts, {iban: $scope.person.account.iban})) {
@@ -168,7 +190,7 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 
       driverlicenseService.upload({
         person: person.id,
-        driverLicenseCountry: 'BE'
+        driverLicenseCountry: $scope.person.driverLicenseCountry
       }, {
         frontImage: images.front,
         backImage: images.back

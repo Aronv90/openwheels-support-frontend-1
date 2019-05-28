@@ -33,6 +33,11 @@
           <input id="licenseBackFile" type="file" />
         </div>
       </div>
+
+      <div class="form-group">
+        <label for="type">Land van uitgifte</label>
+        <select class="form-control" name="type" id="type" ng-model="person.driverLicenseCountry" ng-options="r.alpha2 as r.name for r in rentalCheckCountries"></select>
+      </div>
       
       <button type="button" class="btn btn-primary" ng-click="startUpload()" ng-disabled="!images.front || !images.back || isBusy">
           <span class="fa fa-upload"></span> Upload
