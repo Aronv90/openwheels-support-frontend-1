@@ -38,7 +38,6 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       })
       .then(function (reason) {
         $scope.reason = reason;
-        console.log($scope.reason);
       });
     };
     $scope.loadReasoning();
