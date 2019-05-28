@@ -113,6 +113,20 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label>Extra info</label>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea style="resize: vertical; min-height: 200px; font-family: 'Menlo', 'Monaco', 'Ubuntu Mono', monospace;" ng-model="providerInfo.extraInfo" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <json-viewer schema="extraInfoSchema" json-text="providerInfo.extraInfo" />
+                            </div>
+                        </div>
                     </div>
 
                     <h3>Contract</h3>

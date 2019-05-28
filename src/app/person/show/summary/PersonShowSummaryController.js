@@ -22,19 +22,19 @@ angular.module('openwheels.person.show.summary', [])
 
   if( !person.firstName || !person.surname ){
     warnings.personal.push({
-      message: 'user has no valid name'
+      message: 'Geen voor- of achternaam.'
     });
   }
 
   if( person.male === null ){
     warnings.personal.push({
-      message: 'user has no gender'
+      message: 'Geen geslacht.'
     });
   }
 
   if( !person.dateOfBirth ){
     warnings.personal.push({
-      message: 'user has no date of birth'
+      message: 'Geen geboortedatum.'
     });
   }
 
@@ -44,19 +44,19 @@ angular.module('openwheels.person.show.summary', [])
 
   if( !person.emailValid ){
     warnings.contact.push({
-      message: 'email not validated'
+      message: 'Het e-mailadres is nog niet geverifieerd.'
     });
   }
 
   if( !person.streetName || !person.streetNumber || !person.zipcode || !person.city ){
     warnings.contact.push({
-      message: 'invalid address'
+      message: 'Geen adresgegevens.'
     });
   }
 
   if( !person.latitude || !person.longitude ){
     warnings.contact.push({
-      message: 'invalid latitude or longitude'
+      message: 'Geen long- en latitude.'
     });
   }
 
@@ -66,19 +66,19 @@ angular.module('openwheels.person.show.summary', [])
 
   if( person.status !== 'active' ){
     warnings.mywheels.push({
-      message: 'user status not active'
+      message: 'Account is nog niet geactiveerd.'
     });
   }
 
   if( !person.preference ){
     warnings.mywheels.push({
-      message: 'invalid user preference'
+      message: 'Geen voorkeur voor huren of verhuren.'
     });
   }
 
   if( person.driverLicenseStatus !== 'ok' ){
     warnings.mywheels.push({
-      message: 'Driver license not ok'
+      message: 'Rijbewijs is nog niet goedgekeurd.'
     });
   }
 
@@ -88,7 +88,7 @@ angular.module('openwheels.person.show.summary', [])
 
   if( person.phoneNumbers && person.phoneNumbers.length === 0){
     warnings.phone.push({
-      message: 'user has no phone number'
+      message: 'Nog geen telefoonnummer.'
     });
   }
 

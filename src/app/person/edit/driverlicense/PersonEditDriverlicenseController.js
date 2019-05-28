@@ -17,9 +17,31 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 		};
 	})
   .controller('PersonEditDriverlicenseController', function ($scope, alertService, dialogService, personService,
-    person, blockedLike, similar, account) {
+    person, blockedLike, similar, account, driverlicenseService, rentalcountryService, rentalcheckService) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
+
+    $scope.loadRentalCheckCountries = function () {
+      rentalcountryService.all()
+      .then(function (rentalCheckCountries) {
+        $scope.rentalCheckCountries = rentalCheckCountries;
+      })
+      .catch(function (err) {
+        alertService.addError(err);
+      });
+    };
+    $scope.loadRentalCheckCountries();
+
+    $scope.loadReasoning = function () {
+      rentalcheckService.reasoning({
+          person: $scope.person.id
+      })
+      .then(function (reason) {
+        $scope.reason = reason;
+        console.log($scope.reason);
+      });
+    };
+    $scope.loadReasoning();
     
     $scope.similar = _.map(similar, function(similar) {
       if(_.findWhere(similar.accounts, {iban: $scope.person.account.iban})) {
@@ -141,7 +163,8 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
     };
 
     var images = {
-      front: null
+      front: null,
+      back: null
     };
 
     $scope.images = images;
@@ -153,16 +176,24 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       });
     });
 
+    angular.element('#licenseBackFile').on('change', function (e) {
+      $scope.$apply(function () {
+        images.back = e.target.files[0];
+      });
+    });
+
     $scope.startUpload = function () {
-      if (!images.front) { return; }
+      if (!images.front || !images.back) { return; }
 
       $scope.isBusy = true;
       alertService.load();
 
-      personService.addLicenseImages({
-        person: person.id
+      driverlicenseService.upload({
+        person: person.id,
+        driverLicenseCountry: $scope.person.driverLicenseCountry
       }, {
-        frontImage: images.front
+        frontImage: images.front,
+        backImage: images.back
       })
       .then(function (returnedPerson) {
         alertService.add('success', 'Bedankt voor het uploaden van het rijbewijs', 5000);

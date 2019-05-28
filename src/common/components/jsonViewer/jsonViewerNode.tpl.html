@@ -1,0 +1,34 @@
+<div class="json-viewer-node" ng-class="{
+  'type-object': actualType === 'object',
+  'type-string': actualType === 'string',
+  'type-number': actualType === 'number',
+  'type-boolean': actualType === 'boolean',
+  'type-object': actualType === 'object',
+}">
+  <div ng-if="typeError" class="json-type-error">wrong type!</div>
+  <div ng-if="actualType === 'object'">
+    <table>
+      <tr ng-repeat="prop in node.properties">
+        <td>
+          <strong>{{ prop.key }}</strong><br />
+          <em>{{ prop.description }}</em>
+        </td>
+        <td>
+          <json-viewer-node node="prop" data="data[prop.key]" />
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div ng-if="actualType === 'string'" class="json-data">
+    "{{ data }}"
+  </div>
+  <div ng-if="actualType === 'number'" class="json-data">
+    {{ data }}
+  </div>
+  <div ng-if="actualType === 'boolean'" class="json-data">
+    {{ data }}
+  </div>
+  <div ng-if="actualType === 'null'" class="json-data">
+    null
+  </div>
+</div>

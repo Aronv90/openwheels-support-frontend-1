@@ -120,10 +120,10 @@
                         </li>
                     </ul>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.damage') }">
+                <li ng-class="{ active: $state.includes('root.resource.show.damage') }" ng-if="!$root.isInterswitch">
                     <a ui-sref="root.resource.show.damage({ resourceId: resource.id })">Schade</a>
                 </li>
-                <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }" ng-if="user.identity.provider.id !== 5">
+                <li ng-class="{ active: $state.includes('root.resource.show.maintenance') }" ng-if="user.identity.provider.id !== 5 && !$root.isInterswitch">
                     <a ui-sref="root.resource.show.maintenance({ resourceId: resource.id })">Onderhoud</a>
                 </li>
 
@@ -140,7 +140,7 @@
                     <li ng-class="{ active: $state.includes('root.resource.show.rating') }" ng-if="user.identity.provider.id !== 5">
                         <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Reviews</a>
                     </li>
-                    <li ng-class="{ active: $state.includes('root.resource.show.revisions') }">
+                    <li ng-class="{ active: $state.includes('root.resource.show.revisions') }" ng-if="!$root.isInterswitch">
                         <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Wijzigingen</a>
                     </li>
                     <li ng-class="{ active: $state.includes('root.resource.show.discount') }" ng-if="user.identity.provider.id !== 5">

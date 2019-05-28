@@ -1086,7 +1086,7 @@ angular.module('openwheels.trip.dashboard', [])
             resource: $scope.booking.resource.id
           })
           .then(function(res) {
-            return alertService.add('success', 'De auto wordt geopend.', 5000);
+            return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
           })
           .catch(function(err) {
             if(err && err.message) {
@@ -1125,7 +1125,7 @@ angular.module('openwheels.trip.dashboard', [])
         booking: $scope.booking.id
       })
       .then(function(res) {
-        return alertService.add('success', 'De auto wordt geopend.', 5000);
+        return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
       })
       .catch(function(err) {
         if(err && err.message) {
@@ -1136,13 +1136,47 @@ angular.module('openwheels.trip.dashboard', [])
   };
 
   $scope.close = function() {
-    var confirm = $mdDialog.confirm()
-    .title('Wil je de auto afsluiten?')
-    .textContent('Weet je zeker dat je deze auto wil afsluiten? Zorg dat de sleutel weer in de auto ligt, de deuren dicht zijn en de verlichting (ook de binnenverlichting) uit is. Vraag de huurder om te controleren of de auto op slot is.')
-    .ok('Ja')
-    .cancel('Nee');
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
 
-    $mdDialog.show(confirm)
+        $scope.closeWithoutBooking = function() {
+          var confirm = $mdDialog.confirm()
+          .title('Wil je een nood-commando versturen om de auto te sluiten?')
+          .textContent('Verstuur alleen een nood-commando als het het via [Versturen] niet lukt.')
+          .ok('Verstuur nood-commando')
+          .cancel('Annuleren');
+
+          $mdDialog.show(confirm)
+          .then(function(res) {
+            return boardcomputerService.control({
+              action: 'CloseDoorStartDisable',
+              resource: $scope.booking.resource.id
+            })
+            .then(function(res) {
+              return alertService.add('success', 'De auto sluit binnen 15 seconden.', 5000);
+            })
+            .catch(function(err) {
+              if(err && err.message) {
+                alertService.add('warning', 'De auto kon niet gesloten worden: ' + err.message, 5000);
+              }
+            });
+          });
+        };
+
+        $scope.done = function() {
+          $mdDialog.hide($scope.ccomeColor);
+        };
+        $scope.cancel = $mdDialog.cancel;
+      }],
+      templateUrl: 'trip/dashboard/close.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking
+      }
+    })
     .then(function(res) {
       return boardcomputerService.control({
         action: 'CloseDoorStartDisable',
@@ -1150,11 +1184,11 @@ angular.module('openwheels.trip.dashboard', [])
         booking: $scope.booking.id
       })
       .then(function(res) {
-        return alertService.add('success', 'De auto wordt gesloten.', 5000);
+        return alertService.add('success', 'De auto sluit binnen 15 seconden.', 5000);
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet gesloten worden ' + err.message, 5000);
+          alertService.add('warning', 'De auto kon niet gesloten worden: ' + err.message, 5000);
         }
       });
     });
@@ -1310,7 +1344,7 @@ angular.module('openwheels.trip.dashboard', [])
             resource: $scope.booking.resource.id
           })
           .then(function(res) {
-            return alertService.add('success', 'De auto wordt geopend.', 5000);
+            return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
           })
           .catch(function(err) {
             if(err && err.message) {
@@ -1358,11 +1392,11 @@ angular.module('openwheels.trip.dashboard', [])
         booking: $scope.booking.id
       })
       .then(function(res) {
-        return alertService.add('success', 'De auto wordt geopend.', 5000);
+        return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet geopend worden ' + err.message, 5000);
+          alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
         }
       });
     });

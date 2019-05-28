@@ -3,8 +3,8 @@
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
-            <h4 class="modal-title" ng-hide="chipcard.insertedOn">Create chipcard for {{person | fullname}}</h4>
-            <h4 class="modal-title" ng-show="chipcard.insertedOn">Edit chipcard for {{person | fullname}}</h4>
+            <h4 class="modal-title" ng-hide="chipcard.insertedOn">Chipkaart toevoegen voor {{person | fullname}}</h4>
+            <h4 class="modal-title" ng-show="chipcard.insertedOn">Chipkaart wijzigen voor {{person | fullname}}</h4>
         </div>
 
         <div class="modal-body">
@@ -19,19 +19,14 @@
             </div>
 
             <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">Omschrijving</label>
                 <input class="form-control" name="description" id="description" ng-model="chipcard.description">
-            </div>
-
-            <div class="form-group">
-                <label for="isOvfietsEnabled">OV-Fiets <input type="checkbox" class="form-control" name="isOvfietsEnabled" id="isOvfietsEnabled" ng-model="chipcard.isOvfietsEnabled"></label>
-
             </div>
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Annuleer</button>
+            <button type="submit" class="btn btn-primary">Toevoegen</button>
         </div>
     </form>
 </div>
