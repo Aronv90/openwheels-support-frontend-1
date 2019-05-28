@@ -7,114 +7,89 @@
       <span ng-if="person.driverLicenseStatus === 'unchecked'">Rijbewijs nog niet gecontroleerd</span>
     </h2>
     <hr>
-    <div class="row">&nbsp;</div>
   </div>
 
   <div class="col-md-6">
 
-    <form>
-      <div class="form-group">
-        <strong>Voorkant rijbewijs</strong>
-        <div ng-if="person.driverLicense">
-          <driver-license person="person.id"></driver-license>
-        </div>
+    <h2>Accountcontrole</h2>
 
-        <div style="margin-bottom:20px;">
-          <input id="licenseFrontFile" type="file" />
-        </div>
-
-
-        <strong>Achterkant rijbewijs</strong>
-        <div ng-if="person.driverLicense">
-          <driver-license person="person.id" back="true"></driver-license>
-        </div>
-
-        <div>
-          <input id="licenseBackFile" type="file" />
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="type">Land van uitgifte</label>
-        <select class="form-control" name="type" id="type" ng-model="person.driverLicenseCountry" ng-options="r.alpha2 as r.name for r in rentalCheckCountries"></select>
-      </div>
-      
-      <button type="button" class="btn btn-primary" ng-click="startUpload()" ng-disabled="!images.front || !images.back || isBusy">
-          <span class="fa fa-upload"></span> Upload
-      </button>
-    </form>
-
-    <div class="row">&nbsp;</div>
-
+    <h4>Standaardcontrole</h4>
     <table class="table table-striped table-condensed">
       <tr>
-        <th style="min-width:140px;">Opmerking</th>
-        <td>{{person.remark}}</td>
-      </tr>
-      <tr>
-        <th>E-mail geverifieerd?</th>
-        <td>{{person.emailVerified ? 'Ja' : 'Nee'}}</td>
-      </tr>
-      <tr>
-        <th>Voorkeur</th>
-        <td ng-if="person.preference === 'both'">Huren & verhuren</td>
-        <td ng-if="person.preference === 'renter'">Huren</td>
-        <td ng-if="person.preference === 'owner'">Verhuren</td>
-      </tr>
-      <tr>
-        <th>Facebook</th>
-        <td><a href="http://facebook.com/{{ person.facebookUid }}" target="_blank">{{person.facebookUid}}</a></td>
-      </tr>
-      <tr>
-        <th>Facebook achternaam</th>
+        <th style="width: 275px;">Facebook achternaam</th>
         <td>{{person.facebookSurname}}</td>
       </tr>
       <tr>
-        <th>Twitter</th>
-        <td><a href="https://twitter.com/{{person.twitterUid}}" target="_blank">{{person.twitterUid}}</a></td>
-      </tr>
-      <tr>
-        <th>LinkedIn</th>
-        <td><a href="https://linkedin.com/in/{{person.linkedinUid}}" target="_blank">{{person.linkedinUid}}</a></td>
-      </tr>
-      <tr>
-        <th>Tenaamstelling</th>
+        <th style="width: 275px;">Tenaamstelling IBAN</th>
         <td>{{person.account.name}}</td>
       </tr>
-      <tr>
-        <th>IBAN-nummer</th>
-        <td>{{person.account.iban}}</td>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">Zwarte lijst match?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].blacklist]">{{reason.default[0].blacklist ? 'Ja' : 'Geen'}}</td>
+      </tr>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">Overeenkomstig account match?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].similar]">{{reason.default[0].similar ? 'Ja' : 'Geen'}}</td>
+      </tr>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">Score:</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].score_not_acceptable]">
+          {{reason.default[0].score}}
+        </td>
+      </tr>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">Afstand tot auto:</th>
+        <td>{{reason.default[0].distance}} km</td>
+      </tr>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">E-mail geverifieerd?</th>
+        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.default[0].email_valid]">{{reason.default[0].email_valid ? 'Ja' : 'Nee'}}</td>
       </tr>
     </table>
-  </div>
 
-  <div class="col-md-6">
-    <form name="form">
-      <div class="form-group">
-        <div class="form-group">
-          <label for="driverLicenseNumber">Rijbewijsnummer:</label>
-          <input name="driverLicenseNumber" id="driverLicenseNumber" type="text" class="form-control" ng-model="person.driverLicenseNumber" />
-        </div>
-        <div class="form-group">
-          <label for="driverLicenseDate">Geldig tot:</label>
-          <div>
-          <input move-next-on-maxlength maxlength="2" ng-blur="driverLicenseDate1 = prefix(driverLicenseDate1)" ng-model="driverLicenseDate1" class="form-control" placeholder="DD" style="width: 4em; display: inline-block; " name="driverLicenseDate1" ng-keyup="format($event)" type="text" ></input>
-          <span>-</span>
-          <input move-next-on-maxlength maxlength="2" ng-blur="driverLicenseDate2 = prefix(driverLicenseDate2)"  ng-model="driverLicenseDate2" class="form-control" placeholder="MM" style="width: 4em; display: inline-block;" name="driverLicenseDate2" ng-keyup="format($event)" type="text" ></input>
-          <span>-</span>
-          <input maxlength="4" class="form-control" ng-blur="hasFocus = false" ng-focus="hasFocus = true" ng-model="driverLicenseDate3" ng-blur="" placeholder="YYYY" style="width: 8em; display: inline-block;" name="driverLicenseDate3" ng-keyup="format($event)" type="text" ></input>
-          </div>
-          <p ng-if="form.driverLicenseDate3.$touched && !hasFocus"><span ng-if="notValidDate()">Datum is nog niet in het goede formaat (dd-mm-YYYY) of ongeldig</span></p>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-default" ng-disabled="!form.$dirty || !person.driverLicenseNumber || notValidDate()" ng-click="saveDriverLicenseData()">Opslaan</button>
-        </div>
-      </div>
+    <h4 ng-if="reason.document[0]">Documentcheck</h4>
+    <table class="table table-striped table-condensed" ng-if="reason.document[0]">
+      <tr ng-if="reason.default" >
+        <th style="width: 275px;">Rijbewijs correct?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].document_upload]">{{reason.document[0].document_upload ? 'Nee' : 'Ja'}}</td>
+      </tr>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">Rijbewijsland correct?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].country]">{{reason.document[0].country ? 'Nee' : 'Ja'}}</td>
+      </tr>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">Verloopdatum correct?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].expiration_date]">{{reason.document[0].expiration_date ? 'Nee' : 'Ja'}}</td>
+      </tr>
+      <tr ng-if="reason.default">
+        <th style="width: 275px;">Achternaam correct?</th>
+        <td ng-class="{tru:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].surname]">{{reason.document[0].surname ? 'Nee' : 'Ja'}}</td>
+      </tr>
+    </table>
 
-      <button type="button" class="btn btn-success" ng-click="moderateLicense(person, 'ok')" ng-disabled="form.$invalid">OK</button>
-      <button type="button" class="btn btn-warning" ng-click="moderateLicense(person, 'nok')">Niet OK</button>
-      <button type="button" class="btn btn-danger" ng-click="moderateLicense(person, 'nok', 'block')">Niet OK + Deactiveren</button>
-    </form>
+    <h4 ng-if="reason.dutch_extended_other[0]">Uitgebreide controle</h4>
+    <table class="table table-striped table-condensed" ng-if="reason.dutch_extended_other[0]">
+      <tr ng-if="reason.dutch_extended_other[0]" >
+        <th style="width: 275px;">Betalingsrisico op naam?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].name_risk]">{{reason.dutch_extended_other[0].name_risk ? 'Ja' : 'Nee'}}</td>
+      </tr>
+      <tr ng-if="reason.dutch_extended_other[0]" >
+        <th style="width: 275px;">Betalingsrisico op adres?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].address_risk]">{{reason.dutch_extended_other[0].address_risk ? 'Ja' : 'Nee'}}</td>
+      </tr>
+      <tr ng-if="reason.dutch_extended_other[0]">
+        <th style="width: 275px;">Betalingsrisico op postcode:</th>
+        <td>{{reason.dutch_extended_other[0].zip_code_risk_score}}</td>
+      </tr>
+      <tr ng-if="reason.dutch_extended_other[0]">
+        <th style="width: 275px;">Bekend op adres?</th>
+        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].address_match]">{{reason.dutch_extended_other[0].address_match ? 'Ja' : 'Nee'}}</td>
+      </tr>
+      <tr ng-if="reason.dutch_extended_other[0]" >
+        <th style="width: 275px;">Registraties?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].registrations]">{{reason.dutch_extended_other[0].registrations ? 'Ja' : 'Nee'}}</td>
+      </tr>
+    </table>
 
     <div class="row">&nbsp;</div>
 
@@ -146,7 +121,7 @@
     </div>
 
     <div ng-if="blockedLike.length === 0">
-      <h4 class="text-danger">Zwarte lijst <small>matches in kleur</small></h4>
+      <h4>Zwarte lijst</h4>
       <hr>
       Geen matches op de zwarte lijst gevonden.
     </div>
@@ -154,7 +129,7 @@
     <div class="row">&nbsp;</div>
 
     <div ng-if="similar.length > 0">
-      <h4>Overeenkomstig <small>matches in kleur</small></h4>
+      <h4>Overeenkomstige accounts</h4>
       <table class="table table-condensed table-striped table-hover">
         <tr>
           <th>Naam</th>
@@ -181,14 +156,81 @@
       </table>
     </div>
 
+    <div class="row">&nbsp;</div>
+
     <div ng-if="similar.length === 0">
-      <h4>Overeenkomstig <small>matches in kleur</small></h4>
+      <h4>Overeenkomstig</h4>
       <hr>
       Geen overeenkomende actieve personen gevonden.
     </div>
-
   </div>
-</div>
-</div>
 
+  <div class="col-md-6">
+    <h2>Rijbewijsgegevens</h2>
 
+    <h4>Nederlands rijbewijs</h4>
+    <form name="form">
+      <div class="form-group">
+        <div class="form-group">
+          <label for="driverLicenseNumber">Rijbewijsnummer:</label>
+          <input name="driverLicenseNumber" id="driverLicenseNumber" type="text" class="form-control" ng-model="person.driverLicenseNumber" />
+        </div>
+        <div class="form-group">
+          <label for="driverLicenseDate">Geldig tot:</label>
+          <div>
+          <input move-next-on-maxlength maxlength="2" ng-blur="driverLicenseDate1 = prefix(driverLicenseDate1)" ng-model="driverLicenseDate1" class="form-control" placeholder="DD" style="width: 4em; display: inline-block; " name="driverLicenseDate1" ng-keyup="format($event)" type="text" ></input>
+          <span>-</span>
+          <input move-next-on-maxlength maxlength="2" ng-blur="driverLicenseDate2 = prefix(driverLicenseDate2)"  ng-model="driverLicenseDate2" class="form-control" placeholder="MM" style="width: 4em; display: inline-block;" name="driverLicenseDate2" ng-keyup="format($event)" type="text" ></input>
+          <span>-</span>
+          <input maxlength="4" class="form-control" ng-blur="hasFocus = false" ng-focus="hasFocus = true" ng-model="driverLicenseDate3" ng-blur="" placeholder="YYYY" style="width: 8em; display: inline-block;" name="driverLicenseDate3" ng-keyup="format($event)" type="text" ></input>
+          </div>
+          <p ng-if="form.driverLicenseDate3.$touched && !hasFocus"><span ng-if="notValidDate()">Datum is nog niet in het goede formaat (dd-mm-YYYY) of ongeldig</span></p>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-default" ng-disabled="!form.$dirty || !person.driverLicenseNumber || notValidDate()" ng-click="saveDriverLicenseData()">Opslaan</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-success" ng-click="moderateLicense(person, 'ok')" ng-disabled="form.$invalid">OK</button>
+      <button type="button" class="btn btn-warning" ng-click="moderateLicense(person, 'nok')">Niet OK</button>
+      <button type="button" class="btn btn-danger" ng-click="moderateLicense(person, 'nok', 'block')">Niet OK + Deactiveren</button>
+    </form>
+
+    <div class="row">&nbsp;</div>
+    <hr>    <hr>
+    <div class="row">&nbsp;</div>
+
+    <h4>Buitenlands rijbewijs</h4>
+    <form>
+      <div class="form-group">
+        <strong>Voorkant:</strong>
+        <div ng-if="person.driverLicense">
+          <driver-license person="person.id"></driver-license>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div style="margin-bottom:20px;">
+          <input id="licenseFrontFile" type="file" />
+        </div>
+
+        <strong>Achterkant:</strong>
+        <div ng-if="person.driverLicense">
+          <driver-license person="person.id" back="true"></driver-license>
+        </div>
+        <div class="row">&nbsp;</div>
+        <div>
+          <input id="licenseBackFile" type="file" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="type">Land van uitgifte</label>
+        <select class="form-control" name="type" id="type" ng-model="person.driverLicenseCountry" ng-options="r.alpha2 as r.name for r in rentalCheckCountries"></select>
+      </div>
+      
+      <button type="button" class="btn btn-primary" ng-click="startUpload()" ng-disabled="!images.front || !images.back || isBusy">
+          <span class="fa fa-upload"></span> Upload
+      </button>
+    </form>
+  </div>
+
+</div>
