@@ -437,16 +437,24 @@ angular.module('rpcServices', [])
       this.checkPerson = m('checkPerson');
       this.previousChecks = m('previousChecks');
       this.deleteCheck = m('deleteCheck');
+      this.reasoning = m('reasoning');
     })
 
-  .service('messageService', function (api) {
-    var m = function (name) {
-      return api.createRpcMethod('message.' + name);
-    };
-    this.getMessages = m('getMessages');
-    this.getPushMessages = m('getPushMessages');
+    .service('rentalcountryService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('rentalcountry.' + name);
+      };
+      this.all = m('all');
+    })
 
-  })
+    .service('messageService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('message.' + name);
+      };
+      this.getMessages = m('getMessages');
+      this.getPushMessages = m('getPushMessages');
+
+    })
 
     .service('revisionsService', function (api) {
       var m = function (name) {
