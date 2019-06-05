@@ -82,6 +82,14 @@
         <td>{{reason.document[0].ocr_fields.last_name}}</td>
       </tr>
       <tr>
+        <th style="width: 275px;">Geboortedatum:</th>
+        <td>{{reason.document[0].ocr_fields.date_of_birth}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Geboorteplaats:</th>
+        <td>{{reason.document[0].ocr_fields.place_of_birth}}</td>
+      </tr>
+      <tr>
         <th style="width: 275px;">Geslacht:</th>
         <td ng-if="reason.document[0].ocr_fields.gender === 'unknown'">Onbekend</td>
         <td ng-if="reason.document[0].ocr_fields.gender !== 'unknown'">{{reason.document[0].ocr_fields.gender}}</td>
