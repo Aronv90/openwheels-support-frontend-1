@@ -33,7 +33,7 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
     };
     $scope.loadRentalCheckCountries();
 
-    $scope.loadReasoning = function (resource = null) {
+    $scope.loadReasoning = function (resource) {
       $scope.reasonError = false;
 
       var parameters;
