@@ -99,6 +99,10 @@
     <h4 ng-if="reason.dutch_extended_other[0]">Uitgebreide controle</h4>
     <table class="table table-striped table-condensed" ng-if="reason.dutch_extended_other[0]">
       <tr>
+        <th style="width: 275px;">Score</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].score_not_acceptable]">{{reason.dutch_extended_other[0].score}}</td>
+      </tr>
+      <tr>
         <th style="width: 275px;">Betalingsrisico op naam?</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].name_risk]">{{reason.dutch_extended_other[0].name_risk ? 'Ja' : 'Nee'}}</td>
       </tr>
@@ -117,6 +121,40 @@
       <tr>
         <th style="width: 275px;">Registraties?</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].registrations]">{{reason.dutch_extended_other[0].registrations ? 'Ja' : 'Nee'}}</td>
+      </tr>
+    </table>
+
+    <div class="row">&nbsp;</div>
+
+    <h4 ng-if="reason.dutch_dutch[0]">Uitgebreide controle</h4>
+    <table class="table table-striped table-condensed" ng-if="reason.dutch_dutch[0]">
+      <tr>
+        <th style="width: 275px;">Score</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].score_not_acceptable]">{{reason.dutch_dutch[0].score}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Rijbewijs geldig?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].driver_license]">{{reason.dutch_dutch[0].driver_license ? 'Nee' : 'Ja'}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Betalingsrisico op naam?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].name_risk]">{{reason.dutch_dutch[0].name_risk ? 'Ja' : 'Nee'}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Betalingsrisico op adres?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].address_risk]">{{reason.dutch_dutch[0].address_risk ? 'Ja' : 'Nee'}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Betalingsrisico op postcode:</th>
+        <td>{{reason.dutch_dutch[0].zip_code_risk_score}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Bekend op adres?</th>
+        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].address_match]">{{reason.dutch_dutch[0].address_match ? 'Ja' : 'Nee'}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Registraties?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].registrations]">{{reason.dutch_dutch[0].registrations ? 'Ja' : 'Nee'}}</td>
       </tr>
     </table>
 
