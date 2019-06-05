@@ -63,7 +63,11 @@
       </tr>
       <tr>
         <th style="width: 275px;">Achternaam correct?</th>
-        <td ng-class="{tru:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].surname]">{{reason.document[0].surname ? 'Nee' : 'Ja'}}</td>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].surname]">{{reason.document[0].surname ? 'Nee' : 'Ja'}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Geboortedatum correct?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].date_of_birth]">{{reason.document[0].date_of_birth ? 'Nee' : 'Ja'}}</td>
       </tr>
     </table>
 
