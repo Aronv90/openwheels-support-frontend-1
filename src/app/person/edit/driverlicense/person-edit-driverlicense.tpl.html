@@ -13,6 +13,29 @@
 
     <h2>Accountcontrole</h2>
 
+    <div ng-if="reasonError">
+      <h4>&nbsp;</h4>
+      <form ng-submit="loadReasoning(resource)" name="loadReasoningWithResource">
+
+          <div class="form-group">
+              <label for="resource">Auto (uit calllog)</label>
+              <input type="text" id="resource" class="form-control input-sm typeahead" placeholder="Zoek auto"
+                     ng-model="resource"
+                     uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+                     typeahead-min-length="3" typeahead-input-formatter="formatResource($model)">
+          </div>
+
+          <div class="form-group">
+              <div class="row">
+                  <div class="col-xs-2">
+                      <button id="submitForm" type="submit" class="btn btn-primary">Opslaan</button>
+                  </div>
+              </div>
+          </div>
+
+      </form>
+    </div>
+
     <h4 ng-if="reason.default">Standaardcontrole</h4>
     <table class="table table-striped table-condensed" ng-if="reason.default">
       <tr>
