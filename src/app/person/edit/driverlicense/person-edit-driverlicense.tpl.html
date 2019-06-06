@@ -134,7 +134,7 @@
     <h4 ng-if="reason.dutch_extended_other[0]">Uitgebreide controle</h4>
     <table class="table table-striped table-condensed" ng-if="reason.dutch_extended_other[0]">
       <tr>
-        <th style="width: 275px;">Score</th>
+        <th style="width: 275px;">Score + uitgebreide controle:</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].score_not_acceptable]">{{reason.dutch_extended_other[0].score}}</td>
       </tr>
       <tr>
@@ -159,12 +159,12 @@
       </tr>
     </table>
 
-    <div class="row">&nbsp;</div>
+    <div class="row" ng-if="reason.dutch_dutch[0]">&nbsp;</div>
 
     <h4 ng-if="reason.dutch_dutch[0]">Uitgebreide controle</h4>
     <table class="table table-striped table-condensed" ng-if="reason.dutch_dutch[0]">
       <tr>
-        <th style="width: 275px;">Score</th>
+        <th style="width: 275px;">Score:</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].score_not_acceptable]">{{reason.dutch_dutch[0].score}}</td>
       </tr>
       <tr>
@@ -190,6 +190,24 @@
       <tr>
         <th style="width: 275px;">Registraties?</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].registrations]">{{reason.dutch_dutch[0].registrations ? 'Ja' : 'Nee'}}</td>
+      </tr>
+    </table>
+
+    <div class="row" ng-if="reason.dutch_basic_other[0]">&nbsp;</div>
+
+    <h4 ng-if="reason.dutch_basic_other[0]">Nederlands rijbewijs + buitenlands adres</h4>
+    <table class="table table-striped table-condensed" ng-if="reason.dutch_basic_other[0]">
+      <tr>
+        <th style="width: 275px;">Score:</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_basic_other[0].score_not_acceptable]">{{reason.dutch_basic_other[0].score}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Rijbewijs geldig?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_basic_other[0].driver_license]">{{reason.dutch_basic_other[0].driver_license ? 'Nee' : 'Ja'}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Registraties?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_basic_other[0].registrations]">{{reason.dutch_basic_other[0].registrations ? 'Ja' : 'Nee'}}</td>
       </tr>
     </table>
 
