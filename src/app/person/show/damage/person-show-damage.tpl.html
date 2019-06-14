@@ -6,10 +6,10 @@
         <h3>Filter</h3>
         <form class="form">
           <div class="form-group">
-            <label for="finalized">Finalized?</label>
+            <label for="finalized">Afgerond?</label>
             <select id="finalized" class="form-control" ng-model="params.finalized" ng-options="p.value as p.label for p in finalizedOptions"></select>
           </div>
-          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          <button class="btn btn-primary" ng-click="refresh()">Vernieuw</button>
         </form>
       </div>
     </div>
@@ -18,7 +18,7 @@
   <div class="col-sm-10">
     <div class="panel panel-default card">
       <div class="panel-body">
-        <h3>Damages</h3>
+        <h3>Schades</h3>
         <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
         <p class="btn"> {{curPage}} </p>
         <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt; </button>
@@ -26,14 +26,14 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Date</th>
-              <th>Booking</th>
-              <th>Resource</th>
+              <th>Datum</th>
+              <th>Boeking</th>
+              <th>Auto</th>
               <th>Admin</th>
               <th>Type</th>
               <th>Code</th>
-              <th>Finalized?</th>
-              <th>Actions</th>
+              <th>Afgerond?</th>
+              <th>Acties</th>
               <th></th>
             </tr>
           </thead>
@@ -58,9 +58,9 @@
               </td>
               <td>{{ damage.type | damageTypeFilter }}</td>
               <td>{{ damage.authorizationCode }}</td>
-              <td>{{ damage.finalized ? 'Yes' : 'No' }}</td>
+              <td>{{ damage.finalized ? 'Ja' : 'Nee' }}</td>
               <td><alter-damage-dialog ng-click="alterDamage(damage)""></alter-damage-dialog></td>
-              <td><a ng-click="deleteDamage(damage)">Remove</a></td>
+              <td><a ng-click="deleteDamage(damage)">Verwijder</a></td>
             </tr>
           </tbody>
         </table>
