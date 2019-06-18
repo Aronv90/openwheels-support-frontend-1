@@ -110,7 +110,9 @@ angular.module('openwheels', [
   'settingsService',
   'transactionService',
   'DutchZipcodeService',
-  'openwheels.querytool'
+  'openwheels.querytool',
+
+  'openwheels.components'
 ])
 
 .config(function myAppConfig($stateProvider, $urlRouterProvider) {

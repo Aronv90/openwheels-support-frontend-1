@@ -30,7 +30,8 @@ angular.module('openwheels.person.edit.data.settings', [])
     $scope.driverLicenseStatusOptions = [
       {label: 'Niet gecontroleerd', value: 'unchecked'},
       {label: 'Rijbewijs goedgekeurd', value: 'ok'},
-      {label: 'Rijbewijs niet goedgekeurd', value: 'nok'}
+      {label: 'Rijbewijs niet goedgekeurd', value: 'nok'},
+      {label: 'Rijbewijs wordt gecontroleerd', value: 'pending'}
     ];
 
     $scope.preferenceOptions = [

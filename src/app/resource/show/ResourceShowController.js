@@ -23,10 +23,12 @@ angular.module('openwheels.resource.show', [
 
   $scope.hide = false;
   $scope.toggleHide = function() {
-    if (!$scope.hide) {
-      $scope.hide = true;
-    } else {
-      $scope.hide = false;
+    if ($scope.user.identity.id !== 583599) {
+      if (!$scope.hide) {
+        $scope.hide = true;
+      } else {
+        $scope.hide = false;
+      }
     }
   };
 
