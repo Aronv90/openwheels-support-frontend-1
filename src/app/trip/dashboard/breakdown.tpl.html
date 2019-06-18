@@ -20,6 +20,12 @@
       <p>Als een huurder tijdens de rit pech heeft en niet meer verder kan rijden met de auto, kan de pechhulp ingeschakeld worden.</p>
       <p ng-if="booking.resource.roadAssistance">{{ booking.resource.roadAssistance }} De pechhulp staat op kenteken of polisnummer geregistreerd. Schakel de huurder door naar het pechhulpnummer.</p>
 
+      <p ng-if="booking.resource.owner.id === 282 && booking.resource.brand === 'Citroën'">
+        <strong>Lekke band?</strong>
+        <br>
+        Een lekke band valt ook onder de pechhulp van Citroën Assistance omdat de auto <strong>geen reservewiel</strong> heeft. Dring er bij Citroën Assistance op aan dat we pechhulp moeten ontvangen, eventueel tegen betaling. Deze afspraak is gemaakt met Citroën Assistance.
+      </p>
+
       <p ng-if="!booking.resource.roadAssistance">De pechhulp is geregeld via Eurocross. Schakel de huurder door naar Eurocross op telefoonnummer 055-5796699. De supportmedewerker van Eurocross zal vragen om een kenteken, de schade moet echter op polisnummer 100697201 gemeld worden. De huurder moet erop aandringen dat niet het kenteken, maar het polisnummer geregistreerd staat.</p>
 
       <p>De pechhulp arriveert binnen 30 tot 45 minuten bij de auto. Ze zullen eerst proberen de huurder weer op weg te helpen. Mocht dit niet lukken, zullen ze de auto meenemen en de huurder naar de gewenste locatie in Nederland brengen. In het buitenland heeft de huurder recht op vervangend vervoer. De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder of verhuurder hoeft hiervoor niets te betalen.</p>
