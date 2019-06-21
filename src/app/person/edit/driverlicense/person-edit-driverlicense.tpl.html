@@ -66,7 +66,7 @@
       </tr>
       <tr>
         <th style="width: 275px;">E-mail geverifieerd?</th>
-        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.default[0].email_valid]">{{reason.default[0].email_valid ? 'Ja' : 'Nee'}}</td>
+        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.default[0].email_valid]">{{reason.default[0].email_valid ? 'Nee' : 'Ja'}}</td>
       </tr>
     </table>
 
@@ -157,6 +157,10 @@
         <th style="width: 275px;">Registraties?</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].registrations]">{{reason.dutch_extended_other[0].registrations ? 'Ja' : 'Nee'}}</td>
       </tr>
+      <tr>
+        <th style="width: 275px;">Nachtelijke rit of accountregistratie?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].time_risk]">{{reason.dutch_extended_other[0].time_risk ? 'Ja' : 'Nee'}}</td>
+      </tr>
     </table>
 
     <div class="row" ng-if="reason.dutch_dutch[0]">&nbsp;</div>
@@ -191,6 +195,10 @@
         <th style="width: 275px;">Registraties?</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].registrations]">{{reason.dutch_dutch[0].registrations ? 'Ja' : 'Nee'}}</td>
       </tr>
+      <tr>
+        <th style="width: 275px;">Nachtelijke rit of accountregistratie?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].time_risk]">{{reason.dutch_dutch[0].time_risk ? 'Ja' : 'Nee'}}</td>
+      </tr>
     </table>
 
     <div class="row" ng-if="reason.dutch_basic_other[0]">&nbsp;</div>
@@ -208,6 +216,10 @@
       <tr>
         <th style="width: 275px;">Registraties?</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_basic_other[0].registrations]">{{reason.dutch_basic_other[0].registrations ? 'Ja' : 'Nee'}}</td>
+      </tr>
+      <tr>
+        <th style="width: 275px;">Nachtelijke rit of accountregistratie?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_basic_other[0].time_risk]">{{reason.dutch_basic_other[0].time_risk ? 'Ja' : 'Nee'}}</td>
       </tr>
     </table>
 
