@@ -9,6 +9,7 @@ angular.module('front.paths', [])
 .constant('DRIVERLICENSE', '/license/')
 .constant('BACK_DRIVERLICENSE', '/back')
 
+.constant('RC_FILE_DOCUMENT', '/mw-services-api/rc/file/document')
 .constant('FRONT_RENT', '/auto-huren')
 
 // deprecated:
