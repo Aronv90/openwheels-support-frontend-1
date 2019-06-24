@@ -17,7 +17,8 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 		};
 	})
   .controller('PersonEditDriverlicenseController', function ($scope, alertService, dialogService, personService,
-    person, blockedLike, similar, account, driverlicenseService, rentalcountryService, rentalcheckService) {
+    person, blockedLike, similar, account, driverlicenseService, rentalcountryService, rentalcheckService,
+    resourceService) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
 
@@ -32,17 +33,45 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
     };
     $scope.loadRentalCheckCountries();
 
-    $scope.loadReasoning = function () {
-      rentalcheckService.reasoning({
+    $scope.loadReasoning = function (resource) {
+      $scope.reasonError = false;
+
+      var parameters;
+      if (resource) {
+        parameters = {
+          person: $scope.person.id,
+          resource: resource.id
+        };
+      } else {
+        parameters = {
           person: $scope.person.id
-      })
+        };
+      }
+
+      rentalcheckService.reasoning(parameters)
       .then(function (reason) {
         $scope.reason = reason;
-        console.log($scope.reason);
+      })
+      .catch(function (err) {
+        $scope.reasonError = true;
       });
     };
     $scope.loadReasoning();
     
+    $scope.searchResources = function ($viewValue) {
+      return resourceService.select({
+        search: $viewValue
+      });
+    };
+
+    $scope.formatResource = function ($model) {
+      var inputLabel = '';
+      if ($model) {
+        inputLabel = '[' + $model.id + ']' + ' ' + $model.alias;
+      }
+      return inputLabel;
+    };
+
     $scope.similar = _.map(similar, function(similar) {
       if(_.findWhere(similar.accounts, {iban: $scope.person.account.iban})) {
         similar.ibanmatch = $scope.person.account.iban;
