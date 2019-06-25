@@ -2,13 +2,13 @@
 
 angular.module('driverLicense', [])
 
-	.directive('driverLicense', function ($q, $log, $filter, $compile, $uibModal, settingsService, DRIVERLICENSE, BACK_DRIVERLICENSE) {
+	.directive('driverLicense', function ($q, $log, $filter, $compile, $uibModal, settingsService, RC_FILE_DOCUMENT) {
 		return {
 			restrict: 'E',
     		templateUrl: 'directives/driverLicenseDirective.tpl.html',
 			scope: {
 				person: '=',
-				back: '=' // boolean
+				image: '='
 			},
 			controller: function ($scope) {
 
@@ -41,8 +41,8 @@ angular.module('driverLicense', [])
 					});
 				};
 
-				$scope.driverLicenseUrl = settingsService.settings.server + DRIVERLICENSE + $scope.person + ($scope.back ? BACK_DRIVERLICENSE : '');
-				
+				$scope.driverLicenseUrl = settingsService.settings.server + RC_FILE_DOCUMENT + '/' + $scope.image;
+
 				isValidImageUrl($scope.driverLicenseUrl).then(function (imageValid) {
 					$scope.imageValid = imageValid;
 				});

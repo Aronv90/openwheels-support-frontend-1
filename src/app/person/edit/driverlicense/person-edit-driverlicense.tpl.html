@@ -337,7 +337,7 @@
       <div class="form-group">
         <strong>Voorkant:</strong>
         <div ng-if="person.driverLicense">
-          <driver-license person="person.id"></driver-license>
+          <driver-license person="person.id" image="person.driverLicense"></driver-license>
         </div>
         <div class="row">&nbsp;</div>
         <div style="margin-bottom:20px;">
@@ -346,7 +346,7 @@
 
         <strong>Achterkant:</strong>
         <div ng-if="person.driverLicense">
-          <driver-license person="person.id" back="true"></driver-license>
+          <driver-license person="person.id" image="person.driverLicenseBack"></driver-license>
         </div>
         <div class="row">&nbsp;</div>
         <div>
