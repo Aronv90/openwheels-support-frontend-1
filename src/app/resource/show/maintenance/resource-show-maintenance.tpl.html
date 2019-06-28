@@ -6,10 +6,10 @@
         <h3>Filter</h3>
         <form class="form">
           <div class="form-group">
-            <label for="finalized">Finalized?</label>
+            <label for="finalized">Afgerond?</label>
             <select id="finalized" class="form-control" ng-model="params.finalized" ng-options="p.value as p.label for p in finalizedOptions"></select>
           </div>
-          <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+          <button class="btn btn-primary" ng-click="refresh()">Vernieuw</button>
         </form>
       </div>
     </div>
@@ -18,7 +18,7 @@
   <div class="col-sm-10">
     <div class="panel panel-default card">
       <div class="panel-body">
-        <h3>Maintenances</h3>
+        <h3>Onderhoud</h3>
         <button class="btn"><add-maintenance-dialog ng-click="addMaintenance()"></add-maintenance-dialog></button>
         <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt; </button>
         <p class="btn"> {{curPage}} </p>
@@ -27,15 +27,15 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Date</th>
-              <th>Booking</th>
+              <th>Datum</th>
+              <th>Boeking</th>
               <th>Admin</th>
               <th>Type</th>
               <th>APK</th>
-              <th>Regular</th>
+              <th>Jaarlijks</th>
               <th>Code</th>
-              <th>Finalized?</th>
-              <th>Actions</th>
+              <th>Afgerond?</th>
+              <th>Acties</th>
               <th></th>
             </tr>
           </thead>
@@ -54,12 +54,12 @@
                 </a>
               </td>
               <td>{{ maintenance.type | maintenanceTypeFilter }}</td>
-              <td>{{ maintenance.apk ? 'Yes' : 'No' }}</td>
+              <td>{{ maintenance.apk ? 'Ja' : 'Nee' }}</td>
               <td>{{ maintenance.regular ? 'Yes' : 'No' }}</td>
               <td>{{ maintenance.authorizationCode }}</td>
-              <td>{{ maintenance.finalized ? 'Yes' : 'No' }}</td>
+              <td>{{ maintenance.finalized ? 'Ja' : 'Nee' }}</td>
               <td><alter-maintenance-dialog ng-click="alterMaintenance(maintenance)""></alter-maintenance-dialog></td>
-              <td><a ng-click="deleteMaintenance(maintenance)">Remove</a></td>
+              <td><a ng-click="deleteMaintenance(maintenance)">Verwijder</a></td>
             </tr>
           </tbody>
         </table>
