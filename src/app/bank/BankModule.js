@@ -20,6 +20,12 @@ angular.module('openwheels.bank', [
 					template: '<div ui-view></div>'
 				}
 			},
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
+			},
 			role: 'ROLE_ADMIN'
 		});
 

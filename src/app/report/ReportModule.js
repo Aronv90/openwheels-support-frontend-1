@@ -18,7 +18,11 @@ angular.module('openwheels.report', ['openwheels.report.report1'])
         resolve: {
           reports: ['queryreportService', function (queryreportService) {
             return queryreportService.all();
-          }]
+          }],
+          datacontext: ['$rootScope', function ($rootScope) {
+            $rootScope.datacontext = {};
+            return $rootScope.datacontext;
+          }],
         },
         role: 'ROLE_ADMIN'
       });
