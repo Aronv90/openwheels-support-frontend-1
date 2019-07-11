@@ -15,7 +15,11 @@ Als we het poststuk ontvangen zullen we deze controleren en zul je bericht ontva
 
 Let op: wij controleren alleen poststukken tijdens kantoortijden (maandag t/m vrijdag 09:00 - 17:00).
 
-Bij voorbaat dank.`
+Bij voorbaat dank.
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   },
   {
     key: "Welkom - EN",
@@ -31,7 +35,11 @@ When we receive the document we will check it and you will receive a message abo
 
 Please note: we only check postal items during office hours (Monday to Friday 9:00 AM - 5:00 PM).
 
-Thanks in advance.`
+Thanks in advance.
+
+With kind regards,
+
+the MyWheels Team`
   },
   {
     key: "Ongeldig rijbewijs - NL",
@@ -44,7 +52,11 @@ Jouw account is helaas automatisch gedeactiveerd omdat je rijbewijs ongeldig bli
 
 Het is ook goed als je jouw geboortedatum + rijbewijsnummer (bij nummer 5) en de verloopdatum van het rijbewijs per mail stuurt. Wij zullen dan controleren of je jouw gegevens correct hebt ingevuld. 
 
-Mail gerust als je nog vragen hebt.`
+Mail gerust als je nog vragen hebt.
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   },
   {
     key: "Ongeldig rijbewijs + poststuk - NL",
@@ -57,7 +69,11 @@ Jouw account is helaas automatisch gedeactiveerd omdat je rijbewijs ongeldig bli
 
 Daarnaast kon onze automatische controle kon jouw adres helaas niet verifiëren. Zou je ons een poststuk met recente datum (niet ouder dan een maand) kunnen sturen zodat we je adres kunnen verifiëren? Bijvoorbeeld een foto of screenshot van een telefoonfactuur, bankafschrift of salarisstrookje. De datum en het logo van de afzender moeten duidelijk op de foto staan, de inhoud van de brief hoeven we uiteraard niet te zien.
 
-Mail gerust als je nog vragen hebt.`
+Mail gerust als je nog vragen hebt.
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   },
   {
     key: "Boete - CJIB - Verlegd - NL",
@@ -69,7 +85,11 @@ Wij hebben zojuist helaas een (verkeers)boete ontvangen welke gemaakt is tijdens
 
 Wij hebben het CJIB verzocht om deze boete te verleggen naar jou. Je zult hier t.z.t. bericht van ontvangen vanuit het CJIB om deze aan hen te voldoen. In de bijlage vind je de boete zoals wij hem hebben ontvangen. MyWheels heeft hiervoor € 10,- administratiekosten bij jou in rekening gebracht die je via [www.mywheels.nl/finance](https://mywheels.nl/finance) kunt betalen.
 
-Mocht je vragen hebben n.a.v. bovenstaande, kun je deze e-mail beantwoorden. We zullen je zo snel mogelijk van een reactie voorzien.`
+Mocht je vragen hebben n.a.v. bovenstaande, kun je deze e-mail beantwoorden. We zullen je zo snel mogelijk van een reactie voorzien.
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   },
   {
     key: "Gemeente - Verlegd - NL",
@@ -81,7 +101,11 @@ Wij hebben zojuist helaas een parkeerboete ontvangen van Gemeente {{ GEMEENTE }}
 
 Wij hebben de Gemeente {{ GEMEENTE }} verzocht om deze boete te verleggen naar jou. Je zult hier t.z.t. bericht van ontvangen vanuit de Gemeente om deze aan hen te voldoen. In de bijlage vind je de boete zoals wij hem hebben ontvangen. MyWheels heeft hiervoor € 10,- administratiekosten bij jou in rekening gebracht die je via www.mywheels.nl/finance kunt betalen.
 
-Mocht je vragen hebben n.a.v. bovenstaande, kun je deze e-mail beantwoorden. We zullen je zo snel mogelijk van een reactie voorzien.`
+Mocht je vragen hebben n.a.v. bovenstaande, kun je deze e-mail beantwoorden. We zullen je zo snel mogelijk van een reactie voorzien.
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   },
   {
     key: "Eigen risico in rekening gebracht - NL",
@@ -94,7 +118,11 @@ Er is wel een eigen risico van toepassing voor jou. Die is oorspronkelijk € 50
 
 Ik zou je willen vragen dit bedrag via een online betaling aan ons te voldoen. Hiervoor log je in op mywheels.nl, ga je in het menu naar "Financiën" en klik je vervolgens op rijtegoed. Daar kun je jouw openstaande bedrag voldoen.
 
-Mocht je nog vragen hebben n.a.v. deze e-mail, verzoek ik je om deze e-mail te beantwoorden.`
+Mocht je nog vragen hebben n.a.v. deze e-mail, verzoek ik je om deze e-mail te beantwoorden.
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   },
   {
     key: "Tenaamstellingscheck - NL",
@@ -111,7 +139,11 @@ Om dit verder voor je te kunnen oppakken, kun je het volgende doen:
 - Betreft het een rekening op naam van een bedrijf? Beantwoord dan deze e-mail met een kopie KvK-uittreksel.
 - Betreft het een gezamenlijke rekening? Beantwoord dan deze e-mail met een kopie rijbewijs van de andere rekeninghouder. Of maak alsnog via iDEAL 0,01 euro over van een rekening op jouw naam door [hier te klikken](https://mywheels.nl/vouchers). _(Burgerservicenummer (BSN) mag je uiteraard afschermen als je een kopie rijbewijs stuurt)._
 
-We zien de gegevens graag tegemoet. Alvast bedankt!`
+We zien de gegevens graag tegemoet. Alvast bedankt!
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   },
   {
     key: "Auto - Deactivatie ivm hoger risico - NL",
@@ -120,6 +152,10 @@ We zien de gegevens graag tegemoet. Alvast bedankt!`
 
 Je biedt jouw auto aan op MyWheels. Vanwege een verhoogd risico op misbruik van jouw auto door huurders, hebben we jouw auto vandaag gedeactiveerd. Jouw auto is daardoor niet meer vindbaar op MyWheels. Hiermee willen we voorkomen dat huurders schade rijden in jouw auto of voor verkeersboetes zorgen.
 
-Mail gerust als je nog vragen hebt.`
+Mail gerust als je nog vragen hebt.
+
+Met vriendelijke groet,
+
+het MyWheels Team`
   }
 ]);
