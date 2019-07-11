@@ -136,7 +136,6 @@ angular.module('rpcServices', [])
         this.get = m('get');
         this.search = m('search');
         this.calculateRequiredCredit = m('calculateRequiredCredit');
-        this.calculateRequiredCreditForBooking = m('calculateRequiredCreditForBooking');
         this.calculateCredit = m('calculateCredit');
         this.calculateDebt = m('calculateDebt');
         this.createVoucher = m('createVoucher');

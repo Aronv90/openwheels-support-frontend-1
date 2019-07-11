@@ -44,9 +44,9 @@
           </li>
         </ul>
       </div>
-      <div class="col-sm-4" show-if-user-has-role="ROLE_ADMIN" ng-if="allowBookingAdmin">
+      <div class="col-sm-4" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
         <div ng-if="booking.ok === false" class="alert alert-danger">
-          <i class="fa fa-exclamation-triangle fa-4x danger"></i> GAAT NIET NAAR BOORDCOMPUTER
+          <i class="fa fa-exclamation-triangle fa-4x danger"></i> GAAT NIET NAAR BOORDCOMPU
           <div class="form-group">
             <button class="btn btn-default" ng-if="booking.approved !== 'ok'" ng-click="approveBooking()">Approve Booking
             </button>
