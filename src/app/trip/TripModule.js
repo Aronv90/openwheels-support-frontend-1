@@ -243,7 +243,15 @@ angular.module('openwheels.trip', [
             }
             return contract;
           });
-        }]
+        }],
+				datacontext: ['$rootScope', 'booking', 'contract', function ($rootScope, booking, contract) {
+					$rootScope.datacontext = {
+						booking,
+						contract,
+						person: booking.person
+					};
+					return $rootScope.datacontext;
+				}]
 			},
 			role: 'ROLE_PROVIDER_ADMIN'
 		});
@@ -267,13 +275,13 @@ angular.module('openwheels.trip', [
 			templateUrl: 'trip/dashboard/trip-dashboard.tpl.html',
       controller: 'TripDashboardController',
 			resolve: {
-				booking: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+				booking: ['$stateParams', '$rootScope', 'bookingService', function ($stateParams, $rootScope, bookingService) {
 					var bookingId = $stateParams.tripId;
 					return bookingService.get({
 						id: bookingId
 					});
 				}],
-        contract: ['$stateParams', 'authService', 'contractService', function ($stateParams, authService, contractService) {
+        contract: ['$stateParams', '$rootScope', 'authService', 'contractService', function ($stateParams, $rootScope, authService, contractService) {
           return authService.me()
           .then(function(me) {
             return contractService.forBooking({
@@ -296,6 +304,14 @@ angular.module('openwheels.trip', [
 						//contracts.unshift({id: 50076, contractor: {firstName: 'Wheels4All'}, type: {name: ''}});
 						return contracts;
 					});
+				}],
+				datacontext: ['$rootScope', 'booking', 'contract', function ($rootScope, booking, contract) {
+					$rootScope.datacontext = {
+						booking,
+						contract,
+						person: booking.person
+					};
+					return $rootScope.datacontext;
 				}]
 			},
 		});

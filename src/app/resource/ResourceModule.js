@@ -22,6 +22,12 @@ angular.module('openwheels.resource', [
 				template: '<div ui-view></div>'
 			}
 		},
+		resolve: {
+			datacontext: ['$rootScope', function ($rootScope) {
+				$rootScope.datacontext = {};
+				return $rootScope.datacontext;
+			}]
+		},
 		role: 'ROLE_ADMIN'
 	});
 
@@ -69,8 +75,15 @@ angular.module('openwheels.resource', [
 				return resourceService.get({
 					id: resourceId
 				});
+			}],
+			datacontext: ['$rootScope', 'resource', function ($rootScope, resource) {
+				$rootScope.datacontext = {
+					resource,
+					person: resource.owner || resource.contactPerson
+				};
+				return $rootScope.datacontext;
 			}]
-		}
+		},
 	});
 
 

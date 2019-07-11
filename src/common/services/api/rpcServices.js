@@ -403,6 +403,7 @@ angular.module('rpcServices', [])
       this.getTypes = m('getTypesAsArray');
       this.getType = m('getTypeAsArray');
       this.getCommunicationMessages = m('getCommunicationMessages');
+      this.sendMail = m('sendMail');
     })
 
     .service('bankService', function (api) {
