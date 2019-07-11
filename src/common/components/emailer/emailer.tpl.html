@@ -42,21 +42,24 @@
           </md-autocomplete>
         </p>
 
-        <div style="margin-top: 4rem;">
-          <md-input-container class="md-block">
-            <label>Email</label>
-            <input ng-model="draft.email" ng-change="onChange()">
-          </md-input-container>
+        <div style="margin-top: 2rem;">
+          <div style="margin-bottom: 3rem;">
+            <label style="
+              color: #888;
+              font-size: 11px;
+            ">Email</label>
+            <input find-person required model="draft.recipient" type="text" />
+          </div>
 
           <md-input-container class="md-block">
             <label>Onderwerp</label>
-            <input ng-model="draft.subject" ng-change="onChange()">
+            <input ng-model="draft.subject" ng-change="onChange()" />
           </md-input-container>
 
           <div layout-gt-sm="row" style="margin-top: -2rem;">
             <md-input-container class="md-block" flex-gt-sm ng-repeat="key in remainingInterpolations">
               <label>{{ '{\{' }} {{ key }} {{ '}\}' }}</label>
-              <input ng-model="interpolations[key]" ng-change="onChange()">
+              <input ng-model="interpolations[key]" ng-change="onChange()" />
             </md-input-container>
           </div>
 
@@ -73,8 +76,9 @@
       </div>
 
       <div ng-if="selectedTabIndex == 1">
-        <p><em style="color: #999; text-transform: uppercase;">Email</em></p>
-        <p><code>{{ draft.email }}</code></p>
+        <p><em style="color: #999; text-transform: uppercase;">Ontvanger</em></p>
+        <p>{{ draft.recipient | fullname }} [{{ draft.recipient.id }}]</p>
+        <p>{{ draft.recipient.email }}</p>
 
         <p style="margin-top: 2rem;"><em style="color: #999; text-transform: uppercase;">Onderwerp</em></p>
         <p><strong>{{ draft.subject }}</strong></p>
@@ -82,9 +86,9 @@
         <p style="margin-top: 2rem;"><em style="color: #999; text-transform: uppercase;">Bericht</em></p>
         <div ng-bind-html="interpolate(draft.content) | marked"></div>
 
-        <md-input-container class="md-block" ng-if="note" style="margin-top: 4rem;">
-          <label>Opmerking plaatsen bij {{ note.person | fullname }}  [{{ note.person.id }}]</label>
-          <textarea ng-model="note.text" rows="1"></textarea>
+        <md-input-container class="md-block" style="margin-top: 4rem;">
+          <label>Opmerking plaatsen bij {{ draft.recipient | fullname }} [{{ draft.recipient.id }}]</label>
+          <textarea ng-model="draft.note" rows="1"></textarea>
         </md-input-container>
       </div>
     </div>

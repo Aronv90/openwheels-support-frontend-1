@@ -10,7 +10,8 @@ angular.module('openwheels.components')
   $mdDialog,
   alertService,
   authService,
-  personService
+  personService,
+  conversationService
 ) {
 
   const emailer = {};
@@ -18,7 +19,7 @@ angular.module('openwheels.components')
   emailer.open = function (options) {
     const {
       templateKey,
-      email = '',
+      recipient = null,
       subject = '',
       content = '',
       interpolations
@@ -34,7 +35,7 @@ angular.module('openwheels.components')
 
     function open() {
       $mdDialog.show({
-        controller: ['$scope', '$element', '$mdDialog', function($scope, $element, $mdDialog) {
+        controller: ['$scope', '$filter', '$mdDialog', function($scope, $filter, $mdDialog) {
 
           $scope.templateSelector = {
             knownTemplates: EMAILER_TEMPLATES
@@ -46,9 +47,10 @@ angular.module('openwheels.components')
           };
 
           $scope.draft = {
-            email: '',
+            recipient: null,
             subject: '',
             content: '',
+            note: '',
             changed: false
           };
 
@@ -56,7 +58,7 @@ angular.module('openwheels.components')
             if (template) {
               $scope.draft = Object.assign({}, template, {
                 changed: $scope.draft.changed || false,
-                email: $scope.draft.email || ''
+                recipient: $scope.draft.recipient || null
               });
               // $timeout(() => {
               //   $element.find("#template_selector input").blur();
@@ -90,18 +92,15 @@ angular.module('openwheels.components')
                 }
               });
 
-              $scope.note = $rootScope.datacontext.person ? {
-                person: $rootScope.datacontext.person,
-                text: [
-                  moment().format("DD-MM-YYYY"),
-                  me ? [me.firstName, me.preposition, me.surname].filter(Boolean).join(" ") : null,
-                  "Email gestuurd" + ($scope.draft.key ? ` [${$scope.draft.key}]` : ''),
-                  $scope.draft.subject
-                ].filter(Boolean).join(" - ")
-              } : null;
+              $scope.draft.note = [
+                moment().format("DD-MM-YYYY"),
+                me ? [me.firstName, me.preposition, me.surname].filter(Boolean).join(" ") : null,
+                "Email gestuurd" + ($scope.draft.key ? ` [${$scope.draft.key}]` : ''),
+                $scope.draft.subject
+              ].filter(Boolean).join(" - ");
 
               $scope.complete = (
-                $scope.draft.email &&
+                $scope.draft.recipient &&
                 $scope.draft.subject &&
                 $scope.draft.content &&
                 $scope.remainingInterpolations.filter(key => {
@@ -118,7 +117,12 @@ angular.module('openwheels.components')
               $scope.selectedTabIndex = 1;
             } else {
               alertService.load($scope);
-              emailer.sendEmail($scope.draft, $scope.note)
+              emailer.sendEmail({
+                recipient: $scope.draft.recipient,
+                subject: $scope.draft.subject,
+                content: $filter('marked')($scope.interpolate($scope.draft.content)),
+                note: $scope.draft.note
+              })
                 .then($mdDialog.hide)
                 .catch(alertService.addError)
                 .finally(alertService.loaded);
@@ -139,8 +143,8 @@ angular.module('openwheels.components')
             $scope.templateSelector.searchText = template.key;
             $scope.selectTemplate(template);
           }
-          if (email) {
-            $scope.draft.email = email;
+          if (recipient) {
+            $scope.draft.recipient = recipient;
           }
           if (subject) {
             $scope.draft.subject = subject;
@@ -151,7 +155,7 @@ angular.module('openwheels.components')
           if (interpolations) {
             $scope.interpolations = interpolations;
           }
-          if (email || subject || content || interpolations) {
+          if (recipient || subject || content || interpolations) {
             $scope.onChange();
           }
 
@@ -164,10 +168,10 @@ angular.module('openwheels.components')
               _fromdatacontext = true;
             }
           });
-          if (!$scope.draft.email) {
-            let item = fromDataContext("EMAIL", $rootScope.datacontext);
+          if (!$scope.draft.recipient) {
+            let item = fromDataContext("RECIPIENT", $rootScope.datacontext);
             if (item) {
-              $scope.draft.email = item;
+              $scope.draft.recipient = item;
               _fromdatacontext = true;
             }
           }
@@ -182,14 +186,25 @@ angular.module('openwheels.components')
     }
   };
 
-  emailer.sendEmail = function (draft, note) {
+  emailer.sendEmail = function (data) {
     return $q(function (resolve, reject) {
-      console.log("sending email", draft, note);
-      // TODO actually send email
-      personService.alter({
-        id: note.person.id,
-        newProps: {
-          remark: note.text + "\n" + note.person.remark
+      console.log("sending email", data);
+      conversationService.sendMail({
+        recipient: data.recipient.id,
+        subject: data.subject,
+        content: data.content,
+        tags: ["backoffice"]
+      })
+      .then(function () {
+        if (data.note) {
+          return personService.alter({
+            id: data.recipient.id,
+            newProps: {
+              remark: data.note + "\n" + data.recipient.remark
+            }
+          });
+        } else {
+          return true;
         }
       })
       .then(resolve)
@@ -202,8 +217,8 @@ angular.module('openwheels.components')
 
 function fromDataContext(key, datacontext) {
   switch (key) {
-    case "EMAIL":
-      return datacontext.person ? datacontext.person.email : "";
+    case "RECIPIENT":
+      return datacontext.person || null;
     case "NAAM":
     case "VOORNAAM":
       return datacontext.person ? datacontext.person.firstName : "";
