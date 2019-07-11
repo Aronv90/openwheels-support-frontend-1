@@ -16,7 +16,13 @@ angular.module('openwheels.fleet', [
 				'main@': {
 					template: '<div ui-view></div>'
 				}
-			}
+			},
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
+			},
 		});
 
 		$stateProvider.state('root.fleet.list', {

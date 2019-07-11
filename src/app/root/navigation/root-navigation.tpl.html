@@ -213,6 +213,20 @@
       </li>
     </ul>
 
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
+      <li class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown"><md-icon>email</md-icon><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li>
+            <a ng-click="$root.emailer.open()">(lege email)</a>
+          </li>
+          <li ng-repeat="template in $root.EMAILER_TEMPLATES">
+            <a ng-click="$root.emailer.open({ templateKey: template.key })">{{ template.key }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Zoek persoon"

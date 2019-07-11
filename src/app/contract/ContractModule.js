@@ -20,7 +20,13 @@ angular.module('openwheels.contract', [
 				'main@': {
 					template: '<div ui-view></div>'
 				}
-			}
+			},
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
+			},
 		});
 
 		$stateProvider.state('root.contract.type.list', {
