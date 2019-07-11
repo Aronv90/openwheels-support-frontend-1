@@ -81,6 +81,12 @@ angular.module('openwheels.person', [
 						id: personId,
 						version: 2
 					});
+				}],
+				datacontext: ['$rootScope', 'person', function ($rootScope, person) {
+					$rootScope.datacontext = {
+					  person
+					};
+					return $rootScope.datacontext;
 				}]
 			}
 		});
@@ -95,7 +101,7 @@ angular.module('openwheels.person', [
 			templateUrl: 'person/show/summary/person-show-summary.tpl.html',
 			data: {pageTitle: 'Persoon samenvatting'},
 			resolve: {
-				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+				bookings: ['$stateParams', '$rootScope', 'bookingService', function ($stateParams, $rootScope, bookingService) {
 					var startDate = moment().subtract(1, 'months');
 					var endDate = moment().add(1, 'months');
 
@@ -107,6 +113,9 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						limit: 50
+					}).then(bookings => {
+						$rootScope.datacontext.bookings = bookings;
+						return bookings;
 					});
 				}]
 			}
@@ -123,7 +132,7 @@ angular.module('openwheels.person', [
 			templateUrl: 'trip/list/trip-list.tpl.html',
 			data: {pageTitle: 'Persoon ritten'},
 			resolve: {
-				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+				bookings: ['$stateParams', '$rootScope', 'bookingService', function ($stateParams, $rootScope, bookingService) {
 					var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
 					var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(1, 'months');
 
@@ -135,6 +144,9 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						limit: 50
+					}).then(bookings => {
+						$rootScope.datacontext.bookings = bookings;
+						return bookings;
 					});
 				}]
 			}

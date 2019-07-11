@@ -16,7 +16,13 @@ angular.module('openwheels.mailer', [
 				'main@': {
 					template: '<div ui-view></div>'
 				}
-			}
+			},
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
+			},
 		});
 
 		/**

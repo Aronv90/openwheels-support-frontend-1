@@ -18,6 +18,12 @@ angular.module('openwheels.provider', [
 					template: '<div ui-view></div>'
 				}
 			},
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
+			},
 			role: 'ROLE_ADMIN'
 		});
 

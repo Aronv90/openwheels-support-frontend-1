@@ -18,7 +18,13 @@ angular.module('openwheels.phoneLog', [
       'main@': {
         template: '<div ui-view></div>'
       }
-    }
+    },
+    resolve: {
+      datacontext: ['$rootScope', function ($rootScope) {
+        $rootScope.datacontext = {};
+        return $rootScope.datacontext;
+      }]
+    },
   });
 
   $stateProvider.state('phoneLog.history', {

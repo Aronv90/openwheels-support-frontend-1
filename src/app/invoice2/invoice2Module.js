@@ -21,7 +21,13 @@ angular.module('openwheels.invoice2', [
       'main@': {
         template: '<div ui-view></div>'
       }
-    }
+    },
+    resolve: {
+      datacontext: ['$rootScope', function ($rootScope) {
+        $rootScope.datacontext = {};
+        return $rootScope.datacontext;
+      }]
+    },
   });
 
   $stateProvider.state('root.invoice2.invoiceGroup', {

@@ -15,7 +15,13 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
     resolve: {
       queries: ['storedqueryService', function (storedqueryService) {
         return storedqueryService.all();
-      }]
+      }],
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
+			},
     }
   });
   $stateProvider.state('root.querytool.create', {

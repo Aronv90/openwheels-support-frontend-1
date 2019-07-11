@@ -15,7 +15,7 @@
         <ul class="list-inline card__subtitle">
           <li><i class="fa fa-user"></i> {{ person.status }}</li>
           <li><i class="fa fa-calendar"></i> {{ person.created | amDateFormat:'DD-MM-YYYY' }}</li>
-          <li><a href="mailto:{{person.email}}"><i class="fa fa-envelope"></i></a> {{ person.email }}</li>
+          <li><a ng-click="$root.emailer.open({ email: person.email, subject: 'Test', templateKey: 'Welkom - NL' })"><i class="fa fa-envelope"></i></a> {{ person.email }}</li>
           <li><i class="fa fa-mobile-phone"></i> <span ng-repeat="phone in person.phoneNumbers | limitTo: 2">{{ phone.number }}<span ng-if="!$last">, </span></span></li>
           <li><i class="fa fa-home"></i> {{ person.streetName }} {{ person.streetNumber }}, {{person.zipcode}} {{ person.city }}</li>
           <li><i class="fa fa-calendar-o"></i> {{ person.dateOfBirth | amDateFormat:'DD-MM-YYYY' }}</li>

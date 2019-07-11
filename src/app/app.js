@@ -27,6 +27,8 @@ window.plogl = function(label) {
 
 angular.module('openwheels', [
 
+  'openwheels.EMAILER_TEMPLATES',
+
   'ui.router',
   'ui.bootstrap',
   'ngMaterial',
@@ -89,6 +91,7 @@ angular.module('openwheels', [
   'filters.dirty',
   'filters.conversion',
   'filters.util',
+  'filters.marked',
 
   'openwheels.root',
   'openwheels.trip',
@@ -194,8 +197,16 @@ angular.module('openwheels', [
 })
 
 .constant('API_DATE_FORMAT', 'YYYY-MM-DD HH:mm')
+
 .run(function(oAuth2MessageListener, stateAuthorizer){})
-.run(function ($window, $state, $stateParams, $rootScope, alertService) {
+
+.run(function ($rootScope, EMAILER_TEMPLATES, emailer) {
+  $rootScope.datacontext = {};
+  $rootScope.EMAILER_TEMPLATES = EMAILER_TEMPLATES;
+  $rootScope.emailer = emailer;
+})
+
+.run(function ($window, $state, $stateParams, $rootScope, emailer, alertService) {
 
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
