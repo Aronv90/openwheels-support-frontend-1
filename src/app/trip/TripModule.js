@@ -279,10 +279,6 @@ angular.module('openwheels.trip', [
 					var bookingId = $stateParams.tripId;
 					return bookingService.get({
 						id: bookingId
-					}).then(booking => {
-						$rootScope.datacontext.booking = booking;
-						$rootScope.datacontext.person = booking.person;
-						return booking;
 					});
 				}],
         contract: ['$stateParams', '$rootScope', 'authService', 'contractService', function ($stateParams, $rootScope, authService, contractService) {
@@ -298,10 +294,7 @@ angular.module('openwheels.trip', [
               contract.type.canHaveDeclaration = true;
             }
             return contract;
-          }).then(contract => {
-						$rootScope.datacontext.contract = contract;
-						return contract;
-					});
+          });
         }],
 				driverContracts: ['$stateParams', 'contractService', 'booking', function ($stateParams, contractService, booking) {
 					return contractService.forDriver({
@@ -311,6 +304,14 @@ angular.module('openwheels.trip', [
 						//contracts.unshift({id: 50076, contractor: {firstName: 'Wheels4All'}, type: {name: ''}});
 						return contracts;
 					});
+				}],
+				datacontext: ['$rootScope', 'booking', 'contract', function ($rootScope, booking, contract) {
+					$rootScope.datacontext = {
+						booking,
+						contract,
+						person: booking.person
+					};
+					return $rootScope.datacontext;
 				}]
 			},
 		});
