@@ -84,7 +84,7 @@ angular.module('openwheels.person', [
 				}],
 				datacontext: ['$rootScope', 'person', function ($rootScope, person) {
 					$rootScope.datacontext = {
-					  person
+					  person: person
 					};
 					return $rootScope.datacontext;
 				}]
@@ -113,7 +113,7 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						limit: 50
-					}).then(bookings => {
+					}).then(function (bookings) {
 						$rootScope.datacontext.bookings = bookings;
 						return bookings;
 					});
@@ -144,7 +144,7 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						limit: 50
-					}).then(bookings => {
+					}).then(function (bookings) {
 						$rootScope.datacontext.bookings = bookings;
 						return bookings;
 					});

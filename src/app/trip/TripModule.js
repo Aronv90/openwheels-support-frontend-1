@@ -246,8 +246,8 @@ angular.module('openwheels.trip', [
         }],
 				datacontext: ['$rootScope', 'booking', 'contract', function ($rootScope, booking, contract) {
 					$rootScope.datacontext = {
-						booking,
-						contract,
+						booking: booking,
+						contract: contract,
 						person: booking.person
 					};
 					return $rootScope.datacontext;
@@ -307,8 +307,8 @@ angular.module('openwheels.trip', [
 				}],
 				datacontext: ['$rootScope', 'booking', 'contract', function ($rootScope, booking, contract) {
 					$rootScope.datacontext = {
-						booking,
-						contract,
+						booking: booking,
+						contract: contract,
 						person: booking.person
 					};
 					return $rootScope.datacontext;

@@ -14,21 +14,20 @@ angular.module('openwheels.components')
   conversationService
 ) {
 
-  const emailer = {};
+  var emailer = {};
 
   emailer.open = function (options) {
-    const {
-      templateKey,
-      recipient = null,
-      subject = '',
-      content = '',
-      interpolations
-    } = options || {};
+    options = options || {};
+    var templateKey = options.templateKey;
+    var recipient = options.recipient || null;
+    var subject = options.subject || '';
+    var content = options.content || '';
+    var interpolations = options.interpolations;
 
-    const template = EMAILER_TEMPLATES.find(t => t.key === templateKey);
-    let me;
+    var template = EMAILER_TEMPLATES.find(function (t) { return t.key === templateKey; });
+    var me;
 
-    authService.me().then(_me => {
+    authService.me().then(function (_me) {
       me = _me;
       open();
     }).catch(open);
@@ -42,7 +41,7 @@ angular.module('openwheels.components')
           };
 
           $scope.selectedTabIndex = 0;
-          $scope.selectTab = n => {
+          $scope.selectTab = function (n) {
             $scope.selectedTabIndex = (n % 2);
           };
 
@@ -75,9 +74,9 @@ angular.module('openwheels.components')
           $scope.complete = false;
 
           $scope.interpolate = function (content) {
-            return content.replace(/\{\{([^\}\n\r]*)\}+/g, (_, key) => {
+            return content.replace(/\{\{([^\}\n\r]*)\}+/g, function (_, key) {
               key = key.trim();
-              return $scope.interpolations[key] || `{{ ${key} }}`;
+              return $scope.interpolations[key] || "{{ " + key + " }}";
             });
           };
 
@@ -85,7 +84,7 @@ angular.module('openwheels.components')
             if ($scope.draft) {
               $scope.draft.changed = !initial;
               $scope.remainingInterpolations = [];
-              ($scope.draft.subject + $scope.draft.content).replace(/\{\{([^\}\n\r]*)\}+/g, (_, key) => {
+              ($scope.draft.subject + $scope.draft.content).replace(/\{\{([^\}\n\r]*)\}+/g, function (_, key) {
                 key = key.trim();
                 if ($scope.remainingInterpolations.indexOf(key) < 0) {
                   $scope.remainingInterpolations.push(key);
@@ -95,7 +94,7 @@ angular.module('openwheels.components')
               $scope.draft.note = [
                 moment().format("DD-MM-YYYY"),
                 me ? [me.firstName, me.preposition, me.surname].filter(Boolean).join(" ") : null,
-                "Email gestuurd" + ($scope.draft.key ? ` [${$scope.draft.key}]` : ''),
+                "Email gestuurd" + ($scope.draft.key ? (" [" + $scope.draft.key + "]") : ''),
                 $scope.draft.subject
               ].filter(Boolean).join(" - ");
 
@@ -103,7 +102,7 @@ angular.module('openwheels.components')
                 $scope.draft.recipient &&
                 $scope.draft.subject &&
                 $scope.draft.content &&
-                $scope.remainingInterpolations.filter(key => {
+                $scope.remainingInterpolations.filter(function (key) {
                   return !$scope.interpolations[key];
                 }).length === 0
               );
@@ -160,16 +159,16 @@ angular.module('openwheels.components')
           }
 
           // FURTHER/REMAINING INIT BASED ON DATA CONTEXT
-          let _fromdatacontext = false;
-          $scope.remainingInterpolations.forEach(key => {
-            let item = fromDataContext(key, $rootScope.datacontext);
+          var _fromdatacontext = false;
+          $scope.remainingInterpolations.forEach(function (key) {
+            var item = fromDataContext(key, $rootScope.datacontext);
             if (item) {
               $scope.interpolations[key] = item;
               _fromdatacontext = true;
             }
           });
           if (!$scope.draft.recipient) {
-            let item = fromDataContext("RECIPIENT", $rootScope.datacontext);
+            var item = fromDataContext("RECIPIENT", $rootScope.datacontext);
             if (item) {
               $scope.draft.recipient = item;
               _fromdatacontext = true;

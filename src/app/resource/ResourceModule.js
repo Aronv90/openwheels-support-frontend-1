@@ -78,7 +78,7 @@ angular.module('openwheels.resource', [
 			}],
 			datacontext: ['$rootScope', 'resource', function ($rootScope, resource) {
 				$rootScope.datacontext = {
-					resource,
+					resource: resource,
 					person: resource.owner || resource.contactPerson
 				};
 				return $rootScope.datacontext;
@@ -206,8 +206,8 @@ angular.module('openwheels.resource', [
 				if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
 				params.multiple = $stateParams.multiple === 'true' || null;
 				params.global = $stateParams.global === 'true' || null;
-      			params.limit = perPage;
-      			params.offset = 0;
+						params.limit = perPage;
+						params.offset = 0;
 				return discountService.search(params);
 			}],
     		perPage: function(){ return 20;},
