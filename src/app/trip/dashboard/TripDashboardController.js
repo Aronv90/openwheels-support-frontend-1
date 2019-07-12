@@ -632,6 +632,107 @@ angular.module('openwheels.trip.dashboard', [])
     ;
   };
 
+  $scope.twoMoreHours = function (errorMessage) {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
+        $scope.errorMessage = errorMessage;
+        $scope.helyUser = helyUser;
+
+        $scope.tripIsNow = moment().isAfter(moment(booking.beginBooking, API_DATE_FORMAT)) && moment().isBefore(moment(booking.endBooking, API_DATE_FORMAT));
+        $scope.tripHasEnded = moment().isAfter(moment(booking.endBooking, API_DATE_FORMAT));
+
+        $scope.act = function() {
+          $scope.state = {
+            loading: true,
+            newBooking: {
+              loading: true
+            }
+          };
+
+          var base = moment.max(
+            moment(booking.endBooking).add(1, 'minute'),
+            moment()
+          );
+          bookingService.create({
+            resource: booking.resource.id,
+            person: booking.person.id,
+            timeFrame: {
+              startDate: base.format('YYYY-MM-DD HH:mm'),
+              endDate: base.add(2, 'hours').format('YYYY-MM-DD HH:mm')
+            },
+            contract: booking.contract.id
+          })
+          .then(possiblyTransferExtraDriversFrom(booking))
+          .then(function (newBooking) {
+            $scope.state.newBooking.booking = newBooking;
+            $scope.state.newBooking.success = true;
+            $scope.state.approving = {
+              loading: true
+            };
+
+            bookingService.approve({ booking: newBooking.id })
+            .then(function (altertedNewBooking) {
+              $scope.state.approving.success = true;
+            })
+            .catch(function (err) {
+              $scope.state.approving.error = err.message || err;
+            })
+            .finally(function () {
+              $scope.state.approving.loading = false;
+              $scope.state.loading = false;
+              $scope.state.success = true;
+            });
+          })
+          .catch(function (err) {
+            $scope.state.newBooking.error = err.message || err;
+            $scope.state.loading = false;
+          })
+          .finally(function () {
+            $scope.state.newBooking.loading = false;
+          });
+        };
+
+        $scope.done = function () {
+          if ($scope.state && $scope.state.newBooking.booking) {
+            $state.go('root.trip.dashboard', { tripId: $scope.state.newBooking.booking.id });
+            $mdDialog.hide();
+          }
+        };
+
+        $scope.open = function () {
+          if ($scope.state && $scope.state.newBooking.booking) {
+            boardcomputerService.control({
+              action: 'OpenDoorStartEnable',
+              resource: $scope.state.newBooking.booking.resource.id,
+              booking: $scope.state.newBooking.booking.id
+            })
+            .then(function () {
+              $state.go('root.trip.dashboard', { tripId: $scope.state.newBooking.booking.id });
+              $mdDialog.hide();
+              alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
+            })
+            .catch(function(err) {
+              if(err && err.message) {
+                alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+              }
+            });
+          }
+        };
+
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/twoMoreHours.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking,
+        helyUser: $scope.helyUser
+      }
+    });
+  };
+
   $scope.changeEndTime = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -697,7 +798,19 @@ angular.module('openwheels.trip.dashboard', [])
       return alertService.add('success', 'Rit is verlengd.', 5000);
     })
     .catch(function(err) {
-      if(err && err.message) {
+      var duration = moment.duration(
+        moment(booking.endBooking, API_DATE_FORMAT).diff(
+          moment(booking.beginBooking, API_DATE_FORMAT)
+        )
+      );
+      if (booking.ok &&
+          booking.resource.boardcomputer &&
+          (duration.as('hours') > 2) &&
+          moment(booking.endBooking).isAfter(moment().subtract(3, 'hours'))
+      ) {
+        $scope.twoMoreHours(err.message || '[Onbekende fout]');
+      }
+      else if(err && err.message) {
         if(err.message.match('onvoldoende')) {
           alertService.add('danger', err.message + '. De huurder heeft nog ' + err.data.extra_credit + ' euro extra rijtegoed nodig voordat de boeking verlengd kan worden.', 7000);
         } else if (err.message.match('kilometers van de rit zijn al ingevuld')) {

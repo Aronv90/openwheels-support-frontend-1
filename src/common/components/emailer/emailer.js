@@ -226,6 +226,7 @@ function fromDataContext(key, datacontext) {
         moment(datacontext.booking.beginBooking).format('dd MMMM YYYY HH:mm') :
         "");
     case "EIND_BOEKING":
+    case "EINDE_BOEKING":
     case "END_BOEKING":
       return (datacontext.booking && datacontext.booking.endBooking ?
         moment(datacontext.booking.endBooking).format('dd MMMM YYYY HH:mm') :
