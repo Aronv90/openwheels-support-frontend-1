@@ -199,7 +199,7 @@ angular.module('openwheels.components')
           return personService.alter({
             id: data.recipient.id,
             newProps: {
-              remark: data.note + "\n" + data.recipient.remark
+              remark: data.note + (data.recipient.remark ? "\n" + data.recipient.remark : '')
             }
           });
         } else {
