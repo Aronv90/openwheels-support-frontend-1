@@ -672,6 +672,7 @@ angular.module('openwheels.trip.dashboard', [])
               loading: true
             };
 
+            // Automatically approve new booking
             bookingService.approve({ booking: newBooking.id })
             .then(function (altertedNewBooking) {
               $scope.state.approving.success = true;
@@ -683,6 +684,41 @@ angular.module('openwheels.trip.dashboard', [])
               $scope.state.approving.loading = false;
               $scope.state.loading = false;
               $scope.state.success = true;
+            });
+
+            // Only show the warning message about the immobilizer if last command was a close door command
+            if (booking.resource.boardcomputer !== 'ccome') {
+              //get last command to see if immobilizer is on
+              chipcardService.logs({
+                resource: booking.resource.id,
+                max: 1,
+                offset: 0
+              })
+              .then(function (lastCommand) {
+                if (lastCommand.result[0] && lastCommand.result[0].action === 'CloseDoorStartDisable') {
+                  $scope.showImmobilizerWarning = true;
+                }
+              });
+            }
+
+            // Make follow-up
+            $scope.state.makingFollowup = {
+              loading: true
+            };
+            remarkService.add({
+              booking: newBooking.id,
+              message: '[Automatisch aangemaakt] nieuwe boeking (2u) gemaakt - dubbele kosten checken',
+              type: 'custom',
+              followUp: nextBusinessDay().format('YYYY-MM-DD HH:mm')
+            })
+            .then(function () {
+              $scope.state.makingFollowup.success = true;
+            })
+            .catch(function (err) {
+              $scope.state.makingFollowup.error = err.message || '[Onbekende fout]';
+            })
+            .finally(function() {
+              $scope.state.makingFollowup.loading = false;
             });
           })
           .catch(function (err) {
@@ -2050,6 +2086,20 @@ angular.module('openwheels.trip.dashboard', [])
       hour = hour + 1;
     }
     return times;
+  }
+
+  function nextBusinessDay () {
+    let dayIncrement = 1;
+
+    if (moment().day() === 5) {
+      // set to monday
+      dayIncrement = 3;
+    } else if (moment().day() === 6) {
+      // set to monday
+      dayIncrement = 2;
+    }
+
+    return moment().add(dayIncrement, 'days');
   }
 
 });
