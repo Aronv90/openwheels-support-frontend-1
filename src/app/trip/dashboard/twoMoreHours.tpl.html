@@ -33,6 +33,7 @@
         <li ng-if="state.newBooking && state.newBooking.success">
           Nieuwe reservering maken... <strong>OK: <a ui-sref="root.trip.dashboard({ tripId: state.newBooking.booking.id })">#{{ state.newBooking.booking.id }}</a></strong>
         </li>
+
         <li ng-if="state.approving && state.approving.loading">
           Automatisch goedkeuren...<br />
           <md-progress-linear md-mode="indeterminate"></md-progress-linear>
@@ -43,7 +44,19 @@
         <li ng-if="state.approving && state.approving.success">
           Automatisch goedkeuren... <strong>OK</strong>
         </li>
-        <li ng-if="state.approving && state.approving.success">
+
+        <li ng-if="state.makingFollowup && state.makingFollowup.loading">
+          Follow-up aanmaken...<br />
+          <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </li>
+        <li ng-if="state.makingFollowup && state.makingFollowup.error">
+          Follow-up aanmaken niet gelukt: <strong class="text-danger">{{ state.makingFollowup.error }}</strong>
+        </li>
+        <li ng-if="state.makingFollowup && state.makingFollowup.success">
+          Follow-up aanmaken... <strong>OK</strong>
+        </li>
+
+        <li ng-if="state.approving && state.approving.success && showImmobilizerWarning">
           <strong>Let op! De startblokkering is waarschijnlijk ingeschakeld, de auto start dan niet. Open de auto (opnieuw) om de startblokkering uit te schakelen. (Dit moet in de nieuwe rit gebeuren.)</strong>
           <p>
             <md-button class="md-primary md-raised" ng-click="open()">
