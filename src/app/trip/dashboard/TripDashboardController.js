@@ -2089,7 +2089,7 @@ angular.module('openwheels.trip.dashboard', [])
   }
 
   function nextBusinessDay () {
-    let dayIncrement = 1;
+    var dayIncrement = 1;
 
     if (moment().day() === 5) {
       // set to monday
