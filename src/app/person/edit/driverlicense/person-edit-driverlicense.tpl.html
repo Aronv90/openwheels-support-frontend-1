@@ -48,11 +48,11 @@
       </tr>
       <tr>
         <th style="width: 275px;">Zwarte lijst match?</th>
-        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].blacklist]">{{reason.default[0].blacklist ? 'Ja' : 'Geen'}}</td>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].blacklist]">{{reason.default[0].blacklist ? 'Ja' : 'Nee'}}</td>
       </tr>
       <tr>
         <th style="width: 275px;">Overeenkomstig account match?</th>
-        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].similar]">{{reason.default[0].similar ? 'Ja' : 'Geen'}}</td>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].similar]">{{reason.default[0].similar ? 'Ja' : 'Nee'}}</td>
       </tr>
       <tr>
         <th style="width: 275px;">Score:</th>
@@ -66,19 +66,23 @@
       </tr>
       <tr>
         <th style="width: 275px;">E-mail geverifieerd?</th>
-        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.default[0].email_valid]">{{reason.default[0].email_valid ? 'Nee' : 'Ja'}}</td>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.default[0].email_valid]">{{reason.default[0].email_valid ? 'Nee' : 'Ja'}}</td>
       </tr>
     </table>
 
     <h4 ng-if="reason.document[0]">Documentcheck</h4>
     <table class="table table-striped table-condensed" ng-if="reason.document[0]">
       <tr>
-        <th style="width: 275px;">Rijbewijs correct?</th>
+        <th style="width: 275px;">Rijbewijs geüpload?</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].document_upload]">{{reason.document[0].document_upload ? 'Nee' : 'Ja'}}</td>
       </tr>
       <tr>
+        <th style="width: 275px;">Rijbewijs correct?</th>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].document_acceptable]">{{reason.document[0].document_acceptable ? 'Nee' : 'Ja'}}</td>
+      </tr>
+      <tr>
         <th style="width: 275px;">Rijbewijsland correct?</th>
-        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].country]">{{reason.document[0].country ? 'Nee' : 'Ja'}}</td>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.document[0].document_country]">{{reason.document[0].document_country ? 'Nee' : 'Ja'}}</td>
       </tr>
       <tr>
         <th style="width: 275px;">Verloopdatum correct?</th>
@@ -131,8 +135,8 @@
       </tr>
     </table>
 
-    <h4 ng-if="reason.dutch_extended_other[0]">Uitgebreide controle</h4>
-    <table class="table table-striped table-condensed" ng-if="reason.dutch_extended_other[0]">
+    <h4 ng-if="reason.dutch_extended_other[0] && reason.dutch_extended_other[0].score">Uitgebreide controle</h4>
+    <table class="table table-striped table-condensed" ng-if="reason.dutch_extended_other[0] && reason.dutch_extended_other[0].score">
       <tr>
         <th style="width: 275px;">Score + uitgebreide controle:</th>
         <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].score_not_acceptable]">{{reason.dutch_extended_other[0].score}}</td>
@@ -151,7 +155,7 @@
       </tr>
       <tr>
         <th style="width: 275px;">Bekend op adres?</th>
-        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].address_match]">{{reason.dutch_extended_other[0].address_match ? 'Ja' : 'Nee'}}</td>
+        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].address_match]">{{reason.dutch_extended_other[0].address_match ? 'Nee' : 'Ja'}}</td>
       </tr>
       <tr>
         <th style="width: 275px;">Registraties?</th>
@@ -189,7 +193,7 @@
       </tr>
       <tr>
         <th style="width: 275px;">Bekend op adres?</th>
-        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].address_match]">{{reason.dutch_dutch[0].address_match ? 'Ja' : 'Nee'}}</td>
+        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].address_match]">{{reason.dutch_dutch[0].address_match ? 'Nee' : 'Ja'}}</td>
       </tr>
       <tr>
         <th style="width: 275px;">Registraties?</th>
