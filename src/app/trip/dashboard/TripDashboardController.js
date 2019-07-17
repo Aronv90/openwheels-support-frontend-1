@@ -27,7 +27,9 @@ angular.module('openwheels.trip.dashboard', [])
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
   extraDriverService, $log, account2Service,
-  driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia) {
+  driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia,
+  automate
+) {
 
   /* INIT  */
   $scope.booking = booking;
@@ -1951,6 +1953,10 @@ angular.module('openwheels.trip.dashboard', [])
         booking: booking
       },
     });
+  };
+
+  $scope.automateFine = function () {
+    automate("fine_admin_costs", { booking: booking });
   };
 
   $scope.refundBooking = function() {

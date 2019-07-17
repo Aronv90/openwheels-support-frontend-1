@@ -115,7 +115,8 @@ angular.module('openwheels', [
   'DutchZipcodeService',
   'openwheels.querytool',
 
-  'openwheels.components'
+  'openwheels.components',
+  'openwheels.automation'
 ])
 
 .config(function myAppConfig($stateProvider, $urlRouterProvider) {
