@@ -831,7 +831,7 @@
     <li ng-click="resendBoardcomputer()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer === 'ccome'" ng-hide="hide">
       <span tooltip-placement="right" uib-tooltip="Stuur boeking naar boordcomputer">CCOME</span>
     </li>
-    <li ng-click="automateFine()" class="quickaction__item--trip" ng-hide="hide" ng-if="booking.approved=='OK'"><span tooltip-placement="right" uib-tooltip="Boete verleggen">Boete verleggen</span></li>
+    <li ng-click="automateFine()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Boete verleggen">Boete verleggen</span></li>
     <li ng-click="refundBooking()" class="quickaction__item--trip" ng-hide="hide" ng-if="booking.approved=='OK'"><span tooltip-placement="right" uib-tooltip="Crediteer rit">Restitutie</span></li>
     <li ng-click="addDeclaration()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg tankbonnen toe">Tankbon</span></li>
     <li ng-click="addKm()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM-standen</span></li>

@@ -1956,7 +1956,7 @@ angular.module('openwheels.trip.dashboard', [])
   };
 
   $scope.automateFine = function () {
-    automate();
+    automate("fine_admin_costs", { booking: booking });
   };
 
   $scope.refundBooking = function() {
