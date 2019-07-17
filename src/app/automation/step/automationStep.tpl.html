@@ -1,0 +1,18 @@
+
+<li ng-class="{
+  working: working,
+  succeeded: succeeded,
+  failed: failed
+}">
+  {{ step.label }}
+
+  <a ng-if="params && step.manual && !started" ng-click="manuallyStart()">start</a>
+
+  <em ng-if="working">bezig...</em>
+  <strong class="success-message" ng-show="succeeded">{{ successMessage }}</strong>
+  <em class="text-danger" ng-if="failed">{{ errorMessage }}</em>
+
+  <ul class="automation-steps" ng-if="step.children">
+    <automation-step params="succeeded ? params : null" step="child" ng-repeat="child in step.children" />
+  </ul>
+</li>

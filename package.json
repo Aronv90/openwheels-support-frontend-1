@@ -5,8 +5,11 @@
   "homepage": "https://mywheels.nl",
   "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
     "bower": ">=1.7.9",
     "grunt": ">=1.0.1",
+    "grunt-babel": "^8.0.0",
     "grunt-contrib-clean": ">=1.0.0",
     "grunt-contrib-copy": ">=1.0.0",
     "grunt-contrib-jshint": ">=1.0.0",
