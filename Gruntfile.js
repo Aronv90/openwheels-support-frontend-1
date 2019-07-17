@@ -190,6 +190,26 @@ module.exports = function (grunt) {
       }
     },
 
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: [
+          '@babel/preset-env',
+        ],
+      },
+      dist: {
+        files: [
+          {
+            src: '<%= app_files.es6 %>',
+            dest: '<%= build_dir %>/',
+            ext: '.js',
+            cwd: '.',
+            expand: true
+          }
+        ]
+      }
+    },
+
     /**
      * `grunt concat` concatenates multiple source files into a single file.
      */
@@ -516,6 +536,11 @@ module.exports = function (grunt) {
           'copy:buildAppjs' ]
       },
 
+      jssrc_babel: {
+        files: '<%= app_files.es6 %>',
+        tasks: [ 'babel' ]
+      },
+
       /**
        * When assets are changed, copy them. Note that this will *not* copy new
        * files, so this is probably not very useful.
@@ -598,7 +623,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean', 'html2js', 'ngconstant:development', 'jshint:src', 'less:build',
     'concat:buildCss', 'copy:buildAppAssets', 'copy:buildApp', 'copy:buildVendorAssets',
-    'copy:buildAppjs', 'copy:buildVendorjs', 'index:build'
+    'copy:buildAppjs', 'babel', 'copy:buildVendorjs', 'index:build'
   ]);
 
   /**
