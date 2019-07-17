@@ -6,8 +6,10 @@
 }">
   {{ step.label }}
 
+  <a ng-if="params && step.manual && !started" ng-click="manuallyStart()">start</a>
+
   <em ng-if="working">bezig...</em>
-  <strong ng-if="succeeded">{{ successMessage }}</strong>
+  <strong class="success-message" ng-show="succeeded">{{ successMessage }}</strong>
   <em class="text-danger" ng-if="failed">{{ errorMessage }}</em>
 
   <ul class="automation-steps" ng-if="step.children">

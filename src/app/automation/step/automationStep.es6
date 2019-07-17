@@ -9,20 +9,29 @@ angular.module("openwheels.automation.step", [])
       params: '=',
       step: '=',
     },
-    controller: function ($scope) {
+    controller: function ($scope, $element) {
       let _promise;
+
+      $scope.started = false;
 
       $scope.working = false;
       $scope.failed = false;
       $scope.succeeded = false
 
-      $scope.$watch("params", newParams => {
-        if (newParams && !_promise) {
+      $scope.$watch("params", tryStart);
+
+      function tryStart(params) {
+        if (params && (!$scope.step.manual || $scope.manuallyStarted) && !_promise) {
+          $scope.started = true;
           $scope.working = true;
-          _promise = $scope.step.act(newParams)
+          _promise = $scope.step.act(params)
             .then(successMessage => {
               $scope.succeeded = true;
-              $scope.successMessage = successMessage;
+              if (typeof successMessage === "string") {
+                $scope.successMessage = successMessage;
+              } else if (successMessage.el) {
+                $element.find(".success-message").append(successMessage.el);
+              }
             })
             .catch(error => {
               $scope.failed = true;
@@ -38,7 +47,12 @@ angular.module("openwheels.automation.step", [])
               $scope.working = false;
             });
         }
-      });
+      }
+
+      $scope.manuallyStart = function () {
+        $scope.manuallyStarted = true;
+        tryStart($scope.params);
+      };
     }
   };
 });
