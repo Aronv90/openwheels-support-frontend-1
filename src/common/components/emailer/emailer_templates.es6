@@ -87,7 +87,7 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
         Mocht je vragen hebben n.a.v. bovenstaande, kun je deze e-mail beantwoorden. We zullen je zo snel mogelijk van een reactie voorzien.`
     },
     {
-      key: "Gemeente - Verlegd - NL",
+      key: "Boete - Gemeente - Verlegd - NL",
       subject: "Ontvangen (verkeers)boete",
       content: commonTags.stripIndent`
         Beste {{ VOORNAAM }},
