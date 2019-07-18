@@ -18,7 +18,7 @@
   "smarttabs": true,
   "sub": true,
   "globals": {
-    "debugger": false,
+    "commonTags": false,
     "marked": false,
     "angular": false,
     "moment": false,
