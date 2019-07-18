@@ -95,7 +95,7 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
         Van {{ BEGIN_BOEKING }} tot {{ EIND_BOEKING }} heb jij via MyWheels een auto gehuurd.
         Wij hebben zojuist helaas een parkeerboete ontvangen van Gemeente {{ GEMEENTE }} welke gemaakt is tijdens jouw huurperiode.
 
-        Wij hebben de Gemeente {{ GEMEENTE }} verzocht om deze boete te verleggen naar jou. Je zult hier t.z.t. bericht van ontvangen vanuit de Gemeente om deze aan hen te voldoen. In de bijlage vind je de boete zoals wij hem hebben ontvangen. MyWheels heeft hiervoor € 10,- administratiekosten bij jou in rekening gebracht die je via www.mywheels.nl/finance kunt betalen.
+        Wij hebben de Gemeente {{ GEMEENTE }} verzocht om deze boete te verleggen naar jou. Je zult hier t.z.t. bericht van ontvangen vanuit de Gemeente om deze aan hen te voldoen. MyWheels heeft hiervoor € 12,50- administratiekosten bij jou in rekening gebracht die je via [www.mywheels.nl/finance](https://mywheels.nl/finance) kunt betalen.
 
         Mocht je vragen hebben n.a.v. bovenstaande, kun je deze e-mail beantwoorden. We zullen je zo snel mogelijk van een reactie voorzien.`
     },
