@@ -917,7 +917,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .catch(function(err) {
       if(err && err.message) {
-        alertService.add('danger', 'De begintijd kon niet aangepast worden: ' + err.message, 5000);
+        alertService.add('danger', 'De begintijd kon niet aangepast worden: ' + err.message + '. Laat de huurder een nieuwe (extra) reservering maken.', 5000);
       }
     })
     ;

@@ -155,7 +155,7 @@
       </tr>
       <tr>
         <th style="width: 275px;">Bekend op adres?</th>
-        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].address_match]">{{reason.dutch_extended_other[0].address_match ? 'Nee' : 'Ja'}}</td>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_extended_other[0].address_match]">{{reason.dutch_extended_other[0].address_match ? 'Nee' : 'Ja'}}</td>
       </tr>
       <tr>
         <th style="width: 275px;">Registraties?</th>
@@ -193,7 +193,7 @@
       </tr>
       <tr>
         <th style="width: 275px;">Bekend op adres?</th>
-        <td ng-class="{true:'text-success', false:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].address_match]">{{reason.dutch_dutch[0].address_match ? 'Nee' : 'Ja'}}</td>
+        <td ng-class="{false:'text-success', true:'text-danger', 'unchecked':'text-muted'}[reason.dutch_dutch[0].address_match]">{{reason.dutch_dutch[0].address_match ? 'Nee' : 'Ja'}}</td>
       </tr>
       <tr>
         <th style="width: 275px;">Registraties?</th>
