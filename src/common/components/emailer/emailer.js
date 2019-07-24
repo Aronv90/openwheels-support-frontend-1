@@ -223,13 +223,13 @@ function fromDataContext(key, datacontext) {
       return datacontext.person ? datacontext.person.firstName : "";
     case "BEGIN_BOEKING":
       return (datacontext.booking && datacontext.booking.beginBooking ?
-        moment(datacontext.booking.beginBooking).format('dd MMMM YYYY HH:mm') :
+        moment(datacontext.booking.beginBooking).format('DD MMMM YYYY HH:mm') :
         "");
     case "EIND_BOEKING":
     case "EINDE_BOEKING":
     case "END_BOEKING":
       return (datacontext.booking && datacontext.booking.endBooking ?
-        moment(datacontext.booking.endBooking).format('dd MMMM YYYY HH:mm') :
+        moment(datacontext.booking.endBooking).format('DD MMMM YYYY HH:mm') :
         "");
   }
 

@@ -178,8 +178,8 @@ angular.module("openwheels.automation.automations", [
                         let { subject, content } = email_templates[type];
                         content = $filter("marked")(interpolate(content, {
                           VOORNAAM: contractor.firstName,
-                          BEGIN_BOEKING: moment(booking.beginBooking || booking.beginRequested).format("dd MMMM YYYY HH:mm"),
-                          EIND_BOEKING: moment(booking.endBooking || booking.endRequested).format("dd MMMM YYYY HH:mm"),
+                          BEGIN_BOEKING: moment(booking.beginBooking || booking.beginRequested).format("DD MMMM YYYY HH:mm"),
+                          EIND_BOEKING: moment(booking.endBooking || booking.endRequested).format("DD MMMM YYYY HH:mm"),
                         }));
 
                         return conversationService.sendMail({
@@ -275,7 +275,7 @@ angular.module("openwheels.automation.automations", [
                                 Hoogachtend,<br />
                                 <br />
                                 Naam: Hans Rombout<br />
-                                Plaats en datum: Amsterdam, ${moment().format("d MMMM YYYY")}<br />
+                                Plaats en datum: Amsterdam, ${moment().format("D MMMM YYYY")}<br />
                                 Handtekening:<br />` : `
                                 Gemeente Amsterdam<br />
                                 <strong>Parkeerdiensten</strong><br />
@@ -293,7 +293,7 @@ angular.module("openwheels.automation.automations", [
                                 Betreft: Bezwaar tegen naheffingsaanslag<br />
                                 Bijlage: Kopie naheffingsaanslag en huurovereenkomst (digitaal gegenereerd)<br />
                                 <br />
-                                Dagtekening: Amsterdam, ${moment().format("d MMMM YYYY")}<br />
+                                Dagtekening: Amsterdam, ${moment().format("D MMMM YYYY")}<br />
                                 <br />
                                 Geachte mevrouw, mijnheer,<br />
                                 <br />
@@ -307,7 +307,7 @@ angular.module("openwheels.automation.automations", [
                                 Hoogachtend,<br />
                                 <br />
                                 Naam: Hans Rombout<br />
-                                Plaats en datum: Amsterdam, ${moment().format("d MMMM YYYY")}<br />
+                                Plaats en datum: Amsterdam, ${moment().format("D MMMM YYYY")}<br />
                                 Handtekening:<br />`}
                               </p>
 
