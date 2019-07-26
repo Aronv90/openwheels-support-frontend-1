@@ -217,9 +217,9 @@
       <li class="dropdown">
         <a href="" class="dropdown-toggle" data-toggle="dropdown"><md-icon>email</md-icon><b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li>
+          <!--<li>
             <a ng-click="$root.emailer.open()">(lege email)</a>
-          </li>
+          </li>-->
           <li ng-repeat="template in $root.EMAILER_TEMPLATES">
             <a ng-click="$root.emailer.open({ templateKey: template.key })">{{ template.key }}</a>
           </li>

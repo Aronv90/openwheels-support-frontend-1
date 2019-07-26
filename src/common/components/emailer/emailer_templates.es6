@@ -4,6 +4,11 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
 .factory('EMAILER_TEMPLATES', () => {
   const in_english = [
     {
+      key: "Leeg - EN",
+      subject: "",
+      content: ``
+    },
+    {
       key: "Welkom - EN",
       subject: "Welcome!",
       content: commonTags.stripIndent`
@@ -18,15 +23,28 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
 
         Please note: we only check postal items during office hours (Monday to Friday 9:00 AM - 5:00 PM).
 
-        Thanks in advance.
-
-        With kind regards,
-
-        the MyWheels Team`
+        Thanks in advance.`
     },
-  ];
+  ].map(template => ({
+    ...template,
+    content: template.content + "\n\n" + commonTags.stripIndent`
+      With kind regards,<br />
+      the MyWheels Team
+
+      **MyWheels**<br />
+      Keizersgracht 264<br />
+      1016 EV Amsterdam<br />
+      085-7734222
+
+      <img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" />`
+  }));
 
   const in_dutch = [
+    {
+      key: "Leeg - NL",
+      subject: "",
+      content: ``
+    },
     {
       key: "Welkom - NL",
       subject: "Welkom!",
