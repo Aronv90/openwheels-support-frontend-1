@@ -4,6 +4,11 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
 .factory('EMAILER_TEMPLATES', () => {
   const in_english = [
     {
+      key: "Leeg - EN",
+      subject: "",
+      content: ``
+    },
+    {
       key: "Welkom - EN",
       subject: "Welcome!",
       content: commonTags.stripIndent`
@@ -18,15 +23,28 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
 
         Please note: we only check postal items during office hours (Monday to Friday 9:00 AM - 5:00 PM).
 
-        Thanks in advance.
-
-        With kind regards,
-
-        the MyWheels Team`
+        Thanks in advance.`
     },
-  ];
+  ].map(template => ({
+    ...template,
+    content: template.content + "\n\n" + commonTags.stripIndent`
+      With kind regards,<br />
+      the MyWheels Team
+
+      **MyWheels**<br />
+      Keizersgracht 264<br />
+      1016 EV Amsterdam<br />
+      085-7734222
+
+      <p><img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" /></p>` + (template.footer ? "\n\n<hr />" + template.footer : "")
+  }));
 
   const in_dutch = [
+    {
+      key: "Leeg - NL",
+      subject: "",
+      content: ``
+    },
     {
       key: "Welkom - NL",
       subject: "Welkom!",
@@ -140,6 +158,48 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
         Je biedt jouw auto aan op MyWheels. Vanwege een verhoogd risico op misbruik van jouw auto door huurders, hebben we jouw auto vandaag gedeactiveerd. Jouw auto is daardoor niet meer vindbaar op MyWheels. Hiermee willen we voorkomen dat huurders schade rijden in jouw auto of voor verkeersboetes zorgen.
 
         Mail gerust als je nog vragen hebt.`
+    },
+    {
+      key: "Visie autodelen - NL",
+      subject: "Visie autodelen",
+      content: commonTags.stripIndent`
+        Beste {{ VOORNAAM }},
+
+        Hartelijk dank voor jouw aanmelding bij MyWheels.<br />
+        Helaas kunnen wij jouw account niet activeren omdat jouw type huurverzoek niet in lijn ligt met onze visie op autodelen.
+
+        MyWheels heeft de ambitie om met autodelen het aantal auto's in Nederland terug te dringen van 8 naar 1 miljoen in 2030. Daarbij stimuleren wij autodelen met mensen uit de buurt. Ons idee bij autodelen is dan ook dat autogebruikers bij elkaar in de buurt worden verbonden en hierdoor samen auto's in de buurt met elkaar kunnen delen met de gedachte dat er uiteindelijk minder auto's in de straten zullen staan hierdoor.
+
+        Mail gerust als je nog vragen hebt.`
+    },
+    {
+      key: "Extra rjibewijs controle - NL",
+      subject: "Accountcontrole",
+      content: commonTags.stripIndent`
+        Beste {{ VOORNAAM }},
+
+        Hartelijk dank voor het aanmelden bij MyWheels. Leuk dat je mee wilt doen autodelen!
+
+        Helaas is het onze automatische controle niet gelukt om jouw account en bijbehorend rijbewijs te verifiëren.<br />
+        Om een handmatige controle te kunnen uitvoeren op jouw account, verzoeken we je een kopie van jouw rijbewijs te sturen samen met een recent poststuk.
+
+        Met een recent poststuk bedoelen wij een foto of screenshot van bijvoorbeeld een telefoonfactuur, bankafschrift of salarisstrookje.<br />
+        De datum (niet ouder dan één maand) en het logo van de afzender moeten duidelijk op de foto staan, de inhoud van de brief hoeven we niet te zien.
+
+        Uiteraard mag je privacygevoelige informatie op de kopie van jouw rijbewijs (zoals het BSN-nummer) doorstrepen of onleesbaar maken.<br />
+        Hiervoor kun je de app KopieID van de Rijksoverheid gebruiken, te vinden in de [Apple store](https://itunes.apple.com/nl/app/kopieid/id932970330) of de [Google play store](https://play.google.com/store/apps/details?id=com.milvum.kopieid).
+
+        Nadat wij de controle hebben uitgevoerd, zullen wij de ontvangen documenten verwijderen.
+
+        Je ontvangt van ons zo snel mogelijk een reactie per e-mail over de controle van jouw account, meestal binnen twee werkdagen.<br />
+        Het is niet mogelijk om hier telefonisch over te corresponderen, vragen over accountcontrole kunnen alleen per e-mail gesteld worden.
+
+        Mail gerust als je nog vragen hebt.`,
+      footer: commonTags.stripIndent`
+        Veelgestelde vragen:
+
+        - [Ik heb rijtegoed betaald, hoe vraag ik dit terug?](https://mywheels.nl/autodelen/veelgestelde-vragen/rijtegoed-terugvragen/)
+        - [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/autodelen/veelgestelde-vragen/wanneer-wordt-rijbewijs-gecontroleerd/)`
     }
   ].map(template => ({
     ...template,
@@ -152,7 +212,7 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
       1016 EV Amsterdam<br />
       085-7734222
 
-      <img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" />`
+      <p><img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" /></p>` + (template.footer ? "\n\n<hr />" + template.footer : "")
   }));
 
   return [...in_dutch, ...in_english];
