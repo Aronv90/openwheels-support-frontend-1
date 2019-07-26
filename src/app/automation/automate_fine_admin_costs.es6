@@ -174,10 +174,11 @@ angular.module("openwheels.automation.automations", [
                       label: "Email versturen",
                       manual: true,
                       act(params) {
-                        const { type, booking, contractor } = params;
+                        const { type, booking, contractor, gemeentenaam } = params;
                         let { subject, content } = email_templates[type];
                         content = $filter("marked")(interpolate(content, {
                           VOORNAAM: contractor.firstName,
+                          GEMEENTE: gemeentenaam,
                           BEGIN_BOEKING: moment(booking.beginBooking || booking.beginRequested).format("DD MMMM YYYY HH:mm"),
                           EIND_BOEKING: moment(booking.endBooking || booking.endRequested).format("DD MMMM YYYY HH:mm"),
                         }));
@@ -220,7 +221,7 @@ angular.module("openwheels.automation.automations", [
                     {
                       label: "Brief opmaken",
                       act(params) {
-                        const { type, contractor, referentienummer } = params;
+                        const { type, contractor, referentienummer, gemeentenaam } = params;
                         function showPopup(e) {
                           const win = window.open("", "Brief");
                           const html = `
