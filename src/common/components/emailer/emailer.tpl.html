@@ -49,6 +49,8 @@
               font-size: 11px;
             ">Email</label>
             <input find-person required model="draft.recipient" type="text" />
+            <div style="padding-top:10px;"></div>
+            <a href="" ng-if="draft.contactPerson" ng-click="setContactPerson()">Selecteer beheerder {{draft.contactPerson | fullname}}</a>
           </div>
 
           <md-input-container class="md-block">
