@@ -47,6 +47,7 @@ angular.module('openwheels.components')
 
           $scope.draft = {
             recipient: null,
+            contactPerson: null,
             subject: '',
             content: '',
             note: '',
@@ -127,6 +128,7 @@ angular.module('openwheels.components')
                 .finally(alertService.loaded);
             }
           };
+
           $scope.cancel = function () {
             if ($scope.draft && $scope.draft.changed) {
               if ($window.confirm("Weet je het zeker?")) {
@@ -174,9 +176,21 @@ angular.module('openwheels.components')
               _fromdatacontext = true;
             }
           }
+          if (!$scope.draft.contactPerson) {
+            var contactPerson = fromDataContext("CONTACTPERSON", $rootScope.datacontext);
+            if (contactPerson) {
+              $scope.draft.contactPerson = contactPerson;
+              _fromdatacontext = true;
+            }
+          }
           if (_fromdatacontext) {
             $scope.onChange();
           }
+
+          $scope.setContactPerson = function () {
+            $scope.draft.recipient = $scope.draft.contactPerson;
+          };
+
         }],
         templateUrl: 'components/emailer/emailer.tpl.html',
         fullscreen: true,
@@ -218,9 +232,15 @@ function fromDataContext(key, datacontext) {
   switch (key) {
     case "RECIPIENT":
       return datacontext.person || null;
+    case "CONTACTPERSON":
+      return datacontext.contactPerson || null;
     case "NAAM":
     case "VOORNAAM":
       return datacontext.person ? datacontext.person.firstName : "";
+    case "INSCHRIJFDATUM":
+      return datacontext.person ? moment(datacontext.person.created).format('DD MMMM YYYY') : "";
+    case "ALIAS":
+      return (datacontext.booking && datacontext.booking.resource ? datacontext.booking.resource.alias : "");
     case "BEGIN_BOEKING":
       return (datacontext.booking && datacontext.booking.beginBooking ?
         moment(datacontext.booking.beginBooking).format('DD MMMM YYYY HH:mm') :
