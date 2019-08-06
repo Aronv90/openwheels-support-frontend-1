@@ -90,6 +90,21 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
         Mail gerust als je nog vragen hebt.`
     },
     {
+      key: "Dubbel MyWheels account - NL",
+      subject: "Dubbel MyWheels account",
+      content: commonTags.stripIndent`
+        Beste {{ VOORNAAM }},
+
+        Op {{ INSCHRIJFDATUM }} heb je een nieuw account aangemaakt bij MyWheels, terwijl je al een account hebt. Helaas is het niet mogelijk om meerdere accounts te hebben.
+        Jouw nieuwe account schrijf ik daarom uit, zodat je gebruik kunt maken van het reeds bestaande account. 
+
+        Houd daarbij rekening met het volgende:
+        - De aangevraagde ritten op het nieuwe account worden geannuleerd, je zult de ritten opnieuw moeten aanvragen in jouw reeds bestaande account.
+        - Eventueel betaald rijtegoed wordt z.s.m. aan je terug betaald op het bankrekeningnummer waarmee jij het hebt betaald aan ons.
+
+        Mocht je nog vragen hebben, dan kun je deze e-mail beantwoorden.`
+    },
+    {
       key: "Boete - CJIB - Verlegd - NL",
       subject: "Ontvangen (verkeers)boete",
       content: commonTags.stripIndent`
@@ -130,6 +145,30 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
         Ik zou je willen vragen dit bedrag via een online betaling aan ons te voldoen. Hiervoor log je in op mywheels.nl, ga je in het menu naar \"Financiën\" en klik je vervolgens op rijtegoed. Daar kun je jouw openstaande bedrag voldoen.
 
         Mocht je nog vragen hebben n.a.v. deze e-mail, verzoek ik je om deze e-mail te beantwoorden.`
+    },
+    {
+      key: "Schademelding - NL",
+      subject: "Schademelding",
+      content: commonTags.stripIndent`
+        Beste {{ VOORNAAM }},
+
+        Wij hebben een schademelding ontvangen over de {{ ALIAS }}, waar jij beheerder van bent.
+        Ben je wellicht in de gelegenheid een foto te maken van de situatie en deze naar ons te mailen?
+        Zodat we dit bij het autodossier kunnen toevoegen, beter kunnen inschatten wat er precies aan de hand is en het verder kunnen oppakken?
+
+        Hartelijk dank alvast.`
+    },
+    {
+      key: "Netheidsmelding - NL",
+      subject: "Netheidsmelding",
+      content: commonTags.stripIndent`
+        Beste {{ VOORNAAM }},
+
+        Wij hebben een netheidsmelding ontvangen over de {{ ALIAS }}, waar jij beheerder van bent.
+        Ben je wellicht in de gelegenheid een foto te maken van de situatie en deze naar ons te mailen?
+        Zodat we dit bij het autodossier kunnen toevoegen, beter kunnen inschatten wat er precies aan de hand is en het verder kunnen oppakken?
+
+        Hartelijk dank alvast, ook voor het melden.`
     },
     {
       key: "Tenaamstellingscheck - NL",

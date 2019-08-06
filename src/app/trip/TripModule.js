@@ -248,7 +248,8 @@ angular.module('openwheels.trip', [
 					$rootScope.datacontext = {
 						booking: booking,
 						contract: contract,
-						person: booking.person
+						person: booking.person,
+						contactPerson: booking.resource.contactPerson
 					};
 					return $rootScope.datacontext;
 				}]
@@ -309,7 +310,8 @@ angular.module('openwheels.trip', [
 					$rootScope.datacontext = {
 						booking: booking,
 						contract: contract,
-						person: booking.person
+						person: booking.person,
+						contactPerson: booking.resource.contactPerson
 					};
 					return $rootScope.datacontext;
 				}]
