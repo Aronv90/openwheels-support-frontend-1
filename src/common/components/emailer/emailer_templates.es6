@@ -165,10 +165,12 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
         Beste {{ VOORNAAM }},
 
         Wij hebben een netheidsmelding ontvangen over de {{ ALIAS }}, waar jij beheerder van bent.
-        Ben je wellicht in de gelegenheid een foto te maken van de situatie en deze naar ons te mailen?
-        Zodat we dit bij het autodossier kunnen toevoegen, beter kunnen inschatten wat er precies aan de hand is en het verder kunnen oppakken?
+        De melding van de huurder is: 
 
-        Hartelijk dank alvast, ook voor het melden.`
+        Ben je wellicht in de gelegenheid om dit te controleren en de auto, indien nodig, schoon te maken?
+        Het bonnetje van de wasstraat kun je naar ons opsturen.
+
+        Hartelijk dank alvast.`
     },
     {
       key: "Tenaamstellingscheck - NL",
