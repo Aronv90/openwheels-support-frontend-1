@@ -9,8 +9,8 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
       content: ``
     },
     {
-      key: "Welkom - EN",
-      subject: "Welcome!",
+      key: "Account information - EN",
+      subject: "Account information!",
       content: commonTags.stripIndent`
         Dear {{ VOORNAAM }},
 
@@ -46,8 +46,8 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
       content: ``
     },
     {
-      key: "Welkom - NL",
-      subject: "Welkom!",
+      key: "Account informatie - NL",
+      subject: "Account informatie",
       content: commonTags.stripIndent`
         Beste {{ VOORNAAM }},
 
