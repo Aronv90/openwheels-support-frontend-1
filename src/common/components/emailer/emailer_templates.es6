@@ -241,6 +241,40 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
 
         - [Ik heb rijtegoed betaald, hoe vraag ik dit terug?](https://mywheels.nl/autodelen/veelgestelde-vragen/rijtegoed-terugvragen/)
         - [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/autodelen/veelgestelde-vragen/wanneer-wordt-rijbewijs-gecontroleerd/)`
+    },
+    {
+      key: "Beheerder worden? - NL",
+      subject: "Draag bij aan de deelmaatschappij!",
+      content: commonTags.stripIndent`
+        <p><img width="100%" height="auto" src="https://mywheels.nl/autodelen/wp-content/uploads/2019/09/beheerders-1-e1567582008270.jpg" /></p>
+
+        Beste {{ VOORNAAM }},
+
+        Wij zien dat jij de auto {{ AUTONAAM }} in {{ STAD }} regelmatig gebruikt. 
+        Wij zijn voor deze auto op zoek naar een nieuwe beheerder, misschien is dit iets voor jou?
+
+        **Over MyWheels** <br />
+        Hoe meer mensen een auto delen, des te minder auto’s er op de weg rijden of in de wijken staan. Met minder auto’s slaan we dus twee vliegen in één klap: minder CO2-uitstoot én leefbaardere buurten. Samen met onze leden en een groep enthousiaste beheerders en coördinatoren in het land streven we deze idealen na. MyWheels is in de afgelopen vijfentwintig jaar uitgegroeid tot een van de grootste en voordeligste autodeelplatforms van Nederland. Anno 2019 verbinden we ruim 65.000 huurders en verhuurders van deelauto’s met elkaar. 
+
+        **Wat doet een beheerder?** <br />
+        Alle MyWheels Open deelauto's hebben een beheerder. Dit zijn onze vrijwilligers op locatie: ons aanspreekpunt en onze ambassadeurs. Beheerders helpen om vragen van gebruikers te beantwoorden, de auto netjes te houden en een oogje in het zeil te houden. Zo nu en dan de bandenspanning en oliepeil controleren en het bijhouden van de jaarlijkse onderhoudsbeurt worden door onze beheerders gecoördineerd. 
+
+        **Is er een vergoeding voor beheerderschap?** <br />
+        Ja, als bedankje krijgen MyWheels beheerders maandelijks een vrijwilligersvergoeding in de vorm van 75 vrije kilometers. Deze wordt verrekend met eigen gemaakte ritten. Deze vergoeding spaar je op, je hoeft dit dus niet elke maand op te maken.
+
+        **Geheel vrijblijvend** <br />
+        Omdat het beheerder zijn van een MyWheels auto vrijwillig is, zit je ook nergens aan vast. Als je het toch niet leuk vindt om beheerder te zijn of je er wellicht later geen tijd meer voor hebt, is dat geen probleem en gaan we op zoek naar een nieuwe beheerder voor de auto.
+
+        Op [https://mywheels.nl/beheerders](https://mywheels.nl/beheerders) kun je online een aantal van onze beheerders ontmoeten.
+
+        Lijkt het je wat? Of heb je wellicht vragen / wil je meer informatie ontvangen? Laat het ons gerust weten.<br />
+        Telefonisch zijn wij bereikbaar op werkdagen tussen 09:00 en 17:00 via onderstaand telefoonnummer.
+
+        Mocht je geen interesse hebben om beheerder te worden, dan vernemen wij dat ook graag.<br />
+        Alvast bedankt voor jouw reactie.
+
+        Fijne dag!
+      `
     }
   ].map(template => ({
     ...template,
