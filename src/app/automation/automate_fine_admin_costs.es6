@@ -298,7 +298,7 @@ angular.module("openwheels.automation.automations", [
                                 <br />
                                 Geachte mevrouw, mijnheer,<br />
                                 <br />
-                                U heeft Wheels4all Holding BV een aanslag gestuurd met nummer ${referentienummer}.
+                                U heeft Mijndomein Auto BV een aanslag gestuurd met nummer ${referentienummer}.
 
                                 Ik ben het met deze beschikking niet eens, omdat de auto op het moment van de overtreding verhuurd was. De auto was verhuurd op het verhuurplatform Wheels4All/MyWheels. Als bewijsstuk heb ik de betreffende huurovereenkomst meegezonden. Ik verzoek u vriendelijk om de boete met nummer ${referentienummer} te verleggen naar de huurder ${$filter("fullname")(contractor)}.<br />
                                 <br />
