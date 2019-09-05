@@ -259,7 +259,7 @@ angular.module("openwheels.automation.automations", [
                                 Betreft: Bezwaar tegen aanslagnummer ${referentienummer}<br />
                                 Bijlage: Kopie beschikking en huurovereenkomst (digitaal gegenereerd)<br />
                                 <br />
-                                Dagtekening: Amsterdam, ${moment().format("d MMMM YYYY")}<br />
+                                Dagtekening: Amsterdam, ${moment().format("D MMMM YYYY")}<br />
                                 <br />
                                 Geachte mevrouw, mijnheer,<br />
                                 <br />
