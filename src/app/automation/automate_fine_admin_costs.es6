@@ -263,7 +263,7 @@ angular.module("openwheels.automation.automations", [
                                 <br />
                                 Geachte mevrouw, mijnheer,<br />
                                 <br />
-                                Het CJIB heeft Wheels4all Holding BV een beschikking gestuurd met nummer ${referentienummer}.
+                                Het CJIB heeft Mijndomein Auto BV een beschikking gestuurd met nummer ${referentienummer}.
                                 Ik ben het met deze beschikking niet eens, omdat de
                                 auto op het moment van de overtreding verhuurd was. De auto was verhuurd
                                 op het verhuurplatform Wheels4All/MyWheels. Als bewijsstuk heb ik de
