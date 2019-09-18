@@ -243,6 +243,20 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
         - [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/autodelen/veelgestelde-vragen/wanneer-wordt-rijbewijs-gecontroleerd/)`
     },
     {
+      key: "Lege tank - NL",
+      subject: "Lege tank",
+      content: commonTags.stripIndent`
+        Beste {{ VOORNAAM }},
+
+        Op 2 september heb jij de auto {{ AUTONAAM }} gebruikt.<br />
+        De gebruiker na jou heeft de auto helaas aangetroffen met een lege tank (minder dan 1/4 gevuld) en moest hierdoor eerst naar een tankstation rijden voor deze de eigen rit kon beginnen. Dat is natuurlijk erg vervelend voor de gebruiker en heeft deze extra tijd gekost.
+
+        Zou je wellicht kunnen aangeven waarom de auto niet getankt was / met te weinig brandstof is terug gezet?<br />
+        Waren er problemen met de tankpas, of ben je het wellicht vergeten?
+
+        Alvast bedankt voor je reactie.`
+    },
+    {
       key: "Beheerder worden? - NL",
       subject: "Draag bij aan de deelmaatschappij!",
       content: commonTags.stripIndent`
