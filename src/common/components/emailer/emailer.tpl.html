@@ -22,6 +22,16 @@
   <md-dialog-content style="flex-grow: 1;">
     <div layout="column" layout-margin class="md-dialog-content">
       <div ng-if="selectedTabIndex == 0">
+        <p>
+          MyWheels medewerker:
+          <select
+            name="status"
+            ng-model="draft.medewerker"
+            ng-options="medewerker for medewerker in medewerkers track by medewerker"
+            ng-change="onChange()"
+          ></select>
+        </p>
+
         <p id="template_selector">
           <md-autocomplete
             md-no-cache="true"

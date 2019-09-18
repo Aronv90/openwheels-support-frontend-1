@@ -280,14 +280,16 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
     ...template,
     content: template.content + "\n\n" + commonTags.stripIndent`
       Met vriendelijke groet,<br />
-      het MyWheels Team
+      << MEDEWERKER >>
 
       **MyWheels**<br />
       Keizersgracht 264<br />
       1016 EV Amsterdam<br />
       085-7734222
 
-      <p><img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" /></p>` + (template.footer ? "\n\n<hr />" + template.footer : "")
+      <p><img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" /></p>
+
+      << FEEDBACK >>` + (template.footer ? "\n\n<hr />" + template.footer : "")
   }));
 
   return [...in_dutch, ...in_english];

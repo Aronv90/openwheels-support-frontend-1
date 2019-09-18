@@ -7,6 +7,7 @@ angular.module('openwheels.components')
   $window,
   $q,
   $rootScope,
+  $timeout,
   $mdDialog,
   alertService,
   authService,
@@ -45,14 +46,31 @@ angular.module('openwheels.components')
             $scope.selectedTabIndex = (n % 2);
           };
 
+          $scope.medewerkers = [
+            "het MyWheels Team",
+            "Hans Rombout",
+            "Daan Hartog",
+          ];
+
+          const feedbackUrls = {
+            "het MyWheels Team": "",
+            "Hans Rombout": "https://docs.google.com/forms/d/e/1FAIpQLScWmFKXYxb_rRAQBKjaA_RPHYODTjWaDhC9qdoHEJjvMdxSxw/viewform?usp=sf_link",
+            "Daan Hartog": "https://docs.google.com/forms/d/e/1FAIpQLSfIG5eQbZ5MW14cE6VpvKWypscPFcy9OJmZNzl90CT9pI7BSA/viewform?usp=sf_link",
+          };
+
           $scope.draft = {
             recipient: null,
             contactPerson: null,
             subject: '',
             content: '',
             note: '',
-            changed: false
+            changed: false,
           };
+
+          // console.log($scope.draft);
+          $timeout(() => {
+            $scope.draft.medewerker = window.localStorage.EMAILER_MEDEWERKER || "het MyWheels Team";
+          }, 0);
 
           $scope.selectTemplate = function (template) {
             if (template) {
@@ -75,14 +93,21 @@ angular.module('openwheels.components')
           $scope.complete = false;
 
           $scope.interpolate = function (content) {
-            return content.replace(/\{\{([^\}\n\r]*)\}+/g, function (_, key) {
+            return content.replace(/([{<]{2})([^\}>\n\r]*)[}>]+/g, function (_, braces, key) {
               key = key.trim();
-              return $scope.interpolations[key] || "{{ " + key + " }}";
-            });
+                const cbraces = braces === "{{" ? "}}" : ">>";
+                return $scope.interpolations[key] || `${braces} ${key} ${cbraces}`;
+              });
           };
 
           $scope.onChange = function (initial) {
             if ($scope.draft) {
+              const medewerker = $scope.draft.medewerker || window.localStorage.EMAILER_MEDEWERKER || "het MyWheels Team";
+              const feedbackUrl = feedbackUrls[medewerker];
+
+              window.localStorage.EMAILER_MEDEWERKER = $scope.interpolations["MEDEWERKER"] = medewerker;
+              $scope.interpolations["FEEDBACK"] = feedbackUrl ? `<p>Feedback? Dit horen we graag van je. <a href="${feedbackUrl}">Vul hier de 3 vragen in.</a> Het kost je hooguit 20 seconden.</p>` : "<br />";
+
               $scope.draft.changed = !initial;
               $scope.remainingInterpolations = [];
               ($scope.draft.subject + $scope.draft.content).replace(/\{\{([^\}\n\r]*)\}+/g, function (_, key) {
