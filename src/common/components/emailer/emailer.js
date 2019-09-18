@@ -68,7 +68,7 @@ angular.module('openwheels.components')
           };
 
           // console.log($scope.draft);
-          $timeout(() => {
+          $timeout(function () {
             $scope.draft.medewerker = window.localStorage.EMAILER_MEDEWERKER || "het MyWheels Team";
           }, 0);
 
