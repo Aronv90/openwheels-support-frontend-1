@@ -52,7 +52,7 @@ angular.module('openwheels.components')
             "Daan Hartog",
           ];
 
-          const feedbackUrls = {
+          var feedbackUrls = {
             "het MyWheels Team": "",
             "Hans Rombout": "https://docs.google.com/forms/d/e/1FAIpQLScWmFKXYxb_rRAQBKjaA_RPHYODTjWaDhC9qdoHEJjvMdxSxw/viewform?usp=sf_link",
             "Daan Hartog": "https://docs.google.com/forms/d/e/1FAIpQLSfIG5eQbZ5MW14cE6VpvKWypscPFcy9OJmZNzl90CT9pI7BSA/viewform?usp=sf_link",
@@ -95,15 +95,15 @@ angular.module('openwheels.components')
           $scope.interpolate = function (content) {
             return content.replace(/([{<]{2})([^\}>\n\r]*)[}>]+/g, function (_, braces, key) {
               key = key.trim();
-                const cbraces = braces === "{{" ? "}}" : ">>";
+                var cbraces = braces === "{{" ? "}}" : ">>";
                 return $scope.interpolations[key] || braces + " " + key + " " + cbraces;
               });
           };
 
           $scope.onChange = function (initial) {
             if ($scope.draft) {
-              const medewerker = $scope.draft.medewerker || window.localStorage.EMAILER_MEDEWERKER || "het MyWheels Team";
-              const feedbackUrl = feedbackUrls[medewerker];
+              var medewerker = $scope.draft.medewerker || window.localStorage.EMAILER_MEDEWERKER || "het MyWheels Team";
+              var feedbackUrl = feedbackUrls[medewerker];
 
               window.localStorage.EMAILER_MEDEWERKER = $scope.interpolations["MEDEWERKER"] = medewerker;
               $scope.interpolations["FEEDBACK"] = feedbackUrl ? "<p>Feedback? Dit horen we graag van je. <a href=\"" + feedbackUrl + "\">Vul hier de 3 vragen in.</a> Het kost je hooguit 20 seconden.</p>" : "<br />";
