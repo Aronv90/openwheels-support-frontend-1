@@ -96,7 +96,7 @@ angular.module('openwheels.components')
             return content.replace(/([{<]{2})([^\}>\n\r]*)[}>]+/g, function (_, braces, key) {
               key = key.trim();
                 const cbraces = braces === "{{" ? "}}" : ">>";
-                return $scope.interpolations[key] || `${braces} ${key} ${cbraces}`;
+                return $scope.interpolations[key] || braces + " " + key + " " + cbraces;
               });
           };
 
@@ -106,7 +106,7 @@ angular.module('openwheels.components')
               const feedbackUrl = feedbackUrls[medewerker];
 
               window.localStorage.EMAILER_MEDEWERKER = $scope.interpolations["MEDEWERKER"] = medewerker;
-              $scope.interpolations["FEEDBACK"] = feedbackUrl ? `<p>Feedback? Dit horen we graag van je. <a href="${feedbackUrl}">Vul hier de 3 vragen in.</a> Het kost je hooguit 20 seconden.</p>` : "<br />";
+              $scope.interpolations["FEEDBACK"] = feedbackUrl ? "<p>Feedback? Dit horen we graag van je. <a href=\"" + feedbackUrl + "\">Vul hier de 3 vragen in.</a> Het kost je hooguit 20 seconden.</p>" : "<br />";
 
               $scope.draft.changed = !initial;
               $scope.remainingInterpolations = [];
