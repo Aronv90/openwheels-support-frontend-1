@@ -1233,9 +1233,16 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
         $scope.myfms = function() {
-          deviceService.forceOpen({
-            resource: $scope.booking.resource.id
-          })
+          var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+            deviceService.forceOpen({
+              resource: $scope.booking.resource.id
+            }) :
+            boardcomputerService.control({
+              action: 'OpenDoorStartEnable',
+              resource: $scope.booking.resource.id
+            });
+
+          methodCall
           .then(function(res) {
             return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
           })
@@ -1302,9 +1309,16 @@ angular.module('openwheels.trip.dashboard', [])
 
           $mdDialog.show(confirm)
           .then(function(res) {
-            return deviceService.forceClose({
-              resource: $scope.booking.resource.id
-            })
+            var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+              deviceService.forceClose({
+                resource: $scope.booking.resource.id
+              }) :
+              boardcomputerService.control({
+                action: 'CloseDoorStartDisable',
+                resource: $scope.booking.resource.id
+              });
+
+            methodCall
             .then(function(res) {
               return alertService.add('success', 'De auto sluit binnen 15 seconden.', 5000);
             })
@@ -1489,9 +1503,16 @@ angular.module('openwheels.trip.dashboard', [])
         };
 
         $scope.myfms = function() {
-          deviceService.forceOpen({
-            resource: $scope.booking.resource.id
-          })
+          var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+            deviceService.forceOpen({
+              resource: $scope.booking.resource.id
+            }) :
+            boardcomputerService.control({
+              action: 'OpenDoorStartEnable',
+              resource: $scope.booking.resource.id
+            });
+
+          methodCall
           .then(function(res) {
             return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
           })

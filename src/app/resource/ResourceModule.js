@@ -293,12 +293,7 @@ angular.module('openwheels.resource', [
 			url: '/boardcomputer',
 			controller: 'ResourceShowBoardcomputerController',
 			templateUrl: 'resource/show/boardcomputer/resource-show-boardcomputer.tpl.html',
-			data: {pageTitle: 'Auto boordcomputer'},
-			resolve: {
-				booking: function () {
-					return;
-				}
-			}
+			data: {pageTitle: 'Auto boordcomputer'}
 		});
 
     /**
