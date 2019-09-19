@@ -26,6 +26,7 @@ angular.module('openwheels.trip.dashboard', [])
   invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT,
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
+  deviceService,
   extraDriverService, $log, account2Service,
   driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia,
   automate
@@ -1232,8 +1233,7 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
         $scope.myfms = function() {
-          boardcomputerService.control({
-            action: 'OpenDoorStartEnable',
+          deviceService.forceOpen({
             resource: $scope.booking.resource.id
           })
           .then(function(res) {
@@ -1302,8 +1302,7 @@ angular.module('openwheels.trip.dashboard', [])
 
           $mdDialog.show(confirm)
           .then(function(res) {
-            return boardcomputerService.control({
-              action: 'CloseDoorStartDisable',
+            return deviceService.forceClose({
               resource: $scope.booking.resource.id
             })
             .then(function(res) {
@@ -1490,8 +1489,7 @@ angular.module('openwheels.trip.dashboard', [])
         };
 
         $scope.myfms = function() {
-          boardcomputerService.control({
-            action: 'OpenDoorStartEnable',
+          deviceService.forceOpen({
             resource: $scope.booking.resource.id
           })
           .then(function(res) {

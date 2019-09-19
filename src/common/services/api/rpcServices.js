@@ -393,6 +393,14 @@ angular.module('rpcServices', [])
       this.currentLocation = m('currentLocation');
     })
 
+    .service('deviceService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('device.' + name);
+      };
+      this.forceOpen = m('forceOpen');
+      this.forceClose = m('forceClose');
+    })
+
     .service('conversationService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('conversations.' + name);

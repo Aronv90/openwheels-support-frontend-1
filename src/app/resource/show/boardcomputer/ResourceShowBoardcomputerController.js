@@ -2,14 +2,19 @@
 
 angular.module('openwheels.resource.show.boardcomputer', [])
 
-.controller('ResourceShowBoardcomputerController', function ($scope, $log, $filter, $stateParams, resource, booking, alertService, boardcomputerService) {
+.controller('ResourceShowBoardcomputerController', function ($scope, $log, $filter, $stateParams, resource, booking, alertService, boardcomputerService, deviceService) {
   $scope.resource = resource;
   $scope.openDoor = function(resource) {
-    boardcomputerService.control({
-      action: 'OpenDoorStartEnable',
-      resource: resource.id,
-      booking: booking ? booking.id : undefined
-    })
+    var methodCall = booking ?
+      boardcomputerService.control({
+        action: 'OpenDoorStartEnable',
+        resource: resource.id,
+        booking: booking.id
+      }) : deviceService.forceOpen({
+        resource: resource.id
+      });
+
+    methodCall
     .then( function(result) {
       if(result === 'error') {
         return alertService.add('danger', result, 5000);
@@ -24,11 +29,16 @@ angular.module('openwheels.resource.show.boardcomputer', [])
   };
 
   $scope.closeDoor = function(resource) {
-    boardcomputerService.control({
-      action: 'CloseDoorStartDisable',
-      resource: resource.id,
-      booking: booking ? booking.id : undefined
-    })
+    var methodCall = booking ?
+      boardcomputerService.control({
+        action: 'CloseDoorStartDisable',
+        resource: resource.id,
+        booking: booking.id
+      }) : deviceService.forceClose({
+        resource: resource.id
+      });
+
+    methodCall
     .then( function(result) {
       if(result === 'error') {
         return alertService.add('danger', result, 5000);
