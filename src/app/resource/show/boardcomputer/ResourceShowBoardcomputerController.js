@@ -2,15 +2,15 @@
 
 angular.module('openwheels.resource.show.boardcomputer', [])
 
-.controller('ResourceShowBoardcomputerController', function ($scope, $log, $filter, $stateParams, resource, booking, alertService, boardcomputerService, deviceService) {
+.controller('ResourceShowBoardcomputerController', function ($scope, $log, $filter, $stateParams, resource, alertService, boardcomputerService, deviceService) {
   $scope.resource = resource;
   $scope.openDoor = function(resource) {
-    var methodCall = booking ?
+    var methodCall = (resource.boardcomputer === 'invers') ?
+      deviceService.forceOpen({
+        resource: resource.id
+      }) :
       boardcomputerService.control({
         action: 'OpenDoorStartEnable',
-        resource: resource.id,
-        booking: booking.id
-      }) : deviceService.forceOpen({
         resource: resource.id
       });
 
@@ -29,12 +29,12 @@ angular.module('openwheels.resource.show.boardcomputer', [])
   };
 
   $scope.closeDoor = function(resource) {
-    var methodCall = booking ?
+    var methodCall = (resource.boardcomputer === 'invers') ?
+      deviceService.forceClose({
+        resource: resource.id
+      }) :
       boardcomputerService.control({
         action: 'CloseDoorStartDisable',
-        resource: resource.id,
-        booking: booking.id
-      }) : deviceService.forceClose({
         resource: resource.id
       });
 
