@@ -1,0 +1,59 @@
+<div class="row">
+
+    <div class="col-md-2">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Filter</h3>
+                <form class="form">
+                    <div class="form-group">
+                        <label for="start">Start</label>
+                        <input type="text" id="start" placeholder="pick a date" class="form-control pickadate-input"
+                               pickadate="dateConfig" ng-model="obj.start" ng-change="dateChange()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="start">End</label>
+                        <input type="text" id="end" placeholder="pick a date" class="form-control pickadate-input"
+                               pickadate="dateConfig" ng-model="obj.end" ng-change="dateChange()">
+                    </div>
+                    <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Event Logs</h3>
+                <div ng-if="eventLog.length > 0">
+                    <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
+                    <p class="btn"> {{curPage}} </p>
+                    <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt;</button>
+
+                </div>
+
+                <div ng-if="eventLog.length === 0" class="alert alert-danger">No results found!</div>
+                <table class="table" ng-if="eventLog.length > 0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Device</th>
+                        <th>Name</th>
+                        <th>Created</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="log in eventLog">
+                        <td>{{ log.id }}</td>
+                        <td>{{ log.device_id }}</td>
+                        <td>{{ log.name }}</td>
+                        <td>{{ log.createdAt }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

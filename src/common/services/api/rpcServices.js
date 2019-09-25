@@ -399,6 +399,8 @@ angular.module('rpcServices', [])
       };
       this.forceOpen = m('forceOpen');
       this.forceClose = m('forceClose');
+      this.eventLog = m('eventLog');
+      this.statusControlLog = m('statusControlLog');
     })
 
     .service('conversationService', function (api) {
