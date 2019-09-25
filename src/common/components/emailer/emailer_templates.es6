@@ -289,7 +289,21 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
 
         Fijne dag!
       `
-    }
+    },
+    {
+      key: "Excuses auto verkeerd geplaatst - NL",
+      subject: "Excuses auto verkeerd geplaatst",
+      content: commonTags.stripIndent`
+        Beste {{ VOORNAAM }},
+
+        Helaas heb jij in jouw laatste reservering de auto welke je had gereserveerd niet kunnen gebruiken omdat deze er (nog) niet stond. Super vervelend natuurlijk en hopelijk ben je alsnog op tijd op je bestemming gekomen met een alternatief. 
+
+        Wij gaan in contact met de persoon welke dit heeft veroorzaakt, het kan natuurlijk gebeuren dat een auto niet op tijd terug is, afhankelijk van de situatie zullen we dit verder oppakken met de gebruiker voor jou. 
+
+        Dit alles neemt niet weg dat het voor jou erg vervelend was dat je niet (gelijk) op weg kon gaan. Wij bieden je daarom graag een korting aan op een volgende reservering via MyWheels. In een aparte e-mail zul je daar een kortingscode voor ontvangen welke je eenmalig kunt gebruiken.
+
+        Nogmaals onze excuses voor het ongemak en hopelijk tot snel bij MyWheels!`
+    },
   ].map(template => ({
     ...template,
     content: template.content + "\n\n" + commonTags.stripIndent`

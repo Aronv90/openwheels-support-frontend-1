@@ -116,6 +116,9 @@ module.exports = {
             'vendor/angular-aria/angular-aria.min.js',
             'vendor_custom/marked.js',
             'vendor_custom/common-tags.min.js',
+            'vendor_custom/elasticlunr.min.js',
+            'vendor_custom/lunr.stemmer.support.js',
+            'vendor_custom/lunr.nl.js'
             //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
         ],
         css: [

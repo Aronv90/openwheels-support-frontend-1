@@ -58,3 +58,36 @@ tr:hover a.btn-round-hover {
 .snooze {
     width: 80px;
 }
+
+.handleiding {
+  .item {
+    &:not(:last-child) {
+      border-bottom: 1px solid #ccc;
+    }
+
+    h4 {
+      cursor: pointer;
+      padding: 1rem;
+      margin: 0;
+
+      &:hover {
+        background: #eee;
+      }
+    }
+
+    .content {
+      padding-top: 1rem;
+    }
+
+    &.open {
+      h4 {
+        font-weight: bold;
+        background: #ddd;
+      }
+    }
+  }
+
+  .results {
+    min-height: 250px;
+  }
+}
