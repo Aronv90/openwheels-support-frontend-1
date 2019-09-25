@@ -119,7 +119,6 @@ module.exports = {
             'vendor_custom/elasticlunr.min.js',
             'vendor_custom/lunr.stemmer.support.js',
             'vendor_custom/lunr.nl.js'
-            //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
         ],
         css: [
           'vendor/ng-table/ng-table.css',
