@@ -18,7 +18,6 @@
   "smarttabs": true,
   "sub": true,
   "globals": {
-    "commonTags": false,
     "marked": false,
     "elasticlunr": false,
     "angular": false,
