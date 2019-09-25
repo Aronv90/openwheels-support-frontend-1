@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('openwheels.trip.dashboard', [])
+angular.module('openwheels.trip.dashboard', [
+  'openwheels.trip.dashboard.handleiding'
+])
 .config(function($mdDateLocaleProvider) {
   $mdDateLocaleProvider.firstDayOfWeek = 1;
   $mdDateLocaleProvider.formatDate = function(date) {
@@ -1474,6 +1476,19 @@ angular.module('openwheels.trip.dashboard', [])
   }
 
   var possiblyTransferExtraDriversFrom = (contract.type.id === 60) ? doTransferExtraDriversFrom : dontTransferExtraDriversFrom;
+
+  $scope.handleiding = function () {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      templateUrl: 'trip/dashboard/handleiding.tpl.html',
+      controller: 'HandleidingController',
+      clickOutsideToClose: true,
+      locals: {
+        booking: booking
+      }
+    });
+  };
 
   $scope.start = function() {
     $window.scrollTo(0, 0);

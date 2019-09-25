@@ -20,6 +20,7 @@
   "globals": {
     "commonTags": false,
     "marked": false,
+    "elasticlunr": false,
     "angular": false,
     "moment": false,
     "_": false,
