@@ -395,6 +395,14 @@ module.exports = function (grunt) {
           base: 'bin',
           livereload: false
         }
+      },
+      bin: {
+        options: {
+          open: true,
+          keepalive: true,
+          base: 'bin',
+          livereload: false
+        }
       }
     },
 
@@ -616,6 +624,12 @@ module.exports = function (grunt) {
 
   grunt.registerTask('dist-dev', ['build', 'ngconstant:development', 'compile', 'copy:developHtaccess']);
   grunt.registerTask('dist'    , ['build', 'ngconstant:production' , 'compile', 'copy:productionHtaccess']);
+
+  // manually test a "dist" build locally, with dev configuration
+  grunt.registerTask('test-dist', [
+    'write-config:compile_dir',
+    'connect:bin'
+  ]);
 
   /**
    * The `build` task gets your app ready to run for development and testing.

@@ -19,8 +19,7 @@
  * export the module via AMD, CommonJS or as a browser global
  * Export code from https://github.com/umdjs/umd/blob/master/returnExports.js
  */
-;
-(function(root, factory) {
+;(function(root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(factory)
@@ -455,4 +454,4 @@
 
     lunr.Pipeline.registerFunction(lunr.nl.stopWordFilter, 'stopWordFilter-nl');
   };
-}))
+}));
