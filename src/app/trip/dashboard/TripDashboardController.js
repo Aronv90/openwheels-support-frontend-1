@@ -31,7 +31,8 @@ angular.module('openwheels.trip.dashboard', [
   deviceService,
   extraDriverService, $log, account2Service,
   driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia,
-  automate
+  automate,
+  checkIfImmobilized
 ) {
 
   /* INIT  */
@@ -691,20 +692,7 @@ angular.module('openwheels.trip.dashboard', [
               $scope.state.success = true;
             });
 
-            // Only show the warning message about the immobilizer if last command was a close door command
-            if (booking.resource.boardcomputer !== 'ccome') {
-              //get last command to see if immobilizer is on
-              chipcardService.logs({
-                resource: booking.resource.id,
-                max: 1,
-                offset: 0
-              })
-              .then(function (lastCommand) {
-                if (lastCommand.result[0] && lastCommand.result[0].action === 'CloseDoorStartDisable') {
-                  $scope.showImmobilizerWarning = true;
-                }
-              });
-            }
+            $scope.immobilized = checkIfImmobilized(booking.resource);
 
             // Make follow-up
             $scope.state.makingFollowup = {
@@ -1496,8 +1484,6 @@ angular.module('openwheels.trip.dashboard', [
       fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
-        $scope.startProblems = [];
-        $scope.getLastCommand = false;
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
         chipcardService.getFish({person: $scope.booking.person.id})
@@ -1505,17 +1491,6 @@ angular.module('openwheels.trip.dashboard', [
           $scope.fish = fish;
         });
 
-        $scope.ccome = function() {
-          ccomeService.sendBooking({
-            booking: $scope.booking.id
-          })
-          .then(function(res) {
-            alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
-          })
-          .catch(function(err) {
-            alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
-          });
-        };
 
         $scope.myfms = function() {
           var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
@@ -1538,26 +1513,7 @@ angular.module('openwheels.trip.dashboard', [
           });
         };
 
-        //get last command to see if immobilizer is on
-        $scope.getLastCommand = function() {
-          chipcardService.logs({
-            resource: $scope.booking.resource.id,
-            max: 1,
-            offset: 0
-          })
-          .then(function(lastCommand) {
-            $scope.lastCommand = lastCommand.result[0];
-          })
-          .finally(function() {
-            $scope.loadingLastCommand = false;
-          });
-        };
-
-        //only get last command if boardcomputer is MyFMS
-        if($scope.booking.resource.boardcomputer && $scope.booking.resource.boardcomputer !== 'ccome') {
-          $scope.loadingLastCommand = true;
-          $scope.getLastCommand();
-        }
+        $scope.immobilized = checkIfImmobilized($scope.booking.resource);
 
         $scope.done = function() {
           $mdDialog.hide();
@@ -1874,29 +1830,9 @@ angular.module('openwheels.trip.dashboard', [
       fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
-        $scope.getLastCommand = false;
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
-        //get last command to see if immobilizer is on
-        $scope.getLastCommand = function() {
-          chipcardService.logs({
-            resource: $scope.booking.resource.id,
-            max: 1,
-            offset: 0
-          })
-          .then(function(lastCommand) {
-            $scope.lastCommand = lastCommand.result[0];
-          })
-          .finally(function() {
-            $scope.loadingLastCommand = false;
-          });
-        };
-
-        //only get last command if boardcomputer is MyFMS
-        if($scope.booking.resource.boardcomputer && $scope.booking.resource.boardcomputer !== 'ccome') {
-          $scope.loadingLastCommand = true;
-          $scope.getLastCommand();
-        }
+        $scope.immobilized = checkIfImmobilized($scope.booking.resource);
         
         $scope.done = function() {
           $mdDialog.hide();

@@ -66,6 +66,7 @@ angular.module('openwheels', [
   'front.paths',
   'alertService',
   'dialogService',
+  'openwheels.actions',
 
   // custom directives
   'form.validation',

@@ -13,8 +13,8 @@
     <div layout="column" layout-margin class="md-dialog-content">
       <h3>Pechhulp inschakelen</h3>
 
-      <strong ng-if="!loadingLastCommand && lastCommand.action === 'CloseDoorStartDisable'" class="text-danger">
-        Let op: De auto start waarschijnlijk niet omdat de startblokkering automatisch ingeschakeld is op {{ lastCommand.dateRequested | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik op <strong>[Openen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen.
+      <strong ng-if="immobilized.yes" class="text-danger">
+        Let op: De auto start waarschijnlijk niet omdat de startblokkering automatisch ingeschakeld is op {{ immobilized.since | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik op <strong>[Openen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen.
       </strong>
 
       <p>Als een huurder tijdens de rit pech heeft en niet meer verder kan rijden met de auto, kan de pechhulp ingeschakeld worden.</p>

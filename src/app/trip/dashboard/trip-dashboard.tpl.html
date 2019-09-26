@@ -815,7 +815,7 @@
       <span tooltip-placement="right" uib-tooltip="De huidige locatie ophalen">Locatie</span>
     </li>
 
-    <li ng-click="handleiding()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
+    <li ng-click="handleiding()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer && booking.resource.fuelType === 'elektrisch'">
       <span tooltip-placement="right" uib-tooltip="Handleiding">Handleiding</span>
     </li>
     <li ng-click="start()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">

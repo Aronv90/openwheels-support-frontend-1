@@ -7,7 +7,7 @@ angular.module("openwheels.trip.dashboard.handleiding", [])
 
   booking,
 
-  chipcardService,
+  checkIfImmobilized,
   deviceService,
   boardcomputerService,
   alertService
@@ -153,21 +153,7 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
 
   $scope.search();
 
-  //only get last command if boardcomputer is MyFMS
-  if (booking.resource.boardcomputer && booking.resource.boardcomputer !== "ccome") {
-    chipcardService.logs({
-      resource: booking.resource.id,
-      max: 1,
-      offset: 0
-    }).then(res => {
-      const lastCommand = res.result[0];
-      if (lastCommand.action === "CloseDoorStartDisable") {
-        $scope.immobilized = {
-          command: lastCommand
-        };
-      }
-    });
-  }
+  $scope.immobilized = checkIfImmobilized(booking.resource);
 
   $scope.myfms = function() {
     var methodCall = (booking.resource.boardcomputer === 'invers') ?

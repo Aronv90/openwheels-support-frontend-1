@@ -11,24 +11,12 @@
 
   <md-dialog-content>
     <div class="md-dialog-content">
-      <div class="notice notice--neg" ng-if="!booking.ok || booking.status !== 'accepted'">
-        <strong>De eigenaar mag de auto nog niet meegeven aan de bestuurder omdat de rit nog niet in orde is:</strong>
-        <strong ng-if="booking.person.status === 'blocked'"><br>- Het account van de bestuurder is gedeactiveerd.</strong>
-        <strong ng-if="booking.person.status === 'book-only'"><br>- Het account van de bestuurder moet nog handmatig gecontroleerd worden.</strong>
-        <strong ng-if="booking.approved === 'BUY_VOUCHER'"><br>- De rit is nog niet betaald.</strong>
-        <strong ng-if="booking.status === 'requested'"><br>- De rit is nog niet geaccepteerd.</strong>
-        <strong ng-if="booking.status === 'owner_cancelled'"><br>- De rit is door de eigenaar geannuleerd.</strong>
-        <strong ng-if="booking.status === 'cancelled'"><br>- De rit is door de bestuurder geannuleerd.</strong>
-        <strong ng-if="booking.cancelReason === 'NOT_PAID_ON_TIME'">Een andere bestuurder heeft de auto voor dezelfde huurperiode gereserveerd en betaald. Omdat deze reservering nog niet betaald is, is de reservering automatisch geannuleerd.</strong>
-        <strong ng-if="booking.status === 'rejected' "><br>- De rit is afgewezen door de eigenaar.</strong>
-      </div>
-
       <div ng-if="booking.beginBooking > now || booking.endBooking < now">
         <strong class="text-danger">Let op! De rit is niet in orde</strong><br/>
 
         <span ng-if="booking.endBooking < now">
-          <strong ng-if="immobilized">
-            De auto start niet omdat de startblokkering automatisch ingeschakeld is op {{ immobilized.command.dateRequested | amDateFormat:'DD-MM-YYYY HH:mm' }}.
+          <strong ng-if="immobilized.yes">
+            De auto start niet omdat de startblokkering automatisch ingeschakeld is op {{ immobilized.since | amDateFormat:'DD-MM-YYYY HH:mm' }}.
           </strong>
 
           De rit is namelijk reeds afgelopen en eindigde om {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. 
@@ -37,19 +25,19 @@
 
           Wijzig de eindtijd via de knop <strong>[Verlengen]</strong> of maak een nieuwe reservering via de knop <strong>[Boeken]</strong>.
 
-          <span ng-if="immobilized">
+          <span ng-if="immobilized.yes">
             Open de auto vervolgens met de knop <strong>[Openen]</strong>.
           </span>
           
-          <br/><br/>
-
-          <i>Noodgeval</i><br/>
-          Is de huurder onderweg en lukt het niet om te verlengen of een nieuwe boeking te maken? Klik dan <a ng-click="myfms()"><strong>[hier]</strong></a> om de auto op afstand te openen en de startblokkering eraf te halen. De sleutel moet uit het contactslot zijn.
-          <br><br>
-          <strong>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</strong>
         </span>
 
         <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas de auto in als de rit begonnen is.</span>
+      </div>
+
+      <div ng-if="immobilized.yes && booking.endBooking >= now && booking.beginBooking <= now">
+        <strong class="text-danger">Let op! De startblokkering is ingeschakeld.</strong><br />
+        De auto start niet omdat de startblokkering automatisch ingeschakeld is op {{ immobilized.since | amDateFormat:'DD-MM-YYYY HH:mm' }}.<br />
+        Open de auto met de knop <strong>[Openen]</strong>.
       </div>
       
       <input
