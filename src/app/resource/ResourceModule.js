@@ -340,6 +340,70 @@ angular.module('openwheels.resource', [
       }
     });
 
+	/**
+	 * resource/:id/device/log/event
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.device-event-log', {
+		url: '/device/log/event',
+		controller: 'ResourceShowDeviceEventLogController',
+		templateUrl: 'resource/show/device/event/resource-show-device-event-log.tpl.html',
+		data: {pageTitle: 'Resource Device Event Log'},
+		resolve: {
+			eventLog: ['$stateParams', 'resource', 'deviceService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceService, perPage, start, end) {
+				var params = {};
+				params.resource = $stateParams.resourceId;
+				params.limit = perPage;
+				params.start = start;
+				params.end = end;
+				params.offset = 0;
+
+				return deviceService.eventLog(params);
+			}],
+			perPage: function () {
+				return 20;
+			},
+			start: function () {
+				return moment().format("YYYY-MM-DD 00:00");
+			},
+			end: function () {
+				return moment().format("YYYY-MM-DD 23:59");
+			}
+		}
+	});
+
+	/**
+	 * resource/:id/device/log/status/control
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.device-status-control-log', {
+		url: '/device/log/status/control',
+		controller: 'ResourceShowDeviceStatusControlLogController',
+		templateUrl: 'resource/show/device/statuslog/resource-show-device-status-control-log.tpl.html',
+		data: {pageTitle: 'Resource Device Status Control Log'},
+		resolve: {
+			statusLog: ['$stateParams', 'resource', 'deviceService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceService, perPage, start, end) {
+				var params = {};
+				params.resource = $stateParams.resourceId;
+				params.limit = perPage;
+				params.start = start;
+				params.end = end;
+				params.offset = 0;
+
+				return deviceService.statusControlLog(params);
+			}],
+			perPage: function () {
+				return 20;
+			},
+			start: function () {
+				return moment().format("YYYY-MM-DD 00:00");
+			},
+			end: function () {
+				return moment().format("YYYY-MM-DD 23:59");
+			}
+		}
+	});
+
 		/**
      * resource/:id/log?startDate&endDate
      * @resolve {promise} resource

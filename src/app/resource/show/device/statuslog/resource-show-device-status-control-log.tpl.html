@@ -1,0 +1,82 @@
+<div class="row">
+
+    <div class="col-md-2">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Filter</h3>
+                <form class="form">
+                    <div class="form-group">
+                        <label for="start">Start</label>
+                        <input type="text" id="start" placeholder="pick a date" class="form-control pickadate-input"
+                               pickadate="dateConfig" ng-model="obj.start" ng-change="dateChange()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="start">End</label>
+                        <input type="text" id="end" placeholder="pick a date" class="form-control pickadate-input"
+                               pickadate="dateConfig" ng-model="obj.end" ng-change="dateChange()">
+                    </div>
+                    <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Control Logs</h3>
+                <div ng-if="statusLog.length > 0">
+                    <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
+                    <p class="btn"> {{curPage}} </p>
+                    <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt;</button>
+
+                </div>
+
+                <div ng-if="statusLog.length === 0" class="alert alert-danger">No results found!</div>
+                <table class="table" ng-if="statusLog.length > 0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Booking</th>
+                        <th>Person</th>
+                        <th>Type</th>
+                        <th>Action</th>
+                        <th>State</th>
+                        <th>Method</th>
+                        <th>Finished</th>
+                        <th>Response</th>
+                        <th>Created</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="log in statusLog">
+                        <td>{{ log.id }}</td>
+                        <td>
+                            <a ui-sref="root.trip.dashboard({tripId: log.booking_id})">
+                                {{ log.booking_id }}
+                            </a>
+                        </td>
+                        <td>
+                            <a ui-sref="root.person.show.summary({ personId: log.person_id })">
+                                {{ log.person_id }}
+                            </a>
+                        </td>
+                        <td>{{ log.type }}</td>
+                        <td>{{ log.action }}</td>
+                        <td>
+                            <i ng-class="{'fa fa-close text-danger': log.state !== 1 && log.state !== 3, 'fa fa-check text-success': log.state === 1, 'fa fa-spinner text-warning': log.state === 3 }"></i>
+                            <span ng-class="{'text-danger': log.state !== 1 && log.state !== 3 ,'text-success': log.state === 1, 'text-warning': log.state === 3}">{{ log.state }}</span>
+                        </td>
+                        <td>{{ log.method }}</td>
+                        <td>{{ log.finishedAt }}</td>
+                        <td>{{ log.responseAt }}</td>
+                        <td>{{ log.createdAt }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
