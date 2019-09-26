@@ -115,8 +115,9 @@ module.exports = {
             'vendor/angular-animate/angular-animate.js',
             'vendor/angular-aria/angular-aria.min.js',
             'vendor_custom/marked.js',
-            'vendor_custom/common-tags.min.js',
-            //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
+            'vendor_custom/elasticlunr.min.js',
+            'vendor_custom/lunr.stemmer.support.js',
+            'vendor_custom/lunr.nl.js'
         ],
         css: [
           'vendor/ng-table/ng-table.css',

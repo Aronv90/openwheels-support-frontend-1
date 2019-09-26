@@ -56,7 +56,7 @@
           Follow-up aanmaken... <strong>OK</strong>
         </li>
 
-        <li ng-if="state.approving && state.approving.success && showImmobilizerWarning">
+        <li ng-if="state.approving && state.approving.success && immobilized.yes">
           <strong>Let op! De startblokkering is waarschijnlijk ingeschakeld, de auto start dan niet. Open de auto (opnieuw) om de startblokkering uit te schakelen. (Dit moet in de nieuwe rit gebeuren.)</strong>
           <p>
             <md-button class="md-primary md-raised" ng-click="open()">
