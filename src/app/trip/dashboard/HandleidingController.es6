@@ -104,7 +104,38 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
 - De blauwe lampjes aan de binnenkant van de auto, op het dashboard, beginnen te knipperen als de kabel juist is aangesloten.<br />
   **Verlaat de auto nooit zonder deze aan te sluiten aan de laadpaal!**`,
       images: [
+        "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
         "/backoffice/assets/img/handleiding/nissan_leaf_opladen.png",
+      ]
+    },
+    {
+      for: {
+        electric: true,
+      },
+      title: "Hoe weet ik of de auto oplaadt / correct is aangesloten?",
+      content: `
+De blauwe lampjes aan de binnenkant van de auto, op het dashboard, beginnen te knipperen / lopen als de kabel juist is aangesloten. Deze zijn goed zichtbaar als je voor de auto staat. Het opladen aan de laadpaal is dan gestart.`,
+      images: [
+        "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
+      ]
+    },,
+    {
+      for: {
+        electric: true,
+      },
+      title: "Het opladen / aansluiten lukt niet",
+      content: `
+Doorloop onderstaande stappen:
+- De laadkabel dient in de auto en laadpaal aangesloten te zijn.
+- De laadpas (deze zit aan de sleutel, zie foto) dient langs de lezer op de laadpaal gehaald te worden.
+- Indien de paal niet geactiveerd wordt, verzoek de huurder het opnieuw te proberen, soms is het activeren lastig. Beweeg de laadpas langs de lezer / houdt hem gedurende een aantal seconden op verschillende plekken. 
+- Indien de laadpaal niet geactiveerd wordt / storing (rood licht) geeft, verzoek de huurder naar een andere laadpaal te rijden, binnen de zone van de auto, en de auto daar aan te sluiten.
+- Laat de huurder bevestigen dat de auto laadt, door te controleren of de lampjes op het dashboard (onder het raam) gaan lopen (zie foto). Deze zijn goed zichtbaar als je voor de auto staat.
+- De sleutel kan na het activeren terug in het dashboardkastje.
+- De huurder kan de auto sluiten via de app / OV Chipkaart, of door jou via de knop [Sluiten].`,
+      images: [
+        "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
+        "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
       ]
     },
   ]
