@@ -106,18 +106,18 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="(resource.locktype === 'smartphone' || resource.locktype === 'chipcard') && user.identity.provider.id !== 5">
                     <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Openen & sluiten</a>
                 </li>
-                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.device-status-control-log') || $state.includes('root.resource.show.device-event-log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0 && user.identity.provider.id !== 5">
-                    <a class="dropdown-toggle" data-toggle="dropdown">Device<b class="caret"></b></a>
+                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.device-status-control-log') || $state.includes('root.resource.show.device-event-log') }" ng-if="resource.boardcomputer === 'invers'">
+                    <a class="dropdown-toggle" data-toggle="dropdown">INVERS<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li ng-class="{ active: $state.includes('root.resource.show.device-status-control-log') }">
-                            <a ui-sref=".device-status-control-log">Control log</a>
+                            <a ui-sref=".device-status-control-log">Open en sluit log</a>
                         </li>
                         <li ng-class="{ active: $state.includes('root.resource.show.device-event-log') }">
                             <a ui-sref=".device-event-log">Event log</a>
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') || $state.includes('root.person.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0 && user.identity.provider.id !== 5">
+                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') || $state.includes('root.person.show.myfmslog') || $state.includes('root.person.show.log') }" ng-if="resource.locktypes.indexOf('smartphone') >= 0 && user.identity.provider.id !== 5 && resource.boardcomputer !== 'invers'">
                     <a class="dropdown-toggle" data-toggle="dropdown">MyFMS<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li ng-class="{ active: $state.includes('root.resource.show.myfmschipcard') }">

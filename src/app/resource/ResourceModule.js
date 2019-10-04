@@ -348,7 +348,7 @@ angular.module('openwheels.resource', [
 		url: '/device/log/event',
 		controller: 'ResourceShowDeviceEventLogController',
 		templateUrl: 'resource/show/device/event/resource-show-device-event-log.tpl.html',
-		data: {pageTitle: 'Resource Device Event Log'},
+		data: {pageTitle: 'Event Log'},
 		resolve: {
 			eventLog: ['$stateParams', 'resource', 'deviceService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceService, perPage, start, end) {
 				var params = {};
@@ -380,7 +380,7 @@ angular.module('openwheels.resource', [
 		url: '/device/log/status/control',
 		controller: 'ResourceShowDeviceStatusControlLogController',
 		templateUrl: 'resource/show/device/statuslog/resource-show-device-status-control-log.tpl.html',
-		data: {pageTitle: 'Resource Device Status Control Log'},
+		data: {pageTitle: 'Open en sluit log'},
 		resolve: {
 			statusLog: ['$stateParams', 'resource', 'deviceService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceService, perPage, start, end) {
 				var params = {};

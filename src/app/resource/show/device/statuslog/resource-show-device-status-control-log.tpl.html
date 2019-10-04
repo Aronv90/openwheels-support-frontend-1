@@ -6,17 +6,17 @@
                 <h3>Filter</h3>
                 <form class="form">
                     <div class="form-group">
-                        <label for="start">Start</label>
+                        <label for="start">Begin</label>
                         <input type="text" id="start" placeholder="pick a date" class="form-control pickadate-input"
                                pickadate="dateConfig" ng-model="obj.start" ng-change="dateChange()">
                     </div>
 
                     <div class="form-group">
-                        <label for="start">End</label>
+                        <label for="start">Einde</label>
                         <input type="text" id="end" placeholder="pick a date" class="form-control pickadate-input"
                                pickadate="dateConfig" ng-model="obj.end" ng-change="dateChange()">
                     </div>
-                    <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+                    <button class="btn btn-primary" ng-click="refresh()">Vernieuwen</button>
                 </form>
             </div>
         </div>
@@ -25,7 +25,7 @@
     <div class="col-md-10">
         <div class="panel panel-default card">
             <div class="panel-body">
-                <h3>Control Logs</h3>
+                <h3>Open- en sluitcommando's</h3>
                 <div ng-if="statusLog.length > 0">
                     <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
                     <p class="btn"> {{curPage}} </p>
@@ -33,25 +33,21 @@
 
                 </div>
 
-                <div ng-if="statusLog.length === 0" class="alert alert-danger">No results found!</div>
+                <div ng-if="statusLog.length === 0" class="alert alert-danger">Geen commando's gevonden.</div>
                 <table class="table" ng-if="statusLog.length > 0">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Booking</th>
-                        <th>Person</th>
-                        <th>Type</th>
-                        <th>Action</th>
-                        <th>State</th>
-                        <th>Method</th>
-                        <th>Finished</th>
-                        <th>Response</th>
-                        <th>Created</th>
+                        <th>Ritnummer</th>
+                        <th>Persoon</th>
+                        <th>Actie</th>
+                        <th>Status</th>
+                        <th>Methode</th>
+                        <th>Aanvraagdatum</th>
+                        <th>Callback</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr ng-repeat="log in statusLog">
-                        <td>{{ log.id }}</td>
                         <td>
                             <a ui-sref="root.trip.dashboard({tripId: log.booking_id})">
                                 {{ log.booking_id }}
@@ -62,16 +58,27 @@
                                 {{ log.person_id }}
                             </a>
                         </td>
-                        <td>{{ log.type }}</td>
-                        <td>{{ log.action }}</td>
                         <td>
-                            <i ng-class="{'fa fa-close text-danger': log.state !== 1 && log.state !== 3, 'fa fa-check text-success': log.state === 1, 'fa fa-spinner text-warning': log.state === 3 }"></i>
-                            <span ng-class="{'text-danger': log.state !== 1 && log.state !== 3 ,'text-success': log.state === 1, 'text-warning': log.state === 3}">{{ log.state }}</span>
+                            <span ng-if="log.action === 'close'">Sluiten</span>
+                            <span ng-if="log.action === 'open'">Openen</span>
+                            <span ng-if="log.action !== 'open' && log.action !== 'close'">{{log.action}}</span>
                         </td>
-                        <td>{{ log.method }}</td>
-                        <td>{{ log.finishedAt }}</td>
-                        <td>{{ log.responseAt }}</td>
-                        <td>{{ log.createdAt }}</td>
+                        <td>
+                            <span ng-if="log.state === 1" class="text-success"><i class="fa fa-check"></i> Succes</span>
+                            <span ng-if="log.state === 2" class="text-success"><i class="fa fa-check"></i> Herhaling</span>
+                            <span ng-if="log.state === 3" class="text-warning"><i class="fa fa-spinner"></i> Wachten</span>
+                            <span ng-if="log.state === 4" class="text-warning"><i class="fa fa-car"></i> Rijdend</span>
+                            <span ng-if="log.state === 5" class="text-danger"><i class="fa fa-close"></i> Error</span>
+                            <span ng-if="log.state === 6" class="text-danger"><i class="fa fa-close"></i> Ongeldig</span>
+                            <span ng-if="log.state === 7" class="text-danger"><i class="fa fa-close"></i> Timeout</span>
+                        </td>
+                        <td>
+                            <span ng-if="log.method === 'interface'">Smartphone</span>
+                            <span ng-if="log.method === 'card'">OV-chipkaart</span>
+                            <span ng-if="log.method === 'system'">Systeem</span>
+                        </td>
+                        <td>{{ log.createdAt | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
+                        <td>{{ log.finishedAt | amDateFormat:'DD-MM-YYYY | HH:mm' }}</td>
                     </tr>
                     </tbody>
                 </table>
