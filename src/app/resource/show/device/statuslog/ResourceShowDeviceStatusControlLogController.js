@@ -2,7 +2,8 @@
 
 angular.module('openwheels.resource.show.device-status-control-log', [])
 
-    .controller('ResourceShowDeviceStatusControlLogController', function ($scope, $log, $filter, $stateParams, deviceService, resource, statusLog, perPage, start, end) {
+    .controller('ResourceShowDeviceStatusControlLogController', function ($scope, $log, $filter, $stateParams, deviceService,
+        resource, statusLog, perPage, start, end) {
 
         $scope.curPage = 1;
         $scope.perPage = perPage;
@@ -12,6 +13,7 @@ angular.module('openwheels.resource.show.device-status-control-log', [])
             start: start,
             end: end
         };
+        $scope.currentLocation = {};
 
         $scope.dateConfig = {
             //model
@@ -24,6 +26,22 @@ angular.module('openwheels.resource.show.device-status-control-log', [])
 
             //options
             selectMonths: true
+        };
+        $scope.getCurrentLocation = function() {
+            $scope.gettingLocation = true;
+            $scope.locationError = false;
+            deviceService.location({
+                resource: resource.id
+            })
+            .then(function(location) {
+                $scope.currentLocation = angular.copy(location);
+            })
+            .catch(function(error){
+                $scope.locationError = true;
+            })
+            .finally(function(){
+                $scope.gettingLocation = false;
+            });
         };
 
         handleStatusLogs(statusLog);
