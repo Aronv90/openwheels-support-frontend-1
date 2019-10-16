@@ -401,6 +401,7 @@ angular.module('rpcServices', [])
       this.forceClose = m('forceClose');
       this.eventLog = m('eventLog');
       this.statusControlLog = m('statusControlLog');
+      this.location = m('location');
     })
 
     .service('conversationService', function (api) {

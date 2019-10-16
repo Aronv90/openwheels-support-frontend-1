@@ -18,6 +18,9 @@
       <div ng-if="booking.resource.owner.id === 281">
         <p class="text-danger">Voeg bij auto's van Justlease de tankbon via <a ui-sref="root.invoice2.invoice.create({person: personId})">Create invoice</a> toe.</p>
       </div>
+      <div ng-if="booking.resource.owner.id === 280">
+        <p class="text-danger">Voeg bij de Nissan Leafs de tankbon via <a ui-sref="root.invoice2.invoice.create({person: personId})">Create invoice</a> toe.</p>
+      </div>
       <form layout="column" name="declarationF">
         <md-input-container flex>
           <label>Bedrag</label>
@@ -38,7 +41,7 @@
     <md-button ng-click="cancel()">
      Annuleren
     </md-button>
-    <md-button ng-disabled="!declaration.amount || !declaration.image || booking.resource.owner.id === 281" class="md-primary md-raised" ng-click="done()">
+    <md-button ng-disabled="!declaration.amount || !declaration.image || booking.resource.owner.id === 281 || booking.resource.owner.id === 280" class="md-primary md-raised" ng-click="done()">
       Toevoegen
     </md-button>
   </md-dialog-actions>

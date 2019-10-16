@@ -39,9 +39,9 @@ angular.module('openwheels.trip.dashboard', [
   $scope.booking = booking;
   $scope.contract = contract;
   $scope.driverContracts = driverContracts;
-  $scope.driverContracts.push({ id: 50076, contractorId: 282, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels'} });
-  $scope.driverContracts.push({ id: 53808, contractorId: 519038, type: {name: 'MyWheels Free'}, contractor: {firstName: 'Visscher2Go Rivierenland'} });
+  $scope.driverContracts.push({ id: 958979, contractorId: 280, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels Nissan Leafs'} });
   $scope.driverContracts.push({ id: 924281, contractorId: 281, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels (Justlease)'} });
+  $scope.driverContracts.push({ id: 50076, contractorId: 282, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels'} });
   $scope.declarations = [];
   $scope.friends = [];
   $scope.remarks = [];

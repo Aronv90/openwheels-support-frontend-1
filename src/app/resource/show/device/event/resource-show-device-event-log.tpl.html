@@ -23,6 +23,26 @@
     </div>
 
     <div class="col-md-10">
+
+        <div class="panel panel-default card">
+            <div class="panel-body">
+              <button class="btn btn-sm btn-primary" ng-click="getCurrentLocation()">Huidige locatie</button>
+              
+              <span style="margin-left: 1em" ng-if="currentLocation.latitude && !gettingLocation">
+                <a ng-href="https://www.google.nl/maps/search/{{currentLocation.latitude}},%20{{currentLocation.longitude}}" target="_blank">{{currentLocation.latitude}}, {{currentLocation.longitude}}</a>
+                <small style="margin-left: 1em">{{ currentLocation.dateTime | amDateFormat: 'DD-MM-YYYY | HH:mm' }}</small>
+              </span>
+
+              <span style="margin-left: 1em" ng-if="locationError && !gettingLocation">
+                <strong>{{ locationError }}</strong>
+              </span>
+
+              <span style="margin-left: 1em" ng-if="!locationError && gettingLocation">
+                Laden...
+              </span>
+            </div>
+        </div>
+
         <div class="panel panel-default card">
             <div class="panel-body">
                 <h3>Event Logs</h3>
@@ -33,7 +53,7 @@
 
                 </div>
 
-                <div ng-if="eventLog.length === 0" class="alert alert-danger">No results found!</div>
+                <div ng-if="eventLog.length === 0" class="alert alert-danger">Geen events gevonden.</div>
                 <table class="table" ng-if="eventLog.length > 0">
                     <thead>
                     <tr>
