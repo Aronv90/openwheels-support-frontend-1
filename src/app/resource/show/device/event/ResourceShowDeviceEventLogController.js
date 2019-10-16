@@ -12,6 +12,7 @@ angular.module('openwheels.resource.show.device-event-log', [])
             start: start,
             end: end
         };
+        $scope.currentLocation = {};
 
         $scope.dateConfig = {
             //model
@@ -24,6 +25,23 @@ angular.module('openwheels.resource.show.device-event-log', [])
 
             //options
             selectMonths: true
+        };
+
+        $scope.getCurrentLocation = function() {
+            $scope.gettingLocation = true;
+            $scope.locationError = false;
+            deviceService.location({
+                resource: resource.id
+            })
+            .then(function(location) {
+                $scope.currentLocation = angular.copy(location);
+            })
+            .catch(function(error){
+                $scope.locationError = true;
+            })
+            .finally(function(){
+                $scope.gettingLocation = false;
+            });
         };
 
         handleEventLogs(eventLog);
