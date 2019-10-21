@@ -173,6 +173,22 @@ Het bonnetje van de wasstraat kun je naar ons opsturen.
 Hartelijk dank alvast.`
     },
     {
+      key: "Open- en sluitproblemen - NL",
+      subject: "Problemen met openen/sluiten",
+      content: `
+Beste {{ VOORNAAM }},
+
+Tijdens jouw rit in {{ ALIAS }} op {{ BEGIN_BOEKING }} kon je de auto helaas niet openen of sluiten.
+We vinden het vervelend dat je problemen had en willen dit graag in de toekomst voorkomen.
+
+Zou je ons meer informatie willen geven zodat we het probleem kunnen reproduceren en oplossen:
+- Probeerde je de auto te openen met je OV-chipkaart, via de MyWheels app of via de website?
+- Kreeg je een foutmelding te zien?
+- Heb je nog aanvullende informatie?
+
+Hartelijk dank alvast.`
+    },
+    {
       key: "Tenaamstellingscheck - NL",
       subject: "Tenaamstelling komt niet overeen",
       content: `
@@ -201,6 +217,17 @@ Je biedt jouw auto aan op MyWheels. Vanwege een verhoogd risico op misbruik van 
 Mail gerust als je nog vragen hebt.`
     },
     {
+      key: "Auto - Niet beschikbaar vanwege geen foto's - NL",
+      subject: "Jouw auto is nog niet beschikbaar",
+      content: `
+Beste {{ VOORNAAM }},
+
+Je hebt jouw auto aangemeld bij MyWheels, hartelijk dank daarvoor! De auto is echter pas beschikbaar voor de leden van MyWheels nadat je foto's van de auto hebt toegevoegd.
+Foto's van jouw auto kunt je toevoegen via [Mijn auto's](https://mywheels.nl/mijn-auto). Daar kun je ook zelf jouw auto weer beschikbaar maken.
+
+Mail gerust als je nog vragen hebt.`
+    },
+    {
       key: "Visie autodelen - NL",
       subject: "Visie autodelen",
       content: `
@@ -214,7 +241,7 @@ MyWheels heeft de ambitie om met autodelen het aantal auto's in Nederland terug 
 Mail gerust als je nog vragen hebt.`
     },
     {
-      key: "Extra rjibewijs controle - NL",
+      key: "Extra rijbewijs controle - NL",
       subject: "Accountcontrole",
       content: `
 Beste {{ VOORNAAM }},
