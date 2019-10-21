@@ -195,9 +195,9 @@ Hartelijk dank alvast.`
 Beste {{ VOORNAAM }},
 
 Tijdens jouw rit in {{ ALIAS }} op {{ BEGIN_BOEKING }} kon je de auto helaas aan het einde van de rit niet sluiten.
-Het sluiten van de auto lukte niet om dat je te laat terug was.
-De rit eindige om {{ END_BOEKING }}, tot 30 minuten na je rit kun je de auto nog sluiten.
-Als je een volgende keer de rit via MyWheels app of website op tijd verlengd, kun je de auto zonder problemen sluiten.
+Het sluiten van de auto lukte niet omdat je te laat terug was.
+De rit eindigde op {{ END_BOEKING }}, tot 30 minuten na je rit kun je de auto nog sluiten.
+Als je een volgende keer de rit via de MyWheels app of website verlengd, kun je de auto zonder problemen sluiten.
 
 We horen het graag als je nog vragen hebt.`
     },
