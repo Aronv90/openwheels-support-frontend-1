@@ -275,7 +275,7 @@ Veelgestelde vragen:
       content: `
 Beste {{ VOORNAAM }},
 
-Op 2 september heb jij de auto {{ AUTONAAM }} gebruikt.<br />
+Op 2 september heb jij de auto {{ ALIAS }} gebruikt.<br />
 De gebruiker na jou heeft de auto helaas aangetroffen met een lege tank (minder dan 1/4 gevuld) en moest hierdoor eerst naar een tankstation rijden voor deze de eigen rit kon beginnen. Dat is natuurlijk erg vervelend voor de gebruiker en heeft deze extra tijd gekost.
 
 Zou je wellicht kunnen aangeven waarom de auto niet getankt was / met te weinig brandstof is terug gezet?<br />
@@ -291,7 +291,7 @@ Alvast bedankt voor je reactie.`
 
 Beste {{ VOORNAAM }},
 
-Wij zien dat jij de auto {{ AUTONAAM }} in {{ STAD }} regelmatig gebruikt. 
+Wij zien dat jij de auto {{ ALIAS }} in {{ STAD }} regelmatig gebruikt. 
 Wij zijn voor deze auto op zoek naar een nieuwe beheerder, misschien is dit iets voor jou?
 
 **Over MyWheels** <br />
@@ -316,6 +316,18 @@ Alvast bedankt voor jouw reactie.
 
 Fijne dag!
       `
+    },
+    {
+      key: "Boete auto te laat terug - NL",
+      subject: "Auto te laat terug",
+      content: `
+Beste {{ VOORNAAM }},
+
+Na jouw rit van {{ BEGIN_BOEKING }} tot {{ EIND_BOEKING }} in de {{ AUTONAAM }} heb je de auto te laat teruggebracht.
+Daardoor kon de volgende huurder niet, of niet op tijd, met de auto op weg. 
+We brengen hiervoor een boete van € 25,- in rekening.
+
+Mail gerust als je nog vragen hebt of als je vindt dat de boete onterecht is.`
     },
     {
       key: "Excuses auto verkeerd geplaatst - NL",
