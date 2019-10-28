@@ -331,6 +331,18 @@ Fijne dag!
       `
     },
     {
+      key: "Boete auto te laat terug - NL",
+      subject: "Auto te laat terug",
+      content: `
+Beste {{ VOORNAAM }},
+
+Na jouw rit van {{ BEGIN_BOEKING }} tot {{ EIND_BOEKING }} in de {{ AUTONAAM }} heb je de auto te laat teruggebracht.
+Daardoor kon de volgende huurder niet, of niet op tijd, met de auto op weg. 
+We brengen hiervoor een boete van € 25,- in rekening.
+
+Mail gerust als je nog vragen hebt of als je vindt dat de boete onterecht is.`
+    },
+    {
       key: "Excuses auto verkeerd geplaatst - NL",
       subject: "Excuses auto verkeerd geplaatst",
       content: `
