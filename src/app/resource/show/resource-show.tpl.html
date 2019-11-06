@@ -106,7 +106,7 @@
                 <li ng-class="{ active: $state.includes('root.resource.show.boardcomputer') }" ng-if="(resource.locktype === 'smartphone' || resource.locktype === 'chipcard') && user.identity.provider.id !== 5">
                     <a ui-sref="root.resource.show.boardcomputer({ resourceId: resource.id })">Openen & sluiten</a>
                 </li>
-                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.device-status-control-log') || $state.includes('root.resource.show.device-event-log') }" ng-if="resource.boardcomputer === 'invers'">
+                <li class="dropdown" ng-class="{ active: $state.includes('root.resource.show.device-status-control-log') || $state.includes('root.resource.show.device-event-log') || $state.includes('root.resource.show.device-card-request-log') }" ng-if="resource.boardcomputer === 'invers'">
                     <a class="dropdown-toggle" data-toggle="dropdown">INVERS<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li ng-class="{ active: $state.includes('root.resource.show.device-status-control-log') }">
@@ -114,6 +114,9 @@
                         </li>
                         <li ng-class="{ active: $state.includes('root.resource.show.device-event-log') }">
                             <a ui-sref=".device-event-log">Event log</a>
+                        </li>
+                        <li ng-class="{ active: $state.includes('root.resource.show.device-card-request-log') }">
+                            <a ui-sref=".device-card-request-log">Chipkaart log</a>
                         </li>
                     </ul>
                 </li>

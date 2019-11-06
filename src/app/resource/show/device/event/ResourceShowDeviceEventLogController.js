@@ -2,7 +2,7 @@
 
 angular.module('openwheels.resource.show.device-event-log', [])
 
-    .controller('ResourceShowDeviceEventLogController', function ($scope, $log, $filter, $stateParams, deviceService, resource, eventLog, perPage, start, end) {
+    .controller('ResourceShowDeviceEventLogController', function ($scope, $log, $filter, $stateParams, deviceService, deviceLogService, resource, eventLog, perPage, start, end) {
 
         $scope.curPage = 1;
         $scope.perPage = perPage;
@@ -52,7 +52,7 @@ angular.module('openwheels.resource.show.device-event-log', [])
 
         $scope.nextPage = function () {
             $scope.offset = $scope.curPage * $scope.perPage;
-            deviceService.eventLog(_.extend({}, {
+            deviceLogService.eventLog(_.extend({}, {
                 resource: $scope.resource.id,
                 start: moment($scope.obj.start).format("YYYY-MM-DD 00:00"),
                 end: moment($scope.obj.end).format("YYYY-MM-DD 23:59"),
@@ -67,7 +67,7 @@ angular.module('openwheels.resource.show.device-event-log', [])
 
         $scope.prevPage = function () {
             $scope.offset = ($scope.curPage - 2) * $scope.perPage;
-            deviceService.eventLog(_.extend({}, {
+            deviceLogService.eventLog(_.extend({}, {
                 resource: $scope.resource.id,
                 start: moment($scope.obj.start).format("YYYY-MM-DD 00:00"),
                 end: moment($scope.obj.end).format("YYYY-MM-DD 23:59"),
@@ -81,7 +81,7 @@ angular.module('openwheels.resource.show.device-event-log', [])
         };
 
         $scope.refresh = function () {
-            deviceService.eventLog(_.extend({}, {
+            deviceLogService.eventLog(_.extend({}, {
                 resource: $scope.resource.id,
                 start: moment($scope.obj.start).format("YYYY-MM-DD 00:00"),
                 end: moment($scope.obj.end).format("YYYY-MM-DD 23:59"),
