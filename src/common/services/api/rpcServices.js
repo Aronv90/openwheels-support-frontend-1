@@ -399,9 +399,16 @@ angular.module('rpcServices', [])
       };
       this.forceOpen = m('forceOpen');
       this.forceClose = m('forceClose');
+      this.location = m('location');
+    })
+
+    .service('deviceLogService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('device_log.' + name);
+      };
+      this.cardRequest = m('cardRequest');
       this.eventLog = m('eventLog');
       this.statusControlLog = m('statusControlLog');
-      this.location = m('location');
     })
 
     .service('conversationService', function (api) {

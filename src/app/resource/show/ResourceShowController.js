@@ -17,7 +17,8 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.myfmslog',
   'openwheels.resource.show.remarklog',
   'openwheels.resource.show.device-event-log',
-  'openwheels.resource.show.device-status-control-log'
+  'openwheels.resource.show.device-status-control-log',
+  'openwheels.resource.show.device-card-request-log'
 ])
 
 .controller('ResourceShowController', function ($scope, $stateParams, $uibModal, $log, alertService, dialogService, resourceService,

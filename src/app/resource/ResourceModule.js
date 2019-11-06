@@ -350,7 +350,7 @@ angular.module('openwheels.resource', [
 		templateUrl: 'resource/show/device/event/resource-show-device-event-log.tpl.html',
 		data: {pageTitle: 'Event Log'},
 		resolve: {
-			eventLog: ['$stateParams', 'resource', 'deviceService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceService, perPage, start, end) {
+			eventLog: ['$stateParams', 'resource', 'deviceLogService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceLogService, perPage, start, end) {
 				var params = {};
 				params.resource = $stateParams.resourceId;
 				params.limit = perPage;
@@ -358,7 +358,7 @@ angular.module('openwheels.resource', [
 				params.end = end;
 				params.offset = 0;
 
-				return deviceService.eventLog(params);
+				return deviceLogService.eventLog(params);
 			}],
 			perPage: function () {
 				return 20;
@@ -382,7 +382,7 @@ angular.module('openwheels.resource', [
 		templateUrl: 'resource/show/device/statuslog/resource-show-device-status-control-log.tpl.html',
 		data: {pageTitle: 'Open en sluit log'},
 		resolve: {
-			statusLog: ['$stateParams', 'resource', 'deviceService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceService, perPage, start, end) {
+			statusLog: ['$stateParams', 'resource', 'deviceLogService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceLogService, perPage, start, end) {
 				var params = {};
 				params.resource = $stateParams.resourceId;
 				params.limit = perPage;
@@ -390,7 +390,7 @@ angular.module('openwheels.resource', [
 				params.end = end;
 				params.offset = 0;
 
-				return deviceService.statusControlLog(params);
+				return deviceLogService.statusControlLog(params);
 			}],
 			perPage: function () {
 				return 20;
@@ -404,39 +404,63 @@ angular.module('openwheels.resource', [
 		}
 	});
 
-		/**
-     * resource/:id/log?startDate&endDate
-     * @resolve {promise} resource
-     */
-		$stateProvider.state('root.resource.show.log', {
-			url: '/log?startDate&endDate',
-			controller: 'ResourceShowLogController',
-			templateUrl: 'resource/show/log/resource-show-log.tpl.html',
-			data: {pageTitle: 'Resource Boardcomputer Log'},
-			resolve: {
-				logs: ['$stateParams', 'resource', 'boardcomputerService', function ($stateParams, resource, boardcomputerService) {
-					var startDate = $stateParams.startDate ? moment($stateParams.startDate).format('YYYY-MM-DD HH:mm') : moment().startOf('day').format('YYYY-MM-DD HH:mm');
-					var endDate = $stateParams.endDate ? moment($stateParams.endDate).format('YYYY-MM-DD HH:mm') : moment().endOf('day').format('YYYY-MM-DD HH:mm');
+	/**
+	 * resource/:id/device/log/card-request
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.device-card-request-log', {
+		url: '/device/log/card-request',
+		controller: 'ResourceShowDeviceCardRequestLogController',
+		templateUrl: 'resource/show/device/cardrequest/resource-show-device-card-request-log.tpl.html',
+		data: {pageTitle: 'Chipkaart Log'},
+		resolve: {
+			cardRequestLog: ['$stateParams', 'resource', 'deviceLogService', 'perPage', function ($stateParams, resource, deviceLogService, perPage) {
+				var params = {};
+				params.resource = $stateParams.resourceId;
+				params.limit = perPage;
+				params.offset = 0;
 
-					return boardcomputerService.log({
-						resource: resource.id, 
-						from: startDate, 
-						to: endDate
-					});
-				}]
+				return deviceLogService.cardRequest(params);
+			}],
+			perPage: function () {
+				return 20;
 			}
-		});
+		}
+	});
 
-		/**
-		 * resource/:id/tripdata
-		 * @resolve {promise} resource
-		 */
-		$stateProvider.state('root.resource.show.tripdata', {
-			url: '/tripdata',
-			controller: 'ResourceShowTripdataController',
-			templateUrl: 'resource/show/tripdata/resource-show-tripdata.tpl.html',
-			data: {pageTitle: 'Resource Boardcomputer Tripdata'},
-			resolve: {
+	/**
+	 * * resource/:id/log?startDate&endDate
+	 * * @resolve {promise} resource
+	 * */
+	$stateProvider.state('root.resource.show.log', {
+		url: '/log?startDate&endDate',
+		controller: 'ResourceShowLogController',
+		templateUrl: 'resource/show/log/resource-show-log.tpl.html',
+		data: {pageTitle: 'Resource Boardcomputer Log'},
+		resolve: {
+			logs: ['$stateParams', 'resource', 'boardcomputerService', function ($stateParams, resource, boardcomputerService) {
+				var startDate = $stateParams.startDate ? moment($stateParams.startDate).format('YYYY-MM-DD HH:mm') : moment().startOf('day').format('YYYY-MM-DD HH:mm');
+				var endDate = $stateParams.endDate ? moment($stateParams.endDate).format('YYYY-MM-DD HH:mm') : moment().endOf('day').format('YYYY-MM-DD HH:mm');
+
+				return boardcomputerService.log({
+					resource: resource.id,
+					from: startDate,
+					to: endDate
+				});
+			}]
+		}
+	});
+
+	/**
+	 * resource/:id/tripdata
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.tripdata', {
+		url: '/tripdata',
+		controller: 'ResourceShowTripdataController',
+		templateUrl: 'resource/show/tripdata/resource-show-tripdata.tpl.html',
+		data: {pageTitle: 'Resource Boardcomputer Tripdata'},
+		resolve: {
 //				records: ['resource', 'boardcomputerService', function (resource, boardcomputerService) {
 //					return boardcomputerService.tripdata({
 //            resource: resource.id,
@@ -444,27 +468,27 @@ angular.module('openwheels.resource', [
 //            offset: 0
 //          });
 //				}]
-			}
-		});
+		}
+	});
 
-		$stateProvider.state('root.resource.show.revisions', {
-			url: '/revisions',
-			controller: 'ResourceShowRevisionsController',
-			templateUrl: 'resource/show/revisions/resource-show-revisions.tpl.html',
-			data: {pageTitle: 'Resource Revisions'},
-            resolve: {
-                revisionlog: ['$stateParams', 'resource', 'revisionsService', 'perPage', function ($stateParams, resource, revisionsService, perPage) {
-                    var params = {};
-                    params.id = $stateParams.resourceId;
-                    params.type = 'OpenWheels\\ApiBundle\\Entity\\Resource';
-                    params.limit = perPage;
-                    params.offset = 0;
+	$stateProvider.state('root.resource.show.revisions', {
+		url: '/revisions',
+		controller: 'ResourceShowRevisionsController',
+		templateUrl: 'resource/show/revisions/resource-show-revisions.tpl.html',
+		data: {pageTitle: 'Resource Revisions'},
+		resolve: {
+			revisionlog: ['$stateParams', 'resource', 'revisionsService', 'perPage', function ($stateParams, resource, revisionsService, perPage) {
+				var params = {};
+				params.id = $stateParams.resourceId;
+				params.type = 'OpenWheels\\ApiBundle\\Entity\\Resource';
+				params.limit = perPage;
+				params.offset = 0;
 
-                    return revisionsService.revisions(params);
-                }],
-                perPage: function(){ return 20;}
-            }
-		});
+				return revisionsService.revisions(params);
+			}],
+			perPage: function(){ return 20;}
+		}
+	});
 
     /**
      * resource/:id/remark
