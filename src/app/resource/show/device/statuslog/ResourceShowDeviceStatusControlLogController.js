@@ -2,8 +2,7 @@
 
 angular.module('openwheels.resource.show.device-status-control-log', [])
 
-    .controller('ResourceShowDeviceStatusControlLogController', function ($scope, $log, $filter, $stateParams, deviceService,
-        resource, statusLog, perPage, start, end) {
+    .controller('ResourceShowDeviceStatusControlLogController', function ($scope, $log, $filter, $stateParams, deviceService, deviceLogService, resource, statusLog, perPage, start, end) {
 
         $scope.curPage = 1;
         $scope.perPage = perPage;
@@ -52,7 +51,7 @@ angular.module('openwheels.resource.show.device-status-control-log', [])
 
         $scope.nextPage = function () {
             $scope.offset = $scope.curPage * $scope.perPage;
-            deviceService.statusControlLog(_.extend({}, {
+            deviceLogService.statusControlLog(_.extend({}, {
                 resource: $scope.resource.id,
                 start: moment($scope.obj.start).format("YYYY-MM-DD 00:00"),
                 end: moment($scope.obj.end).format("YYYY-MM-DD 23:59"),
@@ -67,7 +66,7 @@ angular.module('openwheels.resource.show.device-status-control-log', [])
 
         $scope.prevPage = function () {
             $scope.offset = ($scope.curPage - 2) * $scope.perPage;
-            deviceService.statusControlLog(_.extend({}, {
+            deviceLogService.statusControlLog(_.extend({}, {
                 resource: $scope.resource.id,
                 start: moment($scope.obj.start).format("YYYY-MM-DD 00:00"),
                 end: moment($scope.obj.end).format("YYYY-MM-DD 23:59"),
@@ -81,7 +80,7 @@ angular.module('openwheels.resource.show.device-status-control-log', [])
         };
 
         $scope.refresh = function () {
-            deviceService.statusControlLog(_.extend({}, {
+            deviceLogService.statusControlLog(_.extend({}, {
                 resource: $scope.resource.id,
                 start: moment($scope.obj.start).format("YYYY-MM-DD 00:00"),
                 end: moment($scope.obj.end).format("YYYY-MM-DD 23:59"),

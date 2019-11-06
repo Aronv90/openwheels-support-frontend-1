@@ -1,0 +1,73 @@
+<div class="row">
+    <div class="col-md-12">
+
+        <div class="panel panel-default card">
+            <div class="panel-body">
+              <button class="btn btn-sm btn-primary" ng-click="getCurrentLocation()">Huidige locatie</button>
+              
+              <span style="margin-left: 1em" ng-if="currentLocation.latitude && !gettingLocation">
+                <a ng-href="https://www.google.nl/maps/search/{{currentLocation.latitude}},%20{{currentLocation.longitude}}" target="_blank">{{currentLocation.latitude}}, {{currentLocation.longitude}}</a>
+                <small style="margin-left: 1em">{{ currentLocation.dateTime | amDateFormat: 'DD-MM-YYYY | HH:mm' }}</small>
+              </span>
+
+              <span style="margin-left: 1em" ng-if="locationError && !gettingLocation">
+                <strong>{{ locationError }}</strong>
+              </span>
+
+              <span style="margin-left: 1em" ng-if="!locationError && gettingLocation">
+                Laden...
+              </span>
+            </div>
+        </div>
+
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Chipkaart log</h3>
+                <div ng-if="cardRequest.length > 0">
+                    <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
+                    <p class="btn"> {{curPage}} </p>
+                    <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt;</button>
+                    <button class="btn" ng-click="refresh()"> <i class="fa fa-refresh"></i></button>
+                </div>
+
+                <div ng-if="cardRequest.length === 0" class="alert alert-danger">Geen logs gevonden.</div>
+                <table class="table" ng-if="cardRequest.length > 0">
+                    <thead>
+                    <tr>
+                        <th>Kaart ID</th>
+                        <th>Booking</th>
+                        <th>Person</th>
+                        <th>Geverifieerd via SMS</th>
+                        <th>Aanvraagdatum</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="log in cardRequest">
+                        <td>
+                            <a ui-sref="root.person.show.chipcards({ personId: log.person })" ng-if="log.person !== null">
+                                {{ log.uid }}
+                            </a>
+                            <span ng-if="log.person === null">{{ log.uid }}</span>
+                        </td>
+                        <td>
+                            <a ui-sref="root.trip.dashboard({tripId: log.booking})" ng-if="log.booking !== null">
+                                {{ log.booking }}
+                            </a>
+                            <span ng-if="log.booking === null" class="text-danger"><i class="fa fa-question"></i></span>
+                        </td>
+                        <td>
+                            <a ui-sref="root.person.show.summary({ personId: log.person })" ng-if="log.person !== null">
+                                {{ log.firstName }}
+                            </a>
+                            <span ng-if="log.person === null" class="text-danger"><i class="fa fa-question"></i></span>
+                        </td>
+                        <td>{{ log.verified ? 'Ja' : 'Nee' }} {{ log.verified ? ' op ' + (log.updatedAt | amDateFormat:'DD-MM-YYYY [om] HH:mm') : '' }}</td>
+                        <td>{{ log.createdAt | amDateFormat:'DD-MM-YYYY [om] HH:mm' }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
