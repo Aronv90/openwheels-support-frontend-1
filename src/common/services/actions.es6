@@ -11,7 +11,7 @@ angular.module("openwheels.actions", [])
 */
 .factory("checkIfImmobilized", function(
   chipcardService,
-  deviceService
+  deviceLogService
 ) {
   return function (resource) {
     const immobilized = {
@@ -26,7 +26,7 @@ angular.module("openwheels.actions", [])
     else if (resource.boardcomputer === "invers") {
       const STATE_SUCCESS = 1;
       const STATE_SAME = 2; // i.e. a noop, because it was already open/closed
-      deviceService.statusControlLog({
+      deviceLogService.statusControlLog({
         resource: resource.id,
         start: "2019-09-26 11:00",
         end: "2222-02-22 22:22",
