@@ -177,6 +177,7 @@ angular.module('rpcServices', [])
       };
       this.getResourceRatings = m('getResourceRatings');
       this.getDriverRatings = m('getDriverRatings');
+      this.commentOnRating = m('commentOnRating');
     })
 
     .service('bookingService', function (api) {

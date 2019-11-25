@@ -38,7 +38,7 @@
           <i>Noodgeval</i><br/>
           Is de huurder onderweg en lukt het niet om te verlengen of een nieuwe boeking te maken? Klik dan <a ng-click="myfms()"><strong>[hier]</strong></a> om de auto op afstand te openen en de startblokkering eraf te halen. De sleutel moet uit het contactslot zijn.
           <br><br>
-          <strong>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</strong>
+          <i>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</i>
         </span>
 
         <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas de auto in als de rit begonnen is.</span>
@@ -50,7 +50,7 @@
         
         <p>De auto start niet omdat de startblokkering ingeschakeld is op {{ immobilized.since | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik <a ng-click="myfms()"><strong>[hier]</strong></a> om de auto op afstand te openen en de startblokkering eraf te halen. <strong>Let op:</strong> de sleutel moet uit het contactslot zijn.
 
-        <p><strong>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</strong></p>
+        <p><i>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</i></p>
       </div>
 
       <div ng-if="booking.beginBooking < now && booking.endBooking > now && immobilized.no">

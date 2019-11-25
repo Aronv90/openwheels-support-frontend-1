@@ -49,6 +49,7 @@ angular.module('openwheels.components')
           $scope.medewerkers = [
             "het MyWheels Team",
             "Hans Rombout",
+            "Daanjan Wisselink",
             "Daan Hartog",
           ];
 
@@ -56,6 +57,7 @@ angular.module('openwheels.components')
             "het MyWheels Team": "",
             "Hans Rombout": "https://docs.google.com/forms/d/e/1FAIpQLScWmFKXYxb_rRAQBKjaA_RPHYODTjWaDhC9qdoHEJjvMdxSxw/viewform?usp=sf_link",
             "Daan Hartog": "https://docs.google.com/forms/d/e/1FAIpQLSfIG5eQbZ5MW14cE6VpvKWypscPFcy9OJmZNzl90CT9pI7BSA/viewform?usp=sf_link",
+            "Daanjan Wisselink": "https://docs.google.com/forms/d/e/1FAIpQLSfGFL6RVIyhqZqR2dMV2JwDqjKcxZxCUd8Hvr66A-g6WLEvcQ/viewform?usp=sf_link",
           };
 
           $scope.draft = {

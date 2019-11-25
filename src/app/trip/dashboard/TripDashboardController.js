@@ -1566,7 +1566,7 @@ angular.module('openwheels.trip.dashboard', [
             endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested              
           },
           radius: 15000,
-          sort: 'relevance',
+          sort: 'distance',
           offest: 0,
           maxresults: 20, 
           filters: {
@@ -1677,7 +1677,7 @@ angular.module('openwheels.trip.dashboard', [
               endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested
             },
             radius: 15000,
-            sort: 'relevance',
+            sort: 'distance',
             offest: 0,
             maxresults: 20, 
             filters: {
