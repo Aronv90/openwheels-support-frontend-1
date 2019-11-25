@@ -9,8 +9,8 @@ angular.module('openwheels.EMAILER_TEMPLATES', [])
       content: ``
     },
     {
-      key: "Account information - EN",
-      subject: "Account information!",
+      key: "Verify your address - EN",
+      subject: "Verify your address",
       content: `
 Dear {{ VOORNAAM }},
 
@@ -46,8 +46,8 @@ Keizersgracht 264<br />
       content: ``
     },
     {
-      key: "Account informatie - NL",
-      subject: "Account informatie",
+      key: "Verifieer je adres - NL",
+      subject: "Verifieer je adres",
       content: `
 Beste {{ VOORNAAM }},
 
@@ -63,7 +63,7 @@ Bij voorbaat dank.`
     },
     {
       key: "Ongeldig rijbewijs - NL",
-      subject: "Account informatie",
+      subject: "Ongeldig rijbewijs",
       content: `
 Beste {{ VOORNAAM }},
 
@@ -77,7 +77,7 @@ Mail gerust als je nog vragen hebt.`
     },
     {
       key: "Ongeldig rijbewijs + poststuk - NL",
-      subject: "Account informatie",
+      subject: "Ongeldig rijbewijs",
       content: `
 Beste {{ VOORNAAM }},
 
@@ -355,6 +355,20 @@ Wij gaan in contact met de persoon welke dit heeft veroorzaakt, het kan natuurli
 Dit alles neemt niet weg dat het voor jou erg vervelend was dat je niet (gelijk) op weg kon gaan. Wij bieden je daarom graag een korting aan op een volgende reservering via MyWheels. In een aparte e-mail zul je daar een kortingscode voor ontvangen welke je eenmalig kunt gebruiken.
 
 Nogmaals onze excuses voor het ongemak en hopelijk tot snel bij MyWheels!`
+    },
+    {
+      key: "Accumeldingen - NL",
+      subject: "Accumeldingen",
+      content: `
+Beste {{ VOORNAAM }},
+
+We hebben vandaag de onderstaande accumeldingen ontvangen van auto's die jij beheert:
+- 
+
+Een auto start mogelijk niet meer als de accuspanning lager dan 11.6 volt is.
+Zou je een aaneengesloten rit van minimaal 30 minuten willen maken om de accu op te laden?
+
+Mail gerust als je vragen hebt.`
     },
   ].map(template => ({
     ...template,

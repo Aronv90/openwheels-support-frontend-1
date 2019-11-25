@@ -1,0 +1,31 @@
+<md-dialog flex="50" flex-sm="70">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Bewerk tekst</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon>close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout="row">
+          <textarea rows="20" flex ng-model="text"></textarea>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="cancel()">
+       Annuleren
+      </md-button>
+      <md-button class="md-primary md-raised" ng-click="done()">
+        Opslaan
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

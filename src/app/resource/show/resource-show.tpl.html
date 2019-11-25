@@ -35,16 +35,13 @@
 
             <ul class="list-inline card__subtitle" style="margin-top:5px;">
               <li ng-if="resource.locktypes.indexOf('smartphone') >= 0 && resource.locktypes.indexOf('chipcard') < 0">
-                <h4>Micpoint: smartphone</h4>
+                <h4>Smartphone</h4>
               </li>
               <li ng-if="resource.locktypes.indexOf('smartphone') >= 0 && resource.locktypes.indexOf('chipcard') >= 0">
-                <h4>Micpoint: smartphone & OV-chipkaart</h4>
-              </li>
-              <li ng-if="resource.locktypes.indexOf('smartphone') < 0 && resource.locktypes.indexOf('chipcard') >= 0">
-                <h4>Convadis: OV-chipkaart</h4>
+                <h4>Smartphone & OV-chipkaart</h4>
               </li>
               <li ng-if="resource.locktypes.indexOf('smartphone') < 0 && resource.locktypes.indexOf('chipcard') < 0">
-                <h4>Afspraak maken</h4>
+                <h4>Sleuteloverdracht</h4>
               </li>
               <li>
                 <i class="fa fa-circle"></i>
@@ -148,12 +145,13 @@
                     <a ui-sref="root.resource.show.reports({ resourceId: resource.id })">Meldingen</a>
                 </li>
 
+                <li ng-class="{ active: $state.includes('root.resource.show.rating') }" ng-if="user.identity.provider.id !== 5">
+                    <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Beoordelingen</a>
+                </li>
+
                 <li class="dropdown pull-right">
                 <a class="dropdown-toggle" data-toggle="dropdown">Meer <big><i class="fa fa-fw fa fa-ellipsis-v"></i></big></a>
                   <ul class="dropdown-menu">
-                    <li ng-class="{ active: $state.includes('root.resource.show.rating') }" ng-if="user.identity.provider.id !== 5">
-                        <a ui-sref="root.resource.show.rating({ resourceId: resource.id })">Reviews</a>
-                    </li>
                     <li ng-class="{ active: $state.includes('root.resource.show.revisions') }" ng-if="!$root.isInterswitch">
                         <a ui-sref="root.resource.show.revisions({ resourceId: resource.id })">Wijzigingen</a>
                     </li>
