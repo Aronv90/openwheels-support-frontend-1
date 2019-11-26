@@ -90,6 +90,48 @@ Daarnaast kon onze automatische controle kon jouw adres helaas niet verifiëren.
 Mail gerust als je nog vragen hebt.`
     },
     {
+      key: "Extra rijbewijs controle - NL",
+      subject: "Accountcontrole",
+      content: `
+Beste {{ VOORNAAM }},
+
+Hartelijk dank voor het aanmelden bij MyWheels. Leuk dat je mee wilt doen autodelen!
+
+Helaas is het onze automatische controle niet gelukt om jouw account en bijbehorend rijbewijs te verifiëren.<br />
+Om een handmatige controle te kunnen uitvoeren op jouw account, verzoeken we je een kopie van jouw rijbewijs te sturen samen met een recent poststuk.
+
+Met een recent poststuk bedoelen wij een foto of screenshot van bijvoorbeeld een telefoonfactuur, bankafschrift of salarisstrookje.<br />
+De datum (niet ouder dan één maand) en het logo van de afzender moeten duidelijk op de foto staan, de inhoud van de brief hoeven we niet te zien.
+
+Uiteraard mag je privacygevoelige informatie op de kopie van jouw rijbewijs (zoals het BSN-nummer) doorstrepen of onleesbaar maken.<br />
+Hiervoor kun je de app KopieID van de Rijksoverheid gebruiken, te vinden in de [Apple store](https://itunes.apple.com/nl/app/kopieid/id932970330) of de [Google play store](https://play.google.com/store/apps/details?id=com.milvum.kopieid).
+
+Nadat wij de controle hebben uitgevoerd, zullen wij de ontvangen documenten verwijderen.
+
+Je ontvangt van ons zo snel mogelijk een reactie per e-mail over de controle van jouw account, meestal binnen twee werkdagen.<br />
+Het is niet mogelijk om hier telefonisch over te corresponderen, vragen over accountcontrole kunnen alleen per e-mail gesteld worden.
+
+Mail gerust als je nog vragen hebt.`,
+      footer: `
+Veelgestelde vragen:
+
+- [Ik heb rijtegoed betaald, hoe vraag ik dit terug?](https://mywheels.nl/autodelen/veelgestelde-vragen/rijtegoed-terugvragen/)
+- [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/autodelen/veelgestelde-vragen/wanneer-wordt-rijbewijs-gecontroleerd/)`
+    },
+    {
+      key: "Onterechte match op persoon - NL",
+      subject: "Onterechte deactivatie van jouw account",
+      content: `
+Beste {{ VOORNAAM }},
+
+Hartelijk dank voor het aanmelden bij MyWheels. 
+Jouw account is helaas ten onrechte automatisch gedeactiveerd vanwege een match met een ander persoon. Onze excuses hiervoor.
+
+Zojuist hebben we jouw account geactiveerd, zodat je alsnog een auto kunt huren.
+
+Mail gerust als je nog vragen hebt.`
+    },
+    {
       key: "Dubbel MyWheels account - NL",
       subject: "Dubbel MyWheels account",
       content: `
@@ -131,6 +173,18 @@ Wij hebben zojuist helaas een parkeerboete ontvangen van Gemeente {{ GEMEENTE }}
 Wij hebben de Gemeente {{ GEMEENTE }} verzocht om deze boete te verleggen naar jou. Je zult hier t.z.t. bericht van ontvangen vanuit de Gemeente om deze aan hen te voldoen. MyWheels heeft hiervoor € 12,50- administratiekosten bij jou in rekening gebracht die je via [www.mywheels.nl/finance](https://mywheels.nl/finance) kunt betalen.
 
 Mocht je vragen hebben n.a.v. bovenstaande, kun je deze e-mail beantwoorden. We zullen je zo snel mogelijk van een reactie voorzien.`
+    },
+    {
+      key: "Boete auto te laat terug - NL",
+      subject: "Auto te laat terug",
+      content: `
+Beste {{ VOORNAAM }},
+
+Na jouw rit van {{ BEGIN_BOEKING }} tot {{ EIND_BOEKING }} in de {{ AUTONAAM }} heb je de auto te laat teruggebracht.
+Daardoor kon de volgende huurder niet, of niet op tijd, met de auto op weg. 
+We brengen hiervoor een boete van € 25,- in rekening.
+
+Mail gerust als je nog vragen hebt of als je vindt dat de boete onterecht is.`
     },
     {
       key: "Eigen risico in rekening gebracht - NL",
@@ -254,35 +308,6 @@ MyWheels heeft de ambitie om met autodelen het aantal auto's in Nederland terug 
 Mail gerust als je nog vragen hebt.`
     },
     {
-      key: "Extra rijbewijs controle - NL",
-      subject: "Accountcontrole",
-      content: `
-Beste {{ VOORNAAM }},
-
-Hartelijk dank voor het aanmelden bij MyWheels. Leuk dat je mee wilt doen autodelen!
-
-Helaas is het onze automatische controle niet gelukt om jouw account en bijbehorend rijbewijs te verifiëren.<br />
-Om een handmatige controle te kunnen uitvoeren op jouw account, verzoeken we je een kopie van jouw rijbewijs te sturen samen met een recent poststuk.
-
-Met een recent poststuk bedoelen wij een foto of screenshot van bijvoorbeeld een telefoonfactuur, bankafschrift of salarisstrookje.<br />
-De datum (niet ouder dan één maand) en het logo van de afzender moeten duidelijk op de foto staan, de inhoud van de brief hoeven we niet te zien.
-
-Uiteraard mag je privacygevoelige informatie op de kopie van jouw rijbewijs (zoals het BSN-nummer) doorstrepen of onleesbaar maken.<br />
-Hiervoor kun je de app KopieID van de Rijksoverheid gebruiken, te vinden in de [Apple store](https://itunes.apple.com/nl/app/kopieid/id932970330) of de [Google play store](https://play.google.com/store/apps/details?id=com.milvum.kopieid).
-
-Nadat wij de controle hebben uitgevoerd, zullen wij de ontvangen documenten verwijderen.
-
-Je ontvangt van ons zo snel mogelijk een reactie per e-mail over de controle van jouw account, meestal binnen twee werkdagen.<br />
-Het is niet mogelijk om hier telefonisch over te corresponderen, vragen over accountcontrole kunnen alleen per e-mail gesteld worden.
-
-Mail gerust als je nog vragen hebt.`,
-      footer: `
-Veelgestelde vragen:
-
-- [Ik heb rijtegoed betaald, hoe vraag ik dit terug?](https://mywheels.nl/autodelen/veelgestelde-vragen/rijtegoed-terugvragen/)
-- [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/autodelen/veelgestelde-vragen/wanneer-wordt-rijbewijs-gecontroleerd/)`
-    },
-    {
       key: "Lege tank - NL",
       subject: "Lege tank",
       content: `
@@ -329,18 +354,6 @@ Alvast bedankt voor jouw reactie.
 
 Fijne dag!
       `
-    },
-    {
-      key: "Boete auto te laat terug - NL",
-      subject: "Auto te laat terug",
-      content: `
-Beste {{ VOORNAAM }},
-
-Na jouw rit van {{ BEGIN_BOEKING }} tot {{ EIND_BOEKING }} in de {{ AUTONAAM }} heb je de auto te laat teruggebracht.
-Daardoor kon de volgende huurder niet, of niet op tijd, met de auto op weg. 
-We brengen hiervoor een boete van € 25,- in rekening.
-
-Mail gerust als je nog vragen hebt of als je vindt dat de boete onterecht is.`
     },
     {
       key: "Excuses auto verkeerd geplaatst - NL",
