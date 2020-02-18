@@ -1,18 +1,18 @@
-<h4>Chipcards</h4>
+<h4>Chipkaarten</h4>
 
 <div class="row">
     <div class="col-md-4">
-        <button class="btn btn-default" ng-click="createEditChipcard()">Add new chipcard</button>
+        <button class="btn btn-default" ng-click="createEditChipcard()">Chipkaart toevoegen</button>
     </div>
     <div  class="col-md-3 col-md-offset-3">
         <h4 ng-show="fish.pincode">Pincode: {{fish.pincode}}</h4>
         <p ng-show="fish.pincode">Geldig tot: {{ fish.validUntil |  amDateFormat:'DD-MM-YYYY' }}</p>
-        <p ng-hide="fish.pincode">This person is not allowed to add chipcards at this moment.</p>
+        <p ng-hide="fish.pincode">Geen pincode.</p>
 
     </div>
     <div class="col-md-2">
-        <button ng-show="fish.pincode" class="btn btn-default" ng-click="deleteFish()">Delete fish</button>
-        <button ng-hide="fish.pincode" class="btn btn-default" ng-click="createFish()">Create fish</button>
+        <button ng-show="fish.pincode" class="btn btn-default" ng-click="deleteFish()">Verwijder pincode</button>
+        <button ng-hide="fish.pincode" class="btn btn-default" ng-click="createFish()">Pincode aanmaken</button>
     </div>
 </div>
 <table class="table">
@@ -22,12 +22,10 @@
         <td></td>
         <th>Mifare UID</th>
         <th>UID HEX</th>
-        <th>Blocked</th>
-        <th>OV-fiets</th>
-        <th>Description</th>
-        <th>Created at</th>
-        <th>Updated at</th>
-        <th>Last OV-fiets sync</th>
+        <th>Geblokkeerd?</th>
+        <th>Omschrijving</th>
+        <th>Toegevoegd op</th>
+        <th>Gewijzigd op</th>
     </tr>
     </thead>
     <tbody>
@@ -36,17 +34,15 @@
             <button class="btn btn-default btn-xs" ng-click="createEditChipcard(chipcard)"><i class="fa fa-pencil fa-lg"></i></button>
         </td>
         <td>
-            <button class="btn btn-default btn-xs" ng-show="chipcard.isBlocked" ng-click="unblock(chipcard)">Unblock</button>
-            <button class="btn btn-default btn-xs" ng-hide="chipcard.isBlocked" ng-click="block(chipcard)">Block</button>
+            <button class="btn btn-default btn-xs" ng-show="chipcard.isBlocked" ng-click="unblock(chipcard)">Deblokkeer</button>
+            <button class="btn btn-default btn-xs" ng-hide="chipcard.isBlocked" ng-click="block(chipcard)">Blokkeer</button>
         </td>
         <td>{{ chipcard.mifareUid }}</td>
         <td>{{ chipcard.mifareUid | dec2hex }}</td>
         <td>{{ chipcard.isBlocked }}</td>
-        <td>{{ chipcard.isOvfietsEnabled }}</td>
         <td>{{ chipcard.description  }}</td>
         <td>{{ chipcard.insertedOn | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
         <td>{{ chipcard.updated | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
-        <td>{{ chipcard.lastOvfietsSync | amDateFormat:'DD-MM-YYYY HH:mm' }}</td>
     </tr>
     </tbody>
 </table>

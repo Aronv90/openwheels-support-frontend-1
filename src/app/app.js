@@ -27,6 +27,8 @@ window.plogl = function(label) {
 
 angular.module('openwheels', [
 
+  'openwheels.EMAILER_TEMPLATES',
+
   'ui.router',
   'ui.bootstrap',
   'ngMaterial',
@@ -64,6 +66,7 @@ angular.module('openwheels', [
   'front.paths',
   'alertService',
   'dialogService',
+  'openwheels.actions',
 
   // custom directives
   'form.validation',
@@ -89,6 +92,7 @@ angular.module('openwheels', [
   'filters.dirty',
   'filters.conversion',
   'filters.util',
+  'filters.marked',
 
   'openwheels.root',
   'openwheels.trip',
@@ -110,7 +114,10 @@ angular.module('openwheels', [
   'settingsService',
   'transactionService',
   'DutchZipcodeService',
-  'openwheels.querytool'
+  'openwheels.querytool',
+
+  'openwheels.components',
+  'openwheels.automation'
 ])
 
 .config(function myAppConfig($stateProvider, $urlRouterProvider) {
@@ -192,8 +199,32 @@ angular.module('openwheels', [
 })
 
 .constant('API_DATE_FORMAT', 'YYYY-MM-DD HH:mm')
+
+.directive('spinner', function () {
+  return {
+    restrict: 'E',
+    //replace: true,
+    template: '<md-progress-circular md-mode="indeterminate" md-diameter="60" class="mw-primary md-hue-2" style="margin: 0 auto;"></md-progress-circular>',
+  };
+})
+
+.directive('inlineSpinner', function () {
+  return {
+    restrict: 'E',
+    //replace: true,
+    template: '<span style="display: inline-block; margin: 0 2px; vertical-align: middle; width: 28px; height: 28px; position: relative;"><md-progress-circular md-mode="indeterminate" md-diameter="28px" class="mw-primary md-hue-2" style="position: absolute; top: -6px; left: -6px;"></md-progress-circular></span>',
+  };
+})
+
 .run(function(oAuth2MessageListener, stateAuthorizer){})
-.run(function ($window, $state, $stateParams, $rootScope, alertService) {
+
+.run(function ($rootScope, EMAILER_TEMPLATES, emailer) {
+  $rootScope.datacontext = {};
+  $rootScope.EMAILER_TEMPLATES = EMAILER_TEMPLATES;
+  $rootScope.emailer = emailer;
+})
+
+.run(function ($window, $state, $stateParams, $rootScope, emailer, alertService) {
 
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
@@ -208,6 +239,9 @@ angular.module('openwheels', [
     $rootScope.previousState = fromState;
     $rootScope.previousStateParams = fromParams;
     alertService.loaded();
+
+    $rootScope.showNavigationOnDashboard = $state.current.name === 'ow-dashboard' && toParams.showNavigation === 'false' ? true : false;
+
   });
 
   // loading route message

@@ -15,7 +15,10 @@ angular.module('openwheels.resource.show', [
   'openwheels.resource.show.tripdata',
   'openwheels.resource.show.myfmschipcard',
   'openwheels.resource.show.myfmslog',
-  'openwheels.resource.show.remarklog'
+  'openwheels.resource.show.remarklog',
+  'openwheels.resource.show.device-event-log',
+  'openwheels.resource.show.device-status-control-log',
+  'openwheels.resource.show.device-card-request-log'
 ])
 
 .controller('ResourceShowController', function ($scope, $stateParams, $uibModal, $log, alertService, dialogService, resourceService,
@@ -23,10 +26,12 @@ angular.module('openwheels.resource.show', [
 
   $scope.hide = false;
   $scope.toggleHide = function() {
-    if (!$scope.hide) {
-      $scope.hide = true;
-    } else {
-      $scope.hide = false;
+    if ($scope.user.identity.id !== 583599) {
+      if (!$scope.hide) {
+        $scope.hide = true;
+      } else {
+        $scope.hide = false;
+      }
     }
   };
 

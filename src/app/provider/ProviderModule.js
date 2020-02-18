@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('openwheels.provider', [
-	'openwheels.provider.list'
+	'openwheels.provider.list',
+	'openwheels.provider.create'
 ])
 
 	.config(function ($stateProvider) {
@@ -17,6 +18,12 @@ angular.module('openwheels.provider', [
 					template: '<div ui-view></div>'
 				}
 			},
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
+			},
 			role: 'ROLE_ADMIN'
 		});
 
@@ -30,6 +37,14 @@ angular.module('openwheels.provider', [
 				}]
 			}
 		});
+
+		$stateProvider.state('root.provider.create', {
+			url: '/create',
+			controller: 'ProviderCreateController',
+			templateUrl: 'provider/create/provider-create.tpl.html',
+			data: {pageTitle: 'Create Provider'}
+		});
+
 	})
 
 ;

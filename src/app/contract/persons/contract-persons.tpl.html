@@ -10,7 +10,7 @@
     <div class="modal-body" ng-init="loadInviteRequests()">
         <form>
             <div class="input-group">
-                <input type="text" class="form-control input-sm typeahead" placeholder="Search person"
+                <input type="text" class="form-control input-sm typeahead" placeholder="Zoek persoon"
                        ng-model="newPerson"
                        uib-typeahead="person as ('<p>' + (person|fullname) + ' [' + person.id + ']<br><small>' + person.city + '<br>' + person.email + '</small></p>') for person in searchPersons($viewValue)"
                        typeahead-min-length="3"

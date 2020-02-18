@@ -1,0 +1,24 @@
+<div>
+	<div ng-if="imageValid">
+		<div style="overflow: hidden;">
+			<img
+				ng-style="{ transform: 'rotate('+rot+'deg)' }"
+				style="transition: all 200ms; cursor:pointer; max-width: 100%;"
+				ng-click="open(driverLicenseUrl)"
+				ng-src="{{ driverLicenseUrl }}"
+			/>
+		</div>
+		<div style="margin-top: 1em;text-align: center">
+			<button class="no-outline btn btn-link" ng-click="rot = rot - 90">
+				<i class="fa fa-undo"></i>
+			</button>
+			draai
+			<button style="outline: none" class="btn btn-link" ng-click="rot = rot + 90">
+				<i class="fa fa-repeat"></i>
+			</button>
+		</div>
+	</div>
+	<div ng-if="!imageValid">
+		<a href="{{ driverLicenseUrl }}" target=_blank>Download rijbewijsfoto</a>
+	</div>
+</div>

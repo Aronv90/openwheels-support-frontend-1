@@ -1,0 +1,79 @@
+<div class="row">
+
+    <div class="col-md-2">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Filter</h3>
+                <form class="form">
+                    <div class="form-group">
+                        <label for="start">Start</label>
+                        <input type="text" id="start" placeholder="pick a date" class="form-control pickadate-input"
+                               pickadate="dateConfig" ng-model="obj.start" ng-change="dateChange()">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="start">End</label>
+                        <input type="text" id="end" placeholder="pick a date" class="form-control pickadate-input"
+                               pickadate="dateConfig" ng-model="obj.end" ng-change="dateChange()">
+                    </div>
+                    <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10">
+
+        <div class="panel panel-default card">
+            <div class="panel-body">
+              <button class="btn btn-sm btn-primary" ng-click="getCurrentLocation()">Huidige locatie</button>
+              
+              <span style="margin-left: 1em" ng-if="currentLocation.latitude && !gettingLocation">
+                <a ng-href="https://www.google.nl/maps/search/{{currentLocation.latitude}},%20{{currentLocation.longitude}}" target="_blank">{{currentLocation.latitude}}, {{currentLocation.longitude}}</a>
+                <small style="margin-left: 1em">{{ currentLocation.dateTime | amDateFormat: 'DD-MM-YYYY | HH:mm' }}</small>
+              </span>
+
+              <span style="margin-left: 1em" ng-if="locationError && !gettingLocation">
+                <strong>{{ locationError }}</strong>
+              </span>
+
+              <span style="margin-left: 1em" ng-if="!locationError && gettingLocation">
+                Laden...
+              </span>
+            </div>
+        </div>
+
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Event Logs</h3>
+                <div ng-if="eventLog.length > 0">
+                    <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
+                    <p class="btn"> {{curPage}} </p>
+                    <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt;</button>
+
+                </div>
+
+                <div ng-if="eventLog.length === 0" class="alert alert-danger">Geen events gevonden.</div>
+                <table class="table" ng-if="eventLog.length > 0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Device</th>
+                        <th>Name</th>
+                        <th>Created</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="log in eventLog">
+                        <td>{{ log.id }}</td>
+                        <td>{{ log.device_id }}</td>
+                        <td>{{ log.name }}</td>
+                        <td>{{ log.createdAt }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>

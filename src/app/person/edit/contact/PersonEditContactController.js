@@ -23,11 +23,11 @@ angular.module('openwheels.person.edit.data.contact', [])
         angular.extend(person, returnedPerson);
         masterPerson = returnedPerson;
         $scope.person.emailValid = returnedPerson.emailVerified;
-        alertService.add('success', 'Person Modified.', 2000);
+        alertService.add('success', 'Persoon gewijzigd.', 2000);
         $scope.cancel();
       },
       function (error) {
-        alertService.add('danger', 'Edit Person failed: ' + error.message, 5000);
+        alertService.add('danger', 'Wijzigen van persoon mislukt: ' + error.message, 5000);
         $scope.cancel();
       });
 

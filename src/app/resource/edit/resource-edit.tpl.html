@@ -2,44 +2,28 @@
 <div class="row">
   <div class="col-md-6">
     <div class="form-group">
-      <label for="owner">Owner</label>
-      <input type="text" find-person id="owner" model="resource.owner" />
+      <label for="owner">Eigenaar</label>
+      <input type="text" find-person id="owner" model="resource.owner" placeholder="Zoek persoon" />
     </div>
   </div>
   <div class="col-md-6">
     <div class="form-group">
-      <label for="contactPerson">Contact Person</label>
-      <input type="text" find-person id="contactPerson" model="resource.contactPerson" />
+      <label for="contactPerson">Beheerder</label>
+      <input type="text" find-person id="contactPerson" model="resource.contactPerson" placeholder="Zoek persoon" />
     </div>
   </div>
 </div>
-<div class="row">
+<div class="row" ng-if="!$root.isInterswitch">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="resourceType">Resource type</label>
-            <select id="resourceType" class="form-control" ng-model="resource.resourceType"
-                    ng-options="o.value as o.label for o in resourceTypeOptions"></select>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="type">Type</label>
-            <select id="type" class="form-control" ng-model="resource.type"
-                    ng-options="o.value as o.label for o in typeOptions"></select>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="providerId">Provider ID</label>
+            <label for="providerId">Provider</label>
             <input type="number" id="provider.id" class="form-control" ng-model="resource.provider.id"
                     name="providerId"></select>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="fleet">Fleet</label>
+            <label for="fleet">Vloot</label>
             <select id="fleet" class="form-control" ng-model="resource.fleet.id"
                     ng-options="o.id as o.name for o in fleetOptions"></select>
         </div>
@@ -48,16 +32,16 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="registrationPlate">Registration plate</label>
+            <label for="registrationPlate">Kenteken</label>
             <input type="text" id="registrationPlate" name="registrationPlate" class="form-control"
-                   ng-model="resource.registrationPlate" required placeholder="registration plate">
+                   ng-model="resource.registrationPlate" required placeholder="Kenteken" ng-disbaled>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="alias">Alias</label>
+            <label for="alias">Naam</label>
             <input type="text" id="alias" name="alias" class="form-control" ng-model="resource.alias" required
-                   placeholder="resource alias">
+                   placeholder="Naam van de auto">
         </div>
     </div>
 </div>
@@ -65,9 +49,9 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="brand">Brand</label>
+            <label for="brand">Merk</label>
             <input type="text" id="brand" name="brand" class="form-control" ng-model="resource.brand"
-                   placeholder="brand">
+                   placeholder="Merk">
         </div>
     </div>
     <div class="col-md-6">
@@ -82,14 +66,14 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="color">Color</label>
+            <label for="color">Kleur</label>
             <input type="text" id="color" name="color" class="form-control" ng-model="resource.color"
-                   placeholder="color">
+                   placeholder="Kleur">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="model">Number of Seats</label>
+            <label for="model">Aantal zitplaatsen</label>
             <select id="numberOfSeats" name="numberOfSeats" class="form-control" ng-model="resource.numberOfSeats"
             ng-options="option.value as option.label for option in numberOfSeatsOptions" ng-disabled="disabledFields.numberOfSeats">
             </select>
@@ -100,18 +84,18 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="fuelType">Fuel type</label>
+            <label for="fuelType">Brandstof</label>
             <select id="fuelType" class="form-control" ng-model="resource.fuelType"
                     ng-options="f.value as f.label for f in fuelTypeOptions">
-                <option value="">-- select fuel type --</option>
+                <option value="">-- selecteer brandstof --</option>
             </select>
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="fuelCardCode">Fuel card code</label>
-            <input type="text" id="fuelCardCode" name="fuelCardCode" class="form-control"
-                   ng-model="resource.fuelCardCode" placeholder="Fuel card code">
+            <label for="refuelTime">Laadtijd in minuten</label>
+            <input type="text" id="refuelTime" name="refuelTime" class="form-control"
+                   ng-model="resource.refuelTime" placeholder="Blokkade van de auto na een rit">
         </div>
     </div>
 </div>
@@ -119,14 +103,24 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="allowedArea">Allowed area</label>
+            <label for="fuelCardCode">Tankcode</label>
+            <input type="text" id="fuelCardCode" name="fuelCardCode" class="form-control"
+                   ng-model="resource.fuelCardCode" placeholder="Pincode van de tankpas">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            <label for="allowedArea">Toegestaan gebied</label>
             <select id="allowedArea" name="allowedArea" class="form-control" ng-model="resource.allowedArea" null-if-empty
                   ng-options="o.value as o.label for o in allowedAreaOptions">
             </select>
         </div>
     </div>
     <div class="col-md-6">
-            <label for="minimumAge">Minimum age</label>
+            <label for="minimumAge">Minimum leeftijd bestuurder</label>
             <select id="minumumAge" name="minimumAge" class="form-control" ng-model="resource.minimumAge" null-if-empty
               ng-options="o.value as o.label for o in minimumAgeOptions">
             </select>
@@ -136,31 +130,31 @@
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="locktype">Locktype</label>
+            <label for="locktype">Openen met</label>
             <select id="locktype" class="form-control" ng-model="resource.locktype"
                     ng-options="o.value as o.label for o in locktypeOptions"></select>
         </div>
     </div>
     <div class="col-md-6">
-            <label for="bouwjaar">Time of origin</label>
+            <label for="bouwjaar">Bouwjaar</label>
             <input type="number" id="bouwjaar" name="bouwjaar" class="form-control"
-                   ng-model="resource.bouwjaar" placeholder="Time of origin">
+                   ng-model="resource.bouwjaar" placeholder="Bouwjaar">
     </div>
 </div>
 
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="apkUntil">APK until</label>
+            <label for="apkUntil">APK-datum</label>
             <input type="text" id="apkUntil" name="apkUntil" class="form-control"
-                   ng-model="resource.apkUntil" placeholder="Current APK date">
+                   ng-model="resource.apkUntil" placeholder="Huidige APK-datum">
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            <label for="nextMaintenance">Next maintenance</label>
+            <label for="nextMaintenance">Volgende onderhoudsbeurt</label>
             <input type="text" id="nextMaintenance" name="nextMaintenance" class="form-control"
-                   ng-model="resource.nextMaintenance" placeholder="Next maintenance date">
+                   ng-model="resource.nextMaintenance" placeholder="Datum van de volgende onderhoudsbeurt">
         </div>
     </div>
 </div>
@@ -169,10 +163,17 @@
   <div class="col-md-6">
     <div class="form-group">
       <label for="owner">Garage</label>
-        <input type="text" id="garage" class="form-control input-sm typeahead" placeholder="Search garage"
+        <input type="text" id="garage" class="form-control input-sm typeahead" placeholder="Zoek garage"
            ng-model="resource.garage"
            uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
            typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
+        <label for="resourceType">Type auto</label>
+        <select id="resourceType" class="form-control" ng-model="resource.resourceType"
+                ng-options="o.value as o.label for o in resourceTypeOptions"></select>
     </div>
   </div>
 </div>
@@ -180,84 +181,62 @@
 <hr>
 
 <div class="form-group">
-    <label for="advertisement">Advertisement</label>
+    <label for="advertisement">Advertentietekst</label>
     <textarea id="advertisement" rows="6" class="form-control" ng-model="resource.advertisement"
-              placeholder="Advertisement"></textarea>
+              placeholder="Advertentietekst"></textarea>
 </div>
 
 <div class="form-group">
-    <label for="notes">Usage manual</label>
+    <label for="notes">Handleiding (alleen in mails)</label>
     <textarea id="usageManual" rows="6" class="form-control" ng-model="resource.usageManual"
-              placeholder="Usage manual"></textarea>
+              placeholder="Handleiding"></textarea>
 </div>
 
 <div class="form-group">
-    <label for="remark">Remark</label>
-    <textarea id="remark" rows="6" class="form-control" ng-model="resource.remark" placeholder="Remark"></textarea>
+    <label for="remark">Opmerkingen</label>
+    <textarea id="remark" rows="6" class="form-control" ng-model="resource.remark" placeholder="Opmerkingen"></textarea>
 </div>
 
 <div class="form-group">
-    <label for="roadAssistance">Road assistance</label>
+    <label for="roadAssistance">Pechhulp</label>
     <textarea id="roadAssistance" rows="3" class="form-control" ng-model="resource.roadAssistance"
-              placeholder="Road assistance"></textarea>
+              placeholder="Pechhulp"></textarea>
 </div>
 
 
 <hr>
 
-<h3>Insurance</h3>
+<h3>Verzekering</h3>
 
 <div class="row">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="insurancePolicy">Insurance policy</label>
+            <label for="insurancePolicy">Verzekeringsoptie</label>
             <select id="insurancePolicy" class="form-control" ng-model="resource.insurancePolicy"
                     ng-options="i.value as i.label for i in insurancePolicyOptions">
-                <option value="">-- select policy type --</option>
+                <option value="">-- selecteer verzekeringsoptie --</option>
             </select>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="deductible">Deductible</label>
-
-            <div class="input-group">
-                <span class="input-group-addon">€</span>
-                <input type="text" smart-float id="deductible" name="deductible" class="form-control"
-                       ng-model="resource.deductible" placeholder="Deductible (eigen risico)">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="deductibleCasco">Deductible casco</label>
-
-            <div class="input-group">
-                <span class="input-group-addon">€</span>
-                <input type="text" smart-float id="deductibleCasco" name="deductibleCasco" class="form-control"
-                       ng-model="resource.deductibleCasco" placeholder="Deductible (eigen risico) casco">
-            </div>
-        </div>
-    </div>
 </div>
 
 <div class="form-group">
-    <label for="insuranceRemarks">Insurance remarks</label>
+    <label for="insuranceRemarks">Verzekeringsopmerkingen</label>
     <textarea id="insuranceRemarks" rows="3" class="form-control" ng-model="resource.insuranceRemarks"
-              placeholder="Insurance remarks"></textarea>
+              placeholder="Verzekeringsopmerkingen"></textarea>
 </div>
 
 <div class="form-group">
-    <label for="knownDamage">Known damage</label>
+    <label for="knownDamage">Bekende schade</label>
     <textarea id="knownDamage" rows="3" class="form-control" ng-model="resource.knownDamage"
-              placeholder="Known damage"></textarea>
+              placeholder="Schade"></textarea>
 </div>
 
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="model">Insurance policy number</label>
-            <input type="text" id="insuranceNumber" name="insuranceNumber" class="form-control" ng-model="resource.insuranceNumber" placeholder="Insurance policy number">
+            <label for="model">Polisnummer van de verzekering</label>
+            <input type="text" id="insuranceNumber" name="insuranceNumber" class="form-control" ng-model="resource.insuranceNumber" placeholder="Polisnummer">
         </div>
     </div>
 </div>
@@ -265,20 +244,13 @@
 
 <hr>
 
-<h3>Availability</h3>
+<h3>Beschikbaarheid</h3>
 
 <div class="row">
     <div class="col-md-4">
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="resource.isActive"> Active
-            </label>
-        </div>
-
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" ng-model="resource.multiple"> Multiple
-                <small>(rental loket / OV-fietsenstalling)</small>
+                <input type="checkbox" ng-model="resource.isActive"> Actief
             </label>
         </div>
     </div>
@@ -286,12 +258,12 @@
     <div class="col-md-4">
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="resource.isAvailableFriends"> Available for friends
+                <input type="checkbox" ng-model="resource.isAvailableFriends"> Beschikbaar voor vrienden
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="resource.isAvailableOthers"> Available for others
+                <input type="checkbox" ng-model="resource.isAvailableOthers"> Beschikbaar voor anderen
             </label>
         </div>
     </div>
@@ -299,14 +271,12 @@
     <div class="col-md-4">
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="resource.isConfirmationRequiredFriends"> Confirmation required for
-                friends
+                <input type="checkbox" ng-model="resource.isConfirmationRequiredFriends"> Bevestiging nodig voor vrienden
             </label>
         </div>
         <div class="checkbox">
             <label>
-                <input type="checkbox" ng-model="resource.isConfirmationRequiredOthers"> Confirmation required for
-                others
+                <input type="checkbox" ng-model="resource.isConfirmationRequiredOthers"> Bevestiging nodig voor anderen
             </label>
         </div>
     </div>
@@ -314,12 +284,12 @@
 
 <hr>
 
-<h3>Price</h3>
+<h3>Huurprijs</h3>
 
 <div class="row">
     <div class="col-md-3">
         <div class="form-group">
-            <label for="dayRateTotal">Price per day</label>
+            <label for="dayRateTotal">Prijs per dag</label>
 
             <div class="input-group">
                 <span class="input-group-addon">€</span>
@@ -330,7 +300,7 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label for="hourRate">Price per hour</label>
+            <label for="hourRate">Prijs per uur</label>
 
             <div class="input-group">
                 <span class="input-group-addon">€</span>
@@ -341,28 +311,28 @@
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label for="kilometerRate">Price per km</label>
+            <label for="kilometerRate">Prijs per kilometer</label>
 
             <div class="input-group">
                 <span class="input-group-addon">€</span>
                 <input type="text" smart-float id="kilometerRate" name="kilometerRate" class="form-control"
                        ng-model="resource.kilometerRate" required placeholder="per km">
                 <span class="input-group-addon">
-                  <input type="checkbox" ng-model="resource.kmFree"> 100km Free
+                  <input type="checkbox" ng-model="resource.kmFree"> 100km vrij
                 </span>
             </div>
         </div>
     </div>
     <div class="col-md-3">
         <div class="form-group">
-            <label for="fuelPerKilometer">Fuel price per km</label>
+            <label for="fuelPerKilometer">Brandstofprijs per kilometer</label>
 
             <div class="input-group">
                 <span class="input-group-addon">€</span>
                 <input type="text" ng-disabled="resource.refuelByRenter" smart-float id="fuelPerKilometer" name="fuelPerKilometer" class="form-control"
                        ng-model="resource.fuelPerKilometer" required placeholder="per km">
                 <span class="input-group-addon">
-                  <input type="checkbox" ng-model="resource.refuelByRenter"> Refuel by renter
+                  <input type="checkbox" ng-model="resource.refuelByRenter"> Zelf tanken
                 </span>
             </div>
         </div>
@@ -371,7 +341,7 @@
 
 <hr>
 
-<h3>Resource properties</h3>
+<h3>Accessoires</h3>
 
 <div class="form-group">
     <div class="checkbox" ng-repeat="option in resourcePropertyOptions">
@@ -383,43 +353,72 @@
 
 <hr>
 
-<h3>Location</h3>
-
-<p>{{ resource.location }} {{ resource.streetNumber }}, {{ resource.city }}</p>
+<h3>Locatie van de auto</h3>
 
 <div class="form-group">
-    <label for="location">Search new address</label>
-
-    <div class="input-group">
-        <span class="input-group-addon"><i class="fa fa-search"></i></span>
-        <input type="text" id="location" name="location" class="form-control" ng-model="searchPlace.name"
-               placeholder="Full address with streetnumber" ng-autocomplete details="searchPlace.details"
-               options="completePlacesOptions">
+    <label for="zipcode">Zoek een locatie op met postcode & huisnummer</label>
+    <div class="row">
+      <div class="col-xs-3">
+        <input type="text" id="zipcode" class="form-control" ng-model="zipcode" placeholder="Postcode">
+      </div>
+      <div class="col-xs-3">
+        <input type="text" id="streetNumber" class="form-control" ng-model="streetNumber" placeholder="Huisnummer">
+      </div>
+      <div class="col-xs-2">
+        <button class="btn btn-primary" ng-click="lookupZip()" ng-disabled="isZipLookupBusy">Adres opzoeken</button>
+      </div>
+      <div class="col-xs-2">
+        <a class="btn btn-default" ng-href="https://www.google.nl/maps/search/{{resource.latitude}},%20{{resource.longitude}}" target="_blank" ng-disabled="isZipLookupBusy">
+            Toop op kaart
+        </a>
+      </div>
     </div>
-
 </div>
 
-<div class="google-map"
-     center="map.center"
-     zoom="map.zoom"
-     draggable="true"
-     dragging="map.dragging"
-     bounds="map.bounds"
-     events="map.events"
-     options="map.options">
-    <!-- prefedined markers -->
-    <marker coords="map.resourceMarker"></marker>
-    <!-- marker for clicked position -->
-    <!-- can not put google.map.animations.BOUNCE , since it is not initiaized yet -->
-    <div ng-init="opts = {animation:1}">
-        <marker coords="map.clickedMarker" options="opts" click="map.clickedMarker.onClicked"></marker>
+<div ng-if="lookupError" class="text-danger">
+    <p>Foutmelding: {{lookupError}}</p>
+</div>
+
+<hr>
+
+<div class="form-group">
+    <label for="streetName">Straatnaam</label>
+    <div class="row">
+      <div class="col-xs-12 col-md-3">
+        <input type="text" id="location" class="form-control" ng-model="resource.location" placeholder="Straatnaam">
+      </div>
+      <div class="col-xs-12 col-md-3">
+        <input type="text" id="resourceStreetNumber" class="form-control" ng-model="resource.streetNumber" placeholder="Huisnummer">
+      </div>
+</div>
+
+<br>
+
+<div class="form-group">
+    <label for="city">Stad</label>
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <input type="text" id="city" class="form-control" ng-model="resource.city" placeholder="Stad">
+      </div>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="latitude">Latitude & longtitude</label>
+    <div class="row">
+      <div class="col-xs-6 col-md-3">
+        <input type="text" id="latitude" class="form-control" ng-model="resource.latitude" placeholder="Latitude">
+      </div>
+      <div class="col-xs-6 col-md-3">
+        <input type="text" id="longitude" class="form-control" ng-model="resource.longitude" placeholder="Longitude">
+      </div>
     </div>
 </div>
 
 <hr>
 
 <div class="form-group">
-    <button ng-click="cancel()" ng-disabled="editResourceForm.$pristine" class="btn">Cancel</button>
-    <button ng-click="save()" ng-disabled="editResourceForm.$pristine" class="btn btn-primary">Save</button>
+    <button ng-click="cancel()" ng-disabled="editResourceForm.$pristine" class="btn">Annuleer</button>
+    <button ng-click="save()" ng-disabled="editResourceForm.$pristine" class="btn btn-primary">Opslaan</button>
 </div>
 </form>

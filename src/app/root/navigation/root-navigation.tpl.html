@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-show="!showNavigationOnDashboard">
   <!-- Brand and toggle get grouped for better mobile display -->
   <div class="navbar-header">
     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
@@ -22,15 +22,20 @@
           ng-class="{ dropdown: true, active: $state.includes('root.person') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Persoon <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li show-if-user-has-role="ROLE_ADMIN"><a ui-sref="root.person.create">Persoon toevoegen</a></li>
-          <li><a ui-sref="root.person.search">Uitgebreid zoeken</a></li>
-          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.blacklist') }"><a
+          <li show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
+            <a ui-sref="root.person.create">Persoon toevoegen</a>
+          </li>
+          <li>
+            <a ui-sref="root.person.search">Uitgebreid zoeken</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.person.blacklist') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
+            <a
             ui-sref="root.person.blacklist">Zwarte lijst</a>
           </li>
         </ul>
       </li>
     </ul>
-    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
+    <ul show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
       <li ng-class="{ dropdown: true, active: $state.includes('root.resource') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Auto <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -69,17 +74,17 @@
           <li ng-class="{ active: $state.includes('root.trip.list.current') }">
             <a ui-sref="root.trip.list.current">Lopende ritten</a>
           </li>
-          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.trip.list.notactive') }">
+          <li ng-class="{ active: $state.includes('root.trip.list.notactive') }">
             <a ui-sref="root.trip.list.notactive">Nog niet actieve ritten</a>
           </li>
           <li class="divider"></li>
-          <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }" show-if-user-has-role="ROLE_ADMIN">
-            <a ui-sref="root.trip.list.strange-kms">Vreende kilometerstanden</a>
+          <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
+            <a ui-sref="root.trip.list.strange-kms">Vreemde kilometerstanden</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.remarked') }" show-if-user-has-role="ROLE_ADMIN">
+          <li ng-class="{ active: $state.includes('root.trip.list.remarked') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
             <a ui-sref="root.trip.list.remarked">Opmerkingen</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }" show-if-user-has-role="ROLE_ADMIN">
+          <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
             <a ui-sref="root.trip.list.returned-late">Te laat teruggebracht</a>
           </li>
         </ul>
@@ -120,7 +125,7 @@
     </ul> -->
 
     <!-- INVOICE MODULE VERSION 2 -->
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="user.identity.id !== 542476">
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
       <li id="invoiceroot" ng-class="{ dropdown: true, active: $state.includes('root.invoice2') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Facturen <b class="caret"></b></a>
         <ul class="dropdown-menu">
@@ -139,9 +144,12 @@
           <li ng-class="{ active: $state.includes('root.subscription.list') }">
             <a ui-sref="root.subscription.list">Abonnementen</a>
           </li>
+          <li ng-class="{ active: $state.includes('root.globaldiscount.create') }">
+            <a ui-sref="root.globaldiscount.create">Kortingscode toevoegen</a>
+          </li>
           <li class="divider"></li>
           <li ng-class="{ active: $state.includes('root.invoice2.invoice.create') }">
-            <a ui-sref="root.invoice2.invoice.create">Maak factuurregel</a>
+            <a ui-sref="root.invoice2.invoice.create">Factuurregel toevoegen</a>
           </li>
         </ul>
       </li>
@@ -171,33 +179,54 @@
       </li>
     </ul> -->
 
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
       <li class="dropdown" ng-class="{ active: $state.includes('root.checklist') }">
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Controlelijsten <b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('ow-dashboard') }">
+          <li ng-class="{ active: $state.includes('ow-dashboard') }">
             <a ui-sref="ow-dashboard">Dashboard</a>
           </li>
-          <li ui-sref-active="active" ng-repeat="item in checklists"> 
+          <li ui-sref-active="active" ng-repeat="item in checklists | filter:{onDashboard:false}"> 
             <a ui-sref="root.checklist.generic({queryid: item.id})">{{item.title}}</a>
           </li>
         </ul>
       </li>
     </ul>
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
+
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
       <li ng-class="{ active: $state.includes('root.querytool') }">
         <a ui-sref="root.querytool">Database</a>
       </li>
     </ul>
 
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav">
-      <li ng-class="{ dropdown: true, active: $state.includes('root.globaldiscount') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Kortingscode<b class="caret"></b></a>
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
+      <li ng-class="{ dropdown: true, active: $state.includes('root.provider') }">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown">Provider<b class="caret"></b></a>
         <ul class="dropdown-menu">
-          <li><a ui-sref="root.globaldiscount.create">Kortingscode toevoegen</a></li>
+          <li ng-class="{ active: $state.includes('root.provider.create') }">
+            <a ui-sref="root.provider.create">Provider toevoegen</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.provider.list') }">
+            <a ui-sref="root.provider.list">Providerlijst</a>
+          </li>
         </ul>
       </li>
     </ul>
+
+    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
+      <li class="dropdown">
+        <a href="" class="dropdown-toggle" data-toggle="dropdown"><md-icon>email</md-icon><b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <!--<li>
+            <a ng-click="$root.emailer.open()">(lege email)</a>
+          </li>-->
+          <li ng-repeat="template in $root.EMAILER_TEMPLATES">
+            <a ng-click="$root.emailer.open({ templateKey: template.key })">{{ template.key }}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Zoek persoon"
@@ -225,6 +254,7 @@
         </span>
       </div>
     </form>
+
     <form show-if-user-has-role="ROLE_PROVIDER_ADMIN" class="navbar-form navbar-left" role="search">
       <div class="form-group">
         <input type="text" class="form-control input-sm typeahead" placeholder="Zoek auto"
@@ -253,7 +283,7 @@
       </div>
     </form>
 
-    <div show-if-user-has-role="ROLE_ADMIN" style="float:left;line-height:40px;">
+    <div show-if-user-has-role="ROLE_ADMIN" style="float:left;line-height:40px;" ng-if="!$root.isInterswitch">
       <div style="float:left;padding-right:8px;line-height:38px;">Limiteer:</div>
         <input type="checkbox" ng-model="$root.limit" checked="true">
     </div>
@@ -263,6 +293,7 @@
         <a ng-click="logIn()">Inloggen</a>
       </li>
     </ul>
+
     <ul class="nav navbar-nav">
       <li class="dropdown">
         <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i> <b class="caret"></b></a>

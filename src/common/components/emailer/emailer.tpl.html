@@ -1,0 +1,118 @@
+<md-dialog flex="60" flex-sm="90" style="min-height: 80%;">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>
+        Email versturen
+        <span ng-if="draft && draft.changed" style="
+          display: inline-block;
+          margin-left: .4rem;
+          width: 1.3rem;
+          height: 1.3rem;
+          background: white;
+          border-radius: 1rem;
+        "></span>
+      </h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content style="flex-grow: 1;">
+    <div layout="column" layout-margin class="md-dialog-content">
+      <div ng-if="selectedTabIndex == 0">
+        <p>
+          MyWheels medewerker:
+          <select
+            name="status"
+            ng-model="draft.medewerker"
+            ng-options="medewerker for medewerker in medewerkers track by medewerker"
+            ng-change="onChange()"
+          ></select>
+        </p>
+
+        <p id="template_selector">
+          <md-autocomplete
+            md-no-cache="true"
+            md-search-text="templateSelector.searchText"
+            md-selected-item-change="selectTemplate(item)"
+            md-items="item in templateSelector.knownTemplates"
+            md-item-text="item.key"
+            md-min-length="0"
+            placeholder="Template"
+          >
+            <md-item-template>
+              <span md-highlight-text="templateSelector.searchText" md-highlight-flags="^i">{{item.key}}</span>
+            </md-item-template>
+            <md-not-found>
+              No states matching "{{templateSelector.searchText}}" were found.
+              <a ng-click="templateSelector.newState(templateSelector.searchText)">Create a new one!</a>
+            </md-not-found>
+          </md-autocomplete>
+        </p>
+
+        <div style="margin-top: 2rem;">
+          <div style="margin-bottom: 3rem;">
+            <label style="
+              color: #888;
+              font-size: 11px;
+            ">Email</label>
+            <input find-person required model="draft.recipient" type="text" />
+            <div style="padding-top:10px;"></div>
+            <a href="" ng-if="draft.contactPerson" ng-click="setContactPerson()">Selecteer beheerder {{draft.contactPerson | fullname}}</a>
+          </div>
+
+          <md-input-container class="md-block">
+            <label>Onderwerp</label>
+            <input ng-model="draft.subject" ng-change="onChange()" />
+          </md-input-container>
+
+          <div layout-gt-sm="row" style="margin-top: -2rem;">
+            <md-input-container class="md-block" flex-gt-sm ng-repeat="key in remainingInterpolations">
+              <label>{{ '{\{' }} {{ key }} {{ '}\}' }}</label>
+              <input ng-model="interpolations[key]" ng-change="onChange()" />
+            </md-input-container>
+          </div>
+
+          <md-input-container class="md-block">
+            <label>Bericht</label>
+            <textarea ng-model="draft.content" rows="5" ng-change="onChange()" style="
+              font-family: monospace;
+              font-size: 90%;
+              line-height: 120%;
+              padding-bottom: 10px;
+            "></textarea>
+          </md-input-container>
+        </div>
+      </div>
+
+      <div ng-if="selectedTabIndex == 1">
+        <p><em style="color: #999; text-transform: uppercase;">Ontvanger</em></p>
+        <p>{{ draft.recipient | fullname }} [{{ draft.recipient.id }}]</p>
+        <p>{{ draft.recipient.email }}</p>
+
+        <p style="margin-top: 2rem;"><em style="color: #999; text-transform: uppercase;">Onderwerp</em></p>
+        <p><strong>{{ draft.subject }}</strong></p>
+
+        <p style="margin-top: 2rem;"><em style="color: #999; text-transform: uppercase;">Bericht</em></p>
+        <div ng-bind-html="interpolate(draft.content) | marked"></div>
+
+        <md-input-container class="md-block" style="margin-top: 4rem;">
+          <label>Opmerking plaatsen bij {{ draft.recipient | fullname }} [{{ draft.recipient.id }}]</label>
+          <textarea ng-model="draft.note" rows="1"></textarea>
+        </md-input-container>
+      </div>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="selectTab(0)" ng-if="selectedTabIndex === 1">
+      Terug
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="next()" ng-disabled="!complete">
+      {{ selectedTabIndex === 0 ? 'Voorbeeld' : 'Versturen' }}
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

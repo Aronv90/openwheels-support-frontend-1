@@ -22,7 +22,18 @@ module.exports = {
     * app's unit tests.
     */
     app_files: {
-        js: [ 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**/*.js' ],
+        js: [
+            'src/**/*Module.js', // modules first
+            'src/**/*.js',
+            '!src/**/*.spec.js',
+            '!src/assets/**/*.js'
+        ],
+        es6: [
+            'src/**/*Module.es6', // modules first
+            'src/**/*.es6',
+            '!src/**/*.spec.es6',
+            '!src/assets/**/*.es6'
+        ],
         jsunit: [ 'src/**/*.spec.js' ],
 
         atpl: [ 'src/app/**/*.tpl.html' ],
@@ -103,7 +114,10 @@ module.exports = {
             'vendor/angular-material/angular-material.js',
             'vendor/angular-animate/angular-animate.js',
             'vendor/angular-aria/angular-aria.min.js',
-            //'vendor/openwheels-ui-components/dist/js/openwheels-ui-components.min.js'
+            'vendor_custom/marked.js',
+            'vendor_custom/elasticlunr.min.js',
+            'vendor_custom/lunr.stemmer.support.js',
+            'vendor_custom/lunr.nl.js'
         ],
         css: [
           'vendor/ng-table/ng-table.css',

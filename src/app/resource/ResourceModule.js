@@ -22,6 +22,12 @@ angular.module('openwheels.resource', [
 				template: '<div ui-view></div>'
 			}
 		},
+		resolve: {
+			datacontext: ['$rootScope', function ($rootScope) {
+				$rootScope.datacontext = {};
+				return $rootScope.datacontext;
+			}]
+		},
 		role: 'ROLE_ADMIN'
 	});
 
@@ -32,7 +38,7 @@ angular.module('openwheels.resource', [
 		url: '/create',
 		controller: 'ResourceCreateController',
 		templateUrl: 'resource/create/resource-create.tpl.html',
-		data: {pageTitle: 'Create Resource'},
+		data: {pageTitle: 'Auto toevoegen'},
 		resolve: {
 			resource: function () {
 				return {latitude: 0, longtitude: 0, fleet: {}};
@@ -50,7 +56,7 @@ angular.module('openwheels.resource', [
 		url: '/creategarage',
 		controller: 'ResourceCreateGarageController',
 		templateUrl: 'resource/createGarage/resource-create-garage.tpl.html',
-		data: {pageTitle: 'Create Garage'}
+		data: {pageTitle: 'Garage toevoegen'}
 	});
 
 	/**
@@ -62,15 +68,22 @@ angular.module('openwheels.resource', [
 		url: '/:resourceId',
 		controller: 'ResourceShowController',
 		templateUrl: 'resource/show/resource-show.tpl.html',
-		data: {pageTitle: 'Resource'},
+		data: {pageTitle: 'Auto'},
 		resolve: {
 			resource: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 				var resourceId = $stateParams.resourceId;
 				return resourceService.get({
 					id: resourceId
 				});
+			}],
+			datacontext: ['$rootScope', 'resource', function ($rootScope, resource) {
+				$rootScope.datacontext = {
+					resource: resource,
+					person: resource.owner || resource.contactPerson
+				};
+				return $rootScope.datacontext;
 			}]
-		}
+		},
 	});
 
 
@@ -124,7 +137,7 @@ angular.module('openwheels.resource', [
 		url: '/trip?startDate&endDate',
 		controller: 'TripListController',
 		templateUrl: 'trip/list/trip-list.tpl.html',
-		data: {pageTitle: 'Resource Trip list'},
+		data: {pageTitle: 'Auto ritten lijst'},
 		resolve: {
 			bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
 				var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
@@ -150,7 +163,7 @@ angular.module('openwheels.resource', [
 		url: '/edit',
 		controller: 'ResourceEditController',
 		templateUrl: 'resource/edit/resource-edit.tpl.html',
-		data: {pageTitle: 'Resource edit'},
+		data: {pageTitle: 'Auto wijzigen'},
 		resolve: {
 			fleets: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 				return resourceService.allFleets();
@@ -166,7 +179,7 @@ angular.module('openwheels.resource', [
 		url: '/members',
 		controller: 'ResourceShowMembersController',
 		templateUrl: 'resource/show/members/resource-show-members.tpl.html',
-		data: {pageTitle: 'Resource members'},
+		data: {pageTitle: 'Auto vrienden'},
 		resolve: {
 			members: ['$stateParams', 'resourceService', 'resource', function ($stateParams, resourceService, resource) {
 				return resourceService.getMembers({
@@ -184,7 +197,7 @@ angular.module('openwheels.resource', [
 		url: '/discount?validFrom&validUntil&global&multiple',
 		controller: 'ResourceShowDiscountController',
 		templateUrl: 'resource/show/discount/resource-show-discount.tpl.html',
-		data: {pageTitle: 'Resource discount'},
+		data: {pageTitle: 'Auto kortingscodes'},
 		resolve: {
 			discounts: ['$stateParams', 'discountService', 'resource', 'perPage', function ($stateParams, discountService, resource, perPage) {
 				var params = {};
@@ -193,8 +206,8 @@ angular.module('openwheels.resource', [
 				if ($stateParams.validUntil) { params.validUntil = $stateParams.validUntil; }
 				params.multiple = $stateParams.multiple === 'true' || null;
 				params.global = $stateParams.global === 'true' || null;
-      			params.limit = perPage;
-      			params.offset = 0;
+						params.limit = perPage;
+						params.offset = 0;
 				return discountService.search(params);
 			}],
     		perPage: function(){ return 20;},
@@ -209,7 +222,7 @@ angular.module('openwheels.resource', [
     url: '/damage?finalized&max&offset',
     controller: 'ResourceShowDamageController',
     templateUrl: 'resource/show/damage/resource-show-damage.tpl.html',
-    data: {pageTitle: 'Resource damage'},
+    data: {pageTitle: 'Auto schade'},
     resolve: {
       damages: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
         var params = {};
@@ -231,7 +244,7 @@ angular.module('openwheels.resource', [
     url: '/reports?finalized&type&person&booking&max&offset',
     controller: 'ResourceShowReportsController',
     templateUrl: 'resource/show/reports/resource-show-reports.tpl.html',
-    data: {pageTitle: 'Resource reports'},
+    data: {pageTitle: 'Auto rapporten'},
     resolve: {
       reports: ['$stateParams', 'damageService', 'resource', 'perPage', function ($stateParams, damageService, resource, perPage) {
         var params = {};
@@ -258,7 +271,7 @@ angular.module('openwheels.resource', [
 		url: '/maintenance?finalized&max&offset',
 		controller: 'ResourceShowMaintenanceController',
 		templateUrl: 'resource/show/maintenance/resource-show-maintenance.tpl.html',
-		data: {pageTitle: 'Resource maintenance'},
+		data: {pageTitle: 'Auto onderhoud'},
 		resolve: {
 			maintenances: ['$stateParams', 'maintenanceService', 'resource', 'perPage', function ($stateParams, maintenanceService, resource, perPage) {
 				var params = {};
@@ -280,12 +293,7 @@ angular.module('openwheels.resource', [
 			url: '/boardcomputer',
 			controller: 'ResourceShowBoardcomputerController',
 			templateUrl: 'resource/show/boardcomputer/resource-show-boardcomputer.tpl.html',
-			data: {pageTitle: 'Resource boardcomputer'},
-			resolve: {
-				booking: function () {
-					return;
-				}
-			}
+			data: {pageTitle: 'Auto boordcomputer'}
 		});
 
     /**
@@ -332,39 +340,127 @@ angular.module('openwheels.resource', [
       }
     });
 
-		/**
-     * resource/:id/log?startDate&endDate
-     * @resolve {promise} resource
-     */
-		$stateProvider.state('root.resource.show.log', {
-			url: '/log?startDate&endDate',
-			controller: 'ResourceShowLogController',
-			templateUrl: 'resource/show/log/resource-show-log.tpl.html',
-			data: {pageTitle: 'Resource Boardcomputer Log'},
-			resolve: {
-				logs: ['$stateParams', 'resource', 'boardcomputerService', function ($stateParams, resource, boardcomputerService) {
-					var startDate = $stateParams.startDate ? moment($stateParams.startDate).format('YYYY-MM-DD HH:mm') : moment().startOf('day').format('YYYY-MM-DD HH:mm');
-					var endDate = $stateParams.endDate ? moment($stateParams.endDate).format('YYYY-MM-DD HH:mm') : moment().endOf('day').format('YYYY-MM-DD HH:mm');
+	/**
+	 * resource/:id/device/log/event
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.device-event-log', {
+		url: '/device/log/event',
+		controller: 'ResourceShowDeviceEventLogController',
+		templateUrl: 'resource/show/device/event/resource-show-device-event-log.tpl.html',
+		data: {pageTitle: 'Event Log'},
+		resolve: {
+			eventLog: ['$stateParams', 'resource', 'deviceLogService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceLogService, perPage, start, end) {
+				var params = {};
+				params.resource = $stateParams.resourceId;
+				params.limit = perPage;
+				params.start = start;
+				params.end = end;
+				params.offset = 0;
 
-					return boardcomputerService.log({
-						resource: resource.id, 
-						from: startDate, 
-						to: endDate
-					});
-				}]
+				return deviceLogService.eventLog(params);
+			}],
+			perPage: function () {
+				return 20;
+			},
+			start: function () {
+				return moment().format("YYYY-MM-DD 00:00");
+			},
+			end: function () {
+				return moment().format("YYYY-MM-DD 23:59");
 			}
-		});
+		}
+	});
 
-		/**
-		 * resource/:id/tripdata
-		 * @resolve {promise} resource
-		 */
-		$stateProvider.state('root.resource.show.tripdata', {
-			url: '/tripdata',
-			controller: 'ResourceShowTripdataController',
-			templateUrl: 'resource/show/tripdata/resource-show-tripdata.tpl.html',
-			data: {pageTitle: 'Resource Boardcomputer Tripdata'},
-			resolve: {
+	/**
+	 * resource/:id/device/log/status/control
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.device-status-control-log', {
+		url: '/device/log/status/control',
+		controller: 'ResourceShowDeviceStatusControlLogController',
+		templateUrl: 'resource/show/device/statuslog/resource-show-device-status-control-log.tpl.html',
+		data: {pageTitle: 'Open en sluit log'},
+		resolve: {
+			statusLog: ['$stateParams', 'resource', 'deviceLogService', 'perPage', 'start', 'end', function ($stateParams, resource, deviceLogService, perPage, start, end) {
+				var params = {};
+				params.resource = $stateParams.resourceId;
+				params.limit = perPage;
+				params.start = start;
+				params.end = end;
+				params.offset = 0;
+
+				return deviceLogService.statusControlLog(params);
+			}],
+			perPage: function () {
+				return 20;
+			},
+			start: function () {
+				return moment().format("YYYY-MM-DD 00:00");
+			},
+			end: function () {
+				return moment().format("YYYY-MM-DD 23:59");
+			}
+		}
+	});
+
+	/**
+	 * resource/:id/device/log/card-request
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.device-card-request-log', {
+		url: '/device/log/card-request',
+		controller: 'ResourceShowDeviceCardRequestLogController',
+		templateUrl: 'resource/show/device/cardrequest/resource-show-device-card-request-log.tpl.html',
+		data: {pageTitle: 'Chipkaart Log'},
+		resolve: {
+			cardRequestLog: ['$stateParams', 'resource', 'deviceLogService', 'perPage', function ($stateParams, resource, deviceLogService, perPage) {
+				var params = {};
+				params.resource = $stateParams.resourceId;
+				params.limit = perPage;
+				params.offset = 0;
+
+				return deviceLogService.cardRequest(params);
+			}],
+			perPage: function () {
+				return 20;
+			}
+		}
+	});
+
+	/**
+	 * * resource/:id/log?startDate&endDate
+	 * * @resolve {promise} resource
+	 * */
+	$stateProvider.state('root.resource.show.log', {
+		url: '/log?startDate&endDate',
+		controller: 'ResourceShowLogController',
+		templateUrl: 'resource/show/log/resource-show-log.tpl.html',
+		data: {pageTitle: 'Resource Boardcomputer Log'},
+		resolve: {
+			logs: ['$stateParams', 'resource', 'boardcomputerService', function ($stateParams, resource, boardcomputerService) {
+				var startDate = $stateParams.startDate ? moment($stateParams.startDate).format('YYYY-MM-DD HH:mm') : moment().startOf('day').format('YYYY-MM-DD HH:mm');
+				var endDate = $stateParams.endDate ? moment($stateParams.endDate).format('YYYY-MM-DD HH:mm') : moment().endOf('day').format('YYYY-MM-DD HH:mm');
+
+				return boardcomputerService.log({
+					resource: resource.id,
+					from: startDate,
+					to: endDate
+				});
+			}]
+		}
+	});
+
+	/**
+	 * resource/:id/tripdata
+	 * @resolve {promise} resource
+	 */
+	$stateProvider.state('root.resource.show.tripdata', {
+		url: '/tripdata',
+		controller: 'ResourceShowTripdataController',
+		templateUrl: 'resource/show/tripdata/resource-show-tripdata.tpl.html',
+		data: {pageTitle: 'Resource Boardcomputer Tripdata'},
+		resolve: {
 //				records: ['resource', 'boardcomputerService', function (resource, boardcomputerService) {
 //					return boardcomputerService.tripdata({
 //            resource: resource.id,
@@ -372,27 +468,27 @@ angular.module('openwheels.resource', [
 //            offset: 0
 //          });
 //				}]
-			}
-		});
+		}
+	});
 
-		$stateProvider.state('root.resource.show.revisions', {
-			url: '/revisions',
-			controller: 'ResourceShowRevisionsController',
-			templateUrl: 'resource/show/revisions/resource-show-revisions.tpl.html',
-			data: {pageTitle: 'Resource Revisions'},
-            resolve: {
-                revisionlog: ['$stateParams', 'resource', 'revisionsService', 'perPage', function ($stateParams, resource, revisionsService, perPage) {
-                    var params = {};
-                    params.id = $stateParams.resourceId;
-                    params.type = 'OpenWheels\\ApiBundle\\Entity\\Resource';
-                    params.limit = perPage;
-                    params.offset = 0;
+	$stateProvider.state('root.resource.show.revisions', {
+		url: '/revisions',
+		controller: 'ResourceShowRevisionsController',
+		templateUrl: 'resource/show/revisions/resource-show-revisions.tpl.html',
+		data: {pageTitle: 'Resource Revisions'},
+		resolve: {
+			revisionlog: ['$stateParams', 'resource', 'revisionsService', 'perPage', function ($stateParams, resource, revisionsService, perPage) {
+				var params = {};
+				params.id = $stateParams.resourceId;
+				params.type = 'OpenWheels\\ApiBundle\\Entity\\Resource';
+				params.limit = perPage;
+				params.offset = 0;
 
-                    return revisionsService.revisions(params);
-                }],
-                perPage: function(){ return 20;}
-            }
-		});
+				return revisionsService.revisions(params);
+			}],
+			perPage: function(){ return 20;}
+		}
+	});
 
     /**
      * resource/:id/remark

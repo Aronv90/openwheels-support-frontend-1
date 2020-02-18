@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <div class="col-sm-12" ng-show="!showNoticeOwner && booking.resource.owner.remark && booking.resource.owner.id !== 519038 && booking.resource.owner.id !== 282" style="padding-bottom: .5em;" hide>
+  <div class="col-sm-12" ng-show="!showNoticeOwner && booking.resource.owner.remark && booking.resource.owner.id !== 280 && booking.resource.owner.id !== 281 && booking.resource.owner.id !== 282" style="padding-bottom: .5em;" hide>
     <div class="notice notice--owner">
       <div ng-class="{'notice--single-line': !noticeOwner}" class="no-outline" ng-click="noticeOwner=!noticeOwner" >
         <strong>Opmerking bij eigenaar:</strong>
@@ -242,12 +242,12 @@
           <div class="col-xs-2" ng-if="requiredCredit.total < 0" style="padding-top: 5px;"><span class="box__sdata box__sdata--small">{{0.00 | currency}}</span></div>
           <div class="col-xs-2" ng-if="requiredCredit.total >= 0" style="padding-top: 5px;"><span class="box__sdata box__sdata--small">{{requiredCredit.total | currency}}</span></div>
         </div>
-        <div class="row box__row" ng-if="isApproved === false">
+        <div class="row box__row" ng-if="isApproved === false && accountName">
           <div class="col-xs-12">
             <div class="box__divider"></div>
           </div>
         </div>
-        <div class="row box__row" ng-if="isApproved === false">
+        <div class="row box__row" ng-if="isApproved === false && accountName">
           <div class="col-xs-12 text-danger" style="padding-left:20px;padding-right:20px;"><span title="Betaling van foutieve tenaamstelling?">
             De tenaamstelling van de rekeninghouder, {{ accountName }}, komt niet overeen met de achternaam, {{ booking.person.surname }}. Daarom kunnen we de betaling nog niet verwerken.
           </div>
@@ -574,7 +574,7 @@
   </div>
 </div><!--/ third row, declarations -->
 
-<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN">
+<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
   <div class="col-sm-12">
     <div class="box">
       <div class="box__title box__title--trip">
@@ -672,7 +672,7 @@
   </div>
 </div><!--/ fifth row, revisions -->
 
-<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN">
+<div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
   <div class="col-sm-12">
     <div class="box">
       <div class="box__title box__title--trip">
@@ -781,7 +781,7 @@
     </a>
     <li ng-click="changeEndTime()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verlengen</span></li>
     <li ng-click="changeBeginTime()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.beginBooking > now"><span tooltip-placement="right" uib-tooltip="Vervroeg deze rit">Vervroegen</span></li>
-    <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.endBooking > now && booking.beginBooking < now"><span tooltip-placement="right" uib-tooltip="Rit inkorten">Inkorten</span></li>
+    <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.endBooking > now && booking.beginBooking < now"><span tooltip-placement="right" uib-tooltip="Rit inkorten" style="padding-top:3px; line-height:1;">Inkorten / Beëindigen</span></li>
 
     <li ng-click="accept()" ng-if="booking.status === 'requested' || booking.beginRequested" ng-hide="hideMain" class="quickaction__item--trip">
       <span tooltip-placement="right" uib-tooltip="Rit accepteren">Accepteren</span>
@@ -806,6 +806,9 @@
       <span tooltip-placement="right" uib-tooltip="De huidige locatie ophalen">Locatie</span>
     </li>
 
+    <li ng-click="handleiding()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer && booking.resource.fuelType === 'elektrisch'">
+      <span tooltip-placement="right" uib-tooltip="Handleiding">Handleiding</span>
+    </li>
     <li ng-click="start()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
       <span tooltip-placement="right" uib-tooltip="Problemen met starten">Starten</span>
     </li>
@@ -822,6 +825,7 @@
     <li ng-click="resendBoardcomputer()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer === 'ccome'" ng-hide="hide">
       <span tooltip-placement="right" uib-tooltip="Stuur boeking naar boordcomputer">CCOME</span>
     </li>
+    <li ng-click="automateFine()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Boete verleggen">Boete verleggen</span></li>
     <li ng-click="refundBooking()" class="quickaction__item--trip" ng-hide="hide" ng-if="booking.approved=='OK'"><span tooltip-placement="right" uib-tooltip="Crediteer rit">Restitutie</span></li>
     <li ng-click="addDeclaration()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg tankbonnen toe">Tankbon</span></li>
     <li ng-click="addKm()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM-standen</span></li>

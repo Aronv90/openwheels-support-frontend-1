@@ -1,55 +1,48 @@
-<div class="pull-right">
-  <form name="form" class="form-inline">
-    <label>Create a voucher (€)</label>
-    <div class="form-group">
-      <input type="number" class="form-control" ng-model="voucherValue" required min="1" max="100" />
-    </div>
-    <button type="button" class="btn btn-default" ng-disabled="!voucherValue" ng-click="createVoucher(voucherValue)">
-      Ok
-    </button>
-  </form>
-</div>
+<h4>Rijtegoed</h4>
 
-<h4>Vouchers</h4>
+<dl class="dl-horizontal" style="max-width:275px;">
 
-<dl class="dl-horizontal">
-  <dt>Credit</dt>
-  <dd>{{ credit.error.message || (credit.value | currency) }}</dd>
+  <dt style="text-align:left;">Benodigd voor ritten:</dt>
+  <dd><span class="pull-right">{{ requiredValue.value.sub_total | currency }}</span></dd>
 
-  <dt>Debt</dt>
-  <dd>{{ debt.error.message || (debt.value | currency) }}</dd>
+  <dt style="text-align:left;">Openstaande facturen:</dt>
+  <dd><span class="pull-right">{{ requiredValue.value.debt | currency }}</span></dd>
 
-  <dt>Required value</dt>
-  <dd>
-    {{ requiredValue.error.message || (requiredValue.value.voucher | currency) }}
-    &nbsp;<a href="" ng-click="showRequiredValueDetails(requiredValue.value)">show details popup</a> |
-    <a href="" ng-click="recalculate()">recalculate</a>
-  </dd>
+  <dt style="text-align:left;">Af: huidige rijtegoed:</dt>
+  <dd><span class="pull-right">{{ requiredValue.value.credit | currency }}</span></dd>
 
-  <dt>Number of vouchers</dt>
-  <dd>{{ vouchers.length }}</dd>
+  <dt style="text-align:left;">Af: kredietlimiet:</dt>
+  <dd><span class="pull-right">{{ requiredValue.value.credit_limit | currency }}</span></dd>
+
+  <hr style="margin-top: 5px; margin-bottom: 5px;">
+
+  <dt style="text-align:left;">Te betalen:</dt>
+  <dd><span class="pull-right">{{ requiredValue.error.message || (requiredValue.value.voucher | currency) }}</span></dd>
+
+  <dt style="text-align:left;"></dt>
+  <dd><span class="pull-right"><a href="" ng-click="recalculate()">herberekenen</a></span></dd>
 </dl>
 
 <table class="table">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Created</th>
-      <th>Paid</th>
-      <th>Current value</th>
-      <th>Initial value</th>
-      <th>Payout</th>
+      <th>#</th>
+      <th>Aangemaakt op</th>
+      <th>Betaald op</th>
+      <th>Huidige waarde</th>
+      <th>Aanschafwaarde</th>
+      <th>Uitbetaald</th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="voucher in vouchers | orderBy: '-created'">
       <td>{{ voucher.id }}</td>
       <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
-      <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+      <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
       <td><b>{{ voucher.currency }} {{ voucher.value | number:2 }}</b></td>
       <td>{{ voucher.currency }} {{ voucher.initialValue | number:2 }}</td>
-      <td ng-if="!voucher.payoutRequest && voucher.value >= 0.1"><a href="" ng-click="payoutVoucher(voucher)">Payout</a></td>
-      <td ng-if="voucher.payoutRequest && !voucher.payoutRequest.paid" class="text-muted">Requested</td>
+      <td ng-if="!voucher.payoutRequest && voucher.value >= 0.1"><a href="" ng-click="payoutVoucher(voucher)">Uitbetalen</a></td>
+      <td ng-if="voucher.payoutRequest && !voucher.payoutRequest.paid" class="text-muted">Aangevraagd</td>
       <td ng-if="voucher.payoutRequest.paid" class="text-success text-center">
         <i class="fa fa-check"></i>
       </td>
@@ -70,28 +63,28 @@
 
 <div ng-if="disapprovedVouchers.length > 0">
   <br><br> 
-  <h4>Disapproved vouchers</h4>
+  <h4>Nog niet goedgekeurde betalingen</h4>
 
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Created</th>
-        <th>Paid</th>
-        <th>Current value</th>
-        <th>Initial value</th>
-        <th>Payout</th>
+      <th>#</th>
+      <th>Aangemaakt op</th>
+      <th>Betaald op</th>
+      <th>Huidige waarde</th>
+      <th>Aanschafwaarde</th>
+      <th>Uitbetaald</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="voucher in disapprovedVouchers | orderBy: '-created'">
         <td>{{ voucher.id }}</td>
         <td>{{ voucher.created | amDateFormat : 'DD-MM-YY' }}</td>
-        <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:MM' }}</td>
+        <td>{{ voucher.paid | amDateFormat : 'DD-MM-YY HH:mm' }}</td>
         <td><b>{{ voucher.currency }} {{ voucher.value | number:2 }}</b></td>
         <td>{{ voucher.currency }} {{ voucher.initialValue | number:2 }}</td>
-        <td ng-if="!voucher.payoutRequest && voucher.value >= 0.1"><a href="" ng-click="payoutVoucher(voucher)">Payout</a></td>
-        <td ng-if="voucher.payoutRequest && !voucher.payoutRequest.paid" class="text-muted">Requested</td>
+        <td ng-if="!voucher.payoutRequest && voucher.value >= 0.1"><a href="" ng-click="payoutVoucher(voucher)">Uitbetalen</a></td>
+        <td ng-if="voucher.payoutRequest && !voucher.payoutRequest.paid" class="text-muted">Aangevraagd</td>
         <td ng-if="voucher.payoutRequest.paid" class="text-success text-center">
           <i class="fa fa-check"></i>
         </td>

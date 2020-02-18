@@ -81,6 +81,12 @@ angular.module('openwheels.person', [
 						id: personId,
 						version: 2
 					});
+				}],
+				datacontext: ['$rootScope', 'person', function ($rootScope, person) {
+					$rootScope.datacontext = {
+					  person: person
+					};
+					return $rootScope.datacontext;
 				}]
 			}
 		});
@@ -95,9 +101,9 @@ angular.module('openwheels.person', [
 			templateUrl: 'person/show/summary/person-show-summary.tpl.html',
 			data: {pageTitle: 'Persoon samenvatting'},
 			resolve: {
-				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
-					var startDate = moment().subtract(1, 'd');
-					var endDate = moment().add(1, 'w');
+				bookings: ['$stateParams', '$rootScope', 'bookingService', function ($stateParams, $rootScope, bookingService) {
+					var startDate = moment().subtract(1, 'months');
+					var endDate = moment().add(1, 'months');
 
 					return bookingService.getBookingList({
 						person: $stateParams.personId,
@@ -107,6 +113,9 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						limit: 50
+					}).then(function (bookings) {
+						$rootScope.datacontext.bookings = bookings;
+						return bookings;
 					});
 				}]
 			}
@@ -123,7 +132,7 @@ angular.module('openwheels.person', [
 			templateUrl: 'trip/list/trip-list.tpl.html',
 			data: {pageTitle: 'Persoon ritten'},
 			resolve: {
-				bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
+				bookings: ['$stateParams', '$rootScope', 'bookingService', function ($stateParams, $rootScope, bookingService) {
 					var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
 					var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(1, 'months');
 
@@ -135,6 +144,9 @@ angular.module('openwheels.person', [
 							endDate: endDate.format('YYYY-MM-DD HH:mm')
 						},
 						limit: 50
+					}).then(function (bookings) {
+						$rootScope.datacontext.bookings = bookings;
+						return bookings;
 					});
 				}]
 			}
@@ -170,7 +182,7 @@ angular.module('openwheels.person', [
 			url: '/account',
 			controller: 'PersonEditAccountController',
 			templateUrl: 'person/edit/account/person-edit-account.tpl.html',
-			data: {pageTitle: 'Persoon IBAN-nummer'},
+			data: {pageTitle: 'IBAN-gegevens'},
 			resolve: {
 				account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
 					return accountService.get({
@@ -199,7 +211,7 @@ angular.module('openwheels.person', [
 			url: '/settings',
 			controller: 'PersonEditSettingsController',
 			templateUrl: 'person/edit/settings/person-edit-settings.tpl.html',
-			data: {pageTitle: 'Person data'}
+			data: {pageTitle: 'Persoonsgegevens'}
 		});
 
 		/**
@@ -210,7 +222,7 @@ angular.module('openwheels.person', [
 			url: '/phonenumbers',
 			controller: 'PersonEditPhonenumberListController',
 			templateUrl: 'person/edit/phonenumber/list/person-edit-phonenumber-list.tpl.html',
-			data: {pageTitle: 'Person Phonenumbers'}
+			data: {pageTitle: 'Telefoonnummers'}
 		});
 
 		/**
@@ -221,7 +233,7 @@ angular.module('openwheels.person', [
 			abstract: true,
 			url: '/invoice-group',
 			template: '<div ui-view></div>',
-			data: {pageTitle: 'Person invoice group list'}
+			data: {pageTitle: 'Verzamelfacturen'}
 		});
 
 		/**
@@ -233,7 +245,7 @@ angular.module('openwheels.person', [
 			url: '?page&limit&due&amount&unpaid&overpaid&owner',
 			controller: 'InvoiceGroupListController',
 			templateUrl: 'invoice/group/list/invoice-group-list.tpl.html',
-			data: {pageTitle: 'Person invoice group list'},
+			data: {pageTitle: 'Verzamelfacturen'},
 			resolve: {
 				invoiceGroups: ['$stateParams', '$q', '$log', 'invoiceService', function ($stateParams, $q, $log, invoiceService) {
 					var personId = $stateParams.personId;
@@ -287,7 +299,7 @@ angular.module('openwheels.person', [
       abstract: true,
       url: '/invoice-group/v2',
       template: '<div ui-view></div>',
-      data: {pageTitle: 'Person invoice group list'}
+      data: {pageTitle: 'Facturen'}
     });
 
     $stateProvider.state('root.person.show.invoiceGroupV2.list', {
@@ -340,7 +352,7 @@ angular.module('openwheels.person', [
 		url: '/:invoiceGroupId',
 		controller: 'InvoiceGroupShowController',
 		templateUrl: 'invoice/group/show/invoice-group-show.tpl.html',
-		data: {pageTitle: 'Person invoice group'}
+		data: {pageTitle: 'Verzamelfactuur'}
 		/*resolve: {
 		 invoiceGroupId: function ($stateParams) {
 		 return $stateParams.invoiceGroupId;
@@ -358,7 +370,7 @@ angular.module('openwheels.person', [
 		url: '/contracts',
 		controller: 'PersonShowContractsController',
 		templateUrl: 'person/show/contracts/person-show-contracts.tpl.html',
-		data: {pageTitle: 'Person contracts'},
+		data: {pageTitle: 'Contracten'},
 		resolve: {
 			contracts: ['$stateParams', '$q', 'contractService', function ($stateParams, $q, contractService) {
 				return contractService.forDriver({
@@ -379,7 +391,7 @@ angular.module('openwheels.person', [
 		url: '/chipcards',
 		controller: 'PersonShowChipcardsController',
 		templateUrl: 'person/show/chipcards/person-show-chipcards.tpl.html',
-		data: {pageTitle: 'Person chipcards'},
+		data: {pageTitle: 'Chipkaarten'},
 		resolve: {
 			chipcards: ['$stateParams', 'chipcardService', function ($stateParams, chipcardService) {
 				return chipcardService.forPerson({
@@ -401,7 +413,7 @@ angular.module('openwheels.person', [
 		url: '/rating',
 		controller: 'PersonShowRatingController',
 		templateUrl: 'person/show/rating/person-show-rating.tpl.html',
-		data: {pageTitle: 'Person rating'},
+		data: {pageTitle: 'Reviews'},
 		resolve: {
 			ratings: ['$stateParams', 'ratingService', function ($stateParams, ratingService) {
 				return ratingService.getDriverRatings({
@@ -419,14 +431,14 @@ angular.module('openwheels.person', [
 		url: '/badges',
 		controller: 'PersonShowBadgesController',
 		templateUrl: 'person/show/badges/person-show-badges.tpl.html',
-		data: {pageTitle: 'Person Badges'}
+		data: {pageTitle: 'Badges'}
 	});
 
     $stateProvider.state('root.person.show.messages', {
       url: '/messages',
       controller: 'PersonShowMessagesController',
       templateUrl: 'person/show/messages/person-show-messages.tpl.html',
-      data: {pageTitle: 'Person Messages'},
+      data: {pageTitle: 'Berichten'},
       resolve: {
         messages: ['$stateParams', 'messageService', 'perPage', function ($stateParams, messageService, perPage) {
           var params = {};
@@ -444,7 +456,7 @@ angular.module('openwheels.person', [
       url: '/messagesms',
       controller: 'PersonShowMessageSmsController',
       templateUrl: 'person/show/messagesms/person-show-messagesms.tpl.html',
-      data: {pageTitle: 'Person Push Messages'},
+      data: {pageTitle: 'SMS'},
       resolve: {
         messagesms: ['$stateParams', 'messageService', 'perPage', function ($stateParams, messageService, perPage) {
           var params = {};
@@ -462,7 +474,7 @@ angular.module('openwheels.person', [
       url: '/communication',
       controller: 'PersonShowCommunicationController',
       templateUrl: 'person/show/communication/person-show-communication.tpl.html',
-      data: {pageTitle: 'Person Communication Messages'},
+      data: {pageTitle: 'Mails'},
       resolve: {
         communication: ['$stateParams', 'conversationService', 'perPage', function ($stateParams, conversationService, perPage) {
           var params = {};
@@ -481,7 +493,7 @@ angular.module('openwheels.person', [
 		url: '/vouchers',
 		controller: 'PersonShowVouchersController',
 		templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
-		data: {pageTitle: 'Person Vouchers'},
+		data: {pageTitle: 'Rijtegoed'},
 	});
 
 	/* Payouts */
@@ -489,7 +501,7 @@ angular.module('openwheels.person', [
 		url: '/payouts',
 		controller: 'PersonShowPayoutsController',
 		templateUrl: 'person/show/payouts/payouts.tpl.html',
-		data: {pageTitle: 'Person Payouts'},
+		data: {pageTitle: 'Uitbetalingen'},
   		resolve: {
   			payouts: ['$stateParams', 'paymentService', function ($stateParams, paymentService) {
     			return paymentService.getPayouts({person: $stateParams.personId});
@@ -501,7 +513,7 @@ angular.module('openwheels.person', [
 		url: '/revisions',
 		controller: 'PersonShowRevisionsController',
 		templateUrl: 'person/show/revisions/person-show-revisions.tpl.html',
-		data: {pageTitle: 'Person Revisions'},
+		data: {pageTitle: 'Wijzigingen'},
 		resolve: {
 			contracts: ['$stateParams', 'contractService', function ($stateParams, contractService) {
 				var personId = $stateParams.personId;
@@ -517,7 +529,7 @@ angular.module('openwheels.person', [
 		url: '/actions',
 		controller: 'PersonShowActionsController',
 		templateUrl: 'person/show/actions/person-show-actions.tpl.html',
-		data: {pageTitle: 'Person Actions'},
+		data: {pageTitle: 'Acties'},
 		resolve: {
 			actions: ['$stateParams', 'actionsService', function ($stateParams, actionsService) {
 				var personId = $stateParams.personId;
@@ -537,7 +549,7 @@ angular.module('openwheels.person', [
 		abstract: true,
 		url: '/transaction',
 		template: '<div ui-view></div>',
-		data: {pageTitle: 'Person transaction list'},
+		data: {pageTitle: 'Transacties'},
 		resolve: {
 			account: ['$stateParams', 'accountService', function ($stateParams, accountService) {
 				var personId = $stateParams.personId;
@@ -557,7 +569,7 @@ angular.module('openwheels.person', [
 		url: '?page&limit',
 		controller: 'InvoiceTransactionListController',
 		templateUrl: 'invoice/transaction/list/invoice-transaction-list.tpl.html',
-		data: {pageTitle: 'Person transaction list'},
+		data: {pageTitle: 'Transacties'},
 		resolve: {
 			transactions: ['$stateParams', 'accountService', 'account', function ($stateParams, accountService, account) {
 				return accountService.transactions({
@@ -575,7 +587,7 @@ angular.module('openwheels.person', [
 		abstract: true,
 		url: '/resource',
 		template: '<div ui-view></div>',
-		data: {pageTitle: 'Person resource list'}
+		data: {pageTitle: 'Auto\'s'}
 	});
 
 	/**
@@ -587,7 +599,7 @@ angular.module('openwheels.person', [
 		url: '?page',
 		controller: 'ResourceListController',
 		templateUrl: 'resource/list/resource-list.tpl.html',
-		data: {pageTitle: 'Person resource list'},
+		data: {pageTitle: 'Auto\'s'},
 		resolve: {
 			resources: ['$stateParams', 'resourceService', function ($stateParams, resourceService) {
 				var personId = $stateParams.personId;
@@ -614,7 +626,7 @@ angular.module('openwheels.person', [
 		url: '/driverlicense',
 		controller: 'PersonEditDriverlicenseController',
 		templateUrl: 'person/edit/driverlicense/person-edit-driverlicense.tpl.html',
-		data: {pageTitle: 'Person Driver License'},
+		data: {pageTitle: 'Rijbewijs'},
 		resolve: {
 			blockedLike: ['$q', '$stateParams', 'personService', 'authService', function ($q, $stateParams, personService, authService) {
 				var personId = $stateParams.personId;
@@ -655,7 +667,7 @@ angular.module('openwheels.person', [
 		url: '/damage?finalized&max&offset',
 		controller: 'PersonShowDamageController',
 		templateUrl: 'person/show/damage/person-show-damage.tpl.html',
-		data: {pageTitle: 'Person damage'},
+		data: {pageTitle: 'Schades'},
 		resolve: {
 			damages: ['$stateParams', 'damageService', 'person', 'perPage', function ($stateParams, discountService, person, perPage) {
 				var params = {};
@@ -677,7 +689,7 @@ angular.module('openwheels.person', [
 		url: '/discount?validFrom&validUntil&global&multiple',
 		controller: 'PersonShowDiscountController',
 		templateUrl: 'person/show/discount/person-show-discount.tpl.html',
-		data: {pageTitle: 'Person discount'},
+		data: {pageTitle: 'Kortingscodes'},
 		resolve: {
 			discounts: ['$stateParams', 'discountService', 'person', 'perPage', function ($stateParams, discountService, person, perPage) {
 				var params = {};
@@ -702,7 +714,7 @@ angular.module('openwheels.person', [
 		url: '/remarks',
 		controller: 'PersonShowRemarkController',
 		templateUrl: 'person/show/remark/person-show-remark.tpl.html',
-		data: {pageTitle: 'Person Remark Log'},
+		data: {pageTitle: 'Opmerkingen'},
 		resolve: {
 			remarklog: ['$stateParams', 'person', 'remarkService', 'perPage', function ($stateParams, person, remarkService, perPage) {
 				var params = {};

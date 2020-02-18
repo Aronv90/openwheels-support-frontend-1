@@ -1,0 +1,84 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Nieuwe rit van 2u inplannen</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="helyUser">
+      <p>Deze huurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De auto blijft geclaimd totdat de rit in de Hely app beëindigd wordt. De huurder kan in de Hely app zelf de rit beëindigen of een nieuwe rit maken.</p>
+    </div>
+
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
+      <p>De rit kon niet verlengd worden, vanwege de volgende foutmelding:</p>
+      <div class="alert alert-danger" role="alert">
+        {{ errorMessage }}
+      </div>
+      <p>
+        Je kunt met dit scherm optioneel een nieuwe rit van 2 uur inplannen, vanaf nu tot over 2 uur.
+      </p>
+      <ol ng-if="state">
+        <li ng-if="state.newBooking && state.newBooking.loading">
+          Nieuwe reservering maken...<br />
+          <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </li>
+        <li ng-if="state.newBooking && state.newBooking.error">
+          Nieuwe reservering maken niet gelukt: <strong class="text-danger">{{ state.newBooking.error }}</strong>
+        </li>
+        <li ng-if="state.newBooking && state.newBooking.success">
+          Nieuwe reservering maken... <strong>OK: <a ui-sref="root.trip.dashboard({ tripId: state.newBooking.booking.id })">#{{ state.newBooking.booking.id }}</a></strong>
+        </li>
+
+        <li ng-if="state.approving && state.approving.loading">
+          Automatisch goedkeuren...<br />
+          <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </li>
+        <li ng-if="state.approving && state.approving.error">
+          Automatisch goedkeuren niet gelukt: <strong class="text-danger">{{ state.approving.error }}</strong>
+        </li>
+        <li ng-if="state.approving && state.approving.success">
+          Automatisch goedkeuren... <strong>OK</strong>
+        </li>
+
+        <li ng-if="state.makingFollowup && state.makingFollowup.loading">
+          Follow-up aanmaken...<br />
+          <md-progress-linear md-mode="indeterminate"></md-progress-linear>
+        </li>
+        <li ng-if="state.makingFollowup && state.makingFollowup.error">
+          Follow-up aanmaken niet gelukt: <strong class="text-danger">{{ state.makingFollowup.error }}</strong>
+        </li>
+        <li ng-if="state.makingFollowup && state.makingFollowup.success">
+          Follow-up aanmaken... <strong>OK</strong>
+        </li>
+
+        <li ng-if="state.approving && state.approving.success && immobilized.yes">
+          <strong>Let op! De startblokkering is waarschijnlijk ingeschakeld, de auto start dan niet. Open de auto (opnieuw) om de startblokkering uit te schakelen. (Dit moet in de nieuwe rit gebeuren.)</strong>
+          <p>
+            <md-button class="md-primary md-raised" ng-click="open()">
+              Open auto in nieuwe rit
+            </md-button>
+          </p>
+        </li>
+      </ol>
+      <p ng-if="warning">{{warning}}</p>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+      Annuleren
+    </md-button>
+    <md-button ng-if="!(state && state.success)" ng-disabled="warning || (state && state.loading)" class="md-primary md-raised" ng-click="act()">
+      +2 uur
+    </md-button>
+    <md-button ng-if="state && state.success" class="md-primary md-raised" ng-click="done()">
+      Bekijk nieuwe rit
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

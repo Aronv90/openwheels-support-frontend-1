@@ -1,6 +1,8 @@
 'use strict';
 
-angular.module('openwheels.trip.dashboard', [])
+angular.module('openwheels.trip.dashboard', [
+  'openwheels.trip.dashboard.handleiding'
+])
 .config(function($mdDateLocaleProvider) {
   $mdDateLocaleProvider.firstDayOfWeek = 1;
   $mdDateLocaleProvider.formatDate = function(date) {
@@ -26,16 +28,20 @@ angular.module('openwheels.trip.dashboard', [])
   invoice2Service, $q, revisionsService, contractService, chipcardService, settingsService, FRONT_RENT,
   voucherService, $mdDialog, authService, remarkService, alertService, declarationService, bookingService,
   $window, API_DATE_FORMAT, resourceService, discountUsageService, discountService, boardcomputerService,
+  deviceService,
   extraDriverService, $log, account2Service,
-  driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia) {
+  driverContracts, $state, $timeout, localStorageService, ccomeService, damageService, $mdMedia,
+  automate,
+  checkIfImmobilized
+) {
 
   /* INIT  */
   $scope.booking = booking;
   $scope.contract = contract;
   $scope.driverContracts = driverContracts;
-  $scope.driverContracts.push({ id: 50076, contractorId: 282, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels'} });
-  $scope.driverContracts.push({ id: 53808, contractorId: 519038, type: {name: 'MyWheels Free'}, contractor: {firstName: 'Visscher2Go Rivierenland'} });
+  $scope.driverContracts.push({ id: 958979, contractorId: 280, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels Nissan Leafs'} });
   $scope.driverContracts.push({ id: 924281, contractorId: 281, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels (Justlease)'} });
+  $scope.driverContracts.push({ id: 50076, contractorId: 282, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels'} });
   $scope.declarations = [];
   $scope.friends = [];
   $scope.remarks = [];
@@ -44,6 +50,7 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.now = moment().format('YYYY-MM-DD HH:mm');
   $scope.helyUser = $scope.booking.person.email.slice(-9) === '@hely.com';
   $scope.automaticGear = $scope.booking.resource.properties.map(function(o) { return o.id;}).indexOf('automaat') ? false : true;
+  $scope.isApproved = false;
 
   var lastTrips = localStorageService.get('dashboard.last_trips');
   if(lastTrips === null || lastTrips === undefined || lastTrips.length === undefined) {
@@ -66,14 +73,14 @@ angular.module('openwheels.trip.dashboard', [])
 
       if($scope.accounts.length > 0) {
         accounts.every(function (elm) {
+          $scope.accountName = elm.lastName;
           if (elm.approved === true) {
             $scope.isApproved = true;
+            return false;
           } else {
-            $scope.isApproved = false;
+            return true;
           }
         });
-      } else {
-        $scope.isApproved = undefined;
       }
     })
     .catch(function (e) {
@@ -631,6 +638,130 @@ angular.module('openwheels.trip.dashboard', [])
     ;
   };
 
+  $scope.twoMoreHours = function (errorMessage) {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
+        $scope.errorMessage = errorMessage;
+        $scope.helyUser = helyUser;
+
+        $scope.tripIsNow = moment().isAfter(moment(booking.beginBooking, API_DATE_FORMAT)) && moment().isBefore(moment(booking.endBooking, API_DATE_FORMAT));
+        $scope.tripHasEnded = moment().isAfter(moment(booking.endBooking, API_DATE_FORMAT));
+
+        $scope.act = function() {
+          $scope.state = {
+            loading: true,
+            newBooking: {
+              loading: true
+            }
+          };
+
+          var base = moment.max(
+            moment(booking.endBooking).add(1, 'minute'),
+            moment()
+          );
+          bookingService.create({
+            resource: booking.resource.id,
+            person: booking.person.id,
+            timeFrame: {
+              startDate: base.format('YYYY-MM-DD HH:mm'),
+              endDate: base.add(2, 'hours').format('YYYY-MM-DD HH:mm')
+            },
+            contract: booking.contract.id
+          })
+          .then(possiblyTransferExtraDriversFrom(booking))
+          .then(function (newBooking) {
+            $scope.state.newBooking.booking = newBooking;
+            $scope.state.newBooking.success = true;
+            $scope.state.approving = {
+              loading: true
+            };
+
+            // Automatically approve new booking
+            bookingService.approve({ booking: newBooking.id })
+            .then(function (altertedNewBooking) {
+              $scope.state.approving.success = true;
+            })
+            .catch(function (err) {
+              $scope.state.approving.error = err.message || err;
+            })
+            .finally(function () {
+              $scope.state.approving.loading = false;
+              $scope.state.loading = false;
+              $scope.state.success = true;
+            });
+
+            $scope.immobilized = checkIfImmobilized(booking.resource);
+
+            // Make follow-up
+            $scope.state.makingFollowup = {
+              loading: true
+            };
+            remarkService.add({
+              booking: newBooking.id,
+              message: '[Automatisch aangemaakt] nieuwe boeking (2u) gemaakt - dubbele kosten checken',
+              type: 'custom',
+              followUp: nextBusinessDay().format('YYYY-MM-DD HH:mm')
+            })
+            .then(function () {
+              $scope.state.makingFollowup.success = true;
+            })
+            .catch(function (err) {
+              $scope.state.makingFollowup.error = err.message || '[Onbekende fout]';
+            })
+            .finally(function() {
+              $scope.state.makingFollowup.loading = false;
+            });
+          })
+          .catch(function (err) {
+            $scope.state.newBooking.error = err.message || err;
+            $scope.state.loading = false;
+          })
+          .finally(function () {
+            $scope.state.newBooking.loading = false;
+          });
+        };
+
+        $scope.done = function () {
+          if ($scope.state && $scope.state.newBooking.booking) {
+            $state.go('root.trip.dashboard', { tripId: $scope.state.newBooking.booking.id });
+            $mdDialog.hide();
+          }
+        };
+
+        $scope.open = function () {
+          if ($scope.state && $scope.state.newBooking.booking) {
+            boardcomputerService.control({
+              action: 'OpenDoorStartEnable',
+              resource: $scope.state.newBooking.booking.resource.id,
+              booking: $scope.state.newBooking.booking.id
+            })
+            .then(function () {
+              $state.go('root.trip.dashboard', { tripId: $scope.state.newBooking.booking.id });
+              $mdDialog.hide();
+              alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
+            })
+            .catch(function(err) {
+              if(err && err.message) {
+                alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+              }
+            });
+          }
+        };
+
+        $scope.cancel = $mdDialog.cancel;
+
+      }],
+      templateUrl: 'trip/dashboard/twoMoreHours.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking,
+        helyUser: $scope.helyUser
+      }
+    });
+  };
+
   $scope.changeEndTime = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -696,7 +827,19 @@ angular.module('openwheels.trip.dashboard', [])
       return alertService.add('success', 'Rit is verlengd.', 5000);
     })
     .catch(function(err) {
-      if(err && err.message) {
+      var duration = moment.duration(
+        moment(booking.endBooking, API_DATE_FORMAT).diff(
+          moment(booking.beginBooking, API_DATE_FORMAT)
+        )
+      );
+      if (booking.ok &&
+          booking.resource.boardcomputer &&
+          (duration.as('hours') > 2) &&
+          moment(booking.endBooking).isAfter(moment().subtract(3, 'hours'))
+      ) {
+        $scope.twoMoreHours(err.message || '[Onbekende fout]');
+      }
+      else if(err && err.message) {
         if(err.message.match('onvoldoende')) {
           alertService.add('danger', err.message + '. De huurder heeft nog ' + err.data.extra_credit + ' euro extra rijtegoed nodig voordat de boeking verlengd kan worden.', 7000);
         } else if (err.message.match('kilometers van de rit zijn al ingevuld')) {
@@ -765,7 +908,7 @@ angular.module('openwheels.trip.dashboard', [])
     })
     .catch(function(err) {
       if(err && err.message) {
-        alertService.add('danger', 'De begintijd kon niet aangepast worden: ' + err.message, 5000);
+        alertService.add('danger', 'De begintijd kon niet aangepast worden: ' + err.message + '. Laat de huurder een nieuwe (extra) reservering maken.', 5000);
       }
     })
     ;
@@ -786,8 +929,8 @@ angular.module('openwheels.trip.dashboard', [])
         });
     } else {
       var confirm = $mdDialog.confirm()
-      .title('Rit inkorten')
-      .textContent('Weet je zeker dat je deze rit wil inkorten? Annuleer de rit alleen als er nog niet gereden is.')
+      .title('Rit inkorten / beëindigen')
+      .textContent('Weet je zeker dat je deze rit wil inkorten / beëindigen?')
       .ok('Ja')
       .cancel('Nee');
 
@@ -1080,12 +1223,18 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
         $scope.myfms = function() {
-          boardcomputerService.control({
-            action: 'OpenDoorStartEnable',
-            resource: $scope.booking.resource.id
-          })
+          var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+            deviceService.forceOpen({
+              resource: $scope.booking.resource.id
+            }) :
+            boardcomputerService.control({
+              action: 'OpenDoorStartEnable',
+              resource: $scope.booking.resource.id
+            });
+
+          methodCall
           .then(function(res) {
-            return alertService.add('success', 'De auto wordt geopend.', 5000);
+            return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
           })
           .catch(function(err) {
             if(err && err.message) {
@@ -1124,7 +1273,7 @@ angular.module('openwheels.trip.dashboard', [])
         booking: $scope.booking.id
       })
       .then(function(res) {
-        return alertService.add('success', 'De auto wordt geopend.', 5000);
+        return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
       })
       .catch(function(err) {
         if(err && err.message) {
@@ -1135,13 +1284,53 @@ angular.module('openwheels.trip.dashboard', [])
   };
 
   $scope.close = function() {
-    var confirm = $mdDialog.confirm()
-    .title('Wil je de auto afsluiten?')
-    .textContent('Weet je zeker dat je deze auto wil afsluiten? Zorg dat de sleutel weer in de auto ligt, de deuren dicht zijn en de verlichting (ook de binnenverlichting) uit is. Vraag de huurder om te controleren of de auto op slot is.')
-    .ok('Ja')
-    .cancel('Nee');
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
 
-    $mdDialog.show(confirm)
+        $scope.closeWithoutBooking = function() {
+          var confirm = $mdDialog.confirm()
+          .title('Wil je een nood-commando versturen om de auto te sluiten?')
+          .textContent('Verstuur alleen een nood-commando als het het via [Versturen] niet lukt.')
+          .ok('Verstuur nood-commando')
+          .cancel('Annuleren');
+
+          $mdDialog.show(confirm)
+          .then(function(res) {
+            var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+              deviceService.forceClose({
+                resource: $scope.booking.resource.id
+              }) :
+              boardcomputerService.control({
+                action: 'CloseDoorStartDisable',
+                resource: $scope.booking.resource.id
+              });
+
+            methodCall
+            .then(function(res) {
+              return alertService.add('success', 'De auto sluit binnen 15 seconden.', 5000);
+            })
+            .catch(function(err) {
+              if(err && err.message) {
+                alertService.add('warning', 'De auto kon niet gesloten worden: ' + err.message, 5000);
+              }
+            });
+          });
+        };
+
+        $scope.done = function() {
+          $mdDialog.hide($scope.ccomeColor);
+        };
+        $scope.cancel = $mdDialog.cancel;
+      }],
+      templateUrl: 'trip/dashboard/close.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking
+      }
+    })
     .then(function(res) {
       return boardcomputerService.control({
         action: 'CloseDoorStartDisable',
@@ -1149,11 +1338,11 @@ angular.module('openwheels.trip.dashboard', [])
         booking: $scope.booking.id
       })
       .then(function(res) {
-        return alertService.add('success', 'De auto wordt gesloten.', 5000);
+        return alertService.add('success', 'De auto sluit binnen 15 seconden.', 5000);
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet gesloten worden ' + err.message, 5000);
+          alertService.add('warning', 'De auto kon niet gesloten worden: ' + err.message, 5000);
         }
       });
     });
@@ -1276,14 +1465,25 @@ angular.module('openwheels.trip.dashboard', [])
 
   var possiblyTransferExtraDriversFrom = (contract.type.id === 60) ? doTransferExtraDriversFrom : dontTransferExtraDriversFrom;
 
+  $scope.handleiding = function () {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      templateUrl: 'trip/dashboard/handleiding.tpl.html',
+      controller: 'HandleidingController',
+      clickOutsideToClose: true,
+      locals: {
+        booking: booking
+      }
+    });
+  };
+
   $scope.start = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
-        $scope.startProblems = [];
-        $scope.getLastCommand = false;
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
         chipcardService.getFish({person: $scope.booking.person.id})
@@ -1291,25 +1491,20 @@ angular.module('openwheels.trip.dashboard', [])
           $scope.fish = fish;
         });
 
-        $scope.ccome = function() {
-          ccomeService.sendBooking({
-            booking: $scope.booking.id
-          })
-          .then(function(res) {
-            alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
-          })
-          .catch(function(err) {
-            alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
-          });
-        };
 
         $scope.myfms = function() {
-          boardcomputerService.control({
-            action: 'OpenDoorStartEnable',
-            resource: $scope.booking.resource.id
-          })
+          var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+            deviceService.forceOpen({
+              resource: $scope.booking.resource.id
+            }) :
+            boardcomputerService.control({
+              action: 'OpenDoorStartEnable',
+              resource: $scope.booking.resource.id
+            });
+
+          methodCall
           .then(function(res) {
-            return alertService.add('success', 'De auto wordt geopend.', 5000);
+            return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
           })
           .catch(function(err) {
             if(err && err.message) {
@@ -1318,26 +1513,7 @@ angular.module('openwheels.trip.dashboard', [])
           });
         };
 
-        //get last command to see if immobilizer is on
-        $scope.getLastCommand = function() {
-          chipcardService.logs({
-            resource: $scope.booking.resource.id,
-            max: 1,
-            offset: 0
-          })
-          .then(function(lastCommand) {
-            $scope.lastCommand = lastCommand.result[0];
-          })
-          .finally(function() {
-            $scope.loadingLastCommand = false;
-          });
-        };
-
-        //only get last command if boardcomputer is MyFMS
-        if($scope.booking.resource.boardcomputer && $scope.booking.resource.boardcomputer !== 'ccome') {
-          $scope.loadingLastCommand = true;
-          $scope.getLastCommand();
-        }
+        $scope.immobilized = checkIfImmobilized($scope.booking.resource);
 
         $scope.done = function() {
           $mdDialog.hide();
@@ -1357,11 +1533,11 @@ angular.module('openwheels.trip.dashboard', [])
         booking: $scope.booking.id
       })
       .then(function(res) {
-        return alertService.add('success', 'De auto wordt geopend.', 5000);
+        return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet geopend worden ' + err.message, 5000);
+          alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
         }
       });
     });
@@ -1390,7 +1566,7 @@ angular.module('openwheels.trip.dashboard', [])
             endDate: $scope.booking.endBooking
           },
           radius: 15000,
-          sort: 'relevance',
+          sort: 'distance',
           offest: 0,
           maxresults: 20, 
           filters: {
@@ -1505,7 +1681,7 @@ angular.module('openwheels.trip.dashboard', [])
               endDate: $scope.booking.endBooking
             },
             radius: 15000,
-            sort: 'relevance',
+            sort: 'distance',
             offest: 0,
             maxresults: 20, 
             filters: {
@@ -1662,29 +1838,9 @@ angular.module('openwheels.trip.dashboard', [])
       fullscreen: $mdMedia('xs'),
       controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
         $scope.booking = booking;
-        $scope.getLastCommand = false;
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
 
-        //get last command to see if immobilizer is on
-        $scope.getLastCommand = function() {
-          chipcardService.logs({
-            resource: $scope.booking.resource.id,
-            max: 1,
-            offset: 0
-          })
-          .then(function(lastCommand) {
-            $scope.lastCommand = lastCommand.result[0];
-          })
-          .finally(function() {
-            $scope.loadingLastCommand = false;
-          });
-        };
-
-        //only get last command if boardcomputer is MyFMS
-        if($scope.booking.resource.boardcomputer && $scope.booking.resource.boardcomputer !== 'ccome') {
-          $scope.loadingLastCommand = true;
-          $scope.getLastCommand();
-        }
+        $scope.immobilized = checkIfImmobilized($scope.booking.resource);
         
         $scope.done = function() {
           $mdDialog.hide();
@@ -1775,6 +1931,10 @@ angular.module('openwheels.trip.dashboard', [])
         booking: booking
       },
     });
+  };
+
+  $scope.automateFine = function () {
+    automate("fine_admin_costs", { booking: booking });
   };
 
   $scope.refundBooking = function() {
@@ -1910,6 +2070,20 @@ angular.module('openwheels.trip.dashboard', [])
       hour = hour + 1;
     }
     return times;
+  }
+
+  function nextBusinessDay () {
+    var dayIncrement = 1;
+
+    if (moment().day() === 5) {
+      // set to monday
+      dayIncrement = 3;
+    } else if (moment().day() === 6) {
+      // set to monday
+      dayIncrement = 2;
+    }
+
+    return moment().add(dayIncrement, 'days');
   }
 
 });

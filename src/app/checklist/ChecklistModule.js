@@ -18,6 +18,12 @@ angular.module('openwheels.checklist', [
 				'main@': {
 					template: '<div ui-view></div>'
 				}
+			},
+			resolve: {
+				datacontext: ['$rootScope', function ($rootScope) {
+					$rootScope.datacontext = {};
+					return $rootScope.datacontext;
+				}]
 			}
 		});
 
@@ -26,7 +32,7 @@ angular.module('openwheels.checklist', [
 		 */
 		$stateProvider.state('ow-dashboard', {
 	      parent: 'root.checklist',
-	      url: '/dashboard',
+	      url: '/dashboard?showNavigation',
 	      controller: 'DashboardController',
 	      templateUrl: 'checklist/dashboard/dashboard.tpl.html',
 	      data: {pageTitle: 'Dashboard'},

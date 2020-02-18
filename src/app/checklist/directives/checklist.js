@@ -20,10 +20,11 @@ angular.module('openwheels.checklist.directive', [])
       }
       return row;
     };
-  return function (query, limit) {
+  return function (query, limit, offset) {
     var data = storedqueryService.unmuted({
         storedquery: query.query.id,
-        limit: limit
+        limit: limit,
+        offset: offset
       }).then(function (data) {
         var result = data.result.map(function(row) {
           var result = {};
@@ -40,6 +41,7 @@ angular.module('openwheels.checklist.directive', [])
         });
         return {
           id: query.query.id,
+          dashboard: query.id,
           total: data.total,
           result: result,
           title: query.title,
@@ -49,16 +51,31 @@ angular.module('openwheels.checklist.directive', [])
     return data;
   };
 })
-.controller('SnoozablechecklistController', function ($scope, $log, storedqueryService, $uibModal, $interval, resolveMutingQuery, $state) {
+.controller('SnoozablechecklistController', function ($scope, $log, storedqueryService, $uibModal, $interval,
+  resolveMutingQuery, $state, $window) {
+
   var doUpdate = function () {
       $log.debug('timer gone off, querieng');
-      resolveMutingQuery($scope.query, $scope.limit)
+      resolveMutingQuery($scope.query, $scope.limit, 0)
       .then(function(result) {
+        $scope.refreshing = false;
         $scope.result = result;
       });
     },
-    intervalHandle = $interval(doUpdate, $scope.query.refresh * 1000);
+    intervalHandle = $interval(doUpdate(), $scope.query.refresh * 1000);
     
+  $scope.refreshList = function() {
+    $scope.refreshing = true;
+    doUpdate();
+  };
+
+  $scope.loadMore = function(offset) {
+    resolveMutingQuery($scope.query, $scope.limit, offset)
+    .then(function(result) {
+      $scope.result.result = $scope.result.result.concat(result.result);
+    });
+  };
+
   $scope.show = function () {
     if(!$scope.hideIfNull) {
       return true;
@@ -78,7 +95,7 @@ angular.module('openwheels.checklist.directive', [])
   $scope.snooze = function (query, key, row) {
     $uibModal.open({
       templateUrl: 'checklist/dashboard/snoze.tpl.html',
-      controller: ['$scope', '$modalInstance', function ($scope, $modalInstance) {
+      controller: ['$scope', 'storedqueryService', function ($scope, storedqueryService) {
         $scope.isMorning = moment().isBefore(moment('12', 'HH'));
         $scope.snooze = function (timeout) {
           storedqueryService.mute({
@@ -87,10 +104,11 @@ angular.module('openwheels.checklist.directive', [])
             until: timeout
           });
           row._class = 'warning';
-          $modalInstance.dismiss();
+          this.$close();
         };
         $scope.close = function () {
-          $modalInstance.dismiss();
+          console.log('sluit');
+          this.$close();
         };
       }]
     });
@@ -108,22 +126,22 @@ angular.module('openwheels.checklist.directive', [])
   $scope.execute = function(obj) {
     if(obj.link === 'person') {
       $log.debug('linking to person '  + obj.value);
-      $state.go('root.person.show.summary', {personId: obj.value});
+      $window.open($state.href('root.person.show.summary', {personId: obj.value}), '_blank');
       return;
     }
     if(obj.link === 'personInvs') {
       $log.debug('linking to person invoises '  + obj.value);
-      $state.go('root.person.show.invoiceGroupV2.list', {personId: obj.value});
+      $window.open($state.href('root.person.show.invoiceGroupV2.list', {personId: obj.value}), '_blank');
       return;
     }
     if(obj.link === 'booking') {
       $log.debug('linking to booking '  + obj.value);
-      $state.go('root.trip.dashboard', {tripId: obj.value});
+      $window.open($state.href('root.trip.dashboard', {tripId: obj.value}), '_blank');
       return;
     }
     if(obj.link === 'resource') {
       $log.debug('linking to resource '  + obj.value);
-      $state.go('root.resource.show.summary', {resourceId: obj.value});
+      $window.open($state.href('root.resource.show.summary', {resourceId: obj.value}), '_blank');
       return;
     }
   };

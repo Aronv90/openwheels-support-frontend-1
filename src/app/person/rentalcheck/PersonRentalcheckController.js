@@ -42,13 +42,13 @@ angular.module('openwheels.person.rentalcheck', [])
   $scope.performCheck = function () {
     var warning = '';
     if ( ($scope.checkRequest.type !== 'basic') || $scope.checkRequest.includeDocumentCheck) {
-      warning = ' Warning: this may cost money.';
+      warning = 'Let op: dit kan geld kosten!';
     }
     dialogService.showModal({}, {
-      closeButtonText: 'Cancel',
-      actionButtonText: 'OK',
-      headerText: 'Rental Check',
-      bodyText: 'Are you sure you want to perform the check?' + warning
+      closeButtonText: 'Nee',
+      actionButtonText: 'Ja',
+      headerText: 'RentalCheck',
+      bodyText: 'Weet je het zeker?' + warning
     })
     .then(function () {
 
@@ -66,7 +66,7 @@ angular.module('openwheels.person.rentalcheck', [])
         console.log('success', result);
       })
       .catch(function (err) {
-        alertService.add('danger', 'Error: ' + err.message, 5000);
+        alertService.add('danger', 'Foutmelding: ' + err.message, 5000);
         console.log('error', err);
       })
       .finally(function () {
@@ -78,10 +78,10 @@ angular.module('openwheels.person.rentalcheck', [])
 
   $scope.delete = function (rentalcheck) {
     var dialogOptions = {
-      closeButtonText: 'Cancel',
-      actionButtonText: 'OK',
-      headerText: 'Are you sure?',
-      bodyText: 'Do you really want to delete this rental check?'
+      closeButtonText: 'Nee',
+      actionButtonText: 'Ja',
+      headerText: 'Weet je het zeker?',
+      bodyText: 'Weet je zeker dat je deze RentalCheck wil verwijderen?'
     };
 
     dialogService.showModal({}, dialogOptions)
@@ -92,7 +92,7 @@ angular.module('openwheels.person.rentalcheck', [])
         loadPreviousChecks();
         },
         function (error) {
-          alertService.add('danger', 'Error: ' + error.message, 5000);
+          alertService.add('danger', 'Foutmelding: ' + error.message, 5000);
 
         });
   };

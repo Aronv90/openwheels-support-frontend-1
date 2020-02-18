@@ -36,7 +36,6 @@ angular.module('rpcServices', [])
       this.alterPhoneWithPhoneId = m('alterPhoneWithPhoneId');
       this.removePhone = m('dropPhoneWithPhoneId');
       this.uncheckedLicenseStatus = m('uncheckedLicenseStatus');
-      this.addLicenseImages = m('addLicenseImages');
       this.blocked = m('blocked');
       this.blockedLike = m('blockedLike');
       this.similar = m('similar');
@@ -46,6 +45,13 @@ angular.module('rpcServices', [])
       this.alterBadge = m('alterBadge');
       this.removeBadge = m('removeBadge');
       this.enableGoogle2steps = m('enableGoogle2steps');
+    })
+
+    .service('driverlicenseService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('driverlicense.' + name);
+      };
+      this.upload = m('upload');
     })
     
     .service('ccomeService', function (api) {
@@ -171,6 +177,7 @@ angular.module('rpcServices', [])
       };
       this.getResourceRatings = m('getResourceRatings');
       this.getDriverRatings = m('getDriverRatings');
+      this.commentOnRating = m('commentOnRating');
     })
 
     .service('bookingService', function (api) {
@@ -387,6 +394,24 @@ angular.module('rpcServices', [])
       this.currentLocation = m('currentLocation');
     })
 
+    .service('deviceService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('device.' + name);
+      };
+      this.forceOpen = m('forceOpen');
+      this.forceClose = m('forceClose');
+      this.location = m('location');
+    })
+
+    .service('deviceLogService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('device_log.' + name);
+      };
+      this.cardRequest = m('cardRequest');
+      this.eventLog = m('eventLog');
+      this.statusControlLog = m('statusControlLog');
+    })
+
     .service('conversationService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('conversations.' + name);
@@ -397,6 +422,7 @@ angular.module('rpcServices', [])
       this.getTypes = m('getTypesAsArray');
       this.getType = m('getTypeAsArray');
       this.getCommunicationMessages = m('getCommunicationMessages');
+      this.sendMail = m('sendMail');
     })
 
     .service('bankService', function (api) {
@@ -417,6 +443,13 @@ angular.module('rpcServices', [])
       this.getAll = m('getAll');
     })
 
+    .service('providerInfoService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('providerinfo.' + name);
+      };
+      this.create = m('create');
+    })
+
     .service('rentalcheckService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('rentalcheck.' + name);
@@ -424,16 +457,24 @@ angular.module('rpcServices', [])
       this.checkPerson = m('checkPerson');
       this.previousChecks = m('previousChecks');
       this.deleteCheck = m('deleteCheck');
+      this.reasoning = m('reasoning');
     })
 
-  .service('messageService', function (api) {
-    var m = function (name) {
-      return api.createRpcMethod('message.' + name);
-    };
-    this.getMessages = m('getMessages');
-    this.getPushMessages = m('getPushMessages');
+    .service('rentalcountryService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('rentalcountry.' + name);
+      };
+      this.all = m('all');
+    })
 
-  })
+    .service('messageService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('message.' + name);
+      };
+      this.getMessages = m('getMessages');
+      this.getPushMessages = m('getPushMessages');
+
+    })
 
     .service('revisionsService', function (api) {
       var m = function (name) {

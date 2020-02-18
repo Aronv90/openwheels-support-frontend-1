@@ -9,9 +9,9 @@ angular.module('openwheels.resource.show.damage', [])
   $scope.perPage = perPage;
 
   $scope.finalizedOptions = [
-    {label: 'Unfinalized', value: false},
-    {label: 'Finalized', value: true},
-    {label: 'All', value: null}
+    {label: 'Niet afgerond', value: false},
+    {label: 'Afgerond', value: true},
+    {label: 'Alles', value: null}
   ];
 
   handleDamages(damages);
@@ -70,7 +70,7 @@ angular.module('openwheels.resource.show.damage', [])
     .then(function(res) {
       damageService.remove({ damage: damage.id })
       .then(function (result) {
-        alertService.add('success', 'Damage removed.', 5000);
+        alertService.add('success', 'Schade verwijderd.', 5000);
         var index = $scope.damages.indexOf(damage);
         if(index >= 0) {
           $scope.damages.splice(index, 1);

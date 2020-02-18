@@ -190,6 +190,26 @@ module.exports = function (grunt) {
       }
     },
 
+    babel: {
+      options: {
+        sourceMap: true,
+        presets: [
+          '@babel/preset-env',
+        ],
+      },
+      dist: {
+        files: [
+          {
+            src: '<%= app_files.es6 %>',
+            dest: '<%= build_dir %>/',
+            ext: '.js',
+            cwd: '.',
+            expand: true
+          }
+        ]
+      }
+    },
+
     /**
      * `grunt concat` concatenates multiple source files into a single file.
      */
@@ -353,22 +373,31 @@ module.exports = function (grunt) {
 
     connect: {
       options: {
-        port: 9000,
+        port: 9001,
         // Change this to '0.0.0.0' to access the server from outside.
         hostname: '0.0.0.0',
         livereload: 35729
       },
       livereload: {
         options: {
-          open: true,
+          // open: true,
           base: [
             '<%= build_dir %>'
-          ]
+          ],
+          // keepalive: true,
         }
       },
       production: {
         options: {
           port: 8081,
+          open: true,
+          keepalive: true,
+          base: 'bin',
+          livereload: false
+        }
+      },
+      bin: {
+        options: {
           open: true,
           keepalive: true,
           base: 'bin',
@@ -515,6 +544,11 @@ module.exports = function (grunt) {
           'copy:buildAppjs' ]
       },
 
+      jssrc_babel: {
+        files: '<%= app_files.es6 %>',
+        tasks: [ 'babel' ]
+      },
+
       /**
        * When assets are changed, copy them. Note that this will *not* copy new
        * files, so this is probably not very useful.
@@ -591,13 +625,19 @@ module.exports = function (grunt) {
   grunt.registerTask('dist-dev', ['build', 'ngconstant:development', 'compile', 'copy:developHtaccess']);
   grunt.registerTask('dist'    , ['build', 'ngconstant:production' , 'compile', 'copy:productionHtaccess']);
 
+  // manually test a "dist" build locally, with dev configuration
+  grunt.registerTask('test-dist', [
+    'write-config:compile_dir',
+    'connect:bin'
+  ]);
+
   /**
    * The `build` task gets your app ready to run for development and testing.
    */
   grunt.registerTask('build', [
     'clean', 'html2js', 'ngconstant:development', 'jshint:src', 'less:build',
     'concat:buildCss', 'copy:buildAppAssets', 'copy:buildApp', 'copy:buildVendorAssets',
-    'copy:buildAppjs', 'copy:buildVendorjs', 'index:build'
+    'copy:buildAppjs', 'babel', 'copy:buildVendorjs', 'index:build'
   ]);
 
   /**

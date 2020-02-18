@@ -1,0 +1,6 @@
+<div class="json-viewer">
+  <div ng-if="data">
+    <json-viewer-node node="schema" data="data" />
+  </div>
+  <div ng-if="parseError">JSON parse error: {{ parseError }}</div>
+</div>

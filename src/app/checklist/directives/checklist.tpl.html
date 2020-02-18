@@ -1,32 +1,40 @@
 <article class="panel panel-default card" ng-if="show()"
     style="overflow-x: scroll;">
-<table class="table table-condensed table-hover">
-    <caption> <h4>{{result.title}} 
-            <small>totaal:{{result.total}}
-                <a class="btn btn-default btn-xs" ui-sref="root.querytool.execute({query:result.id})"><i class="fa fa-cog" aria-hidden="true"></i></a>
-            </small>
-        </h4> </caption>
-    <thead>
-        <tr>
-            <th ng-repeat="key in result.column">{{key}}</th>
-            <td class="snooze"> </td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr ng-repeat="row in result.result" class="{{row._class}}">
-            <td ng-repeat="key in result.column"> 
-                <span ng-if="!row[key].link">{{row[key].value}}</span> 
-                <a ng-if="row[key].link" href="" ng-click="execute(row[key])">
-                    {{row[key].value}}
-                </a> 
-            </td>
-            <td style="white-space: nowrap; min-width: 70px;">
-                <a ng-click="snooze(result.id, row._key, row)" class="btn btn-warning btn-xs btn-round-hover">
-                    <i class="fa fa-clock-o" aria-hidden="true"></i></a>
-                <a ng-click="done(result.id, row._key, row)" class="btn btn-success btn-xs btn-round-hover">
-                    <i class="fa fa-check" aria-hidden="true"></i> </a>
-            </td>
-        </tr>
-    </tbody>
-</table>
+    <table class="table table-condensed table-hover" style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+        <caption> <h4><a ui-sref="root.checklist.generic({queryid: result.dashboard})" target="_blank">{{result.title}}</a>
+                <small>totaal:{{result.total}}
+                    <a class="btn btn-default btn-xs" ui-sref="root.querytool.execute({query:result.id})" target="_blank"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                    <a class="btn btn-default btn-xs" ng-click="refreshList()"><i class="fa fa-refresh" aria-hidden="true"></i></a>
+                </small>
+            </h4> </caption>
+        <thead>
+            <tr>
+                <th class="snooze" style="width:30px;min-width:30px;max-width:30px;"></th>
+                <th ng-repeat="key in result.column">{{key}}</th>
+                <th class="snooze" style="width:30px;min-width:30px;max-width:30px;"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="row in result.result" class="{{row._class}}" ng-show="!refreshing">
+                <td style="width:30px;min-width:30px;max-width:30px;">
+                    <a ng-click="done(result.id, row._key, row)" class="btn btn-success btn-xs btn-round-hover">
+                        <i class="fa fa-check" aria-hidden="true"></i> </a>
+                </td>
+                <td ng-repeat="key in result.column"> 
+                    <span ng-if="!row[key].link">{{row[key].value}}</span> 
+                    <a ng-if="row[key].link" href="" ng-click="execute(row[key])">
+                        {{row[key].value}}
+                    </a> 
+                </td>
+                <td style="width:30px;min-width:30px;max-width:30px;">
+
+                    <a ng-click="snooze(result.id, row._key, row)" class="btn btn-warning btn-xs btn-round-hover">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="text-center" style="margin: 10px 0px;">
+        <a ng-click="loadMore(result.result.length)" ng-if="result.result.length < result.total">Laad meer</a>
+    </p>
 </article>

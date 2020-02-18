@@ -11,107 +11,16 @@
 
   <md-dialog-content>
 
-    <!-- CComE boardcomputer -->
-    <div layout="column" layout-margin class="md-dialog-content" ng-if="booking.resource.boardcomputer === 'ccome'">
-      <h3>Auto starten</h3>
-      <p>Zit de huurder al in de auto, maar kan hij de auto niet starten? <strong>Vraag wat er op het scherm van de boordcomputer staat.</strong> De boordcomputer hangt tegen de voorruit onder de binnenspiegel. Selecteer hieronder een van de opties:</p>
-      <form>
-        <md-radio-group ng-model="startProblems">
-          <md-radio-button value="show_chipcard">Op het scherm staat 'Om aan te melden toon uw pas bij het meldpunt!'.</md-radio-button>
-          <md-radio-button value="no_reservation">Op het scherm staat 'Geen reservering'.</md-radio-button>
-          <md-radio-button value="pincode">Op het scherm staat 'Pincode invoeren. Voer uw pincode in.'.</md-radio-button>
-          <md-radio-button value="reservation_ended">Op het scherm staat 'Reservering afgelopen! Toch rijden?'.</md-radio-button>
-          <md-radio-button value="reservation">Op het scherm staan de begin- en eindtijd van de reservering (van {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }} tot {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}).</md-radio-button>
-          <md-radio-button value="empty">Het scherm is leeg.</md-radio-button>
-        </md-radio-group>
-      </form>
-
-      <hr/>
-
-      <span ng-if="startProblems == ''">
-        <strong>Heeft de huurder zijn of haar OV-chipkaart verloren?</strong>
-        <p>Zorg eerst dat de sleutel uit het contact is! Open de auto dan via de knop <strong>[Openen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen.</p>
-        <p><strong>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</strong></p>
-      </span>
-
-      <strong ng-if="startProblems != ''">Onderneem dan de volgende acties:</strong>
-
-      <span ng-if="startProblems === 'show_chipcard'">
-        <ul>
-          <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
-          <li>De boordcomputer heeft geen ingelogde rit. Vraag om de OV-chipkaart nogmaals voor de chipkaartlezer bij de voorruit te houden. Hierna zouden de begin- en eindtijd van de reservering op het scherm zichtbaar moeten zijn en kan de auto gestart worden.</li>
-          <li>Zijn de begin- en eindtijd van de reservering hierna niet zichtbaar op het scherm? Open de auto dan via de knop <strong>[Openen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
-        </ul>
-      </span>
-
-      <span ng-if="startProblems === 'no_reservation'">
-        <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas op weg als de rit begonnen is. De huurder moet dan de OV-chipkaart nogmaals voor de lezer houden.</span>
-        <span ng-if="booking.beginBooking <= now">
-          <ul>
-            <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
-            <li>De boordcomputer heeft geen reservering gevonden voor de OV-chipkaart. Stuur de boeking nogmaals naar de boordcomputer door <a ng-click="ccome()"><strong>[hier]</strong></a> te klikken. Vraag de huurder om over 45 seconden nogmaals de OV-chipkaart bij de lezer te houden en de auto te starten. </li>
-            <li>Zijn de begin- en eindtijd van de reservering hierna niet zichtbaar op het scherm? Open de auto dan via de knop <strong>[Openen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
-          </ul>
-        </span>
-      </span>
-
-      <span class="standard" ng-if="startProblems === 'pincode'">
-        <ul>
-          <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
-          <li>Er is een pincode voor de huurder aangemaakt waarmee een OV-chipkaart gekoppeld kan worden. De pincode van de huurder is <strong>{{ fish.pincode }}</strong>. De huurder dient deze pincode op de boordcomputer in te vullen en met enter te bevestigen (het is geen touchscreen). Hierna zouden de begin- en eindtijd van de reservering op het scherm zichtbaar moeten zijn en kan de auto gestart worden.</li>
-          <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Vraag de huurder dan om de OV-chipkaart nogmaals voor de lezer te houden, de boordcomputer logt dan uit. Open vervolgens de auto dan via de knop <strong>[Openen]</strong> om de auto op afstand vrij te geven en de startblokkering eraf te halen. De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
-        </ul>
-      </span>
-
-      <span class="standard" ng-if="startProblems === 'reservation_ended'">
-        <span ng-if="booking.endBooking < now">
-          <ul>
-            <li>De rit is reeds afgelopen en eindigde om {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Wijzig de eindtijd via de knop <strong>[Verlengen]</strong> om de huurder weer toegang te geven.</li>
-            <li>Lukt het niet om de rit te verlengen? Maak dan via de knop <strong>[Boeken]</strong> een nieuwe reservering voor de huurder.</li>
-            <li>Lukt het niet om een nieuwe reservering te maken? Open de auto dan via de knop <strong>[Openen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. <strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
-          </ul>
-        </span>
-        <span ng-if="booking.endBooking > now">
-          <ul>
-            <li><strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is!</li>
-            <li>De huurder is waarschijnlijk te vroeg bij de auto waardoor de boordcomputer de vorige rit wil verlengen. De rit begint om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. Vraag de huurder om de OV-chipkaart nogmaals voor de lezer te houden zodra de rit begonnen is.</li>
-            <li>Zijn de begin- en eindtijd van de reservering nog niet zichtbaar op het scherm? Vraag de huurder dan om de OV-chipkaart nogmaals voor de lezer te houden, de boordcomputer logt dan uit. Open de auto dan via de knop <strong>[Openen]</strong> om de auto op afstand te openen en de startblokkering eraf te halen. <strong>Let op:</strong> zorg eerst dat de sleutel uit het contact is! De huurder hoeft de OV-chipkaart niet meer voor de lezer te houden.</li>
-          </ul>
-        </span>
-      </span>
-
-      <span class="standard" ng-if="startProblems === 'reservation'">
-        De boordcomputer heeft de juiste reservering en de auto zou moeten starten. Zo niet, kan dit de volgende oorzaken hebben:
-        <br/><br/>
-        <ul>
-          <li><strong>De koppeling wordt niet volledig ingetrapt</strong>. Zorg dat de koppeling helemaal tot de bodem wordt ingestrapt.</li>
-          <li>De <strong>sleutel zat in het contact</strong> toen de OV-chipkaart voor de lezer werd gehouden. Vraag de huurder om de sleutel uit het contact te halen en de OV-chipkaart voor de lezer te houden. De boordcomputer logt nu uit. Vraag de huurder nogmaals de OV-chipkaart voor de lezer te houden, de begin- en eindtijd van de reservering zouden nu weer zichtbaar moeten zijn op het scherm. De auto kan gestart worden.</li>
-          <li>Het <strong>stuur staat op stuurslot</strong>. Flink trekken aan het stuur en gelijktijdig de sleutel omdraaien. De auto zou dan moeten starten.</li>
-          <li>Als het een automaat is, moet de <strong>versnelling in de P stand staan en de rem ingetrapt worden</strong>.</li>
-        <li>De boordcomputer toont tijdens het starten de melding 'System info error'. <strong>De accu van de auto is dan leeg.</strong> Is de huurder al onderweg? Schakel dan de Pechhulp in via de knop <strong>[Pech]</strong>. Zo niet, boek de auto om via de knop <strong>[Boeken]</strong>.</li>
-        </ul>
-      </span>
-
-      <span class="standard" ng-if="startProblems === 'empty'">
-        <ul>
-          <li>Als de huurder aangeeft dat het scherm van de boordcomputer leeg is, zou het kunnen dat de tekst slecht leesbaar is op het donkere scherm. Vraag de huurder om rechtsonder op de knop <strong>'Esc'</strong> te drukken en/of de OV-chipkaart voor de lezer te houden. Het scherm zou dan op moeten lichten. Selecteer een van bovenstaande opties als hierdoor de tekst wel leesbaar is.</li>
-          <li>Licht het scherm niet op en ziet de huurder nog steeds geen tekst? Dan is de accu waarschijnlijk leeg. Is de huurder al onderweg? Schakel dan de Pechhulp in via de knop <strong>[Pech]</strong>. Zo niet, boek de auto om via de knop <strong>[Boeken]</strong>.</li>
-        </ul>
-      </span>
-
-    </div>
-    
-
     <!-- MyFMS boardcomputer -->
-    <div layout="column" layout-margin class="md-dialog-content" ng-if="booking.resource.boardcomputer && booking.resource.boardcomputer !== 'ccome'">
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="booking.resource.boardcomputer">
       <h3>Auto starten</h3>
 
       <div ng-if="booking.beginBooking > now || booking.endBooking < now">
         <strong class="text-danger">Let op! De rit is niet in orde</strong><br/>
 
         <span ng-if="booking.endBooking < now">
-          <strong ng-if="!loadingLastCommand && lastCommand.action === 'CloseDoorStartDisable'">
-            De auto start niet omdat de startblokkering automatisch ingeschakeld is op {{ lastCommand.dateRequested | amDateFormat:'DD-MM-YYYY HH:mm' }}.
+          <strong ng-if="immobilized.yes">
+            De auto start niet omdat de startblokkering automatisch ingeschakeld is op {{ immobilized.since | amDateFormat:'DD-MM-YYYY HH:mm' }}.
           </strong>
 
           De rit is namelijk reeds afgelopen en eindigde om {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. 
@@ -120,7 +29,7 @@
 
           Wijzig de eindtijd via de knop <strong>[Verlengen]</strong> of maak een nieuwe reservering via de knop <strong>[Boeken]</strong>.
 
-          <span ng-if="!loadingLastCommand && lastCommand.action === 'CloseDoorStartDisable'">
+          <span ng-if="immobilized.yes">
             Open de auto vervolgens met de knop <strong>[Openen]</strong>.
           </span>
           
@@ -129,25 +38,25 @@
           <i>Noodgeval</i><br/>
           Is de huurder onderweg en lukt het niet om te verlengen of een nieuwe boeking te maken? Klik dan <a ng-click="myfms()"><strong>[hier]</strong></a> om de auto op afstand te openen en de startblokkering eraf te halen. De sleutel moet uit het contactslot zijn.
           <br><br>
-          <strong>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</strong>
+          <i>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</i>
         </span>
 
         <span ng-if="booking.beginBooking > now">De rit begint pas om {{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm' }}. De huurder kan pas de auto in als de rit begonnen is.</span>
       </div>
 
-      <div ng-if="!loadingLastCommand && lastCommand.action === 'CloseDoorStartDisable' && booking.beginBooking < now && booking.endBooking > now">
+      <div ng-if="immobilized.yes && booking.beginBooking < now && booking.endBooking > now">
         <strong class="text-danger">Let op! De startblokkering is ingeschakeld!</strong><br/>
         <p>Zit de huurder al in de auto, maar kan hij de auto niet starten? Dan heeft dit de volgende oorzaak:</p>
         
-        <p>De auto start niet omdat de startblokkering ingeschakeld is op {{ lastCommand.dateRequested | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik <a ng-click="myfms()"><strong>[hier]</strong></a> om de auto op afstand te openen en de startblokkering eraf te halen. <strong>Let op:</strong> de sleutel moet uit het contactslot zijn.
+        <p>De auto start niet omdat de startblokkering ingeschakeld is op {{ immobilized.since | amDateFormat:'DD-MM-YYYY HH:mm' }}. Klik <a ng-click="myfms()"><strong>[hier]</strong></a> om de auto op afstand te openen en de startblokkering eraf te halen. <strong>Let op:</strong> de sleutel moet uit het contactslot zijn.
 
-        <p><strong>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</strong></p>
+        <p><i>Verifieer eerst de huurder door het telefoonnummer en de eindtijd van de reservering te vragen.</i></p>
       </div>
 
-      <div ng-if="booking.beginBooking < now && booking.endBooking > now && lastCommand.action !== 'CloseDoorStartDisable' && !loadingLastCommand">
-        <p>Zit de huurder al in de auto, maar kan hij de auto niet starten? Dit kan de volgende oorzaken hebben:</p>
+      <div ng-if="booking.beginBooking < now && booking.endBooking > now && immobilized.no">
+        <p>Zit de huurder al in de auto, maar kan hij de auto niet starten? Dit kan de onderstaande oorzaken hebben. <span ng-if="booking.resource.fuelType === 'elektrisch'">Je vindt specifieke tips voor elektrische auto's onder de knop <strong>[Handleiding]</strong>.</span></p>
 
-        <md-checkbox aria-label="Koppeling intrappen" class="md-warn md-align-top-left">
+        <md-checkbox aria-label="Koppeling intrappen" class="md-warn md-align-top-left" ng-if="booking.resource.fuelType !== 'elektrisch'">
           <span><strong>De koppeling wordt niet volledig ingetrapt.</strong> Zorg dat de koppeling helemaal tot de bodem wordt ingestrapt.</span>
         </md-checkbox>
         <md-checkbox aria-label="Stuurslot" class="md-warn md-align-top-left">

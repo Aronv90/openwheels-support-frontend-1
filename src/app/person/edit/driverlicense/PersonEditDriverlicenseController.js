@@ -17,10 +17,61 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
 		};
 	})
   .controller('PersonEditDriverlicenseController', function ($scope, alertService, dialogService, personService,
-    person, blockedLike, similar, account) {
+    person, blockedLike, similar, account, driverlicenseService, rentalcountryService, rentalcheckService,
+    resourceService) {
     $scope.person = angular.copy(person);
     $scope.person.account = account;
+
+    $scope.loadRentalCheckCountries = function () {
+      rentalcountryService.all()
+      .then(function (rentalCheckCountries) {
+        $scope.rentalCheckCountries = rentalCheckCountries;
+      })
+      .catch(function (err) {
+        alertService.addError(err);
+      });
+    };
+    $scope.loadRentalCheckCountries();
+
+    $scope.loadReasoning = function (resource) {
+      $scope.reasonError = false;
+
+      var parameters;
+      if (resource) {
+        parameters = {
+          person: $scope.person.id,
+          resource: resource.id
+        };
+      } else {
+        parameters = {
+          person: $scope.person.id
+        };
+      }
+
+      rentalcheckService.reasoning(parameters)
+      .then(function (reason) {
+        $scope.reason = reason;
+      })
+      .catch(function (err) {
+        $scope.reasonError = true;
+      });
+    };
+    $scope.loadReasoning();
     
+    $scope.searchResources = function ($viewValue) {
+      return resourceService.select({
+        search: $viewValue
+      });
+    };
+
+    $scope.formatResource = function ($model) {
+      var inputLabel = '';
+      if ($model) {
+        inputLabel = '[' + $model.id + ']' + ' ' + $model.alias;
+      }
+      return inputLabel;
+    };
+
     $scope.similar = _.map(similar, function(similar) {
       if(_.findWhere(similar.accounts, {iban: $scope.person.account.iban})) {
         similar.ibanmatch = $scope.person.account.iban;
@@ -128,20 +179,21 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
           parseDate();
           $scope.form.$setPristine();
 
-          var msg = returnedPerson.driverLicenseStatus === 'ok' ? 'Driver license approved' : 'Driver license dismissed';
+          var msg = returnedPerson.driverLicenseStatus === 'ok' ? 'Rijbewijs goedgekeurd' : 'Rijbewijs niet goedgekeurd';
           if ('blocked' === returnedPerson.status){
-            msg += ' and person blocked';
+            msg += ' en persoon geblokkeerd';
           }
           alertService.add('success', msg, 2000);
         },
         function (error) {
           var msg = error ? error.message : '';
-          alertService.add('danger', 'Moderating license failed: ' + msg, 4000);
+          alertService.add('danger', 'Het wijzigen van het rijbewijs is mislukt: ' + msg, 4000);
       });
     };
 
     var images = {
-      front: null
+      front: null,
+      back: null
     };
 
     $scope.images = images;
@@ -153,16 +205,24 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       });
     });
 
+    angular.element('#licenseBackFile').on('change', function (e) {
+      $scope.$apply(function () {
+        images.back = e.target.files[0];
+      });
+    });
+
     $scope.startUpload = function () {
-      if (!images.front) { return; }
+      if (!images.front || !images.back) { return; }
 
       $scope.isBusy = true;
       alertService.load();
 
-      personService.addLicenseImages({
-        person: person.id
+      driverlicenseService.upload({
+        person: person.id,
+        driverLicenseCountry: $scope.person.driverLicenseCountry
       }, {
-        frontImage: images.front
+        frontImage: images.front,
+        backImage: images.back
       })
       .then(function (returnedPerson) {
         alertService.add('success', 'Bedankt voor het uploaden van het rijbewijs', 5000);
@@ -202,10 +262,10 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
         angular.extend(person, returnedPerson);
         parseDate();
         $scope.form.$setPristine();
-        alertService.add('success', 'Driver license data saved', 3000);
+        alertService.add('success', 'Rijbewijsgegevens opgeslagen.', 3000);
       })
       .catch(function (err) {
-        alertService.add('danger', 'Error saving driver license data', 4000);
+        alertService.add('danger', 'Foutmelding bij het opslaan van de rijbewijsgegevens: ', 4000);
       })
       .finally(function () {
         alertService.loaded();

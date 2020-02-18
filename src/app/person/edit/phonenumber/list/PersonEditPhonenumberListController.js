@@ -43,12 +43,12 @@ angular.module('openwheels.person.edit.data.phonenumber.list', [])
     $scope.removePhone = function removePhone(phone) {
       personService.removePhone({id: phone.id}).then(
         function (result) {
-          alertService.add('success', 'Phonenumber removed.', 2000);
+          alertService.add('success', 'Telefoonnummer verwijderd.', 2000);
           var idx = $scope.phoneNumbers.indexOf(phone);
           $scope.phoneNumbers.splice(idx, 1);
         },
         function (error) {
-          alertService.add('danger', 'Removing phonenumber failed: ' + error.message, 5000);
+          alertService.add('danger', 'Het telefoonnummer kon niet verwijderd worden: ' + error.message, 5000);
         }
       );
     };
