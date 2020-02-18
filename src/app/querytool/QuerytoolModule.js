@@ -58,6 +58,7 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
   };
 })
 .controller('QueryExecuteController', function($scope, storedqueryService, $stateParams, $log, queries, alertService) {
+  $scope.show = false;
   var current = queries.find(function (elem) {return elem.id === parseInt($stateParams.query); }),
     limit = 20,
     templateResolver = {
@@ -123,6 +124,15 @@ angular.module('openwheels.querytool', ['ui.bootstrap'])
       $scope.template_name.push(key);
     }
   }
+
+  $scope.hideShowQuery = function() {
+    if ($scope.show === false) {
+      $scope.show = true;
+    } else {
+      $scope.show = false;
+    }
+  };
+
   $scope.save = function(id, data) {
     alterQuery(id, data)
     .then(function (query) {

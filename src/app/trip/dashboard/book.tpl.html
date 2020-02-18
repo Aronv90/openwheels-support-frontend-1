@@ -15,7 +15,6 @@
     </div>
 
     <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
-      <h3>Boeken</h3>
       <p>Selecteer hieronder wat voor boeking je wil maken:</p>
       <form>
         <md-radio-group ng-model="bookForPerson.val">
@@ -28,9 +27,10 @@
       <hr/>
 
       <fieldset class="standard" ng-if="bookForPerson.val === 'otherResource'">
-        <p>Klik op <strong>[Boeken]</strong> om een rit om te zetten op de betreffende auto. De huurder kan dan met die auto alsnog op weg.<br><br></p>
-
-        <div ng-if="!availableResources.length && !loadingAvailableResources">Geen auto's gevonden.</div>
+        <p>Klik op <strong>[Boeken]</strong> om een rit om te zetten op de betreffende auto. De huurder kan dan met die auto alsnog op weg.<br></p>
+        
+        <div ng-if="!availableResources.length && !loadingAvailableResources &7 !error">Geen auto's gevonden.</div>
+        <div ng-if="!availableResources.length && !loadingAvailableResources && error"><strong style="color:red;">Foutmelding:</strong> {{ error }}</div>
 
         <div ng-if="loadingAvailableResources"><i class="fa fa-fw fa-spin fa-spinner"></i></div>
 
@@ -39,45 +39,27 @@
             <div class="col-xs-3">
               <img class="img-responsive media-object" ng-src="{{ resource.pictures[0] | resourceAvatar:'normal' }}">
             </div>
-            <div class="col-xs-7" style="padding:0;">
-              <h4 style="margin: 0px;"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.alias }}</a></h4>
+            <div class="col-xs-7">
+              <h4 style="margin: 0px;" ng-if="resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }} {{ resource.streetNumber }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
+              <h4 style="margin: 0px;" ng-if="!resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
               <md-list class="margin-right">
-                <md-list-item style="margin:0;padding:0;height:30px;min-height:30px;">
+                <md-list-item style="min-height: 18px; height: 18px;">
+                    <md-icon>directions_car</md-icon>
                     <div flex>
-                      <span ng-if="resource.streetNumber"> {{ resource.location }} {{ resource.streetNumber }}, {{ resource.city | toTitleCase }}
-                        <span ng-if="resource.distance_to"> ({{ resource.distance_to | formatKilometers }})</span>
-                      </span>
-                      <span ng-if="!resource.streetNumber"> {{ resource.location }}, {{ resource.city | toTitleCase }}
-                        <span ng-if="resource.distance_to"> ({{ resource.distance_to | formatKilometers }})</span>
-                      </span>
+                      <span ng-if="resource.brand || resource.model" flex="none">{{ (resource.brand + ' ' + resource.model) | toTitleCase }}</span>
+                    </div>
+                </md-list-item style="min-height: 18px; height: 18px;">
+                <md-list-item>
+                    <md-icon>check</md-icon>
+                    <div flex>
+                      <span ng-if="resource.locktype === 'chipcard'">Openen met smartphone en chipkaart</span>
+                      <span ng-if="resource.locktype === 'smartphone'">Openen met smartphone</span>
                     </div>
                 </md-list-item>
-                <md-list-item style="margin:0;padding:0;height:30px;min-height:30px;">
+                <md-list-item style="min-height: 18px; height: 18px;">
+                    <md-icon>euro_symbol</md-icon>
                     <div flex>
-                      <span ng-if="resource.locktype === 'chipcard'">
-                        Openen met smartphone & OV-chipkaart
-                      </span>
-                      <span ng-if="resource.locktype === 'smartphone'">
-                        Openen met smartphone
-                      </span>
-                      <span ng-if="resource.locktype === 'meeting'">
-                        Openen met sleuteloverdracht
-                      </span>
-                    </div>
-                </md-list-item>
-                <md-list-item style="margin:0;padding:0;height:30px;min-height:30px;">
-                    <div flex>
-                      {{ resource.price.dayRateTotal | currency }} per dag
-                    </div>
-                </md-list-item>
-                <md-list-item style="margin:0;padding:0;height:30px;min-height:30px;">
-                    <div flex>
-                      <span ng-if="resource.fuelType === 'elektrisch'">
-                        Elektrische auto <span ng-if="resource.fuelLevel">({{ resource.fuelLevel }}% opgeladen)</span>
-                      </span>
-                      <span ng-if="resource.fuelType !== 'elektrisch'">
-                        {{ resource.fuelType | toTitleCase }}
-                      </span>
+                      {{ resource.price.hourRate | currency }} per uur
                     </div>
                 </md-list-item>
               </md-list>

@@ -1562,8 +1562,8 @@ angular.module('openwheels.trip.dashboard', [
         resourceService.searchV3({
           person: $scope.booking.person.id,
           timeFrame: { 
-            startDate: $scope.booking.beginBooking ? $scope.booking.beginBooking : $scope.booking.beginRequested, 
-            endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested              
+            startDate: $scope.booking.beginBooking < $scope.now ? $scope.now : $scope.booking.beginBooking, 
+            endDate: $scope.booking.endBooking
           },
           radius: 15000,
           sort: 'distance',
@@ -1580,6 +1580,10 @@ angular.module('openwheels.trip.dashboard', [
         .then(function(resources) {
           $scope.loadingAvailableResources =  false;
           $scope.availableResources = resources.results;
+        })
+        .catch(function(error){
+          console.log(error.message);
+          $scope.error = error.message;
         });
 
         $scope.bookResource = function(booking, resource) {
@@ -1673,8 +1677,8 @@ angular.module('openwheels.trip.dashboard', [
           resourceService.searchV3({
             person: $scope.booking.person.id,
             timeFrame: { 
-              startDate: $scope.booking.beginBooking ? $scope.booking.beginBooking : $scope.booking.beginRequested, 
-              endDate: $scope.booking.endBooking ? $scope.booking.endBooking : $scope.booking.endRequested
+              startDate: $scope.booking.beginBooking < $scope.now ? $scope.now : $scope.booking.beginBooking, 
+              endDate: $scope.booking.endBooking
             },
             radius: 15000,
             sort: 'distance',
@@ -1690,6 +1694,10 @@ angular.module('openwheels.trip.dashboard', [
           })
           .then(function(resources) {
             $scope.availableResources = resources.results;
+          })
+          .catch(function(error){
+            console.log(error.message);
+            $scope.error = error.message;
           })
           .finally(function () {
             $scope.loadingAvailableResources =  false;
