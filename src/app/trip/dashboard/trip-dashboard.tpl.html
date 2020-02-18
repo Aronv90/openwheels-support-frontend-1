@@ -108,13 +108,6 @@
           </div>
         </div>
         <div class="row box__row">
-          <div class="col-xs-12"><span class="box__slabel">Aangevraagde boeking datum:</span></div>
-          <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row">
-            <span ng-if="booking.beginRequested">{{ booking.beginRequested | amDateFormat:'DD-MM-YYYY HH:mm'}} | {{ booking.endRequested | amDateFormat:'DD-MM-YYYY HH:mm'}}</span>
-            <span ng-if="!booking.beginRequested">-</span>
-          </div>
-        </div>
-        <div class="row box__row">
           <div class="col-xs-12"><span class="box__slabel">Boeking datum:</span></div>
           <div class="col-xs-12"><span class="box__sdata box__sdata--whole-row">
             <span ng-if="booking.beginBooking">{{ booking.beginBooking | amDateFormat:'DD-MM-YYYY HH:mm'}} | {{ booking.endBooking | amDateFormat:'DD-MM-YYYY HH:mm'}}</span>
@@ -350,8 +343,6 @@
         <div class="row box__row">
           <div class="col-xs-5"><span class="box__slabel">Huurprijs</span></div>
           <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.price.hourRate}}/h + {{booking.price.dayRateTotal}}/d + {{booking.price.kilometerRate}}/km</span> </div>
-          <div class="col-xs-5"><span class="box__slabel">Brandstof</span></div>
-          <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.refuelByRenter ? 'Zelf tanken' : booking.price.fuelPerKilometer+ '/km' + (booking.price.kmFree ? ', 100KM gratis' : '')}}</span></div>
           <div class="col-xs-5"><span class="box__slabel">Merk</span></div>
           <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{(booking.resource.brand | toTitleCase) + ' ' + (booking.resource.model | toTitleCase)}}</span></div>
           <!--<div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor vrienden?">Besck. vrienden</span></div>-->

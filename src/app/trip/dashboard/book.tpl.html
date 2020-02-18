@@ -15,7 +15,6 @@
     </div>
 
     <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
-      <h3>Boeken</h3>
       <p>Selecteer hieronder wat voor boeking je wil maken:</p>
       <form>
         <md-radio-group ng-model="bookForPerson.val">
@@ -28,9 +27,10 @@
       <hr/>
 
       <fieldset class="standard" ng-if="bookForPerson.val === 'otherResource'">
-        <p>Klik achter de gewenste auto op [Boeken] om de reservering om te zetten op de betreffende auto. De huurder kan dan naar die auto gaan om alsnog op weg te kunnen. <span ng-if="booking.resource.boardcomputer">De onderstaande auto's worden met een OV-chipkaart of de smartphone geopend.</span><br/><br/></p>
+        <p>Klik achter de gewenste auto op [Boeken] om de reservering om te zetten op de betreffende auto. De huurder kan dan naar die auto gaan om alsnog op weg te kunnen.
 
-        <div ng-if="!availableResources.length && !loadingAvailableResources">Geen auto's gevonden.</div>
+        <div ng-if="!availableResources.length && !loadingAvailableResources &7 !error">Geen auto's gevonden.</div>
+        <div ng-if="!availableResources.length && !loadingAvailableResources && error"><strong style="color:red;">Foutmelding:</strong> {{ error }}</div>
 
         <div ng-if="loadingAvailableResources"><i class="fa fa-fw fa-spin fa-spinner"></i></div>
 
@@ -40,32 +40,26 @@
               <img class="img-responsive media-object" ng-src="{{ resource.pictures[0] | resourceAvatar:'normal' }}">
             </div>
             <div class="col-xs-7">
-              <h4 style="margin: 0px;"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.alias }}</a> van {{ resource.owner.firstName }}</h4>
+              <h4 style="margin: 0px;" ng-if="resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }} {{ resource.streetNumber }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
+              <h4 style="margin: 0px;" ng-if="!resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
               <md-list class="margin-right">
-                <md-list-item>
+                <md-list-item style="min-height: 18px; height: 18px;">
                     <md-icon>directions_car</md-icon>
                     <div flex>
                       <span ng-if="resource.brand || resource.model" flex="none">{{ (resource.brand + ' ' + resource.model) | toTitleCase }}</span>
                     </div>
-                </md-list-item>
-                <md-list-item>
-                    <md-icon>location_on</md-icon>
-                    <div flex>
-                      <span> {{ resource.location }} {{ resource.streetNumber }}, {{ resource.city | toTitleCase }}
-                        <span ng-if="resource.distance_to"> ({{ resource.distance_to | formatKilometers }})</span>
-                      </span>
-                    </div>
-                </md-list-item>
+                </md-list-item style="min-height: 18px; height: 18px;">
                 <md-list-item>
                     <md-icon>check</md-icon>
                     <div flex>
-                      Openen met {{ resource.locktype }}
+                      <span ng-if="resource.locktype === 'chipcard'">Openen met smartphone en chipkaart</span>
+                      <span ng-if="resource.locktype === 'smartphone'">Openen met smartphone</span>
                     </div>
                 </md-list-item>
-                <md-list-item>
+                <md-list-item style="min-height: 18px; height: 18px;">
                     <md-icon>euro_symbol</md-icon>
                     <div flex>
-                      {{ resource.price.dayRateTotal | currency }} per dag
+                      {{ resource.price.hourRate | currency }} per uur
                     </div>
                 </md-list-item>
               </md-list>
