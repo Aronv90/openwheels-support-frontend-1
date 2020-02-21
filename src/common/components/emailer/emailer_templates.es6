@@ -36,7 +36,7 @@ Keizersgracht 264<br />
 1016 EV Amsterdam<br />
 085-7734222
 
-<p><img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" /></p>` + (template.footer ? "\n\n<hr />" + template.footer : "")
+<p><img src="https://mywheels.nl/blog/wp-content/uploads/2020/02/cropped-logo_colored.png" height="60" /></p>` + (template.footer ? "\n\n<hr />" + template.footer : "")
   }));
 
   const in_dutch = [
@@ -394,7 +394,7 @@ Keizersgracht 264<br />
 1016 EV Amsterdam<br />
 085-7734222
 
-<p><img src="https://mywheels.nl/autodelen/wp-content/uploads/2019/01/mywheels_log_klein.png" /></p>
+<p><img src="https://mywheels.nl/blog/wp-content/uploads/2020/02/cropped-logo_colored.png" height="60" /></p>
 
 << FEEDBACK >>` + (template.footer ? "\n\n<hr />" + template.footer : "")
   }));
