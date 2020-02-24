@@ -145,6 +145,5 @@ angular.module('openwheels.checklist.directive', [])
       return;
     }
   };
-  
-  doUpdate();
+
 });
