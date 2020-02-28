@@ -49,8 +49,6 @@ angular.module('openwheels.invoice2.payout.list', [])
     dialogService.showModal().then(function () {
       alertService.load();
       paymentService.processPayout({ payout: payout.id }).then(function (result) {
-        alertService.add('success', 'Ok', 5000);
-
         /* update changes in $scope */
         angular.extend(payout, result);
 
@@ -61,21 +59,16 @@ angular.module('openwheels.invoice2.payout.list', [])
   };
 
   $scope.deletePayout = function (payout) {
-    dialogService.showModal().then(function () {
-      alertService.load();
-      paymentService.deletePayout({ payout: payout.id }).then(function (result) {
-        alertService.add('success', 'Ok', 5000);
+    paymentService.deletePayout({ payout: payout.id }).then(function (result) {
+      /* update changes in $scope */
+      var index = payouts.indexOf(payout);
+      if (index >= 0) {
+        payouts.splice(index, 1);
+      }
 
-        /* update changes in $scope */
-        var index = payouts.indexOf(payout);
-        if (index >= 0) {
-          payouts.splice(index, 1);
-        }
-
-      })
-      .catch(alertService.addError)
-      .finally(alertService.loaded);
-    });
+    })
+    .catch(alertService.addError)
+    .finally(alertService.loaded);
   };
 
 });
