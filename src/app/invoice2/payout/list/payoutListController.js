@@ -49,8 +49,6 @@ angular.module('openwheels.invoice2.payout.list', [])
     dialogService.showModal().then(function () {
       alertService.load();
       paymentService.processPayout({ payout: payout.id }).then(function (result) {
-        alertService.add('success', 'Ok', 5000);
-
         /* update changes in $scope */
         angular.extend(payout, result);
 
