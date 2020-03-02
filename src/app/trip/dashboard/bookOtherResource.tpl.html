@@ -14,7 +14,7 @@
         <p>Klik op <strong>[Boeken]</strong> om de rit om te zetten op de betreffende auto. <span ng-if="personGet.phoneNumbers">De huurder kun je bereiken op telefoonnummer(s): <span ng-repeat="phoneNumber in personGet.phoneNumbers"><br/>{{ phoneNumber.number }}</span></p>
         <p>Bel de huurder op om hem te informeren over het omboeken van de rit.</span>
 
-        <div ng-if="!availableResources.length && !loadingAvailableResources &7 !error">Geen auto's gevonden.</div>
+        <div ng-if="!availableResources.length && !loadingAvailableResources && !error">Geen auto's gevonden.</div>
         <div ng-if="!availableResources.length && !loadingAvailableResources && error"><strong style="color:red;">Foutmelding:</strong> {{ error }}</div>
 
         <div ng-if="loadingAvailableResources"><i class="fa fa-fw fa-spin fa-spinner"></i></div>
@@ -28,23 +28,30 @@
               <h4 style="margin: 0px;" ng-if="resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }} {{ resource.streetNumber }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
               <h4 style="margin: 0px;" ng-if="!resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
               <md-list class="margin-right">
-                <md-list-item style="min-height: 18px; height: 18px;">
+                <md-list-item style="min-height: 20px; height: 20px;">
                     <md-icon>directions_car</md-icon>
                     <div flex>
                       <span ng-if="resource.brand || resource.model" flex="none">{{ (resource.brand + ' ' + resource.model) | toTitleCase }}</span>
                     </div>
                 </md-list-item>
-                <md-list-item style="min-height: 18px; height: 18px;">
+                <md-list-item style="min-height: 20px; height: 20px;">
                     <md-icon>check</md-icon>
                     <div flex>
                       <span ng-if="resource.locktype === 'chipcard'">Openen met smartphone en chipkaart</span>
                       <span ng-if="resource.locktype === 'smartphone'">Openen met smartphone</span>
                     </div>
                 </md-list-item>
-                <md-list-item style="min-height: 18px; height: 18px;">
+                <md-list-item style="min-height: 20px; height: 20px;">
                     <md-icon>euro_symbol</md-icon>
                     <div flex>
                       {{ resource.price.hourRate | currency }} per uur
+                    </div>
+                </md-list-item>
+                <md-list-item style="min-height: 20px; height: 20px;">
+                    <md-icon>local_gas_station</md-icon>
+                    <div flex>
+                      <span ng-if="resource.fuelType === 'benzine'">Benzine (Euro95 / E10)</span>
+                      <span ng-if="resource.fuelType === 'elektrisch'">Elektrisch</span>
                     </div>
                 </md-list-item>
               </md-list>
