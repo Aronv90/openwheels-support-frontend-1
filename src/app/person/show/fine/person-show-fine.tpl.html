@@ -1,0 +1,55 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default card">
+            <div class="panel-body">
+                <h3>Fines</h3>
+                <div ng-if="fineLog.length > 0">
+                    <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
+                    <p class="btn"> {{curPage}} </p>
+                    <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt;</button>
+                    <button class="btn" ng-click="refresh()"> <i class="fa fa-refresh"></i></button>
+                    <button class="btn btn-primary pull-right" ng-click="goToCreatePage()">Add Fine</button>
+                </div>
+
+                <div ng-if="fineLog.length === 0" class="alert alert-danger">No fines found.</div>
+                <table class="table" ng-if="fineLog.length > 0">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Resource</th>
+                        <th>Booking</th>
+                        <th>Organization</th>
+                        <th>fineAt</th>
+                        <th>createdAt</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="log in fineLog">
+                        <td>{{ log.id }}</td>
+                        <td>
+                            <a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">
+                                {{ log.booking.resource.alias }} ({{ log.booking.resource.registrationPlate}})
+                            </a>
+                        </td>
+                        <td>
+                            <a ui-sref="root.trip.dashboard({tripId: log.booking.id})">
+                                {{ log.booking.id }}
+                            </a>
+                        </td>
+                        <td>{{ log.organization }}</td>
+                        <td>{{ log.fineAt }}</td>
+                        <td>{{ log.createdAt }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" ng-click="viewLog(log)"><i
+                                    class="fa fa-eye"></i> view
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+    </div>
+</div>
