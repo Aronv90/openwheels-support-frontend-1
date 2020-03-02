@@ -1,0 +1,125 @@
+<div class="row" >
+
+    <div class="col-md-12">
+        <div class="panel panel-default card">
+
+            <div class="panel-body">
+
+                <h3>{{ fineStep }}</h3>
+                <form name="fineDataForm">
+
+                    <div class="fine-form">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="resource">Resource</label>
+                                <input type="text" id="resource" class="form-control input-sm typeahead" placeholder="Search resource"
+                                       ng-model="resource"
+                                       uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
+                                       typeahead-min-length="3" typeahead-input-formatter="formatResource($model)" ng-change="initDraft()" required>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="booking">Booking ID</label>
+                                <input type="number" id="booking" class="form-control" placeholder="Booking ID" ng-change="initDraft()" ng-model="fine.booking">
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="bookingType.length > 0">
+                            <div class="form-group col-md-2">
+                                <label for="bookingType">Booking Search Type</label>
+                                <input type="text" id="bookingType" class="form-control" ng-model="bookingType" readonly>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" class="form-control" ng-model="booking.person.firstName" readonly>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="surname">Surname</label>
+                                <input type="text" id="surname" class="form-control" ng-model="booking.person.surname" readonly>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="beginBooking">Begin</label>
+                                <input type="text" id="beginBooking" class="form-control" ng-model="booking.beginBooking" readonly>
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="endBooking">End</label>
+                                <input type="text" id="endBooking" class="form-control" ng-model="booking.endBooking" readonly>
+                            </div>
+                            <div class="form-group col-md-2" style="margin-top: 31px;">
+                                <a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="fineAtDate">Date</label>
+                                <input type="text" id="fineAtDate" placeholder="pick a date" class="form-control pickadate-input" ng-model="dateTime.date" ng-change="initDraft()" pickadate="dateConfig" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="time">Time</label>
+                                <input type="text" id="time" ng-model="dateTime.time" ng-change="initDraft()" class="form-control" placeholder="Ex. 15:00" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-4">
+                                <label for="type">Type</label>
+                                <select id="type" class="form-control" ng-model="fine.type"
+                                        ng-selected="fine.type === o.value"
+                                        ng-options="o.value as o.label for o in typeOptions" ng-change="initDraft()" required></select>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="description">Description</label>
+                                <input id="description" ng-model="fine.description" ng-change="initDraft()" class="form-control" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-8">
+                                <label for="organization">Organization</label>
+                                <input type="text" id="organization" ng-model="fine.organization" ng-change="initDraft()" class="form-control" required/>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="number">Number</label>
+                                <input type="text" id="number" ng-model="fine.number" ng-change="initDraft()" class="form-control" required/>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="amount">Amount</label>
+                                <input type="number" id="amount" ng-model="fine.amount" ng-change="initDraft()" class="form-control" required/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="shift">Shift Fine</label>
+                                <div class="input-group" style="margin-top: 6px;">
+                                    <input type="checkbox" id="shift" ng-model="fine.shift" ng-change="initDraft()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="files">Attachments</label>
+                                <input type="file" id="files" name="files[]" ng-click="resetFiles()" file-upload multiple aria-label="Upload bestanden" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-danger" ng-show="bookingType !== null" ng-click="create()" ng-disabled="isSearchDisabled()">Create</button>
+                            <button type="submit" class="btn btn-primary" ng-show="bookingType === null" ng-click="draft()" ng-disabled="isSearchDisabled()">Draft</button>
+                            <button type="button" class="btn btn-default pull-right" ng-click="goToListPage()" >Back to fines</button>
+                            <button type="button" class="btn btn-danger pull-right" style="margin-right: 5px;" ng-click="empty(); fineDataForm.reset();">Empty</button>
+                            <button type="button" class="btn btn-warning pull-right" style="margin-right: 5px;" ng-click="previewModal();" ng-disabled="bookingType === null">Preview</button>
+
+                        </div>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

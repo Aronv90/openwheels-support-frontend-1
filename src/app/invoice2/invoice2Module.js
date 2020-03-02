@@ -9,7 +9,11 @@ angular.module('openwheels.invoice2', [
   'openwheels.invoice2.voucher.list',
   'openwheels.invoice2.payment.list',
   'openwheels.invoice2.payout.list',
-  'openwheels.invoice2.account.list'
+  'openwheels.invoice2.account.list',
+  'openwheels.invoice2.fine.create',
+  'openwheels.invoice2.fine.list',
+  'openwheels.invoice2.fine.preview',
+  'openwheels.invoice2.fine.view'
 ])
 
 .config(function config($stateProvider) {
@@ -275,6 +279,42 @@ angular.module('openwheels.invoice2', [
         }
         return paymentService.getPayouts(params);
       }]
+    }
+  });
+
+  $stateProvider.state('root.invoice2.fine', {
+    abstract: true,
+    url: '/fine',
+    views: {
+      'main@': {
+        template: '<div ui-view></div>'
+      }
+    }
+  });
+
+  $stateProvider.state('root.invoice2.fine.create', {
+    url: '/create',
+    controller: 'FineCreateController',
+    templateUrl: 'invoice2/fine/create/fine-create.tpl.html',
+    data: {pageTitle: 'Create Fine'}
+  });
+
+  $stateProvider.state('root.invoice2.fine.list', {
+    url: '/list',
+    controller: 'FineListController',
+    templateUrl: 'invoice2/fine/list/fine-list.tpl.html',
+    data: {pageTitle: 'Fine Log'},
+    resolve: {
+      fineLog: ['$stateParams', 'fineService', 'perPage', function ($stateParams, fineService, perPage) {
+        var params = {};
+        params.limit = perPage;
+        params.offset = 0;
+
+        return fineService.search(params);
+      }],
+      perPage: function () {
+        return 20;
+      }
     }
   });
 

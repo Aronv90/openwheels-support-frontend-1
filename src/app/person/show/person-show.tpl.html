@@ -109,6 +109,9 @@
             <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }" ng-if="user.identity.provider.id !== 5 && !$root.isInterswitch">
               <a ui-sref=".transaction.list">Transacties</a>
             </li>
+            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.fine') }" ng-if="user.identity.provider.id !== 5 && !$root.isInterswitch">
+              <a ui-sref=".fine">Fines</a>
+            </li>
           </ul>
         </li>
       </ul>

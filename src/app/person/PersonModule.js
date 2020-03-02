@@ -10,7 +10,8 @@ angular.module('openwheels.person', [
 	'openwheels.person.show.payouts',
 	'openwheels.contract.request',
 	'openwheels.person.show.damage',
-	'openwheels.person.show.discount'
+	'openwheels.person.show.discount',
+	'openwheels.person.show.fine'
 ])
 
 	.config(function ($stateProvider) {
@@ -678,6 +679,26 @@ angular.module('openwheels.person', [
 				return discountService.search(params);
 			}],
 			perPage: function(){ return 20;},
+		}
+	});
+
+	$stateProvider.state('root.person.show.fine', {
+		url: '/fine',
+		controller: 'PersonShowFineController',
+		templateUrl: 'person/show/fine/person-show-fine.tpl.html',
+		data: {pageTitle: 'Fine Log'},
+		resolve: {
+			fineLog: ['$stateParams', 'fineService', 'person', 'perPage', function ($stateParams, fineService, person, perPage) {
+				var params = {};
+				params.personId = person.id;
+				params.limit = perPage;
+				params.offset = 0;
+
+				return fineService.search(params);
+			}],
+			perPage: function () {
+				return 20;
+			}
 		}
 	});
 
