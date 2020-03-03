@@ -3,19 +3,24 @@
 angular.module('openwheels.invoice2.fine.create', [])
 
 .controller('FineCreateController', function ($scope, resourceService, fineService, $uibModal, alertService, $state) {
-    $scope.fine = {};
-    $scope.params = {};
-    $scope.isSaving = false;
-    $scope.resource = null;
-    $scope.fineStep = 'Draft Fine';
-    $scope.preview = null;
-    $scope.booking = null;
-    $scope.bookingType = null;
-    $scope.files = [];
-    $scope.dateTime = {
-        date: null,
-        time: null
-    };
+
+    init();
+
+    function init() {
+        $scope.fine = {};
+        $scope.params = {};
+        $scope.isSaving = false;
+        $scope.resource = null;
+        $scope.fineStep = 'Draft Fine';
+        $scope.preview = null;
+        $scope.booking = null;
+        $scope.bookingType = null;
+        $scope.files = [];
+        $scope.dateTime = {
+            date: null,
+            time: null
+        };
+    }
 
     $scope.typeOptions = [
         {label: 'Verkeersboete', value: 'traffic_fine'},
@@ -132,14 +137,7 @@ angular.module('openwheels.invoice2.fine.create', [])
     };
 
     $scope.empty = function () {
-        $scope.fineStep = 'Draft Fine';
-        $scope.preview = null;
-        $scope.booking = null;
-        $scope.resource = null;
-        $scope.bookingType = null;
-        $scope.fine = {};
-        $scope.files = [];
-        $scope.isSaving = false;
+        init();
     };
 
     $scope.previewModal = function () {
