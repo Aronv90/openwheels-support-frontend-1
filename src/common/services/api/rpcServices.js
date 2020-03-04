@@ -412,6 +412,15 @@ angular.module('rpcServices', [])
       this.statusControlLog = m('statusControlLog');
     })
 
+    .service('fineService', function (api) {
+      var m = function (name) {
+        return api.createRpcMethod('fine.' + name);
+      };
+      this.create = m('create');
+      this.draftForResource = m('draftForResource');
+      this.search = m('search');
+    })
+
     .service('conversationService', function (api) {
       var m = function (name) {
         return api.createRpcMethod('conversations.' + name);

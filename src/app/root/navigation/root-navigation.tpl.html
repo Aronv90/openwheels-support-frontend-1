@@ -151,6 +151,13 @@
           <li ng-class="{ active: $state.includes('root.invoice2.invoice.create') }">
             <a ui-sref="root.invoice2.invoice.create">Factuurregel toevoegen</a>
           </li>
+          <li class="divider"></li>
+          <li ng-class="{ active: $state.includes('root.invoice2.fine.list') }">
+            <a ui-sref="root.invoice2.fine.list">Boetes</a>
+          </li>
+          <li ng-class="{ active: $state.includes('root.invoice2.fine.create') }">
+            <a ui-sref="root.invoice2.fine.create">Boete toevoegen</a>
+          </li>
         </ul>
       </li>
     </ul>
