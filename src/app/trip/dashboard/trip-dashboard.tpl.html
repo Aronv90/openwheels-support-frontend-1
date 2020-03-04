@@ -233,12 +233,12 @@
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.sub_total | currency}}</span></div>
           <div class="col-xs-8"><span class="box__slabel" title="Openstaande facturen die nog niet betaald zijn.">Openstaande facturen</span></div>
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.debt | currency}}</span></div>
-          <div class="col-xs-8"><span class="box__slabel" title="Af: je huidige rijtegoed.">Af: huidige rijtegoed</span></div>
+          <div class="col-xs-8"><span class="box__slabel" title="Af: je resterend saldo.">Af: resterend saldo</span></div>
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.credit | currency}}</span></div>
           <div class="col-xs-8"><span class="box__slabel" title="Deze bestuurder betaalt ritten achteraf per automatische incasso, de kredietlimiet is het maximale bedrag dat de bestuurder achteraf mag betalen.">Af: kredietlimiet</span></div>
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.credit_limit | currency}}</span></div>
           <div class="box__divider"></div>
-          <div class="col-xs-8" style="padding-top: 5px;"><span class="box__slabel" title="Het totaal te betalen rijtegoed."><strong>Te betalen</strong></span></div>
+          <div class="col-xs-8" style="padding-top: 5px;"><span class="box__slabel" title="Totaal te betalen."><strong>Te betalen</strong></span></div>
           <div class="col-xs-2" ng-if="requiredCredit.total < 0" style="padding-top: 5px;"><span class="box__sdata box__sdata--small">{{0.00 | currency}}</span></div>
           <div class="col-xs-2" ng-if="requiredCredit.total >= 0" style="padding-top: 5px;"><span class="box__sdata box__sdata--small">{{requiredCredit.total | currency}}</span></div>
         </div>

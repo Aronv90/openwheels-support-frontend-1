@@ -173,7 +173,7 @@ angular.module('openwheels', [
     'DASHBOARD': 'Dashboard',
 
     'SIGNUP_HEADING': 'Het lidmaatschap MyWheels is helemaal gratis',
-    'SIGNUP_DESCRIPTION': 'Aanmelden is binnen 10 seconden gepiept en je hoeft nog niks te betalen! Je kunt gelijk beginnen met het huren of verhuren van een auto',
+    'SIGNUP_DESCRIPTION': 'Aanmelden is binnen 10 seconden gepiept en je hoeft nog niks te betalen! Je kunt gelijk beginnen met het huren van een auto',
     'SIGNUP_TROUBLE': 'Problemen met aanmelden?',
     'EMAIL': 'Email',
     'PASSWORD': 'Wachtwoord',

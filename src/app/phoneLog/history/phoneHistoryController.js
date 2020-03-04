@@ -2,10 +2,15 @@
 
 angular.module('openwheels.phoneLog.history', [])
 
-.controller('PhoneHistoryController', function ($log, $state, $stateParams, $scope, alertService, dialogService, telecomService) {
+.controller('PhoneHistoryController', function ($log, $state, $stateParams, $scope, alertService, dialogService, telecomService, personService) {
+
+    personService.get({person: 583599})
+        .then(
+            function(person){
+                $scope.alertText = person.remark;
+            });
 
     // Create a date object from the (optionally given) date
-
     $scope.sCurrentDate = $stateParams['sDate'];
     var oCurrentDate = ($scope.sCurrentDate) ? new Date($scope.sCurrentDate) : new Date();
 

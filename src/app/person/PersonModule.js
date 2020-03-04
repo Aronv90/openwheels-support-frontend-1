@@ -494,7 +494,7 @@ angular.module('openwheels.person', [
 		url: '/vouchers',
 		controller: 'PersonShowVouchersController',
 		templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
-		data: {pageTitle: 'Rijtegoed'},
+		data: {pageTitle: 'Saldo'},
 	});
 
 	/* Payouts */
@@ -690,7 +690,7 @@ angular.module('openwheels.person', [
 		resolve: {
 			fineLog: ['$stateParams', 'fineService', 'person', 'perPage', function ($stateParams, fineService, person, perPage) {
 				var params = {};
-				params.personId = person.id;
+				params.person = person.id;
 				params.limit = perPage;
 				params.offset = 0;
 

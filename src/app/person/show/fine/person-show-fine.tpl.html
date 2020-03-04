@@ -2,25 +2,25 @@
     <div class="col-md-12">
         <div class="panel panel-default card">
             <div class="panel-body">
-                <h3>Fines</h3>
+                <h3>Boetes</h3>
                 <div ng-if="fineLog.length > 0">
                     <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
                     <p class="btn"> {{curPage}} </p>
                     <button class="btn" ng-click="nextPage()" ng-disabled="curPage >= lastPage"> &gt;</button>
                     <button class="btn" ng-click="refresh()"> <i class="fa fa-refresh"></i></button>
-                    <button class="btn btn-primary pull-right" ng-click="goToCreatePage()">Add Fine</button>
+                    <button class="btn btn-primary pull-right" ng-click="goToCreatePage()">Boete toevoegen</button>
                 </div>
 
-                <div ng-if="fineLog.length === 0" class="alert alert-danger">No fines found.</div>
+                <div ng-if="fineLog.length === 0" class="alert alert-danger">Geen boetes gevonden.</div>
                 <table class="table" ng-if="fineLog.length > 0">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Resource</th>
-                        <th>Booking</th>
-                        <th>Organization</th>
-                        <th>fineAt</th>
-                        <th>createdAt</th>
+                        <th>Auto</th>
+                        <th>Rit</th>
+                        <th>Organisatie</th>
+                        <th>Boetedatum</th>
+                        <th>Aanmaakdatum</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -28,7 +28,7 @@
                     <tr ng-repeat="log in fineLog">
                         <td>{{ log.id }}</td>
                         <td>
-                            <a ui-sref="root.resource.show.summary({ resourceId: booking.resource.id })">
+                            <a ui-sref="root.resource.show.summary({ resourceId: log.booking.resource.id })">
                                 {{ log.booking.resource.alias }} ({{ log.booking.resource.registrationPlate}})
                             </a>
                         </td>
@@ -42,7 +42,7 @@
                         <td>{{ log.createdAt }}</td>
                         <td>
                             <button type="button" class="btn btn-primary" ng-click="viewLog(log)"><i
-                                    class="fa fa-eye"></i> view
+                                    class="fa fa-eye"></i> bekijk
                             </button>
                         </td>
                     </tr>
