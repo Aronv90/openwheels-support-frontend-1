@@ -68,24 +68,8 @@
             </a>
           </li>
           <li class="divider"></li>
-          <li ng-class="{ active: $state.includes('root.trip.list.requested') }">
-            <a ui-sref="root.trip.list.requested">In aanvraag</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.current') }">
-            <a ui-sref="root.trip.list.current">Lopende ritten</a>
-          </li>
           <li ng-class="{ active: $state.includes('root.trip.list.notactive') }">
             <a ui-sref="root.trip.list.notactive">Nog niet actieve ritten</a>
-          </li>
-          <li class="divider"></li>
-          <li ng-class="{ active: $state.includes('root.trip.list.strange-kms') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
-            <a ui-sref="root.trip.list.strange-kms">Vreemde kilometerstanden</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.remarked') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
-            <a ui-sref="root.trip.list.remarked">Opmerkingen</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.trip.list.returned-late') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
-            <a ui-sref="root.trip.list.returned-late">Te laat teruggebracht</a>
           </li>
         </ul>
       </li>
@@ -135,9 +119,6 @@
             </form>
           </li>
           <li class="divider"></li>
-          <li ng-class="{ active: $state.includes('root.invoice2.account.list') }">
-            <a ui-sref="root.invoice2.account.list">IBAN-nummers</a>
-          </li>
           <li ng-class="{ active: $state.includes('root.invoice2.payout.list') }">
             <a ui-sref="root.invoice2.payout.list({gateway: 'paynl_gateway_mywheels', state: 'unpaid'})">Uitbetalingen</a>
           </li>
@@ -203,20 +184,6 @@
     <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
       <li ng-class="{ active: $state.includes('root.querytool') }">
         <a ui-sref="root.querytool">Database</a>
-      </li>
-    </ul>
-
-    <ul show-if-user-has-role="ROLE_ADMIN" class="nav navbar-nav" ng-if="!$root.isInterswitch">
-      <li ng-class="{ dropdown: true, active: $state.includes('root.provider') }">
-        <a href="" class="dropdown-toggle" data-toggle="dropdown">Provider<b class="caret"></b></a>
-        <ul class="dropdown-menu">
-          <li ng-class="{ active: $state.includes('root.provider.create') }">
-            <a ui-sref="root.provider.create">Provider toevoegen</a>
-          </li>
-          <li ng-class="{ active: $state.includes('root.provider.list') }">
-            <a ui-sref="root.provider.list">Providerlijst</a>
-          </li>
-        </ul>
       </li>
     </ul>
 

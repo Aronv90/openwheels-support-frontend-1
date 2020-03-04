@@ -50,7 +50,7 @@
           <a ui-sref=".invoiceGroupV2.list">Facturen</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.vouchers') }" ng-if="!$root.isInterswitch">
-          <a ui-sref=".vouchers">Rijtegoed</a>
+          <a ui-sref=".vouchers">Saldo</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.payouts') }" ng-if="!$root.isInterswitch">
           <a ui-sref=".payouts">Uitbetalingen</a>
@@ -59,13 +59,10 @@
           <a ui-sref="root.person.show.damage({ personId: person.id })">Schade</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.contracts') }">
-          <a ui-sref=".contracts">Contracten</a>
+          <a ui-sref=".contracts">Abonnementen</a>
         </li>
         <li ng-class="{ active: $state.includes('root.person.show.chipcards') }" ng-if="user.identity.provider.id !== 5">
           <a ui-sref=".chipcards">Chipkaarten</a>
-        </li>
-        <li ng-class="{ active: $state.includes('root.person.show.resource.list') }">
-          <a ui-sref=".resource.list">Auto's</a>
         </li>
         <li class="dropdown" ng-class="{ active: $state.includes('root.person.show.messages') || $state.includes('root.person.show.communication') || $state.includes('root.person.show.messagesms') }" ng-if="user.identity.provider.id !== 5">
           <a class="dropdown-toggle" data-toggle="dropdown">Communicatie</a>
@@ -91,8 +88,8 @@
             <li ng-class="{ active: $state.includes('root.person.show.rating') }" ng-if="user.identity.provider.id !== 5">
               <a ui-sref=".rating">Reviews</a>
             </li>
-            <li ng-class="{ active: $state.includes('root.person.show.badges') }" ng-if="user.identity.provider.id !== 5">
-              <a ui-sref=".badges">Badges ( {{ person.badges.length }} )</a>
+            <li ng-class="{ active: $state.includes('root.person.show.resource.list') }">
+              <a ui-sref=".resource.list">Auto's</a>
             </li>
             <li ng-class="{ active: $state.includes('root.person.show.actions') }">
               <a ui-sref=".actions">Acties</a>
@@ -106,11 +103,8 @@
             <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.invoice-group') }" ng-if="!$root.isInterswitch">
               <a ui-sref=".invoice-group.list">Verzamelfacturen</a>
             </li>
-            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.transaction.list') }" ng-if="user.identity.provider.id !== 5 && !$root.isInterswitch">
-              <a ui-sref=".transaction.list">Transacties</a>
-            </li>
-            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.fine') }" ng-if="user.identity.provider.id !== 5 && !$root.isInterswitch">
-              <a ui-sref=".fine">Fines</a>
+            <li show-if-user-has-role="ROLE_ADMIN" ng-class="{ active: $state.includes('root.person.show.fine') }" ng-if="user.identity.provider.id !== 5">
+              <a ui-sref=".fine">Boetes</a>
             </li>
           </ul>
         </li>
@@ -131,7 +125,7 @@
         <textarea id="remark" class="form-control" ng-model="person.remark" placeholder="Remark" rows="4"></textarea>
       </div>
       <div class="form-group" style="margin-bottom: 0;">
-        <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Save</button>
+        <button ng-click="save()" ng-disabled="isSaveDisabled()" class="btn btn-primary">Opslaan</button>
       </div>
     </form>
   </div>

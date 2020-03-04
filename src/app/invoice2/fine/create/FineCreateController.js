@@ -11,7 +11,7 @@ angular.module('openwheels.invoice2.fine.create', [])
         $scope.params = {};
         $scope.isSaving = false;
         $scope.resource = null;
-        $scope.fineStep = 'Draft Fine';
+        $scope.fineStep = 'Boete toevoegen';
         $scope.preview = null;
         $scope.booking = null;
         $scope.bookingType = null;
@@ -78,7 +78,7 @@ angular.module('openwheels.invoice2.fine.create', [])
             $scope.booking = draft.booking;
             $scope.fine.booking = draft.booking.id;
             $scope.bookingType =  draft.booking_type;
-            $scope.fineStep = 'Create Fine';
+            $scope.fineStep = 'Boete toevoegen';
             $scope.isSaving = false;
         }, function (error) {
             $scope.isSaving = false;
@@ -115,7 +115,7 @@ angular.module('openwheels.invoice2.fine.create', [])
             'files[8]': $scope.files[8] ? $scope.files[8] : undefined,
             'files[9]': $scope.files[9] ? $scope.files[9] : undefined
         }).then(function (result) {
-            alertService.add('success', 'Fine added', 2000);
+            alertService.add('success', 'Boete toegevoegd', 2000);
             $scope.isSaving = true;
         }, function (error) {
             $scope.isSaving = false;

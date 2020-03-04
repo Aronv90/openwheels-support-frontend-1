@@ -2,7 +2,13 @@
 
 angular.module('openwheels.phoneLog.current', [])
 
-.controller('PhoneCurrentController', function ($scope, alertService, telecomService, $state) {
+.controller('PhoneCurrentController', function ($scope, alertService, telecomService, $state, personService) {
+
+  personService.get({person: 583599})
+      .then(
+          function(person){
+              $scope.alertText = person.remark;
+          });
 
   loadCurrent();
 
