@@ -494,7 +494,7 @@ angular.module('openwheels.person', [
 		url: '/vouchers',
 		controller: 'PersonShowVouchersController',
 		templateUrl: 'person/show/vouchers/person-show-vouchers.tpl.html',
-		data: {pageTitle: 'Rijtegoed'},
+		data: {pageTitle: 'Saldo'},
 	});
 
 	/* Payouts */

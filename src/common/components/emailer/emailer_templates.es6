@@ -115,8 +115,8 @@ Mail gerust als je nog vragen hebt.`,
       footer: `
 Veelgestelde vragen:
 
-- [Ik heb rijtegoed betaald, hoe vraag ik dit terug?](https://mywheels.nl/autodelen/veelgestelde-vragen/rijtegoed-terugvragen/)
-- [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/autodelen/veelgestelde-vragen/wanneer-wordt-rijbewijs-gecontroleerd/)`
+- [Hoe ontvang ik mijn saldo retour?](https://mywheels.nl/help/betalen/hoe-ontvang-ik-mijn-saldo-retour)
+- [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/help/account/wanneer-wordt-mijn-account-gecontroleerd)`
     },
     {
       key: "Onterechte match op persoon - NL",
@@ -325,7 +325,7 @@ Alvast bedankt voor je reactie.`
       key: "Beheerder worden? - NL",
       subject: "Draag bij aan de deelmaatschappij!",
       content: `
-<p><img width="100%" height="auto" src="https://mywheels.nl/autodelen/wp-content/uploads/2019/09/beheerders-1-e1567582008270.jpg" /></p>
+<p><img width="100%" height="auto" src="https://mywheels.nl/static/media/beheerdersdag_2019.46c91cc6.jpg" /></p>
 
 Beste {{ VOORNAAM }},
 
