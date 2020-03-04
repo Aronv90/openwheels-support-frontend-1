@@ -4,7 +4,7 @@
         <div class="panel panel-default card">
             <div class="panel-body">
                 <form class="form">
-                    <button class="btn btn-primary" ng-click="goToCreatePage()">Add Fine</button>
+                    <button class="btn btn-primary" ng-click="goToCreatePage()">Boete toevoegen</button>
                 </form>
             </div>
         </div>
@@ -13,29 +13,29 @@
                 <h3>Filter</h3>
                 <form class="form">
                     <div class="form-group">
-                        <label for="person">Person</label>
+                        <label for="person">Persoon</label>
                         <input type="number" id="person" class="form-control" ng-model="obj.person"
-                               placeholder="Person ID">
+                               placeholder="Persoon">
                     </div>
 
                     <div class="form-group">
-                        <label for="resource">Resource</label>
+                        <label for="resource">Auto</label>
                         <input type="number" id="resource" class="form-control" ng-model="obj.resource"
-                               placeholder="Resource ID">
+                               placeholder="Kenteken van de auto">
                     </div>
 
                     <div class="form-group">
                         <label for="start">Start</label>
-                        <input type="text" id="start" placeholder="pick a date" class="form-control pickadate-input"
+                        <input type="text" id="start" placeholder="Selecteer een datum" class="form-control pickadate-input"
                                pickadate="dateConfig" ng-model="obj.start">
                     </div>
 
                     <div class="form-group">
-                        <label for="start">End</label>
-                        <input type="text" id="end" placeholder="pick a date" class="form-control pickadate-input"
+                        <label for="start">Einde</label>
+                        <input type="text" id="end" placeholder="Selecteer een datum" class="form-control pickadate-input"
                                pickadate="dateConfig" ng-model="obj.end">
                     </div>
-                    <button class="btn btn-primary" ng-click="refresh()">Refresh</button>
+                    <button class="btn btn-primary" ng-click="refresh()">Vernieuw</button>
                 </form>
             </div>
         </div>
@@ -44,7 +44,7 @@
     <div class="col-md-10">
         <div class="panel panel-default card">
             <div class="panel-body">
-                <h3>Fines</h3>
+                <h3>Boetes</h3>
                 <div ng-if="fineLog.length > 0">
                     <button class="btn" ng-click="prevPage()" ng-disabled="curPage == 1"> &lt;</button>
                     <p class="btn"> {{curPage}} </p>
@@ -52,16 +52,16 @@
 
                 </div>
 
-                <div ng-if="fineLog.length === 0" class="alert alert-danger">No fines found.</div>
+                <div ng-if="fineLog.length === 0" class="alert alert-danger">Geen boetes gevonden.</div>
                 <table class="table" ng-if="fineLog.length > 0">
                     <thead>
                     <tr>
                         <th>#</th>
-                        <th>Person</th>
-                        <th>Booking</th>
-                        <th>Organization</th>
-                        <th>fineAt</th>
-                        <th>createdAt</th>
+                        <th>Persoon</th>
+                        <th>Rit</th>
+                        <th>Organisatie</th>
+                        <th>Boetedatum</th>
+                        <th>Aanmaakdatum</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -83,7 +83,7 @@
                         <td>{{ log.createdAt }}</td>
                         <td>
                             <button type="button" class="btn btn-primary" ng-click="viewLog(log)"><i
-                                    class="fa fa-eye"></i> view
+                                    class="fa fa-eye"></i> bekijk
                             </button>
                         </td>
                     </tr>

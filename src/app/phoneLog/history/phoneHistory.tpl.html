@@ -2,6 +2,11 @@
   <div class="panel-body">
     <h3>Telefoongesprekken per dag</h3>
 
+    <div ng-if="alertText" style="padding-top:25px;padding-bottom:40px;">
+    	<h4 style="color:red;"><strong>Let op: nieuwsbericht voor Interswitch!</strong></h4>
+    	<span style="font-size:16px;">{{alertText}}</span>
+    </div>
+
     <div style="margin-bottom: 20px">
 
       <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sPrevDay })">&laquo; Vorige dag</button>

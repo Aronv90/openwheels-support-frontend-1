@@ -1,6 +1,6 @@
 <div class="panel panel-default card">
     <div class="panel-heading">
-        <h1>Create new global Discount</h1>
+        <h1>Kortingscode toevoegen</h1>
     </div>
 </div>
 
@@ -9,40 +9,40 @@
         <form ng-submit="save(globalDiscount)" name="createGlobalDiscountForm">
 
             <div class="form-group">
-                <label for="code">Discount code (optional)</label>
-                <input name="code" id="code" type="text" class="form-control input-sm typeahead" placeholder="Discount code"
+                <label for="code">Kortingscode (optioneel)</label>
+                <input name="code" id="code" type="text" class="form-control input-sm typeahead" placeholder="Kortingscode, bijvoorbeeld mywheels10"
                        ng-model="globalDiscount.code">
             </div>
 
             <div class="form-group">
-                <label for="resource">Resource</label>
-                <input type="text" id="resource" class="form-control input-sm typeahead" placeholder="Search resource"
+                <label for="resource">Auto (optioneel)</label>
+                <input type="text" id="resource" class="form-control input-sm typeahead" placeholder="Kenteken van de auto"
                        ng-model="globalDiscount.resource"
                        uib-typeahead="resource as ('<p>[' + resource.id + '] ' + resource.alias + '<br><small>' + resource.registrationPlate + '<br>' + resource.city + '<br>Provider ' + resource.providerId + '</p>') for resource in searchResources($viewValue)"
                        typeahead-min-length="3" typeahead-input-formatter="formatResource($model)">
             </div>
 
             <div class="form-group">
-                <label for="sender">Sender</label>
+                <label for="sender">Kortingsverstrekker (verplicht)</label>
                 <input find-person model="globalDiscount.sender" required id="sender" name="sender" />
             </div>
 
             <div class="form-group">
-                <label for="recipient">Person (optional)</label>
+                <label for="recipient">Huurder (optioneel)</label>
                 <input find-person model="globalDiscount.recipient" id="recipient" name="recipient" />
             </div>
 
             <div class="form-group">
                 <div class="row">
                     <div class="col-xs-6">
-                        <label for="from">From (optional)</label>
-                        <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                        <label for="from">Actief van (optioneel)</label>
+                        <input type="text" placeholder="Selecteer een datum" class="form-control pickadate-input"
                                ng-model="globalDiscount.from" pickadate="dateConfig">
                     </div>
 
                     <div class="col-xs-6">
-                        <label for="until">Until (optional)</label>
-                        <input type="text" placeholder="pick a date" class="form-control pickadate-input"
+                        <label for="until">Actief tot (optioneel)</label>
+                        <input type="text" placeholder="Selecteer een datum" class="form-control pickadate-input"
                                ng-model="globalDiscount.until" pickadate="dateConfig">
                     </div>
                 </div>
@@ -51,49 +51,49 @@
             <div class="row">
                 <div class="col-xs-6">
                     <div class="form-group">
-                        <label for="amount">Amount</label>
+                        <label for="amount">Kortingsbedrag</label>
 
                         <div class="input-group">
                             <span class="input-group-addon">€</span>
                             <input type="text" smart-float id="amount" name="amount" class="form-control"
-                                   ng-model="globalDiscount.amount" placeholder="amount" ng-disabled="discount.percentage">
+                                   ng-model="globalDiscount.amount" placeholder="Bedrag" ng-disabled="discount.percentage">
                         </div>
                     </div>
                 </div>
                 <div class="col-xs-6">
                     <div class="form-group">
-                        <label for="hourRate">Percentage</label>
+                        <label for="hourRate">Kortingspercentage</label>
 
                         <div class="input-group">
                             <span class="input-group-addon">%</span>
                             <input type="text" smart-float id="percentage" name="percentage" class="form-control"
-                                   ng-model="globalDiscount.percentage" placeholder="percentage" ng-disabled="discount.amount">
+                                   ng-model="globalDiscount.percentage" placeholder="Kortingspercentage" ng-disabled="discount.amount">
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="form-grouo">
-                <b>Options</b>
+                <b>Opties</b>
                 <div class="row">
                     <div class="col-xs-4">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="globalDiscount.multiple"> Multiple
+                                <input type="checkbox" ng-model="globalDiscount.multiple"> Meerdere keren te gebruiken door dezelfde huurder
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-4">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="globalDiscount.global"> Global
+                                <input type="checkbox" ng-model="globalDiscount.global"> Toe te passen op alle auto's, iedere partij betaalt eigen korting (global)
                             </label>
                         </div>
                     </div>
                     <div class="col-xs-4">
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox" ng-model="globalDiscount.globalCharge"> GlobalCharge
+                                <input type="checkbox" ng-model="globalDiscount.globalCharge"> Toe te passen op alle auto's, kortingsverstrekker betaalt alle korting (globalCharge)
                             </label>
                         </div>
                     </div>
@@ -102,9 +102,9 @@
 
             <div class="form-group">
                 <div class="row">
-                    <div class="col-xs-2">
-                        <button id="clear" type="reset" class="btn btn-default pull-right" >Cancel</button>
-                        <button id="submitForm" type="submit" class="btn btn-primary pull-left" ng-disabled="createGlobalDiscountForm.$pristine">Submit</button>
+                    <div class="col-xs-3">
+                        <button id="clear" type="reset" class="btn btn-default pull-right" >Annuleren</button>
+                        <button id="submitForm" type="submit" class="btn btn-primary pull-left" ng-disabled="createGlobalDiscountForm.$pristine">Toevoegen</button>
                     </div>
                 </div>
             </div>

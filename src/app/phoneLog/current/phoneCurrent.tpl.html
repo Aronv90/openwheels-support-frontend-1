@@ -1,6 +1,12 @@
 <div class="panel panel-default card">
   <div class="panel-body">
     <h3>Inkomende telefoongesprekken</h3>
+
+    <div ng-if="alertText" style="padding-top:25px;padding-bottom:40px;">
+    	<h4 style="color:red;"><strong>Let op: nieuwsbericht voor Interswitch!</strong></h4>
+    	<span style="font-size:16px;">{{alertText}}</span>
+    </div>
+
     <p>
       Alle telefoongesprekken in de laatste 25 minuten. Bekijk <a ui-sref="phoneLog.history">alle telefoongesprekken van vandaag</a>.
     </p>
