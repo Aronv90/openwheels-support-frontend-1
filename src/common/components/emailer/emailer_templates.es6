@@ -333,13 +333,13 @@ Wij zien dat jij de auto {{ ALIAS }} in {{ STAD }} regelmatig gebruikt.
 Wij zijn voor deze auto op zoek naar een nieuwe beheerder, misschien is dit iets voor jou?
 
 **Over MyWheels** <br />
-Hoe meer mensen een auto delen, des te minder auto’s er op de weg rijden of in de wijken staan. Met minder auto’s slaan we dus twee vliegen in één klap: minder CO2-uitstoot én leefbaardere buurten. Samen met onze leden en een groep enthousiaste beheerders en coördinatoren in het land streven we deze idealen na. MyWheels is in de afgelopen vijfentwintig jaar uitgegroeid tot een van de grootste en voordeligste autodeelplatforms van Nederland. Anno 2019 verbinden we ruim 65.000 huurders en verhuurders van deelauto’s met elkaar. 
+Hoe meer mensen een auto delen, des te minder auto’s er op de weg rijden of in de wijken staan. Met minder auto’s slaan we dus twee vliegen in één klap: minder CO2-uitstoot én leefbaardere buurten. Samen met onze leden en een groep enthousiaste beheerders en coördinatoren in het land streven we deze idealen na. MyWheels is in de afgelopen vijfentwintig jaar uitgegroeid tot een van de grootste en voordeligste autodeelplatforms van Nederland. 
 
 **Wat doet een beheerder?** <br />
-Alle MyWheels Open deelauto's hebben een beheerder. Dit zijn onze vrijwilligers op locatie: ons aanspreekpunt en onze ambassadeurs. Beheerders helpen om vragen van gebruikers te beantwoorden, de auto netjes te houden en een oogje in het zeil te houden. Zo nu en dan de bandenspanning en oliepeil controleren en het bijhouden van de jaarlijkse onderhoudsbeurt worden door onze beheerders gecoördineerd. 
+Alle deelauto's hebben een beheerder. Dit zijn onze vrijwilligers op locatie: ons aanspreekpunt en onze ambassadeurs. Beheerders helpen om vragen van gebruikers te beantwoorden, de auto netjes te houden en een oogje in het zeil te houden. Zo nu en dan de bandenspanning en oliepeil controleren en het bijhouden van de jaarlijkse onderhoudsbeurt worden door onze beheerders gecoördineerd. 
 
 **Is er een vergoeding voor beheerderschap?** <br />
-Ja, als bedankje krijgen MyWheels beheerders maandelijks een vrijwilligersvergoeding in de vorm van 75 vrije kilometers. Deze wordt verrekend met eigen gemaakte ritten. Deze vergoeding spaar je op, je hoeft dit dus niet elke maand op te maken.
+Ja, als bedankje krijgen MyWheels beheerders maandelijks een vrijwilligersvergoeding in de vorm van 12 euro aan vrije kilometers. Deze wordt verrekend met eigen gemaakte ritten. Deze vergoeding spaar je op, je hoeft dit dus niet elke maand op te maken.
 
 **Geheel vrijblijvend** <br />
 Omdat het beheerder zijn van een MyWheels auto vrijwillig is, zit je ook nergens aan vast. Als je het toch niet leuk vindt om beheerder te zijn of je er wellicht later geen tijd meer voor hebt, is dat geen probleem en gaan we op zoek naar een nieuwe beheerder voor de auto.
