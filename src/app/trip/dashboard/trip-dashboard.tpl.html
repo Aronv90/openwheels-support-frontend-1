@@ -658,6 +658,7 @@
     </a>
 
     <!-- / hide some actions -->
+    <li ng-click="automateFine()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Boete verleggen">Boete verleggen</span></li>
     <li ng-click="refundBooking()" class="quickaction__item--trip" ng-hide="hide" ng-if="booking.approved=='OK'"><span tooltip-placement="right" uib-tooltip="Crediteer rit">Restitutie</span></li>
     <li class="quickaction__item--trip text-white" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe schademelding aan"><add-damage-dialog ng-click="addDamage()"></add-damage-dialog></span></li>
     <li class="quickaction__item--trip text-white" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe onderhoudsmelding aan"><add-maintenance-dialog ng-click="addMaintenance()"></add-maintenance-dialog></span></li>
