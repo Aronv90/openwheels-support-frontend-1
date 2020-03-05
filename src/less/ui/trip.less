@@ -1,7 +1,10 @@
-@color-trip:     #3db971;   
-@color-driver:   #e4c274;  
-@color-resource: #e84545;  
-@color-owner:    #6a81d4; 
+@color-trip:     #1b70de;   
+@color-driver:   #1b70de;  
+@color-resource: #1b70de;  
+@color-owner:    #1b70de; 
+@color-button:   #1b70de;
+@color-warning:  #e84545;
+@color-agreed:   #27873a;
 
 .row--padding-top {
   padding-top: 1em;
@@ -97,22 +100,27 @@
 
   &--trip {
     background-color: @color-trip;
+    opacity: 0.8;
   }
 
   &--driver {
     background-color: @color-driver;
+    opacity: 0.8;
   }
 
   &--resource {
     background-color: @color-resource;
+    opacity: 0.8;
   }
 
   &--owner {
     background-color: @color-owner;
+    opacity: 0.8;
   }
 
   &--remarks {
-    background-color: @chatcolor;
+    background-color: @color-resource;
+    opacity: 0.8 ;
   }
 }
 
@@ -251,11 +259,13 @@
   }
 
   &__item--trip {
-    background: desaturate(@color-trip, 15);
-    border: 1px solid darken(@color-trip, 5);
+    background: desaturate(@color-button, 15);
+    opacity:0.8;
+    border: 1px solid darken(@color-button, 5);
   }
   &__item--trip:hover {
-    background: @color-trip;
+    background: @color-button;
+    opacity: 0.6;
   }
   &__item--driver {
     background: desaturate(@color-driver, 15);
@@ -290,7 +300,8 @@
   position: fixed;
 
   &__form {
-    background-color: @chatcolor;
+    background-color: @color-resource;
+    opacity: 0.8;
     padding-bottom: 14px;
     padding-top: 14px;
     margin-top: 1em;
@@ -298,7 +309,8 @@
   }
 
   &__button {
-    background-color: @chatcolor;
+    background-color: @color-resource;
+    opacity: 0.6;
     border-radius: 1px;
     border: 1px solid white;
     color: white;
@@ -414,18 +426,22 @@ table.table-invoicegroup tr.subtotal > td { font-size: 1.1em; font-weight: bold;
   }
 
   &--owner {
-    background-color: @color-owner;
+    background-color: @color-warning;
   }
 
   &--driver {
-    background-color: @color-driver;
+    background-color: @color-warning;
   }
 
   &--neg {
-    background-color: @color-resource;
+    background-color: @color-warning;
   }
 
   &--trip {
-    background-color: @color-trip;
+    background-color: @color-warning;
+  }
+
+  &--agreed {
+    background-color: @color-agreed;
   }
 }

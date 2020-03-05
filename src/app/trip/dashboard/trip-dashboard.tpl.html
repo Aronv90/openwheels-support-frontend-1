@@ -1,39 +1,28 @@
 <div class="row">
   <div class="col-sm-12" ng-if="!booking.ok || booking.status !== 'accepted'" style="padding-bottom: .5em;">
     <div class="notice notice--neg">
-      <strong>De eigenaar mag de auto nog niet meegeven aan de bestuurder omdat de rit nog niet in orde is:</strong>
-      <strong ng-if="booking.person.status === 'blocked'"><br>- Het account van de bestuurder is gedeactiveerd.</strong>
-      <strong ng-if="booking.person.status === 'book-only'"><br>- Het account van de bestuurder moet nog handmatig gecontroleerd worden.</strong>
+      <strong>De huurder kan de auto niet ophalen omdat de rit nog niet in orde is:</strong>
+      <strong ng-if="booking.person.status === 'blocked'"><br>- Het account van de huurder is gedeactiveerd.</strong>
+      <strong ng-if="booking.person.status === 'book-only'"><br>- Het account van de huurder moet nog handmatig gecontroleerd worden.</strong>
       <strong ng-if="booking.approved === 'BUY_VOUCHER'"><br>- De rit is nog niet betaald.</strong>
       <strong ng-if="booking.status === 'requested'"><br>- De rit is nog niet geaccepteerd.</strong>
       <strong ng-if="booking.status === 'owner_cancelled'"><br>- De rit is door de eigenaar geannuleerd.</strong>
-      <strong ng-if="booking.status === 'cancelled'"><br>- De rit is door de bestuurder geannuleerd.</strong>
-      <strong ng-if="booking.cancelReason === 'NOT_PAID_ON_TIME'">Een andere bestuurder heeft de auto voor dezelfde huurperiode gereserveerd en betaald. Omdat deze reservering nog niet betaald is, is de reservering automatisch geannuleerd.</strong>
+      <strong ng-if="booking.status === 'cancelled'"><br>- De rit is door de huurder geannuleerd.</strong>
+      <strong ng-if="booking.cancelReason === 'NOT_PAID_ON_TIME'">Een andere huurder heeft de auto voor dezelfde huurperiode gereserveerd en betaald. Omdat deze reservering nog niet betaald is, is de reservering automatisch geannuleerd.</strong>
       <strong ng-if="booking.status === 'rejected' "><br>- De rit is afgewezen door de eigenaar.</strong>
     </div>
   </div>
 
   <div class="col-sm-12" ng-if="booking.ok && booking.status === 'accepted'" style="padding-bottom: .5em;">
-    <div class="notice notice--trip">
-      <strong>Alles voor deze rit is in orde, de bestuurder mag de auto ophalen.</strong>
-    </div>
-  </div>
-
-  <div class="col-sm-12" ng-show="!showNoticeDriver && booking.person.remark" style="padding-bottom: .5em;">
-    <div class="notice notice--driver">
-      <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
-      <strong>Opmerking bij bestuurder:</strong>
-      <br ng-if="noticeDriver">
-      {{booking.person.remark}}
-      </div>
-      <span ng-click="showNoticeDriver=!showNoticeDriver" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
+    <div class="notice notice--agreed">
+      <strong>Alles voor deze rit is in orde, de huurder mag de auto ophalen.</strong>
     </div>
   </div>
 
   <div class="col-sm-12" ng-show="!showBookingNoticeDriver && booking.remarkRequester" style="padding-bottom: .5em;">
     <div class="notice notice--driver">
       <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
-      <strong>Opmerking rit bestuurder:</strong>
+      <strong>Opmerking bij rit:</strong>
       <br ng-if="noticeDriver">
       {{booking.remarkRequester}}
       </div>
@@ -41,33 +30,11 @@
     </div>
   </div>
 
-  <div class="col-sm-12" ng-show="!showNoticeOwner && booking.resource.owner.remark && booking.resource.owner.id !== 280 && booking.resource.owner.id !== 281 && booking.resource.owner.id !== 282" style="padding-bottom: .5em;" hide>
-    <div class="notice notice--owner">
-      <div ng-class="{'notice--single-line': !noticeOwner}" class="no-outline" ng-click="noticeOwner=!noticeOwner" >
-        <strong>Opmerking bij eigenaar:</strong>
-        <br ng-if="noticeOwner">
-        {{booking.resource.owner.remark}}
-      </div>
-      <span ng-click="showNoticeOwner=!showNoticeOwner" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
-    </div>
-  </div>
-
-  <div class="col-sm-12" ng-show="!showBookingNoticeOwner && booking.remarkAuthorizer" style="padding-bottom: .5em;">
-    <div class="notice notice--owner">
-      <div ng-class="{'notice--single-line': !noticeOwner}" class="no-outline" ng-click="noticeOwner=!noticeOwner" >
-        <strong>Opmerking rit eigenaar:</strong>
-        <br ng-if="noticeOwner">
-        {{booking.remarkAuthorizer}}
-      </div>
-      <span ng-click="showBookingNoticeOwner=!showBookingNoticeOwner" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
-    </div>
-  </div>
-
 </div>
 
 <div class="row">
 
-  <div class="col-md-3 col-sm-6">
+  <div class="col-md-4 col-sm-12">
     <div class="box box--min-height">
       <div class="box__title box__title--trip">
         <small>Rit #{{booking.id}}<a ui-sref="root.trip.show.summary({tripId: booking.id})" class="pull-right box__link">Meer</a></small>
@@ -95,11 +62,12 @@
           <div class="col-xs-6"><span class="box__sdata">{{booking.trip.finalized ? 'Ja' : 'Nee'}}, <span>{{booking.trip.odoEnd ? booking.trip.odoEnd - booking.trip.odoBegin : '-' }}KM</span></span></div>
         </div>
         <div class="row box__row">
-          <div class="col-xs-6"><span class="box__slabel">Contracttype</span></div>
-          <div class="col-xs-6"><span class="box__sdata"><a ng-click="contractInfo(contract.id)" class="">{{contract.type.name}}</a></span></div>
+          <div class="col-xs-6"><span class="box__slabel">Abonnement</span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-if="contract.type.id === 60"><a ng-click="contractInfo(contract.id)" class="">Vooraf betalen</a></span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-if="contract.type.id !== 60"><a ng-click="contractInfo(contract.id)" class="">{{contract.type.name}}</a></span></div>
         </div>
         <div class="row box__row">
-          <div class="col-xs-6"><span class="box__slabel">Eigen risico:</span></div>
+          <div class="col-xs-6"><span class="box__slabel">Eigen risico</span></div>
           <div class="col-xs-6"><span class="box__sdata">{{ (booking.riskReduction || contract.ownRiskWaiver === 'month') ? '250 euro (verlaagd)' : '500 euro (niet verlaagd)' }}</a></span></div>
         </div>
         <div class="row box__row">
@@ -178,10 +146,10 @@
     </div>
   </div> <!--/ first box, trip -->
 
-  <div class="col-md-3 col-sm-6">
+  <div class="col-md-4 col-sm-12">
     <div class="box box--min-height">
       <div class="box__title box__title--driver">
-        <small>Bestuurder #{{booking.person.id}} <a ui-sref="root.person.show.trip({personId: booking.person.id})" class="pull-right box__link">Meer</a></small>
+        <small>Huurder #{{booking.person.id}} <a ui-sref="root.person.show.trip({personId: booking.person.id})" class="pull-right box__link">Meer</a></small>
         <h3 title="{{booking.person | fullname }}">{{booking.person | fullname}}</h3>
       </div>
       <div class="box__content">
@@ -235,7 +203,7 @@
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.debt | currency}}</span></div>
           <div class="col-xs-8"><span class="box__slabel" title="Af: je resterend saldo.">Af: resterend saldo</span></div>
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.credit | currency}}</span></div>
-          <div class="col-xs-8"><span class="box__slabel" title="Deze bestuurder betaalt ritten achteraf per automatische incasso, de kredietlimiet is het maximale bedrag dat de bestuurder achteraf mag betalen.">Af: kredietlimiet</span></div>
+          <div class="col-xs-8"><span class="box__slabel" title="Deze huurder betaalt ritten achteraf per automatische incasso, de kredietlimiet is het maximale bedrag dat de huurder achteraf mag betalen.">Af: kredietlimiet</span></div>
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.credit_limit | currency}}</span></div>
           <div class="box__divider"></div>
           <div class="col-xs-8" style="padding-top: 5px;"><span class="box__slabel" title="Totaal te betalen."><strong>Te betalen</strong></span></div>
@@ -256,63 +224,7 @@
     </div>
   </div> <!--/ second box, driver -->
 
-  <div class="col-md-3 col-sm-6">
-    <div class="box box--min-height">
-      <div class="box__title box__title--owner">
-        <small>Eigenaar #{{booking.resource.owner.id}} <a ui-sref="root.person.show.trip({personId: booking.resource.owner.id})" class="pull-right box__link">Meer</a></small>
-        <h3 title="{{booking.resource.owner | fullname}}">{{booking.resource.owner | fullname}}</h3>
-      </div>
-      <div class="box__content">
-        <div class="row">
-          <div class="col-xs-7">
-          </div>
-          <div class="col-xs-5"><img class="pull-right box__sdata box__sdata--image" ng-src="https://mywheels.nl/person/{{booking.resource.owner.id}}/90/90/profile.png"></div>
-        </div>
-        <div class="row box__row">
-          <div class="col-xs-4"><span class="box__slabel">E-mail</span></div>
-          <div class="col-xs-8"><span title="{{booking.resource.owner.email}}" class="box__sdata box__sdata--small">{{booking.resource.owner.email}}</span></div>
-          <div class="col-xs-4" ng-if="booking.resource.owner.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
-          <div class="col-xs-8" ng-if="booking.resource.owner.phoneNumbers.length > 0">
-            <span class="box__sdata box__sdata--small">{{booking.resource.owner.phoneNumbers[0].number}} <span ng-click="phoneNumbers.showOwner=!phoneNumbers.showOwner" class="no-outline pull-right" ng-show="booking.resource.owner.phoneNumbers.length > 1">{{booking.resource.owner.phoneNumbers.length -1}} meer </span> </span>
-
-            <span ng-if="phoneNumbers.showOwner">
-              <span ng-repeat="phone in booking.resource.owner.phoneNumbers" ng-if="!$first" class="box__sdata box__sdata--small">
-                <br>{{phone.number}}
-              </span>
-            </span>
-          </div>
-
-          <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.owner.created | amDateFormat:'DD-MM-YYYY'}}</span></div>
-        </div>
-        <div class="row box__row" ng-if="booking.resource.contactPerson">
-          <div class="col-xs-12">
-            <div class="box__divider"></div>
-          </div>
-        </div>
-        <div class="row box__row" ng-if="booking.resource.contactPerson">
-          <div class="col-xs-4"><span class="box__slabel">Beheerder</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small"><a ui-sref="root.person.show.trip({personId: booking.resource.contactPerson.id})">{{booking.resource.contactPerson | fullname}}</a></span></div>
-          <div class="col-xs-4"><span class="box__slabel">E-mail</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.email}}</span></div>
-          <div class="col-xs-4" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
-          <div class="col-xs-8" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0">
-            <span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.phoneNumbers[0].number}} <span ng-click="phoneNumbers.showContactPerson=!phoneNumbers.showContactPerson" class="no-outline pull-right" ng-show="booking.resource.contactPerson.phoneNumbers.length > 1">{{booking.resource.contactPerson.phoneNumbers.length -1}} meer </span> </span>
-
-            <span ng-if="phoneNumbers.showContactPerson">
-              <span ng-repeat="phone in booking.resource.contactPerson.phoneNumbers" ng-if="!$first" class="box__sdata box__sdata--small">
-                <br>{{phone.number}}
-              </span>
-            </span>
-          </div>
-          <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
-          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.created | amDateFormat:'DD-MM-YYYY'}}</span></div>
-        </div>
-      </div>
-    </div>
-  </div> <!--/ third box, owner -->
-
-  <div class="col-md-3 col-sm-6">
+  <div class="col-md-4 col-sm-12">
     <div class="box box--min-height">
       <div class="box__title box__title--resource">
         <small>Auto #{{booking.resource.id}} <a ui-sref="root.resource.show.trip({resourceId: booking.resource.id})" class="pull-right box__link">Meer</a></small>
@@ -345,12 +257,6 @@
           <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.price.hourRate}}/h + {{booking.price.dayRateTotal}}/d + {{booking.price.kilometerRate}}/km</span> </div>
           <div class="col-xs-5"><span class="box__slabel">Merk</span></div>
           <div class="col-xs-7"><span class="box__sdata box__sdata--small">{{(booking.resource.brand | toTitleCase) + ' ' + (booking.resource.model | toTitleCase)}}</span></div>
-          <!--<div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor vrienden?">Besck. vrienden</span></div>-->
-          <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableFriends ? 'Ja' : 'Nee'}} {{booking.resource.isConfirmationRequiredFriends ? ', bevestiging nodig' : ', geen bev'}}</span></div>-->
-          <!--<div class="col-xs-5"><span class="box__slabel" ng-if="booking.resource.isAvailableFriends" title="Is de bestuurder een vriend van de auto?">Is best. vriend?</span></div>-->
-          <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small" ng-if="booking.resource.isAvailableFriends">{{isFriend ? 'Ja' : 'NEE'}}</span></div>-->
-          <!--<div class="col-xs-5"><span class="box__slabel" title="Is deze auto beschikbaar voor anderen?">Besch. overig</span></div>-->
-          <!--<div class="col-xs-7"><span class="box__sdata box__sdata--small">{{booking.resource.isAvailableOthers ? 'Ja': 'Nee'}} {{booking.resource.isConfirmationRequiredOthers ? ', bevestiging nodig' : ', geen bev'}}</span></div>-->
           <div class="col-xs-5"><span class="box__slabel" title="Locatie">Locatie</span></div>
           <div class="col-xs-7"><span class="box__sdata box__sdata--small" title="{{booking.resource.location + ', ' + booking.resource.city}}">{{booking.resource.location}} {{ booking.resource.streetNumber }}<br>{{booking.resource.city}}</span></div>
           <div class="col-xs-5"><span class="box__slabel" title="Openen met">Openen met</span></div>
@@ -414,6 +320,29 @@
             <span class="box__slabel" title="Opmerkingen bij auto"><a ng-click="resourceRemark()">Opmerkingen bij auto</a></span>
           </div>
         </div>
+        <div class="row box__row">
+          <div class="col-xs-12">
+            <div class="box__divider"></div>
+          </div>
+        </div>
+        <div class="row box__row" ng-if="booking.resource.contactPerson">
+          <div class="col-xs-4"><span class="box__slabel">Beheerder</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small"><a ui-sref="root.person.show.trip({personId: booking.resource.contactPerson.id})">{{booking.resource.contactPerson | fullname}}</a></span></div>
+          <div class="col-xs-4"><span class="box__slabel">E-mail</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.email}}</span></div>
+          <div class="col-xs-4" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0"><span class="box__slabel">Telefoon</span></div>
+          <div class="col-xs-8" ng-if="booking.resource.contactPerson.phoneNumbers.length > 0">
+            <span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.phoneNumbers[0].number}} <span ng-click="phoneNumbers.showContactPerson=!phoneNumbers.showContactPerson" class="no-outline pull-right" ng-show="booking.resource.contactPerson.phoneNumbers.length > 1">{{booking.resource.contactPerson.phoneNumbers.length -1}} meer </span> </span>
+
+            <span ng-if="phoneNumbers.showContactPerson">
+              <span ng-repeat="phone in booking.resource.contactPerson.phoneNumbers" ng-if="!$first" class="box__sdata box__sdata--small">
+                <br>{{phone.number}}
+              </span>
+            </span>
+          </div>
+          <div class="col-xs-4"><span class="box__slabel">Lid sinds</span></div>
+          <div class="col-xs-8"><span class="box__sdata box__sdata--small">{{booking.resource.contactPerson.created | amDateFormat:'DD-MM-YYYY'}}</span></div>
+        </div>
       </div>
     </div>
   </div><!-- /fourth box, car/resource -->
@@ -425,7 +354,7 @@
   <div class="col-sm-6">
     <div class="box">
       <div class="box__title box__title--driver">
-        <h3 ng-click="open(1)" class="no-outline" >Facturen bestuurder<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(1), 'fa-chevron-right': !isOpen(1)}"></i></small></h3>
+        <h3 ng-click="open(1)" class="no-outline" >Facturen<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(1), 'fa-chevron-right': !isOpen(1)}"></i></small></h3>
       </div>
       <div class="box__content" ng-if="isLoading(1)">
         <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
@@ -472,83 +401,6 @@
 
   <div class="col-sm-6">
     <div class="box">
-      <div class="box__title box__title--owner">
-        <h3 ng-click="open(2)">Facturen eigenaar<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(2), 'fa-chevron-right': !isOpen(2)}"></i></small></h3>
-      </div>
-      <div class="box__content" ng-if="isLoading(2)">
-        <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
-      </div>
-      <div class="box__content" ng-if="isOpen(2)">
-        <div class="row row--small-font row--no-margin row--invoice-heading">
-          <div class="col-xs-1">#</div>
-          <div class="col-xs-5">Omschrijving</div>
-          <div class="col-xs-2 text-right">Totaal</div>
-          <div class="col-xs-2">Te ontv/bet</div>
-          <div class="col-xs-2">Status</div>
-        </div>
-        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="invoiceLine in invoicesOwner">
-          <div ng-if="invoiceLine.invoice.id" class="col-xs-1">{{invoiceLine.invoice.id}}</div>
-          <div class="col-xs-5">{{invoiceLine.description}}</div>
-          <div title="{{invoiceLine.quantity}} x {{invoiceLine.price}} = {{invoiceLine.total|currency}}" ng-class="{'neg': invoiceLine.total < 0}" class="col-xs-2 text-right number">{{invoiceLine.total | currency}}</div>
-          <div class="col-xs-2">te {{invoiceLine.relationType === 'sent' ? 'ontv.' : 'bet.'}}</div>
-          <div class="col-xs-2">
-            <span ng-if="!invoiceLine.invoice.groupId">
-              <i title="Deze factuur is nog niet (uit)betaald" class="fa fa-fw fa-money fa--muted"></i>
-              <i title="Factuur nog niet gebundeld" class="fa fa-fw fa-expand fa--muted"></i>
-            </span>
-            <span ng-if="invoiceLine.invoice.groupId">
-              <span ng-if="invoiceLine.invoice.group.total > 0">
-                <i ng-class="{'text-muted': !invoiceLine.invoice.group.paid}" title="{{ !invoiceLine.invoice.group.paid ? 'Factuur nog niet betaald' : 'Factuur betaald op ' + invoiceLine.invoice.group.paid}}" class="fa fa-fw fa-money"></i>
-              </span>
-              <span ng-if="invoiceLine.invoice.group.total <= 0">
-                <i ng-class="{'text-muted': !invoiceLine.invoice.group.payoutRequest}" title="{{ !invoiceLine.invoice.group.payoutRequest ? 'Factuur nog niet uitbetaald' : invoiceLine.invoice.group.payoutRequest.paid !== null ? 'Uitbetaling voldaan' : 'Uitbetaling aangevraagd maar nog niet uitgevoerd'}}" class="fa fa-fw fa-money"></i>
-              </span>
-              <a ui-sref="root.invoice2.invoiceGroup.show({invoiceGroupId: invoiceLine.invoice.groupId})">
-                <i title="{{'Factuur onderdeel van verzamelfactuur '+ invoiceLine.invoice.groupId + ', klik om factuur te bekijken'}}" class="fa fa-fw fa-expand"></i>
-              </a>
-            </span>
-          </div>
-        </div>
-        <div ng-if="!invoicesOwner || invoicesOwner.length == 0" class="row row--small-font">
-          <div class="col-xs-12 text-center">
-            Nog geen facturen
-          </div>
-        </div>
-      </div>
-    </div>
-  </div> <!--/ second box, invoices owner-->
-
-</div><!--/ second row, 2 invoice boxes -->
-
-<div class="row row--padding-top">
-  <div class="col-sm-6">
-    <div class="box">
-      <div class="box__title box__title--trip">
-        <h3 ng-click="open(3)">Tankbonnen<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(3), 'fa-chevron-right': !isOpen(3)}"></i></small></h3>
-      </div>
-      <div class="box__content" ng-if="isLoading(3)">
-        <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
-      </div>
-      <div class="box__content" ng-if="isOpen(3)">
-        <div class="row row--small-font row--no-margin row--invoice-heading">
-          <div class="col-xs-4">Bedrag</div>
-          <div class="col-xs-4">Datum</div>
-          <div class="col-xs-4">Afbeelding</div>
-        </div>
-        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-repeat="declaration in declarations">
-          <div class="col-xs-4">{{declaration.amount | currency}}</div>
-          <div class="col-xs-4">{{declaration.created | amDateFormat:'DD-MM-YYYY'}}</div>
-          <div class="col-xs-4" ng-click="openDeclaration(declaration)">Bekijk afbeelding <i class="fa fa-fw fa-window-restore"></i></div>
-        </div>
-        <div class="row row--small-font row--hoverable row--no-margin row--invoice-line" ng-if="!declarations || declarations.length == 0">
-          <div class="col-xs-12">Geen tankbonnen toegevoegd</div>
-        </div>
-      </div>
-    </div>
-  </div> <!--/ first box, invoices driver-->
-
-  <div class="col-sm-6">
-    <div class="box">
       <div class="box__title box__title--trip">
         <h3 ng-click="open(4)">Kortingscodes<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(4), 'fa-chevron-right': !isOpen(4)}"></i></small></h3>
       </div>
@@ -572,7 +424,7 @@
       </div>
     </div>
   </div>
-</div><!--/ third row, declarations -->
+</div><!--/ second row, 2 invoice boxes -->
 
 <div class="row row--padding-top" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
   <div class="col-sm-12">
@@ -639,7 +491,7 @@
         <div class="row row--small-font row--no-margin row--invoice-heading">
           <div class="col-xs-1">#</div>
           <div class="col-xs-3">Boeking datum</div>
-          <div class="col-xs-2">Bestuurder</div>
+          <div class="col-xs-2">Huurder</div>
           <div class="col-xs-2">Betaald</div>
           <div class="col-xs-2">Telefoonnummer</div>
           <div class="col-xs-2">Actie</div>
@@ -688,7 +540,7 @@
           <div class="col-xs-1">Admin</div>
           <div class="col-xs-1">Type</div>
           <div class="col-xs-1 text-right">Bedrag</div>
-          <div class="col-xs-2 text-right">Eigen risico bestuurder</div>
+          <div class="col-xs-2 text-right">Eigen risico huurder</div>
           <div class="col-xs-2">Toestemmingscode</div>
           <div class="col-xs-1">Afgerond?</div>
           <div class="col-xs-1">Acties</div>
@@ -718,7 +570,7 @@
   <div class="col-sm-12">
     <div class="box box--small">
       <div class="box__title box__title--remarks">
-        <h3 ng-click="open(8)">Opmerkingen, notities & overleg<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(8), 'fa-chevron-right': !isOpen(8)}"></i></small></h3>
+        <h3 ng-click="open(8)">Notities<small style="position:absolute; right: 10px;" class="text-white no-outline"><i class="fa fa-fw" ng-class="{'fa-chevron-down': isOpen(8), 'fa-chevron-right': !isOpen(8)}"></i></small></h3>
       </div>
       <div class="box__content" ng-if="isLoading(8)">
         <h3 class="text-center"><i class="fa fa-fw fa-spin fa-spinner"></i></h3>
@@ -750,21 +602,12 @@
           </div>
         </div>
 
-        <div class="row remark" ng-if="remark.type == 'owner_called'">
-          <div class="col-xs-4 col-sm-2">
-            <span class="remark__person remark__person--system">Systeem</span>
-          </div>
-          <div class="col-xs-8 col-sm-10">
-            <span class="remark__message remark__message--system">De eigenaar heeft over deze trip gebeld op {{remark.created | amDateFormat:'DD-MM-YYYY HH:mm'}} en gesproken met {{remark.creator.firstName}}</span>
-          </div>
-        </div>
-
         <div class="row remark" ng-if="remark.type == 'driver_called'" ng-repeat-end>
           <div class="col-xs-4 col-sm-2">
             <span class="remark__person remark__person--system">Systeem</span>
           </div>
           <div class="col-xs-8 col-sm-10">
-            <span class="remark__message remark__message--system">De bestuurder heeft over deze trip gebeld op {{remark.created | amDateFormat:'DD-MM-YYYY HH:mm'}} en gesproken met {{remark.creator.firstName}}</span>
+            <span class="remark__message remark__message--system">De huurder heeft over deze trip gebeld op {{remark.created | amDateFormat:'DD-MM-YYYY HH:mm'}} en gesproken met {{remark.creator.firstName}}</span>
           </div>
         </div>
 
@@ -782,13 +625,6 @@
     <li ng-click="changeEndTime()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Verleng deze rit">Verlengen</span></li>
     <li ng-click="changeBeginTime()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.beginBooking > now"><span tooltip-placement="right" uib-tooltip="Vervroeg deze rit">Vervroegen</span></li>
     <li ng-click="stop()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.endBooking > now && booking.beginBooking < now"><span tooltip-placement="right" uib-tooltip="Rit inkorten" style="padding-top:3px; line-height:1;">Inkorten / Beëindigen</span></li>
-
-    <li ng-click="accept()" ng-if="booking.status === 'requested' || booking.beginRequested" ng-hide="hideMain" class="quickaction__item--trip">
-      <span tooltip-placement="right" uib-tooltip="Rit accepteren">Accepteren</span>
-    </li>
-    <li ng-click="reject()" ng-if="booking.status === 'requested' || booking.beginRequested" ng-hide="hideMain" class="quickaction__item--trip">
-      <span tooltip-placement="right" uib-tooltip="Rit afwijzen">Afwijzen</span>
-    </li>
     <li ng-click="cancel()" ng-if="['cancelled', 'owner_cancelled', 'rejected'].indexOf(booking.status) < 0" ng-hide="hideMain" class="quickaction__item--trip">
       <span tooltip-placement="right" uib-tooltip="Rit annuleren">Annuleren</span>
     </li>
@@ -806,7 +642,7 @@
       <span tooltip-placement="right" uib-tooltip="De huidige locatie ophalen">Locatie</span>
     </li>
 
-    <li ng-click="handleiding()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer && booking.resource.fuelType === 'elektrisch'">
+    <li ng-click="handleiding()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer && booking.resource.fuelType === 'elektrisch'" style="background-color:#1b70de; opacity:1;">
       <span tooltip-placement="right" uib-tooltip="Handleiding">Handleiding</span>
     </li>
     <li ng-click="start()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
@@ -815,24 +651,18 @@
     <li ng-click="book()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Boek een auto">Boeken</span></li>
     <li ng-click="breakdown()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Pechhulp inschakelen">Pech</span></li>
     <li ng-click="damage()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Schade melden">Schade</span></li>
-    <li ng-click="previousBooking()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Contactgegevens van de vorige bestuurder">Vorige</span></li>
+    <li ng-click="previousBooking()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Contactgegevens van de vorige huurder">Vorige</span></li>
 
     <a ng-class="{'quickaction__toggler--hidden': hide, 'quickaction__toggler--shown' : !hide}" ng-init="hide=true" ng-click="hide=!hide" type="button" class="quickaction__toggler">
       <i ng-class="{'fa-chevron-right': hide, 'fa-chevron-left' : !hide}" class="fa fa-fw"></i>
     </a>
 
     <!-- / hide some actions -->
-    <li ng-click="resendBoardcomputer()" class="quickaction__item--trip" ng-if="booking.resource.boardcomputer === 'ccome'" ng-hide="hide">
-      <span tooltip-placement="right" uib-tooltip="Stuur boeking naar boordcomputer">CCOME</span>
-    </li>
-    <li ng-click="automateFine()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Boete verleggen">Boete verleggen</span></li>
     <li ng-click="refundBooking()" class="quickaction__item--trip" ng-hide="hide" ng-if="booking.approved=='OK'"><span tooltip-placement="right" uib-tooltip="Crediteer rit">Restitutie</span></li>
-    <li ng-click="addDeclaration()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg tankbonnen toe">Tankbon</span></li>
-    <li ng-click="addKm()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wijzig kilometerstanden">KM-standen</span></li>
     <li class="quickaction__item--trip text-white" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe schademelding aan"><add-damage-dialog ng-click="addDamage()"></add-damage-dialog></span></li>
     <li class="quickaction__item--trip text-white" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Maak een nieuwe onderhoudsmelding aan"><add-maintenance-dialog ng-click="addMaintenance()"></add-maintenance-dialog></span></li>
     <li ng-click="applyDiscount()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Voeg kortingscode toe">Korting</span></li>
-    <li ng-click="switchContract()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wissel van contract">Contract</span></li>
+    <li ng-click="switchContract()" class="quickaction__item--trip" ng-hide="hide"><span tooltip-placement="right" uib-tooltip="Wissel van abonnement">Abonnement</span></li>
   </ul>
 </div>
 
@@ -841,13 +671,12 @@
       <form ng-submit="sendChat()">
         <div class="col-sm-12">
           <div class="relcon">
-            <input type="text" placeholder="Opmerkingen, notities en aantekeningen voor collega's" class="chat__message-inp" ng-model="chat.message">
+            <input type="text" placeholder="Notities voor collega's / MyWheels kantoor" class="chat__message-inp" ng-model="chat.message">
             <div class="chat__inp-buttons">
               <button type="submit" class="chat__button" uib-tooltip="Verstuur (enter)" ng-disabled="chat.loading.message"><i ng-class="{'fa-spinner fa-spin': chat.loading.message, 'fa-paper-plane': !chat.loading.message}" class="fa fa-fw"></i></button>
               <button type="button" ng-click="openTextEditorDialog()" class="chat__button" uib-tooltip="Toon groter tekstvlak" ><i class="fa fa-fw fa-expand"></i></button>
               <button type="button" ng-class="{'chat__button--active': chat.date}" ng-click="openDatepickerDialog()" class="chat__button" uib-tooltip="Voeg follow-up datum toe" ><i class="fa fa-fw fa-calendar"></i></button>
-              <button type="button" ng-click="sendCalled('driver')" ng-disabled="chat.loading.driver" class="chat__button" uib-tooltip="{{!chat.driverCalledFlag ? 'Voeg \'De bestuurder belde\' notitie toe' : 'Verwijder \'De bestuurder belde\' notitie'}}"><i ng-class="{'fa-spinner fa-spin': chat.loading.driver, 'fa-phone': !chat.loading.driver}" class="fa fa-fw"></i> Bestuurder</button>
-              <button type="button" ng-click="sendCalled('owner')" ng-disabled="chat.loading.owner" class="chat__button" uib-tooltip="{{!chat.ownerCalledFlag ? 'Voeg \'De eigenaar belde\' notitie toe' : 'Verwijder \'De eigenaar belde\' notitie'}}" ><i ng-class="{'fa-spinner fa-spin': chat.loading.owner, 'fa-phone': !chat.loading.owner}" class="fa fa-fw"></i> Eigenaar</button>
+              <button type="button" ng-click="sendCalled('driver')" ng-disabled="chat.loading.driver" class="chat__button" uib-tooltip="{{!chat.driverCalledFlag ? 'Voeg \'De huurder belde\' notitie toe' : 'Verwijder \'De huurder belde\' notitie'}}"><i ng-class="{'fa-spinner fa-spin': chat.loading.driver, 'fa-phone': !chat.loading.driver}" class="fa fa-fw"></i> Huurder</button>
             </div>
           </div>
         </div>
