@@ -1976,8 +1976,8 @@ angular.module('openwheels.trip.dashboard', [
   $scope.deleteRemark = function(remark) {
 
     var confirm = $mdDialog.confirm()
-      .title('Remark verwijderen')
-      .textContent('Weet je zeker dat je deze remark wil verwijderen?')
+      .title('Notitie verwijderen')
+      .textContent('Weet je zeker dat je deze notitie wil verwijderen?')
       .ok('Ja')
       .cancel('Nee');
 
@@ -1985,7 +1985,7 @@ angular.module('openwheels.trip.dashboard', [
       .then(function(res) {
         remarkService.delete({ remark: remark.id })
           .then(function (result) {
-            alertService.add('success', 'Remark removed.', 5000);
+            alertService.add('success', 'Notitie verwijderd.', 5000);
             var index = $scope.remarks.indexOf(remark);
             if(index >= 0) {
               $scope.remarks.splice(index, 1);

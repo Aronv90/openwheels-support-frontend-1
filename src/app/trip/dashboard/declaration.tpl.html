@@ -13,7 +13,7 @@
   <md-dialog-content>
     <div class="md-dialog-content">
       <div ng-if="!contract.type.canHaveDeclaration" layout="column">
-         <p class="text-danger">Let op: deze rit is gereden op een contract dat geen tankbonnen ondersteunt. Wijzig eerst het contracttype en probeer het dan opnieuw.</p>
+         <p class="text-danger">Let op: deze rit is gereden op een contract dat geen tankbonnen ondersteunt. Wijzig eerst het abonnement en probeer het dan opnieuw.</p>
       </div>
       <div ng-if="booking.resource.owner.id === 281">
         <p class="text-danger">Voeg bij auto's van Justlease de tankbon via <a ui-sref="root.invoice2.invoice.create({person: personId})">Create invoice</a> toe.</p>

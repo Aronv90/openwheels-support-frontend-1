@@ -64,6 +64,9 @@
         <li ng-class="{ active: $state.includes('root.person.show.chipcards') }" ng-if="user.identity.provider.id !== 5">
           <a ui-sref=".chipcards">Chipkaarten</a>
         </li>
+        <li ng-class="{ active: $state.includes('root.person.show.resource.list') }">
+          <a ui-sref=".resource.list">Auto's</a>
+        </li>
         <li class="dropdown" ng-class="{ active: $state.includes('root.person.show.messages') || $state.includes('root.person.show.communication') || $state.includes('root.person.show.messagesms') }" ng-if="user.identity.provider.id !== 5">
           <a class="dropdown-toggle" data-toggle="dropdown">Communicatie</a>
           <ul class="dropdown-menu">
@@ -87,9 +90,6 @@
           <ul class="dropdown-menu">
             <li ng-class="{ active: $state.includes('root.person.show.rating') }" ng-if="user.identity.provider.id !== 5">
               <a ui-sref=".rating">Reviews</a>
-            </li>
-            <li ng-class="{ active: $state.includes('root.person.show.resource.list') }">
-              <a ui-sref=".resource.list">Auto's</a>
             </li>
             <li ng-class="{ active: $state.includes('root.person.show.actions') }">
               <a ui-sref=".actions">Acties</a>

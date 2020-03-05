@@ -1,5 +1,5 @@
-<h4>Contracts</h4>
-<button class="btn" ng-click="createEditContract()" ng-if="!$root.isInterswitch">Create Contract</button>
+<h4>Abonnementen</h4>
+<button class="btn" ng-click="createEditContract()" ng-if="!$root.isInterswitch">Abonnement toevoegen</button>
 <table class="table">
     <thead>
     <tr>
@@ -7,10 +7,9 @@
         <th>#</th>
         <th>Type</th>
         <th>Status</th>
-        <th>Contractor</th>
-        <th>Max Drivers</th>
-        <th>Credit limit</th>
-        <th>Own risk</th>
+        <th>Contractant</th>
+        <th>Kredietlimiet</th>
+        <th>Eigen risico verlaging</th>
     </tr>
     </thead>
     <tbody>
@@ -24,9 +23,10 @@
         <td>{{ contract.type.name }}</td>
         <td ng-class="{'bg-success': contract.status == 'active', 'text-muted': contract.status == 'blocked' || contract.status == 'ended'}">{{ contract.status }}</td>
         <td><a ui-sref="root.person.show.summary({personId: contract.contractor.id })">{{contract.contractor | fullname}}</a></td>
-        <td>{{ contract.type.maxDrivers }}</td>
         <td>{{ contract.creditLimit }}</td>
-        <td>{{ contract.ownRiskWaiver }}</td>
+        <td ng-if="contract.ownRiskWaiver === 'not'">Niet verlaagd</td>
+        <td ng-if="contract.ownRiskWaiver === 'booking'">Per rit</td>
+        <td ng-if="contract.ownRiskWaiver === 'month'">Per maand</td>
     </tr>
     </tbody>
 </table>
