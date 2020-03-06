@@ -511,8 +511,8 @@ angular.module('openwheels.trip.dashboard', [
   var initInvoicesRun = false;
   function initInvoices() {
     initInvoicesRun = true;
-    var invoicesRenterReceived = invoice2Service.getReceived({person: booking.person.id, booking: booking.id});
-    var invoicesRenterSent = invoice2Service.getSent({person: booking.person.id, booking: booking.id});
+    var invoicesRenterReceived = invoice2Service.getReceived({person: contract.contractor.id, booking: booking.id});
+    var invoicesRenterSent = invoice2Service.getSent({person: contract.contractor.id, booking: booking.id});
 
     var invoicesOwnerReceived = invoice2Service.getReceived({person: booking.resource.owner.id, booking: booking.id});
     var invoicesOwnerSent = invoice2Service.getSent({person: booking.resource.owner.id, booking: booking.id});
