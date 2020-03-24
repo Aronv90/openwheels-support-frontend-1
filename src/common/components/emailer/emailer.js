@@ -90,6 +90,10 @@ angular.module('openwheels.components')
             }
           };
 
+          $scope.setContactPerson = function () {
+            $scope.draft.recipient = $scope.draft.contactPerson;
+          };
+
           $scope.interpolations = {};
 
           $scope.remainingInterpolations = [];
@@ -215,11 +219,6 @@ angular.module('openwheels.components')
           if (_fromdatacontext) {
             $scope.onChange();
           }
-
-          $scope.setContactPerson = function () {
-            $scope.draft.recipient = $scope.draft.contactPerson;
-          };
-
         }],
         templateUrl: 'components/emailer/emailer.tpl.html',
         fullscreen: true,
