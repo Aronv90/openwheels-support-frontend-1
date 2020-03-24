@@ -17,7 +17,7 @@ angular.module('openwheels.contract.create_edit', [])
         $scope.contractTypes = allContractTypes;
       } else {
         $scope.contractTypes = _.filter(allContractTypes, function(contract) {
-            return ([60, 62, 63, 64, 65, 75, 104, 120].indexOf(contract.id) >= 0);
+            return ([60, 62, 63, 104, 120].indexOf(contract.id) >= 0);
         });
       }
     };
@@ -28,13 +28,13 @@ angular.module('openwheels.contract.create_edit', [])
 		$scope.statuses = [
 			{label: 'Active', value: 'active'},
 			{label: 'Blocked', value: 'blocked'},
-			{label: 'Ended', value: 'ended'},
-			{label: 'Signup', value: 'sign_up'}
+			{label: 'Ended', value: 'ended'}
 		];
-		$scope.ownRiskWaiverOptions = [{label: 'Not', value: 'not'}, {
-			label: 'Per Booking',
-			value: 'booking'
-		}, {label: 'Per Month', value: 'month'}];
+		$scope.ownRiskWaiverOptions = [
+			{label: 'Niet verlagen', value: 'not'}, 
+			{label: 'Per rit', value: 'booking'},
+			{label: 'Per maand', value: 'month'}
+		];
 
 
 		$scope.dismiss = function () {
@@ -46,10 +46,10 @@ angular.module('openwheels.contract.create_edit', [])
 				var d = $q.defer();
 				if ('blocked' === contract.status) {
 					var dialogOptions = {
-						closeButtonText: 'Cancel',
+						closeButtonText: 'Annuleer',
 						actionButtonText: 'OK',
-						headerText: 'Are you sure?',
-						bodyText: 'Do you really want to set this contract to blocked?'
+						headerText: 'Weet je het zeker',
+						bodyText: 'Weet je zeker dat je dit abonnement wil blokkeren?'
 					};
 					dialogService.showModal({}, dialogOptions)
 						.then(function () {
@@ -68,7 +68,7 @@ angular.module('openwheels.contract.create_edit', [])
 							type: contract.type.id,
 							maxDrivers: contract.maxDrivers,
 							ownRiskWaiver: contract.ownRiskWaiver,
-              multiBooking: contract.multiBooking
+              				multiBooking: contract.multiBooking
 						}
 					})
 						.then(function (contract) {

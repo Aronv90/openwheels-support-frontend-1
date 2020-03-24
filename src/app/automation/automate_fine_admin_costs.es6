@@ -156,7 +156,7 @@ angular.module("openwheels.automation.automations", [
                     },
                     {
                       // type: "action",
-                      label: "Remark aan rit toevoegen",
+                      label: "Notitie aan rit toevoegen",
                       act(params) {
                         const { type, booking, referentienummer } = params;
 
