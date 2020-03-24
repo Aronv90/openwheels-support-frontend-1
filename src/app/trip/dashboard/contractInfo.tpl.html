@@ -2,7 +2,7 @@
   <form ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Contract informatie</h2>
+        <h2>Abonnement</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon>close</md-icon>
@@ -16,7 +16,7 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Contract</th>
+                <th>#</th>
                 <th>Contractant</th>
                 <th>Type</th>
                 <th>Status</th>
@@ -32,7 +32,9 @@
                 </td>
                 <td>{{ contract.type.description }}</td>
                 <td>{{ contract.status }}</td>
-                <td>{{ contract.ownRiskWaiver }}</td>
+                <td ng-if="contract.ownRiskWaiver === 'not'">Niet verlaagd</td>
+                <td ng-if="contract.ownRiskWaiver === 'booking'">Per rit</td>
+                <td ng-if="contract.ownRiskWaiver === 'month'">Per maand</td>
               </tr>
             </tbody>
           </table>

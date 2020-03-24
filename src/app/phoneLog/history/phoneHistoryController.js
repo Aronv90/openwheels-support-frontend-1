@@ -4,11 +4,28 @@ angular.module('openwheels.phoneLog.history', [])
 
 .controller('PhoneHistoryController', function ($log, $state, $stateParams, $scope, alertService, dialogService, telecomService, personService) {
 
+    $scope.limit = 300;
+    $scope.limitLow = 300;
+    $scope.limitHigh = 2000;
+
     personService.get({person: 583599})
-        .then(
-            function(person){
-                $scope.alertText = person.remark;
-            });
+      .then(
+          function(person){
+              $scope.alertText = person.remark;
+          });
+
+    $scope.readMoreToggle = function() {
+    if ($scope.limit === $scope.limitLow) {
+      $scope.limit = $scope.limitHigh;
+    } else {
+      $scope.limit = $scope.limitLow;
+    }
+    };
+
+    $scope.askQuestion = function (id)
+    {
+    $state.go('phoneLog.edit', { iCall: id });
+    };
 
     // Create a date object from the (optionally given) date
     $scope.sCurrentDate = $stateParams['sDate'];

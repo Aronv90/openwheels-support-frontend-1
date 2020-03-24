@@ -511,8 +511,8 @@ angular.module('openwheels.trip.dashboard', [
   var initInvoicesRun = false;
   function initInvoices() {
     initInvoicesRun = true;
-    var invoicesRenterReceived = invoice2Service.getReceived({person: booking.person.id, booking: booking.id});
-    var invoicesRenterSent = invoice2Service.getSent({person: booking.person.id, booking: booking.id});
+    var invoicesRenterReceived = invoice2Service.getReceived({person: contract.contractor.id, booking: booking.id});
+    var invoicesRenterSent = invoice2Service.getSent({person: contract.contractor.id, booking: booking.id});
 
     var invoicesOwnerReceived = invoice2Service.getReceived({person: booking.resource.owner.id, booking: booking.id});
     var invoicesOwnerSent = invoice2Service.getSent({person: booking.resource.owner.id, booking: booking.id});
@@ -841,7 +841,7 @@ angular.module('openwheels.trip.dashboard', [
       }
       else if(err && err.message) {
         if(err.message.match('onvoldoende')) {
-          alertService.add('danger', err.message + '. De huurder heeft nog ' + err.data.extra_credit + ' euro extra rijtegoed nodig voordat de boeking verlengd kan worden.', 7000);
+          alertService.add('danger', err.message + '. De huurder heeft nog ' + err.data.extra_credit + ' euro extra saldo nodig voordat de boeking verlengd kan worden.', 7000);
         } else if (err.message.match('kilometers van de rit zijn al ingevuld')) {
           alertService.add('danger', 'De rit kon niet verlengd worden: de rit is een uur na de eindtijd automatisch afgesloten. Maak een nieuwe reservering voor deze huurder via de knop [Boeken].', 7000);
         } else {
@@ -1976,8 +1976,8 @@ angular.module('openwheels.trip.dashboard', [
   $scope.deleteRemark = function(remark) {
 
     var confirm = $mdDialog.confirm()
-      .title('Remark verwijderen')
-      .textContent('Weet je zeker dat je deze remark wil verwijderen?')
+      .title('Notitie verwijderen')
+      .textContent('Weet je zeker dat je deze notitie wil verwijderen?')
       .ok('Ja')
       .cancel('Nee');
 
@@ -1985,7 +1985,7 @@ angular.module('openwheels.trip.dashboard', [
       .then(function(res) {
         remarkService.delete({ remark: remark.id })
           .then(function (result) {
-            alertService.add('success', 'Remark removed.', 5000);
+            alertService.add('success', 'Notitie verwijderd.', 5000);
             var index = $scope.remarks.indexOf(remark);
             if(index >= 0) {
               $scope.remarks.splice(index, 1);

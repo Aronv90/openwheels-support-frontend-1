@@ -4,7 +4,7 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
                 ng-click="dismiss()">&times;</button>
-        <h4 class="modal-title">Extra bestuurders op dit contract ({{ contract.id }})</h4>
+        <h4 class="modal-title">Extra bestuurders op abonnement {{ contract.id }}</h4>
     </div>
 
     <div class="modal-body" ng-init="loadInviteRequests()">
@@ -26,9 +26,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th>Contractor</th>
-                <th>Person</th>
-                <th>Name</th>
+                <th>Contractant</th>
+                <th>Persoon</th>
+                <th>Naam</th>
                 <th>E-mail</th>
                 <th>
                     Status
@@ -64,34 +64,9 @@
             </tr>
 
         </table>
-
-        <div ng-init="showOld = false;">
-            <h4 ng-click="showOld = !showOld">
-                Oud
-                <i class="fa fa-caret-down" ng-show="!showOld"></i>
-                <i class="fa fa-caret-up" ng-show="showOld"></i>
-            </h4>
-            <table class="table" style="margin-bottom: 0;" ng-show="showOld">
-                <thead>
-                <tr>
-                    <th>Contractor</th>
-                    <th>Person</th>
-                    <th>Name</th>
-                    <th>E-mail</th>
-                </tr>
-                </thead>
-
-                <tr ng-repeat="contractPerson in contract.persons">
-                    <td>{{contract.contractorId}}</td>
-                    <td>{{contractPerson.id}}</td>
-                    <td><a ui-sref="root.person.show.summary({ personId: contractPerson.id })" ng-click="dismiss()">{{contractPerson.firstName}}</a></td>
-                    <td>{{contractPerson.email}}</td>
-                </tr>
-            </table>
-        </div>
     </div>
 
     <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Sluiten</button>
     </div>
 </div>

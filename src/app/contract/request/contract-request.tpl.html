@@ -3,19 +3,19 @@
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" ng-click="dismiss()">&times;</button>
-            <h4 class="modal-title">ContractRequest</h4>
+            <h4 class="modal-title">Abonnement omzetten</h4>
         </div>
 
         <div class="modal-body">
             <div class="form-group">
-                <label for="type">Contract Type</label>
+                <label for="type">Abonnement type</label>
                 <select class="form-control" name="type" id="type" ng-model="contracttype" ng-options="o.id as o.name for o in contractTypes"></select>
             </div>
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Close</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="dismiss()">Sluiten</button>
+            <button type="submit" class="btn btn-primary">Opslaan</button>
         </div>
     </form>
 </div>

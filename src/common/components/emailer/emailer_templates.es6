@@ -115,8 +115,8 @@ Mail gerust als je nog vragen hebt.`,
       footer: `
 Veelgestelde vragen:
 
-- [Ik heb rijtegoed betaald, hoe vraag ik dit terug?](https://mywheels.nl/autodelen/veelgestelde-vragen/rijtegoed-terugvragen/)
-- [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/autodelen/veelgestelde-vragen/wanneer-wordt-rijbewijs-gecontroleerd/)`
+- [Hoe ontvang ik mijn saldo retour?](https://mywheels.nl/help/betalen/hoe-ontvang-ik-mijn-saldo-retour)
+- [Wanneer wordt mijn account gecontroleerd?](https://mywheels.nl/help/account/wanneer-wordt-mijn-account-gecontroleerd)`
     },
     {
       key: "Onterechte match op persoon - NL",
@@ -325,7 +325,7 @@ Alvast bedankt voor je reactie.`
       key: "Beheerder worden? - NL",
       subject: "Draag bij aan de deelmaatschappij!",
       content: `
-<p><img width="100%" height="auto" src="https://mywheels.nl/autodelen/wp-content/uploads/2019/09/beheerders-1-e1567582008270.jpg" /></p>
+<p><img width="100%" height="auto" src="https://mywheels.nl/static/media/beheerdersdag_2019.46c91cc6.jpg" /></p>
 
 Beste {{ VOORNAAM }},
 
@@ -333,13 +333,13 @@ Wij zien dat jij de auto {{ ALIAS }} in {{ STAD }} regelmatig gebruikt.
 Wij zijn voor deze auto op zoek naar een nieuwe beheerder, misschien is dit iets voor jou?
 
 **Over MyWheels** <br />
-Hoe meer mensen een auto delen, des te minder auto’s er op de weg rijden of in de wijken staan. Met minder auto’s slaan we dus twee vliegen in één klap: minder CO2-uitstoot én leefbaardere buurten. Samen met onze leden en een groep enthousiaste beheerders en coördinatoren in het land streven we deze idealen na. MyWheels is in de afgelopen vijfentwintig jaar uitgegroeid tot een van de grootste en voordeligste autodeelplatforms van Nederland. Anno 2019 verbinden we ruim 65.000 huurders en verhuurders van deelauto’s met elkaar. 
+Hoe meer mensen een auto delen, des te minder auto’s er op de weg rijden of in de wijken staan. Met minder auto’s slaan we dus twee vliegen in één klap: minder CO2-uitstoot én leefbaardere buurten. Samen met onze leden en een groep enthousiaste beheerders en coördinatoren in het land streven we deze idealen na. MyWheels is in de afgelopen vijfentwintig jaar uitgegroeid tot een van de grootste en voordeligste autodeelplatforms van Nederland. 
 
 **Wat doet een beheerder?** <br />
-Alle MyWheels Open deelauto's hebben een beheerder. Dit zijn onze vrijwilligers op locatie: ons aanspreekpunt en onze ambassadeurs. Beheerders helpen om vragen van gebruikers te beantwoorden, de auto netjes te houden en een oogje in het zeil te houden. Zo nu en dan de bandenspanning en oliepeil controleren en het bijhouden van de jaarlijkse onderhoudsbeurt worden door onze beheerders gecoördineerd. 
+Alle deelauto's hebben een beheerder. Dit zijn onze vrijwilligers op locatie: ons aanspreekpunt en onze ambassadeurs. Beheerders helpen om vragen van gebruikers te beantwoorden, de auto netjes te houden en een oogje in het zeil te houden. Zo nu en dan de bandenspanning en oliepeil controleren en het bijhouden van de jaarlijkse onderhoudsbeurt worden door onze beheerders gecoördineerd. 
 
 **Is er een vergoeding voor beheerderschap?** <br />
-Ja, als bedankje krijgen MyWheels beheerders maandelijks een vrijwilligersvergoeding in de vorm van 75 vrije kilometers. Deze wordt verrekend met eigen gemaakte ritten. Deze vergoeding spaar je op, je hoeft dit dus niet elke maand op te maken.
+Ja, als bedankje krijgen MyWheels beheerders maandelijks een vrijwilligersvergoeding in de vorm van 12 euro aan vrije kilometers. Deze wordt verrekend met eigen gemaakte ritten. Deze vergoeding spaar je op, je hoeft dit dus niet elke maand op te maken.
 
 **Geheel vrijblijvend** <br />
 Omdat het beheerder zijn van een MyWheels auto vrijwillig is, zit je ook nergens aan vast. Als je het toch niet leuk vindt om beheerder te zijn of je er wellicht later geen tijd meer voor hebt, is dat geen probleem en gaan we op zoek naar een nieuwe beheerder voor de auto.
@@ -368,6 +368,26 @@ Wij gaan in contact met de persoon welke dit heeft veroorzaakt, het kan natuurli
 Dit alles neemt niet weg dat het voor jou erg vervelend was dat je niet (gelijk) op weg kon gaan. Wij bieden je daarom graag een korting aan op een volgende reservering via MyWheels. In een aparte e-mail zul je daar een kortingscode voor ontvangen welke je eenmalig kunt gebruiken.
 
 Nogmaals onze excuses voor het ongemak en hopelijk tot snel bij MyWheels!`
+    },
+    {
+      key: "Accumelding naar beheerder - NL",
+      subject: "Accumelding",
+      content: `
+Beste {{ VOORNAAM }},
+
+Vanwege de huidige ontwikkelingen omtrent het coronavirus wordt de auto die jij beheert minder vaak gebruikt.
+Wat uiteraard een goed teken is, daarmee zien we dat onze leden de adviezen van het RIVM opvolgen.
+Wel is een gevolg daarvan dat de auto eerder en vaker een accurit nodig heeft.
+
+Op dit moment zien wij het accuspanning van jouw auto teruglopen en is het van belang dat snel een ritje wordt gemaakt.
+Zou jij vandaag of morgen een rit van minimaal 30 minuten aaneengesloten willen maken in onderstaande auto? 
+<ul>
+<li>{{ ALIAS }} ({{ VOLTAGE}} volt)</li>
+</ul>
+
+Een auto start mogelijk niet meer als de accuspanning lager dan 11.6 volt is.
+
+Alvast hartelijk bedankt daarvoor.`
     },
     {
       key: "Accumeldingen - NL",
