@@ -370,6 +370,26 @@ Dit alles neemt niet weg dat het voor jou erg vervelend was dat je niet (gelijk)
 Nogmaals onze excuses voor het ongemak en hopelijk tot snel bij MyWheels!`
     },
     {
+      key: "Accumelding naar beheerder - NL",
+      subject: "Accumelding",
+      content: `
+Beste {{ VOORNAAM }},
+
+Vanwege de huidige ontwikkelingen omtrent het coronavirus wordt de auto die jij beheert minder vaak gebruikt.
+Wat uiteraard een goed teken is, daarmee zien we dat onze leden de adviezen van het RIVM opvolgen.
+Wel is een gevolg daarvan dat de auto eerder en vaker een accurit nodig heeft.
+
+Op dit moment zien wij het accuspanning van jouw auto teruglopen en is het van belang dat snel een ritje wordt gemaakt.
+Zou jij vandaag of morgen een rit van minimaal 30 minuten aaneengesloten willen maken in onderstaande auto? 
+<ul>
+<li>{{ ALIAS }} ({{ VOLTAGE}} volt)</li>
+</ul>
+
+Een auto start mogelijk niet meer als de accuspanning lager dan 11.6 volt is.
+
+Alvast hartelijk bedankt daarvoor.`
+    },
+    {
       key: "Accumeldingen - NL",
       subject: "Accumeldingen",
       content: `

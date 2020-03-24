@@ -1,13 +1,17 @@
 <div class="panel panel-default card">
   <div class="panel-body">
-    <h3>Telefoongesprekken per dag</h3>
+    <h3 style="padding-bottom:20px;">Telefoongesprekken per dag</h3>
 
-    <div ng-if="alertText" style="padding-top:25px;padding-bottom:40px;">
-    	<h4 style="color:red;"><strong>Let op: nieuwsbericht voor Interswitch!</strong></h4>
-    	<span style="font-size:16px;">{{alertText}}</span>
+    <div ng-if="alertText" style="padding-top:20px;padding-bottom:30px;border-bottom:1px solid #ccc;border-top:1px solid #ccc;">
+      <h4 style="color:red;"><strong>Let op: nieuwsberichten voor Interswitch!</strong></h4>
+      <span style="font-size:16px;white-space: pre-line;" ng-if="limit === limitLow">{{alertText | limitTo:limit}}...</span>
+      <span style="font-size:16px;white-space: pre-line;" ng-if="limit === limitHigh">{{alertText | limitTo:limit}}</span>
+      <br><br>
+      <a ng-click="readMoreToggle()" style="font-size:16px;" ng-if="limit === limitLow">Bekijk alle nieuwsberichten</a>
+      <a ng-click="readMoreToggle()" style="font-size:16px;" ng-if="limit === limitHigh">Bekijk minder nieuwsberichten</a> - <a ng-click="askQuestion(24889)" style="font-size:16px;">Stel een vraag aan MyWheels</a>
     </div>
 
-    <div style="margin-bottom: 20px">
+    <div style="padding-top:30px;">
 
       <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sPrevDay })">&laquo; Vorige dag</button>
       <button class="btn btn-default" ui-sref="phoneLog.history({ sDate: sNextDay })">Volgende dag &raquo;</button>

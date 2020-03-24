@@ -1,9 +1,10 @@
 <div class="panel panel-default card">
   <div class="panel-body">
-    <h3 ng-click="getRemark()">Bewerk gesprek</h3>
+    <h3 ng-click="getRemark()" ng-if='iCall != 24889'>Bewerk gesprek</h3>
+    <h3 ng-click="getRemark()" ng-if='iCall == 24889'>Stel een vraag</h3>
 
     <div class="form-group">
-      <label for="remark">Opmerking</label>
+      <label for="remark" ng-if='iCall != 24889'>Opmerking</label>
       <textarea id="remark" name="sRemark" class="form-control" ng-model="sRemark" placeholder="Een opmerking over het gesprek" rows="7"></textarea>
     </div>
 
