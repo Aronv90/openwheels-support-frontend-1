@@ -251,6 +251,18 @@ Het bonnetje van de wasstraat kun je naar ons opsturen.
 Hartelijk dank alvast.`
     },
     {
+      key: "Netheidsmelding - bedankt - NL",
+      subject: "Netheidsmelding",
+      content: `
+Beste {{ VOORNAAM }},
+
+Recent heb je een netheid melding gemaakt over {{ ALIAS }} die je via MyWheels hebt gehuurd. Hartelijk dank voor het melden hiervan. Mede door jouw feedback kunnen we onze diensten en kwaliteit verbeteren en kunnen we de beheerder van de auto informeren over jouw melding.
+
+We doen ons uiterste best om de auto zo snel mogelijk weer schoon te krijgen.
+
+Fijne dag!`
+    },
+    {
       key: "Open- en sluitproblemen - NL",
       subject: "Problemen met openen/sluiten",
       content: `
@@ -278,6 +290,16 @@ De rit eindigde op {{ END_BOEKING }}, tot 30 minuten na je rit kun je de auto no
 Als je een volgende keer de rit via de MyWheels app of website verlengd, kun je de auto zonder problemen sluiten.
 
 We horen het graag als je nog vragen hebt.`
+    },
+    {
+      key: "Rit op onderhoudscontract - NL",
+      subject: "Tenaamstelling komt niet overeen",
+      content: `
+Beste {{ VOORNAAM }},
+
+Je hebt op {{ BEGIN_BOEKING }} een rit gemaakt in de {{ AUTONAAM }}, hopelijk heb je een prettige rit gehad. De rit heb je gemaakt op het gratis MyWheels Free contract van MyWheels. Je hebt geen opmerking bij de rit gemaakt, daardoor kunnen we de reden voor de gratis rit niet achterhalen. Wil je laten weten waarom je de rit op het MyWheels Free contract hebt geboekt? Mocht je dit per ongeluk hebben gedaan, horen we het uiteraard ook graag zodat we de rit kunnen aanpassen. Ik hoor het graag van je.
+
+Alvast hartelijk dank voor je reactie. `
     },
     {
       key: "Tenaamstellingscheck - NL",

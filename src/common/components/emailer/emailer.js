@@ -268,6 +268,7 @@ function fromDataContext(key, datacontext) {
     case "INSCHRIJFDATUM":
       return datacontext.person ? moment(datacontext.person.created).format('DD MMMM YYYY') : "";
     case "ALIAS":
+    case "AUTONAAM":
       return (datacontext.booking && datacontext.booking.resource ? datacontext.booking.resource.alias : "");
     case "BEGIN_BOEKING":
       return (datacontext.booking && datacontext.booking.beginBooking ?
