@@ -187,6 +187,18 @@ We brengen hiervoor een boete van € 25,- in rekening.
 Mail gerust als je nog vragen hebt of als je vindt dat de boete onterecht is.`
     },
     {
+      key: "Boete - Niet aangemelde bestuurder - NL",
+      subject: "Niet aangemelde bestuurder",
+      content: `
+Beste {{ VOORNAAM }},
+
+Tijdens jouw rit van {{ BEGIN_BOEKING }} tot {{ EIND_BOEKING }} in de {{ AUTONAAM }} heeft er iemand anders dan jij in de auto gereden, welke niet als extra bestuurder was aangemeld. Hierdoor was de auto tijdens deze rit niet verzekerd. We brengen hiervoor een boete van € 75,- in rekening.
+
+Hoe je een extra bestuurder toevoegt, kun je [hier](https://mywheels.nl/help/reservering/hoe-voeg-ik-extra-bestuurders-toe) vinden.
+
+Mail gerust als je nog vragen hebt of als je vindt dat de boete onterecht is.`
+    },
+    {
       key: "Eigen risico in rekening gebracht - NL",
       subject: "Eigen risico",
       content: `
@@ -211,6 +223,18 @@ Ben je wellicht in de gelegenheid een foto te maken van de situatie en deze naar
 Zodat we dit bij het autodossier kunnen toevoegen, beter kunnen inschatten wat er precies aan de hand is en het verder kunnen oppakken?
 
 Hartelijk dank alvast.`
+    },
+    {
+      key: "Schademelding huurder - NL",
+      subject: "Jouw schademelding",
+      content: `
+Beste {{ VOORNAAM }},
+
+Op {{ BEGIN_BOEKING }} heb jij bij het starten van jouw rit aangegeven schade te hebben geconstateerd aan de deelauto. Wat vervelend om te nemen dat er schade aan de auto is, die bij ons nog niet bekend is. Om een beter beeld te krijgen, zou ik je willen vragen de melding die je hebt gemaakt iets meer te specificeren. Kun je bijvoorbeeld aangeven waar de schade precies zit, of hoe groot deze is?
+
+De melding die jij hebt gemaakt: {{ BETREFFENDE_SCHADEMELDING }}
+
+Alvast erg bedankt voor je reactie.`
     },
     {
       key: "Netheidsmelding - NL",
