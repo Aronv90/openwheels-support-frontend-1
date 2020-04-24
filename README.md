@@ -34,7 +34,7 @@
 - Run
 
   ```bash
-  npx grunt server
+  $ npx grunt server
   ```
 
 - Optionally build, to figure out possible minification-resulting errors and the like
