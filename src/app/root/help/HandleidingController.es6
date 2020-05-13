@@ -283,6 +283,7 @@ Staat het raam van een auto open?<br>
           title: { boost: 2 },
           content: { boost: 1 },
         },
+        expand: true
       }).map(({ doc, ref, score }) => doc);
       $scope.state.selected = $scope.searchResults.length > 0 ? $scope.searchResults[0].id : -1;
     } else {
