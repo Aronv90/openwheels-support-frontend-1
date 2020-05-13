@@ -78,6 +78,7 @@ angular.module('openwheels.resource', [
 			}],
 			datacontext: ['$rootScope', 'resource', function ($rootScope, resource) {
 				$rootScope.datacontext = {
+					page: 'resource',
 					resource: resource,
 					person: resource.owner || resource.contactPerson
 				};

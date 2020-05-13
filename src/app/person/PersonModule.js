@@ -85,6 +85,7 @@ angular.module('openwheels.person', [
 				}],
 				datacontext: ['$rootScope', 'person', function ($rootScope, person) {
 					$rootScope.datacontext = {
+						page: 'person',
 					  person: person
 					};
 					return $rootScope.datacontext;

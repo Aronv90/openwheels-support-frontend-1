@@ -92,3 +92,29 @@ tr:hover a.btn-round-hover {
     min-height: 250px;
   }
 }
+
+#help_fab {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+  border: none;
+  border-radius: 999px;
+  background: #9C27B0;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 6rem;
+  height: 6rem;
+  box-shadow: 1px 4px 8px rgba(0, 0, 0, 0.4);
+
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
