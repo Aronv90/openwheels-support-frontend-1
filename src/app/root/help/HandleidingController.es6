@@ -44,6 +44,7 @@ Heb je een aantal keer geprobeerd om de deuren van een auto te sluiten maar gaat
 - Vraag de huurder de sleutel in het dashboardkastje te leggen, de huurder mag daarna weggaan.<br>
 - De auto gaat binnen 30 minuten automatisch alsnog dicht.<br>
 - Er hoeft hiervoor niet naar de achterwacht gebeld te worden.<br>
+- Laat de huurder de auto nooit met de sleutel sluiten!<br>
 -  Graag wel notitie maken in de reservering.`
     },
     resource && resource.fuelType === "elektrisch" && {
@@ -67,6 +68,29 @@ De sleutel ligt in het dashboardkastje.<br>
 De sleutel heb je niet nodig om te starten, je gebruikt hiervoor de start/stopknop.<br>
 Gebruik tijdens de rit de sleutel om de auto te openen en te sluiten.<br>
 Pas aan het einde van je rit sluit je de auto met de MyWheels app of OV-chipkaart.`
+    },
+    resource && resource.parkingType === 'parking_spot' && {
+      title: "Waar brengt de huurder auto terug / waar parkeert de huurder?",
+      content: `
+Deze auto heeft een vaste parkeerplek aan de ${resource.location} ${resource.streetNumber}.<br>
+De huurder brengt de auto aan het einde van de rit terug naar deze plek.<br>
+Is de parkeerplek bezet?<br>
+- Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
+- Dit mag <strong>geen gehandicapten plek of parkeerplek</strong> met een wit kruis zijn.<br>
+
+<strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
+${resource.remark}`
+    },
+    resource && resource.parkingType === 'parking_spot' && {
+      title: "De vaste parkeerplek van de auto is bezet / foutparkeerder?",
+      content: `
+Deze auto heeft een vaste parkeerplek aan de ${resource.location} ${resource.streetNumber}.<br>
+Is de parkeerplek bezet?<br>
+- Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
+- Dit mag <strong>geen gehandicapten plek of parkeerplek</strong> met een wit kruis zijn.<br>
+
+<strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
+${resource.remark}`
     },
     resource && resource.fuelType !== "elektrisch" && resource.parkingType === 'zone' && {
       title: "Waar brengt de huurder auto terug / waar parkeert de huurder?",
@@ -189,10 +213,7 @@ De handrem is bij een Nissan Leaf een voetpedaal, een klein voetpedaal links naa
       title: "De auto start niet / de huurder krijgt auto niet gestart",
       content: `
 Klik links op de knop [Starten] voor hulp.<br>
-Bel de pechhulp pas als je alle stappen hebt doorlopen.`,
-      images: [
-        "/backoffice/assets/img/handleiding/nissan_leaf_handrem.png"
-      ]
+Bel de pechhulp pas als je alle stappen hebt doorlopen.`
     },
 
     // Vragen over accounts
