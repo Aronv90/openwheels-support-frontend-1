@@ -12,7 +12,7 @@
   <md-dialog-content>
 
     <!-- MyFMS boardcomputer -->
-    <div layout="column" layout-margin class="md-dialog-content" ng-if="booking.resource.boardcomputer">
+    <div layout="column" layout-margin class="md-dialog-content">
       <h3>Auto starten</h3>
 
       <div ng-if="booking.beginBooking > now || booking.endBooking < now">
@@ -56,6 +56,9 @@
       <div ng-if="booking.beginBooking < now && booking.endBooking > now && immobilized.no">
         <p>Zit de huurder al in de auto, maar kan hij de auto niet starten? Dit kan de onderstaande oorzaken hebben. <span ng-if="booking.resource.fuelType === 'elektrisch'">Je vindt specifieke tips voor elektrische auto's onder de knop <strong>[Handleiding]</strong>.</span></p>
 
+        <md-checkbox aria-label="Koppeling intrappen" class="md-warn md-align-top-left" ng-if="booking.resource.model === 'Aygo'">
+          <span>Als een Toyota Aygo niet start, controleer dan of de huurder ook de koppeling intrapt gezamenlijk met <strong>de start/stop-knop</strong>.</span>
+        </md-checkbox>
         <md-checkbox aria-label="Koppeling intrappen" class="md-warn md-align-top-left" ng-if="booking.resource.fuelType !== 'elektrisch'">
           <span><strong>De koppeling wordt niet volledig ingetrapt.</strong> Zorg dat de koppeling helemaal tot de bodem wordt ingestrapt.</span>
         </md-checkbox>
@@ -65,6 +68,9 @@
         <md-checkbox aria-label="Sleutel in contact tijdens openen" class="md-warn md-align-top-left">
           <span>De huurder heeft de auto geopend terwijl <strong>de sleutel in het contactslot zat</strong> of de huurder heeft de auto met de sleutel geopend. Vraag de huurder de sleutel uit het contactslot te halen. Open de auto vervolgens met de knop <strong>[Openen]</strong>. Vraag de huurder om de auto te starten.</span>
         </md-checkbox>
+        <md-checkbox aria-label="Sleutel in contact tijdens openen" class="md-warn md-align-top-left">
+          <span>De huurder heeft de auto gesloten met de sleutel. Vraag de huurder de sleutel uit het contactslot te halen. Vraag daarna de huurder de auto te openen met de sleutel. </span>
+        </md-checkbox>
         <md-checkbox aria-label="Automaat" class="md-warn md-align-top-left">
           <span>Als het een automaat is, moet de <strong>versnelling in de P stand staan en de rem ingetrapt worden</strong>.</span>
         </md-checkbox>
@@ -73,26 +79,6 @@
         </md-checkbox>
         <md-checkbox style="display:none;"></md-checkbox>
       </div>
-    </div>
-
-
-    <!-- Without boardcomputer -->
-    <div layout="column" layout-margin class="md-dialog-content" ng-if="!booking.resource.boardcomputer">
-      <h3>Auto starten</h3>
-      <p>Deze auto heeft geen boordcomputer en kan gewoon met de sleutel gestart worden. Start de auto niet? Dan kan dit de volgende oorzaken hebben:</p>
-      <md-checkbox aria-label="Stuurslot" class="md-warn md-align-top-left">
-        <span>Het stuur staat op stuurslot. Flink trekken aan het stuur en gelijktijdig de sleutel omdraaien. De auto zou dan moeten starten.</span>
-      </md-checkbox>
-      <md-checkbox aria-label="Koppeling intrappen" class="md-warn md-align-top-left">
-        <span>De koppeling wordt niet volledig ingetrapt. Zorg dat de koppeling helemaal tot de bodem wordt ingestrapt.</span>
-      </md-checkbox>
-      <md-checkbox aria-label="Automaat" class="md-warn md-align-top-left">
-        <span>Als het een automaat is, moet de versnelling in de P stand staan en de rem ingetrapt worden.</span>
-      </md-checkbox>
-      <md-checkbox aria-label="Accu van de auto is leeg" class="md-warn md-align-top-left">
-        <span>De accu van de auto is dan leeg. Is de huurder al onderweg? Schakel dan de Pechhulp in via de knop <strong>[Pech]</strong>. Zo niet, boek de auto om via de knop <strong>[Boeken]</strong>.</span>
-      </md-checkbox>
-      <md-checkbox style="display:none;"></md-checkbox>
     </div>
   </md-dialog-content>
 

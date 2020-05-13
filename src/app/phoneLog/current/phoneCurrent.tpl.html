@@ -3,7 +3,7 @@
     <h3 style="padding-bottom:20px;">Inkomende telefoongesprekken</h3>
 
     <div ng-if="alertText" style="padding-top:20px;padding-bottom:30px;border-bottom:1px solid #ccc;border-top:1px solid #ccc;">
-    	<h4 style="color:red;"><strong>Let op: nieuwsberichten voor Interswitch!</strong></h4>
+    	<h4 style="color:red;"><strong>Nieuwsberichten voor Interswitch!</strong></h4>
     	<span style="font-size:16px;white-space: pre-line;" ng-if="limit === limitLow">{{alertText | limitTo:limit}}...</span>
       <span style="font-size:16px;white-space: pre-line;" ng-if="limit === limitHigh">{{alertText | limitTo:limit}}</span>
       <br><br>
