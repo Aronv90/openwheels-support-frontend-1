@@ -1,6 +1,7 @@
 'use strict';
 
 angular.module('openwheels.root', [
+	'openwheels.root.help',
 	'openwheels.root.navigation',
 	'openwheels.root.alert',
 	'openwheels.root.settings',
@@ -17,6 +18,10 @@ angular.module('openwheels.root', [
 		$stateProvider.state('root', {
 			url: '',
 			views: {
+				'help': {
+					templateUrl: 'root/help/root-help.tpl.html',
+					controller: 'RootHelpController'
+				},
 				'navigation': {
 					templateUrl: 'root/navigation/root-navigation.tpl.html',
 					controller: 'RootNavigationController'

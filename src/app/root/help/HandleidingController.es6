@@ -1,27 +1,43 @@
 
-angular.module("openwheels.trip.dashboard.handleiding", [])
+angular.module("openwheels.root.help.handleiding", [])
 
 .controller("HandleidingController", function (
   $scope,
   $mdDialog,
+  $rootScope,
 
-  booking,
-
-  checkIfImmobilized,
-  deviceService,
-  boardcomputerService,
-  alertService
+  checkIfImmobilized
 ) {
-  /* INIT  */
-  $scope.booking = booking;
-  $scope.immobilized = false;
-  $scope.now = moment().format('YYYY-MM-DD HH:mm');
+  // Deze data zijn *wellicht* aanwezig,
+  // afhankelijk van de pagina waar je bent
+  // ===========
+  const {
+    page, // trip | trip_dashboard | person | resource
+    booking,
+    person,
+    contract,
+    contactPerson,
+    resource,
+  } = $rootScope.datacontext;
+
+  // Vanuit te template kun je ze direct gebruiken
+  Object.assign($scope, $rootScope.datacontext);
+
+  $scope.immobilized = booking && checkIfImmobilized(booking.resource);
+  $scope.now = () => moment().format('YYYY-MM-DD HH:mm');
+
+  // Deze array aan vragen wordt elke keer als de modal wordt geopend
+  //  opnieuw berekend. Je kunt items uitsluiten door false/null/undefined
+  //  te laten staan, bv. met `resource && { ... }` komt de vraag er alleen
+  //  in te staan als je op een autopagina bent.
+  // ==========
 
   $scope.items = [
-    {
-      for: {
-        electric: true,
-      },
+
+    // Vragen over elektrische auto's
+    // =============
+
+    resource && resource.fuelType === "elektrisch" && {
       title: "Waar vind ik de sleutel en/of laadsleutel?",
       content: `
 De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet nodig om te starten. Gebruik tijdens de rit de sleutel om de auto te openen en te sluiten. Pas aan het einde van je rit sluit je de auto met de MyWheels app of OV-chipkaart. De blauwe laadsleutel van newmotion zit aan de sleutel vast.`,
@@ -29,10 +45,7 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
         "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
       ]
     },
-    {
-      for: {
-        electric: true,
-      },
+    resource && resource.fuelType === "elektrisch" && {
       title: "Laadkabel ontkoppelen",
       content: `
 - Druk in de auto op de ontgrendelknop (links onder het stuur) om de stekker te ontgrendelen.
@@ -43,10 +56,7 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
         "/backoffice/assets/img/handleiding/nissan_leaf_laadkabel_knop.png",
       ]
     },
-    {
-      for: {
-        electric: true,
-      },
+    resource && resource.fuelType === "elektrisch" && {
       title: "Auto starten",
       content: `
 1. Haal de handrem eraf *(het kleine voetpedaal naast het rempedaal)*. Als de handrem is ingetrapt, zit deze tegen de bodem aan. Trap deze kort in en laat hem naar boven komen.
@@ -57,10 +67,7 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
         "/backoffice/assets/img/handleiding/nissan_leaf_handrem.png",
       ]
     },
-    {
-      for: {
-        electric: true,
-      },
+    resource && resource.fuelType === "elektrisch" && {
       title: "Rijden",
       content: `
 - Na het starten zet je de versnellingshendel in stand **D**. De standen zijn:
@@ -75,10 +82,7 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
         "/backoffice/assets/img/handleiding/nissan_leaf_pook.png",
       ]
     },
-    {
-      for: {
-        electric: true,
-      },
+    resource && resource.fuelType === "elektrisch" && {
       title: "Auto sluiten",
       content: `
 - Zorg dat de auto in stand **P** staat.
@@ -89,10 +93,7 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
 - Sluit de auto via de MyWheels app of OV-chipkaart.
 - Controleer of de deuren op slot zijn.`
     },
-    {
-      for: {
-        electric: true,
-      },
+    resource && resource.fuelType === "elektrisch" && {
       title: "Opladen",
       content: `
 - In de MyWheels app vind je de beschikbare laadpalen in de zone. Je kunt onderweg ook snelladen bij Fastned stations.
@@ -108,21 +109,15 @@ De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet 
         "/backoffice/assets/img/handleiding/nissan_leaf_opladen.png",
       ]
     },
-    {
-      for: {
-        electric: true,
-      },
+    resource && resource.fuelType === "elektrisch" && {
       title: "Hoe weet ik of de auto oplaadt / correct is aangesloten?",
       content: `
 De blauwe lampjes aan de binnenkant van de auto, op het dashboard, beginnen te knipperen / lopen als de kabel juist is aangesloten. Deze zijn goed zichtbaar als je voor de auto staat. Het opladen aan de laadpaal is dan gestart.`,
       images: [
         "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
       ]
-    },,
-    {
-      for: {
-        electric: true,
-      },
+    },
+    resource && resource.fuelType === "elektrisch" && {
       title: "Het opladen / aansluiten lukt niet",
       content: `
 Doorloop onderstaande stappen:
@@ -138,17 +133,18 @@ Doorloop onderstaande stappen:
         "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
       ]
     },
+
+    // Vragen over accounts
+    // =============
+
+    person && {
+      title: "Voorbeeldvraag over een account",
+      content: `
+Hier een is een voorbeeld van een variabele: de status van dit persoon is **${person.status}**.`
+    }
   ]
-    .map((doc, id) => ({ ...doc, id }))
-    .filter(item => {
-      if (booking.resource.fuelType === "elektrisch" && item.for.electric === false) {
-        return false;
-      }
-      if (booking.resource.fuelType !== "elektrisch" && item.for.electric === true) {
-        return false;
-      }
-      return true;
-    });
+    .filter(Boolean)
+    .map((doc, id) => ({ ...doc, id }));
 
   const index = elasticlunr(function () {
     this.use(elasticlunr.nl);
@@ -183,29 +179,6 @@ Doorloop onderstaande stappen:
   };
 
   $scope.search();
-
-  $scope.immobilized = checkIfImmobilized(booking.resource);
-
-  $scope.myfms = function() {
-    var methodCall = (booking.resource.boardcomputer === 'invers') ?
-      deviceService.forceOpen({
-        resource: booking.resource.id
-      }) :
-      boardcomputerService.control({
-        action: 'OpenDoorStartEnable',
-        resource: booking.resource.id
-      });
-
-    methodCall
-    .then(function(res) {
-      return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
-    })
-    .catch(function(err) {
-      if(err && err.message) {
-        alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
-      }
-    });
-  };
 
   $scope.done = function() {
     $mdDialog.hide();
