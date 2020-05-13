@@ -962,7 +962,7 @@ angular.module('openwheels.trip.dashboard', [])
     } else {
       var confirm = $mdDialog.confirm()
       .title('Rit annuleren')
-      .textContent('Weet je zeker dat je deze rit wil annuleren?')
+      .htmlContent('<strong>LET OP: annuleer een rit alleen als de huurder nog niet gereden heeft.</strong><br>Gebruik deze knop niet om een rit te beëindigen!<br>Maak een notitie in de rit na het annuleren waarom de rit is geannuleerd.<br>Weet je het zeker dat je de rit wil annuleren?')
       .ok('Ja')
       .cancel('Nee');
 

@@ -3,7 +3,7 @@
 angular.module('openwheels.resource.show.damage', [])
 
 .controller( 'ResourceShowDamageController', function ($location, $uibModal, $state, $stateParams, $scope,
-  alertService, damageService, damages, perPage, $mdDialog) {
+  alertService, damageService, damages, perPage, $mdDialog, resourceService) {
 
   $scope.curPage = 1;
   $scope.perPage = perPage;
@@ -13,6 +13,24 @@ angular.module('openwheels.resource.show.damage', [])
     {label: 'Afgerond', value: true},
     {label: 'Alles', value: null}
   ];
+
+  //save remark
+  $scope.save = function () {
+    resourceService.alter({
+      id: $scope.resource.id,
+      newProps: {
+        knownDamage: $scope.resource.knownDamage
+      }
+    })
+    .then(function (resource) {
+      alertService.add('success', 'De schade is opgeslagen.', 3000);
+      $scope.resource = resource;
+      $scope.toggleHide();
+    })
+    .catch(function (error) {
+      alertService.add('danger', error.message, 5000);
+    });
+  };
 
   handleDamages(damages);
 

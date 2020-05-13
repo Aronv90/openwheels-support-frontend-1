@@ -4,8 +4,8 @@ angular.module('openwheels.phoneLog.current', [])
 
 .controller('PhoneCurrentController', function ($scope, alertService, telecomService, $state, personService) {
 
-  $scope.limit = 300;
-  $scope.limitLow = 300;
+  $scope.limit = 750;
+  $scope.limitLow = 750;
   $scope.limitHigh = 2000;
 
   personService.get({person: 583599})

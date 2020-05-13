@@ -4,8 +4,8 @@ angular.module('openwheels.phoneLog.history', [])
 
 .controller('PhoneHistoryController', function ($log, $state, $stateParams, $scope, alertService, dialogService, telecomService, personService) {
 
-    $scope.limit = 300;
-    $scope.limitLow = 300;
+    $scope.limit = 750;
+    $scope.limitLow = 750;
     $scope.limitHigh = 2000;
 
     personService.get({person: 583599})

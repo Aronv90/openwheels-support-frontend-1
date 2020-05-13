@@ -167,7 +167,7 @@
         </div>
     </nav>
 
-    <div style="margin: 1em;">
+    <div style="margin: 1em;" ng-if="$state.current.name !== 'root.resource.show.damage'">
       <div style="margin-bottom: 0;" uib-alert ng-click="toggleHide()" ng-hide="hide || !resource.remark" class="alert-warning">
         <span style="white-space: pre-line;">{{resource.remark}}</span>
       </div>
