@@ -80,7 +80,7 @@ angular.module('openwheels.resource', [
 				$rootScope.datacontext = {
 					page: 'resource',
 					resource: resource,
-					person: resource.owner || resource.contactPerson
+					contactPerson: resource.contactPerson
 				};
 				return $rootScope.datacontext;
 			}]
