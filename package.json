@@ -1,7 +1,11 @@
 {
   "author": "Jaap Gerritsen",
   "name": "openwheels-bo",
+<<<<<<< HEAD
   "version": "1.32.0",
+=======
+  "version": "1.31.0",
+>>>>>>> 4a6f092774ae7e780332e44b3f927e4a343e382d
   "homepage": "https://mywheels.nl",
   "dependencies": {},
   "devDependencies": {
