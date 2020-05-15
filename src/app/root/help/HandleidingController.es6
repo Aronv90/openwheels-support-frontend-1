@@ -290,6 +290,19 @@ De handrem is bij een Nissan Leaf een klein voetpedaal links naast het rempedaal
     // Vragen over algemene autozaken
     // =============
 
+    resource && resource.fuelCardCode && {
+      title: "Hoe tank ik?",
+      content: `
+Als de tank voor minder dan een kwart vol zit, is het tijd om bij te tanken.<br>
+Deze auto heeft een tankpas waarmee een huurder kosteloos kan tanken.<br>
+Deze ligt in het dashboardkastje.<br>
+De pincode van de tankpas is ${resource.fuelCardCode}.<br>
+De auto rijdt op Euro95 / E10 - brandstof / benzine.<br><br>
+
+Is de tankpas kwijt? Vraag de huurder dan zelf te betalen.<br>
+De tankbon kunnen ze mailen naar support@mywheels.nl.`
+    },
+
     resource && {
       title: "De auto heeft een lekke band",
       content: `

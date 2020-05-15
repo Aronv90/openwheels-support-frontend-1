@@ -196,6 +196,20 @@
             <div class="box__divider"></div>
           </div>
         </div>
+        <div class="row box__row">
+          <div class="col-xs-8"><span class="box__slabel" title="Bedrag nodig voor aankomende boekingen ({{requiredCredit.bookings.length}} boeking(en))">Benodigd voor ritten</span></div>
+          <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.sub_total | currency}}</span></div>
+          <div class="col-xs-8"><span class="box__slabel" title="Openstaande facturen die nog niet betaald zijn.">Openstaande facturen</span></div>
+          <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.debt | currency}}</span></div>
+          <div class="col-xs-8"><span class="box__slabel" title="Af: je resterend saldo.">Af: resterend saldo</span></div>
+          <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.credit | currency}}</span></div>
+          <div class="col-xs-8"><span class="box__slabel" title="Deze huurder betaalt ritten achteraf per automatische incasso, de kredietlimiet is het maximale bedrag dat de huurder achteraf mag betalen.">Af: kredietlimiet</span></div>
+          <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.credit_limit | currency}}</span></div>
+          <div class="box__divider"></div>
+          <div class="col-xs-8" style="padding-top: 5px;"><span class="box__slabel" title="Totaal te betalen."><strong>Te betalen</strong></span></div>
+          <div class="col-xs-2" ng-if="requiredCredit.total < 0" style="padding-top: 5px;"><span class="box__sdata box__sdata--small">{{0.00 | currency}}</span></div>
+          <div class="col-xs-2" ng-if="requiredCredit.total >= 0" style="padding-top: 5px;"><span class="box__sdata box__sdata--small">{{requiredCredit.total | currency}}</span></div>
+        </div>
         <div class="row box__row" ng-if="isApproved === false && accountName">
           <div class="col-xs-12 text-danger" style="padding-left:20px;padding-right:20px;"><span title="Betaling van foutieve tenaamstelling?">
             De tenaamstelling van de rekeninghouder, {{ accountName }}, komt niet overeen met de achternaam, {{ booking.person.surname }}. Daarom kunnen we de betaling nog niet verwerken.
@@ -649,7 +663,7 @@
       <form ng-submit="sendChat()">
         <div class="col-sm-12">
           <div class="relcon">
-            <input type="text" placeholder="Notities voor collega's / MyWheels kantoor" class="chat__message-inp" ng-model="chat.message">
+            <input type="text" placeholder="Maak een notitie voor MyWheels kantoor. Geef altijd aan welke actie je hebt uitgevoerd." class="chat__message-inp" ng-model="chat.message">
             <div class="chat__inp-buttons">
               <button type="submit" class="chat__button" uib-tooltip="Verstuur (enter)" ng-disabled="chat.loading.message"><i ng-class="{'fa-spinner fa-spin': chat.loading.message, 'fa-paper-plane': !chat.loading.message}" class="fa fa-fw"></i></button>
               <button type="button" ng-click="openTextEditorDialog()" class="chat__button" uib-tooltip="Toon groter tekstvlak" ><i class="fa fa-fw fa-expand"></i></button>
