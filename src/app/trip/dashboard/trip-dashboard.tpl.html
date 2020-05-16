@@ -196,7 +196,7 @@
             <div class="box__divider"></div>
           </div>
         </div>
-        <div class="row box__row">
+        <div class="row box__row" ng-if="!$root.isInterswitch">
           <div class="col-xs-8"><span class="box__slabel" title="Bedrag nodig voor aankomende boekingen ({{requiredCredit.bookings.length}} boeking(en))">Benodigd voor ritten</span></div>
           <div class="col-xs-2"><span class="box__sdata box__sdata--small">{{requiredCredit.sub_total | currency}}</span></div>
           <div class="col-xs-8"><span class="box__slabel" title="Openstaande facturen die nog niet betaald zijn.">Openstaande facturen</span></div>
@@ -340,7 +340,7 @@
 
 </div><!-- /first row containing 4 boxes -->
 
-<div class="row row--padding-top">
+<div class="row row--padding-top" ng-if="!$root.isInterswitch">
 
   <div class="col-sm-6 col-xs-12">
     <div class="box">

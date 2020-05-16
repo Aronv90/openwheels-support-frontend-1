@@ -60,7 +60,6 @@ angular.module('openwheels', [
   'oAuth2Callback',
   'oAuth2MessageListener',
   'stateAuthorizer',
-  'openwheels.phoneLogService',
   'openwheels.environment',
   'openwheels.config',
   'front.paths',
