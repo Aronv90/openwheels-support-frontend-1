@@ -5,7 +5,6 @@ angular.module("openwheels.root.help.handleiding", [])
   $scope,
   $mdDialog,
   $rootScope,
-
   checkIfImmobilized
 ) {
   // Deze data zijn *wellicht* aanwezig,
@@ -21,7 +20,7 @@ angular.module("openwheels.root.help.handleiding", [])
   } = $rootScope.datacontext;
 
   // Vanuit te template kun je ze direct gebruiken
-  Object.assign($scope, $rootScope.datacontext);
+  // Object.assign($scope, $rootScope.datacontext);
 
   $scope.immobilized = booking && checkIfImmobilized(booking.resource);
   $scope.now = () => moment().format('YYYY-MM-DD HH:mm');
@@ -92,6 +91,18 @@ Een rit korter dan 1 uur maken, kan niet.`
     },
 
     resource && {
+      title: "Wanneer mag ik een rit annuleren?",
+      content: `
+Je kunt een rit annuleren via de knop [Annuleren].<br><br>
+
+Let op:<br>
+- Is de rit nog niet begonnen? Dan moet de huurder zelf annuleren.<br>
+- Is de rit al begonnen? Annuleer de rit alleen als de huurder nog niet gereden heeft.<br>
+- Annuleer de rit niet om hem te beëindigen / stoppen / inkorten.<br>
+- Maak een notitie in de rit na het annuleren waarom de rit is geannuleerd.`
+    },
+
+    resource && {
       title: "Foutmelding bij het reserveren",
       content: `
 Als een huurder al een auto heeft gereserveerd vandaag, en vandaag nog een andere auto wil huren, krijgt diegene soms de volgende foutmelding te zien:<br>
@@ -118,13 +129,31 @@ Pas aan het einde van je rit sluit je de auto met de MyWheels app of OV-chipkaar
     // =============
 
     resource && resource.parkingType === 'parking_spot' && {
+      title: "De huurder kan de auto niet vinden",
+      content: `
+Kan de huurder bij het ophalen van de auto deze niet vinden / is de auto kwijt?<br>
+Deze auto heeft een vaste parkeerplek aan de ${resource.location} ${resource.streetNumber}.<br>
+- Met de knop <strong>[Locatie]</strong> kun je de huidige locatie van de auto opvragen.<br>
+- Geef aan de huurder door waar de auto precies staat.`
+    },
+
+    resource && resource.parkingType === 'zone' && {
+      title: "De huurder kan de auto niet vinden",
+      content: `
+Kan de huurder bij het ophalen van de auto deze niet vinden / is de auto kwijt?<br>
+Deze auto heeft geen vaste parkeerplek maar een zoneplek in de zone ${resource.location}.<br>
+- Met de knop <strong>[Locatie]</strong> kun je de huidige locatie van de auto opvragen.<br>
+- Geef aan de huurder door waar de auto precies staat.`
+    },
+
+    resource && resource.parkingType === 'parking_spot' && {
       title: "Waar brengt de huurder auto terug?",
       content: `
 Deze auto heeft een vaste parkeerplek aan de ${resource.location} ${resource.streetNumber}.<br>
 De huurder brengt de auto aan het einde van de rit terug naar deze plek.<br>
 Is de parkeerplek bezet?<br>
 - Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
-- Dit mag <strong>geen gehandicapten plek of parkeerplek</strong> met een wit kruis zijn.<br>
+- Dit mag <strong>geen gehandicapten plek of parkeerplek met een wit kruis</strong> zijn.<br>
 
 <strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
 ${resource.remark}`
@@ -296,7 +325,7 @@ De handrem is bij een Nissan Leaf een klein voetpedaal links naast het rempedaal
 Als de tank voor minder dan een kwart vol zit, is het tijd om bij te tanken.<br>
 Deze auto heeft een tankpas waarmee een huurder kosteloos kan tanken.<br>
 Deze ligt in het dashboardkastje.<br>
-De pincode van de tankpas is ${resource.fuelCardCode}.<br>
+De pincode / tankcode van de tankpas is ${resource.fuelCardCode}.<br>
 De auto rijdt op Euro95 / E10 - brandstof / benzine.<br><br>
 
 Is de tankpas kwijt? Vraag de huurder dan zelf te betalen.<br>
