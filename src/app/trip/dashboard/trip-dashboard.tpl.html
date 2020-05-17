@@ -32,6 +32,26 @@
 
 </div>
 
+<div class="row" ng-if="booking.resource.model === 'Aygo' && booking.ok">
+  <div class="col-sm-12" style="padding-bottom: .5em;font-size:1.2em;">
+    <div class="notice notice--remark">
+      <strong>Start de Toyota Aygo niet? Controleer of de huurder eerst de koppeling intrapt en dan pas start/stop-knop indrukt.</strong>
+    </div>
+  </div>
+
+  <div class="col-sm-12" ng-show="!showBookingNoticeDriver && booking.remarkRequester" style="padding-bottom: .5em;">
+    <div class="notice notice--remark">
+      <div ng-class="{'notice--single-line': !noticeDriver}" class="no-outline" ng-click="noticeDriver=!noticeDriver" >
+      <strong>Opmerking bij rit:</strong>
+      <br ng-if="noticeDriver">
+      {{booking.remarkRequester}}
+      </div>
+      <span ng-click="showBookingNoticeDriver=!showBookingNoticeDriver" style="position: absolute; right: 5px; top: 5px;"><i class="fa fa-fw fa-close"></i></span>
+    </div>
+  </div>
+
+</div>
+
 <div class="row">
 
   <div class="col-md-4 col-sm-12">
