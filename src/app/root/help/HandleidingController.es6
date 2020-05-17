@@ -64,8 +64,8 @@ Lukt het de huurder niet om de auto te starten / de motor te laten lopen?<br>
       title: "De Toyota Aygo start niet",
       content: `
 Lukt het de huurder niet om de auto te starten / de motor te laten lopen?<br>
-- <strong>Controleer of de huurder eerst de koppeling intrapt en dan pas de start/stop-knop indrukt.</strong><br>
-- Bij een Toyota Aygo start de auto pas al de koppeling ingetrapt is als de start/stop-knop ingedrukt wordt.<br><br>
+- <strong>Controleer of de huurder eerst de koppeling intrapt en daarna pas de start/stop-knop indrukt.</strong><br>
+- De koppeling moet tot de bodem ingetrapt worden voor de auto gestart kan worden met de start/stop-knop.<br><br>
 - Werkt dit niet? Klik dan links op de knop [Starten] voor andere oorzaken.<br>
 - Controleer goed de <strong>melding die bij [Starten] bovenaan staat</strong>, vaak is de startblokkering ingeschakeld. Vraag de huurder de sleutel uit het contact te halen en open de auto met de knop [Openen]. De auto zou dan moeten starten.<br>
 - Werken alle stappen bij [Starten] niet? Bel de pechhulp alleen als je alle stappen hebt doorlopen.`
