@@ -44,8 +44,8 @@ Heb je een aantal keer geprobeerd om met de knop [Sluiten] de deuren van een aut
 - Vraag de huurder de sleutel in het dashboardkastje te leggen, de huurder mag daarna weggaan.<br>
 - De auto gaat binnen 30 minuten automatisch alsnog dicht.<br>
 - Er hoeft hiervoor niet naar de achterwacht gebeld te worden.<br>
-- Laat de huurder de auto nooit met de sleutel sluiten!<br>
--  Graag wel notitie maken in de reservering.`
+- Laat de huurder de auto nooit met de sleutel sluiten, maar laat de deuren open!<br>
+-  Graag wel een notitie maken in de reservering.`
     },
 
     // Vragen over starten
@@ -56,7 +56,7 @@ Heb je een aantal keer geprobeerd om met de knop [Sluiten] de deuren van een aut
       content: `
 Lukt het de huurder niet om de auto te starten / de motor te laten lopen?<br>
 - Klik links op de knop [Starten] voor hulp.<br>
-- <strong>Controleer goed de melding die bovenaan bij [Starten] staat</strong>, vaak is de startblokkering ingeschakeld. Vraag de huurder de sleutel uit het contact te halen en open de auto met de knop [Openen]. De auto zou dan moeten starten.<br>
+- <strong>Controleer goed de melding die bovenaan staat bij [Starten]</strong>, vaak is de startblokkering ingeschakeld. Vraag de huurder de sleutel uit het contact te halen en open de auto met de knop [Openen]. De auto zou dan moeten starten.<br>
 - Werken alle stappen bij [Starten] niet? Bel de pechhulp <strong>alleen</strong> als je alle stappen hebt doorlopen.`
         },
 
@@ -71,16 +71,32 @@ Lukt het de huurder niet om de auto te starten / de motor te laten lopen?<br>
 - Werken alle stappen bij [Starten] niet? Bel de pechhulp alleen als je alle stappen hebt doorlopen.`
         },
 
+    resource && resource.locktype === "chipcard" && {
+      title: "Hoe koppel ik een nieuwe OV-chipkaart?",
+      content: `
+Gebruikt de huurder voor de eerste keer een OV-chipkaart / chip card / chipcard?<br>
+Volg dan onderstaande stappen:<br>
+- De huurder houdt aan het begin van de huurperiode de OV-chipkaart voor de lezer achter het voorraam.<br>
+- De huurder ontvangt automatisch binnen enkele seconden een sms.<br>
+- Vraag de huurder om de sms met 'Ja' te beantwoorden.<br>
+- De OV-chipkaart wordt gekoppeld en de auto opent binnen 15 seconden.<br>
+- Daarna kan de auto gestart worden met de sleutel die in het dashboardkastje ligt.<br><br>
+- <strong>Lukt het een huurder niet om de auto met een OV-chipkaart te openen?</strong><br>
+- Klik op de knop [Openen] om de auto op afstand te openen en de startblokkering eraf te halen.`
+        },
+
     // Vragen over een reservering
     // =============
 
     resource && {
       title: "Het beëindigen van een rit lukt niet",
       content: `
-Als een huurder de rit wilt inkorten / beëindigen / stoppen, dan kan dat met maximaal 1 of 2 uur (afhankelijk van het abonnement).<br>
-De gebruiker kan dit zelf doen door de rit te eindigen bij het sluiten van de auto.<br>
-Soms loopt een rit nog door, omdat het inkorten met maximaal 1 of 2 uur kan.<br>
-Het beëindigen is dan wel gelukt.`
+- Als een huurder een rit wilt inkorten / beëindigen / stoppen, dan kan dat met maximaal 1 of 2 uur (afhankelijk van het abonnement).<br>
+- De huurder kan dit zelf doen door de lopende rit te beëindigen in de MyWheels app of website.<br>
+- Jij kunt dit doen door op de knop [Beëindigen] te drukken.
+- De status van de rit op de ritpagina is dan Beëindigd.<br><br>
+- Soms loopt een rit nog door / is de rit nog lopend, omdat het inkorten met maximaal 1 of 2 uur kan.<br>
+- Het beëindigen is dan wel gelukt.<br>`
     },
 
     resource && {
@@ -103,7 +119,6 @@ Een rit korter dan 1 uur maken, kan niet.`
       title: "Wanneer mag ik een rit annuleren?",
       content: `
 Je kunt een rit annuleren via de knop [Annuleren].<br><br>
-
 Let op:<br>
 - Is de rit nog niet begonnen? Dan moet de huurder zelf annuleren.<br>
 - Is de rit al begonnen? Annuleer de rit alleen als de huurder nog niet gereden heeft.<br>
@@ -114,12 +129,33 @@ Let op:<br>
     resource && {
       title: "Foutmelding bij het reserveren",
       content: `
-Als een huurder al een auto heeft gereserveerd vandaag, en vandaag nog een andere auto wil huren, krijgt diegene soms de volgende foutmelding te zien:<br>
+Als een huurder al een auto heeft gereserveerd voor vandaag, en vandaag nog een andere auto wil huren, krijgt diegene soms de volgende foutmelding te zien:<br>
 <strong>Je hebt vandaag al een andere auto gereserveerd.</strong><br><br>
-
 Dit betekent dat de huurder vandaag niet nog een andere auto kan huren.<br>
 De huurder kan mailen naar support@mywheels.nl om dit wel mogelijk te maken.<br>
 We reageren op de mail tijdens werkdagen van 09:00 tot 17:00 uur.<br>`
+    },
+
+    resource && {
+      title: "De kortingscode werkt niet",
+      content: `
+- Heeft een huurder een kortingscode ontvangen maar lukt het niet om die toe te voegen aan de rit?<br>
+- Dit is niet urgent, en kunnen we nu niet oplossen.<br>
+- Maak een notitie bij de rit, en vraag de huurder een mail te sturen naar support@mywheels.nl.<br>
+- Als de kortingscode geldig is, krijgt de huurder achteraf de korting alsnog.`
+    },
+
+    resource && {
+      title: "De huurder kan de auto niet op tijd terugbrengen",
+      content: `
+Kan een huurder een auto niet op tijd terugbrengen naar de vaste parkeerplek of zone?<br>
+- Vraag de huurder de rit verlengen, eventueel is bijbetalen nodig.<br>
+- Lukt het verlengen van de rit niet omdat de auto niet beschikbaar is? Boek dan volgende huurders om.<br>
+- Klik hiervoor in de ritpagina op de balk [Komende ritten] en bij de volgende rit(ten) op omboeken.<br>
+- Bel de volgende huurder op om hem of haar te informeren over het omboeken.<br>
+- Kunnen toekomstige huurders niet omgeboekt worden? Dan moet de huidige huurder de auto op tijd terugbrengen.<br>
+- Vraag de huidige huurder de rit alsnog te verlengen.<br>
+- Een rit kan verlengd worden maximaal 30 minuten na het einde van de rit. Daarna moet de huurder een nieuwe reservering maken.`
     },
 
     // Vragen over de Agyo's
@@ -132,6 +168,17 @@ De sleutel ligt in het dashboardkastje.<br>
 De sleutel heb je niet nodig om te starten, je gebruikt hiervoor de start/stopknop.<br>
 Gebruik tijdens de rit de sleutel om de auto te openen en te sluiten.<br>
 Pas aan het einde van je rit sluit je de auto met de MyWheels app of OV-chipkaart.`
+    },
+
+    // Vragen over andere brandstofauto's
+    // =============
+
+    resource && resource.model !== "Aygo" && resource.fuelType !== "elektrisch" && {
+      title: "Waar vind ik de sleutel?",
+      content: `
+De sleutel van de auto ligt in het dashboardkastje.<br>
+De huurder kan de sleutel tijdens de rit gebruiken om de auto te openen en te sluiten.<br>
+Pas aan het einde van de rit sluit de huurder de auto met de MyWheels app of OV-chipkaart.`
     },
 
     // Vragen over parkeren
@@ -163,6 +210,7 @@ De huurder brengt de auto aan het einde van de rit terug naar deze plek.<br>
 Is de parkeerplek bezet?<br>
 - Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
 - Dit mag <strong>geen gehandicapten plek of parkeerplek met een wit kruis</strong> zijn.<br>
+- De huurder mag niet op een andere autodate parkeerplek staan.<br>
 
 <strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
 ${resource.remark}`
@@ -175,6 +223,7 @@ Deze auto heeft een vaste parkeerplek aan de ${resource.location} ${resource.str
 Is de parkeerplek bezet door een foutparkeerder / andere auto?<br>
 - Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
 - Dit mag <strong>geen gehandicapten plek of parkeerplek</strong> met een wit kruis zijn.<br>
+- De huurder mag niet op een andere autodate parkeerplek staan.<br>
 
 <strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
 ${resource.remark}`
@@ -184,8 +233,9 @@ ${resource.remark}`
       title: "Waar brengt de huurder auto terug?",
       content: `
 Deze auto heeft geen vaste parkeerplek maar een zoneplek.<br>
-De auto mag overal in de zone parkeren.<br>
-De huurder vindt de zone in de MyWheels app of op de website.`
+De huurder mag de auto overal in de zone parkeren op een openabre parkeerplek.<br>
+De huurder vindt de zone in de MyWheels app of op de website.<br>
+- De auto mag <strong>niet</strong> op een autodate parkeerplek, invaliden parkeerplek of een andere parkeerplek met een wit kruis staan.`
     },
 
     resource && resource.fuelType === "elektrisch" && resource.parkingType === 'zone' && {
@@ -196,7 +246,8 @@ De auto mag overal in de zone parkeren.<br>
 De huurder vindt de zone in de MyWheels app of op de website.<br>
 - Is de accu minder dan 80% dan aan een laadpaal.<br>
 - Heeft de accu nog 80% of meer stroom, dan op een vrije parkeerplaats zonder laadpaal.<br>
-- Parkeert een huurder bij een laadpaal? Dan is deze verplicht de auto ook aan te sluiten voor het opladen.`
+- Parkeert een huurder bij een laadpaal? Dan is deze verplicht de auto ook aan te sluiten voor het opladen.<br><br>
+- De auto mag <strong>niet</strong> op een autodate parkeerplek, invaliden parkeerplek of een andere parkeerplek met een wit kruis staan.`
     },
 
     // Vragen over elektrische auto's
@@ -206,7 +257,12 @@ De huurder vindt de zone in de MyWheels app of op de website.<br>
     resource && resource.fuelType === "elektrisch" && {
       title: "Waar vind ik de (laad)sleutel?",
       content: `
-De sleutel en laadsleutel liggen in het dashboardkastje. De sleutel heb je niet nodig om te starten. Gebruik tijdens de rit de sleutel om de auto te openen en te sluiten. Pas aan het einde van je rit sluit je de auto met de MyWheels app of OV-chipkaart. De blauwe laadsleutel van newmotion zit aan de sleutel vast.`,
+- De sleutel en laadsleutel liggen in het dashboardkastje.<br>
+- De blauwe laadsleutel van newmotion zit aan de sleutel vast (zie foto).<br>
+- Soms ligt de sleutel in de middenconsole, tussen de stoelen.<br>
+- De sleutel heb je niet nodig om te starten.<br>
+- De huurder gebruikt tijdens de rit de sleutel om de auto te openen en te sluiten.<br>
+- Pas aan het einde van de rit sluit de huurder de auto met de MyWheels app of OV-chipkaart.`,
       images: [
         "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
       ]
@@ -272,14 +328,21 @@ Wil een huurder een rit in een Nissan Leaf stoppen en de auto afsluiten?
     resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
       title: "Hoe laad ik een  Nissan Leaf op?",
       content: `
-- In de MyWheels app vind je de beschikbare laadpalen in de zone. Je kunt onderweg ook snelladen bij Fastned stations.<br>
-- Pak de kabel uit de kofferbak.<br>
-- Druk in de auto op de ontgrendelknop (links onder het stuur of de onderste knop van de sleutel) om de laadklep te openen.<br>
-- Steek de kabel in de **rechter** aansluiting voorin de laadklep.<br>
+Vraag de huurder volgende stappen te volgen om het opladen te starten:
+- Druk in de auto op de ontgrendelknop (links onder het stuur of de onderste knop van de sleutel) om de laadklep van de auto te openen.<br>
+- Steek de laadkabel in de auto in de **rechter** aansluiting (aan de voorkant van de auto).<br>
 - Steek de andere kant van de kabel in de laadpaal.<br>
-- Houd de laadsleutel drie seconden voor het leesvlak van de laadpaal.<br>
+- Houd de blauwe laadsleutel (aan de sleutel) drie seconden voor het leesvlak van de laadpaal (<strong>niet de zwarte sleutelhanger</strong>).<br>
 - De blauwe lampjes aan de binnenkant van de auto, op het dashboard, beginnen te knipperen als de kabel juist is aangesloten.<br />
-  **Verlaat de auto nooit zonder deze aan te sluiten aan de laadpaal!**`,
+  **Verlaat de auto nooit zonder deze aan te sluiten aan de laadpaal!**<br><br>
+
+Lukt bovenstaande niet? Controleer de volgende zaken:<br>
+- De laadkabel dient in de auto én de laadpaal aangesloten te zijn.<br>
+- De laadsleutel (deze zit aan de sleutel, zie foto) dient langs de lezer op de laadpaal gehaald te worden.<br>
+- Sommige auto's hebben nog een losse VandeBron laadpas, ter grootte van een chipkaart.<br>
+- Indien de paal niet geactiveerd wordt, verzoek de huurder het opnieuw te proberen, soms is het activeren lastig. Beweeg de laadpas langs de lezer / houdt hem gedurende een aantal seconden op verschillende plekken. <br>
+- Indien de laadpaal niet geactiveerd wordt / storing (rood licht) geeft, verzoek de huurder naar een andere laadpaal te rijden, binnen de zone van de auto, en de auto daar aan te sluiten.<br>
+- Laat de huurder bevestigen dat de auto laadt, door te controleren of de lampjes op het dashboard (onder het raam) gaan lopen (zie foto). Deze zijn goed zichtbaar als je voor de auto staat.<br>`,
       images: [
         "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
         "/backoffice/assets/img/handleiding/nissan_leaf_opladen.png",
@@ -298,23 +361,6 @@ Het opladen aan de laadpaal is dan gestart.`,
     },
 
     resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
-      title: "Het opladen van een Nissan Leaf lukt niet",
-      content: `
-Doorloop onderstaande stappen:<br>
-- De laadkabel dient in de auto en laadpaal aangesloten te zijn.<br>
-- De laadpas (deze zit aan de sleutel, zie foto) dient langs de lezer op de laadpaal gehaald te worden.<br>
-- Indien de paal niet geactiveerd wordt, verzoek de huurder het opnieuw te proberen, soms is het activeren lastig. Beweeg de laadpas langs de lezer / houdt hem gedurende een aantal seconden op verschillende plekken. <br>
-- Indien de laadpaal niet geactiveerd wordt / storing (rood licht) geeft, verzoek de huurder naar een andere laadpaal te rijden, binnen de zone van de auto, en de auto daar aan te sluiten.<br>
-- Laat de huurder bevestigen dat de auto laadt, door te controleren of de lampjes op het dashboard (onder het raam) gaan lopen (zie foto). Deze zijn goed zichtbaar als je voor de auto staat.<br>
-- De sleutel kan na het activeren terug in het dashboardkastje.<br>
-- De huurder kan de auto sluiten via de app / OV Chipkaart, of door jou via de knop [Sluiten].`,
-      images: [
-        "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
-        "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
-      ]
-    },
-
-    resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
       title: "Hoe haal ik een Nissan Leaf van de handrem?",
       content: `
 De handrem is bij een Nissan Leaf een klein voetpedaal links naast het rempedaal.<br>
@@ -325,8 +371,40 @@ De handrem is bij een Nissan Leaf een klein voetpedaal links naast het rempedaal
       ]
     },
 
+    // Vragen over algemene zaken omtrent een rit
+    // =============
+
+    resource && {
+      title: "Welke extra bestuurders mogen rijden?",
+      content: `
+- Enkel huurders die als extra bestuurder aan de rit zijn toegevoegd, mogen rijden.<br>
+- De extra bestuurders bij een rit vind je op de ritpagina (onder de rittijden). Alleen als de huurder daar staat, en de uitnodiging geaccepteerd is, mag diegen rijden.<br>
+- Tijdens een rit kan een huurder geen extra bestuurders meer toevoegen.<br>
+- Ook kan tijdens een rit een extra  bestuurder de uitnodiging niet meer accepteren.<br><br>
+- Is het toevoegen van een extra bestuurder niet gelukt, maar woont de  extra bestuurder op hetzelfde adres als de huurder? Dan mag je toestemming geven om te mogen rijden.<br>
+- Voeg dan wel een follow-up toe zodat we eventuele kosten (€1,25 per extra bestuurder) hiervoor in rekening kunnen brengen. Noteer de naam van de extra bestuurder.`
+    },
+
+    resource && {
+      title: "De betaling is niet verwerkt",
+      content: `
+Heeft de huurder betaald, maar is het bedrag niet bijgesschreven in het saldo / rijtegoed?<br>
+- Vaak heeft de huurder betaald vanaf een rekeningnummer / IBAN-nummer dat niet op zijn of haar naam staat. Of het is een en/of rekening.<br>
+- De achternaam van het account moet volledig voorkomen in de tenaamstelling van de rekening.<br>
+- Als dit het geval is, zie je dit op de ritpagina in het middelste blok (waar ook de naam van de huurder staat) de volgende melding staan: <i>De tenaamstelling van de rekeninghouder, ..., komt niet overeen met de achternaam, .... Daarom kunnen we de betaling nog niet verwerken.</i><br>
+- De huurder kan via de website MyWheels.nl een betaling van 1 cent doen van een andere rekening op zijn of haar naam.<br>
+- Het bedrag wordt dan wel bijgeschreven in het account en de rit springt op betaald.`
+    },
+
     // Vragen over algemene autozaken
     // =============
+
+    resource && {
+      title: "Hoe klap ik de buitenspiegels in?",
+      content: `
+Een huurder kan de buitenspiegels inklappen door deze naar binnen te duwen.
+Dit hoeft niet binnenin de auto gedaan te worden.`
+    },
 
     resource && resource.fuelCardCode && {
       title: "Hoe tank ik?",
@@ -362,15 +440,8 @@ De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder ho
     resource && {
       title: "De huurder heeft pech",
       content: `
-Heeft de huurder onderweg pech en kan hij of zij niet doorrijden?<br>
-Bel dan de pechulp:<br>
-${resource.roadAssistance}<br><br>
-
-De pechhulp arriveert binnen 30 tot 45 minuten bij de auto.<br>
-Ze zullen eerst proberen de huurder weer op weg te helpen.<br>
-Mocht dit niet lukken, zullen ze de auto meenemen en de huurder naar de gewenste locatie in Nederland brengen.<br>
-In het buitenland heeft de huurder recht op vervangend vervoer.<br>
-De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder hoeft hiervoor niets te betalen.`
+- Controleer altijd of de <strong>startblokkering</strong> niet ingeschakeld is door de auto te openen via de knop [Openen]. De auto zou daarna moeten starten.<br>
+- Start de auto daarna nog steeds niet? Klik dan op de knop [Pech] om de pechhulp in te schakelen.`
     },
 
     {
