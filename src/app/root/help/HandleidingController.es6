@@ -38,6 +38,17 @@ angular.module("openwheels.root.help.handleiding", [])
     // =============
 
     resource && {
+      title: "De deuren gaan niet open",
+      content: `
+Heb je een aantal keer geprobeerd om met de knop [Openen] de deuren van een auto te openen maar gaat de auto niet open?<br>
+- Vraag of de huurder bij de juiste auto met kenteken <strong>${resource.registrationPlate}</strong> staat.
+- Sluit de auto met de knop [Sluiten], en open hem dan nogmaals met de knop [Openen].<br>
+- Werkt het nog niet? Boek de huurder dan om naar een auto in de buurt via [Boeken].<br>
+- Is er geen andere auto beschikbaar? Soms werkt het openen na 5 minuten wachten wel.<br>
+- Of bel de beheerder van de auto om te vragen de auto met de reservesleutel te openen.`
+    },
+
+    resource && {
       title: "De deuren gaan niet op slot",
       content: `
 Heb je een aantal keer geprobeerd om met de knop [Sluiten] de deuren van een auto te sluiten maar gaat de auto niet dicht?<br>
@@ -145,6 +156,15 @@ We reageren op de mail tijdens werkdagen van 09:00 tot 17:00 uur.<br>`
 - Als de kortingscode geldig is, krijgt de huurder achteraf de korting alsnog.`
     },
 
+
+    resource && {
+      title: "Hoe reserveert een beheerder een auto?",
+      content: `
+Als een beheerder van een auto deze gratis wil reserveren / boeken / huren, kan hij of zij een rit van minimaal 1 uur maken op het MyWheels Free contract / abonnement.<br>
+- De rit is dan gratis.
+- Graag de beheerder vragen om een notitie bij het reserveren te maken.`
+    },
+
     resource && {
       title: "De huurder kan de auto niet op tijd terugbrengen",
       content: `
@@ -168,6 +188,48 @@ De sleutel ligt in het dashboardkastje.<br>
 De sleutel heb je niet nodig om te starten, je gebruikt hiervoor de start/stopknop.<br>
 Gebruik tijdens de rit de sleutel om de auto te openen en te sluiten.<br>
 Pas aan het einde van je rit sluit je de auto met de MyWheels app of OV-chipkaart.`
+    },
+
+    // Vragen over de Citroëns
+    // =============
+
+    resource && resource.model === "C3" && {
+      title: "Hoe werkt de cruisecontrol?",
+      content: `
+De cruisecontrol bedien je met de schakelaar links achter het stuur.<br>
+1. Draai het wieltje naar beneden toe (cruisecontrol) of naar boven toe (snelheidsbegrenzer).<br>
+2. Met de knopjes op de achterkant kun je de snelheid verhogen of verlagen.<br>
+3. Draai het wieltje naar het midden om de cruisecontrol of snelheidsbegrenzer uit te schakelen.
+`
+    },
+
+    resource && resource.model === "C1" && {
+      title: "Hoe werkt de cruisecontrol / snelheidsbegrenzer?",
+      content: `
+De auto heeft geen cruise control, maar een snelheidsbegrenzer.<br>
+- De snelheidsbegrenzer voorkomt dat de auto de, door de bestuurder ingestelde maximumsnelheid, overschrijdt.<br>
+- De ingestelde maximumsnelheid blijft na het afzetten van het contact opgeslagen in het geheugen.<br>
+- Wil je dit uitschakelen? Haal de kleine schakelaar, rechts onder het stuur, naar je toe.<br><br>
+De cruisecontrol bedien je met de schakelaar links achter het stuur.
+1. Draai het wieltje (1) naar beneden toe (cruisecontrol) of naar boven toe (snelheidsbegrenzer).
+2. Met de knopjes op de achterkant (2) kun je de snelheid verhogen of verlagen.
+3. Draai het wieltje (1) naar het midden om de cruisecontrol of snelheidsbegrenzer uit te schakelen.`
+    },
+
+    resource && resource.model === "C1" && {
+      title: "Hoe open ik de tankklep?",
+      content: `
+De tankklep van de Citroën C1 open je via de hendel links van het stuur.<br>
+De pincode / tankcode van de tankpas is ${resource.fuelCardCode}.<br>
+De auto rijdt op Euro95 / E10 - brandstof / benzine.<br><br>`
+    },
+
+    resource && resource.model === "C3" && {
+      title: "Hoe open ik de tankklep?",
+      content: `
+De tankklep van de Citroën C3 open je met de autosleutel, die ligt in het dashboardkastje.<br>
+De pincode / tankcode van de tankpas is ${resource.fuelCardCode}.<br>
+De auto rijdt op Euro95 / E10 - brandstof / benzine.<br><br>`
     },
 
     // Vragen over andere brandstofauto's
@@ -210,7 +272,7 @@ De huurder brengt de auto aan het einde van de rit terug naar deze plek.<br>
 Is de parkeerplek bezet?<br>
 - Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
 - Dit mag <strong>geen gehandicapten plek of parkeerplek met een wit kruis</strong> zijn.<br>
-- De huurder mag niet op een andere autodate parkeerplek staan.<br>
+- De huurder mag niet op een andere autodate parkeerplek dan van MyWheels staan (dus geen autodate plek van Greenwheels).<br>
 
 <strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
 ${resource.remark}`
@@ -223,7 +285,7 @@ Deze auto heeft een vaste parkeerplek aan de ${resource.location} ${resource.str
 Is de parkeerplek bezet door een foutparkeerder / andere auto?<br>
 - Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
 - Dit mag <strong>geen gehandicapten plek of parkeerplek</strong> met een wit kruis zijn.<br>
-- De huurder mag niet op een andere autodate parkeerplek staan.<br>
+- De huurder mag niet op een andere autodate parkeerplek dan van MyWheels staan (dus geen autodate plek van Greenwheels).<br>
 
 <strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
 ${resource.remark}`
@@ -258,8 +320,9 @@ De huurder vindt de zone in de MyWheels app of op de website.<br>
       title: "Waar vind ik de (laad)sleutel?",
       content: `
 - De sleutel en laadsleutel liggen in het dashboardkastje.<br>
-- De blauwe laadsleutel van newmotion zit aan de sleutel vast (zie foto).<br>
 - Soms ligt de sleutel in de middenconsole, tussen de stoelen.<br>
+- De blauwe laadsleutel van newmotion zit aan de sleutel vast (zie foto).<br>
+- De zwarte druppel is geen laadsleutel, het moet een blauwe laadsleutel van newmotion zijn (zie foto).<br><br>
 - De sleutel heb je niet nodig om te starten.<br>
 - De huurder gebruikt tijdens de rit de sleutel om de auto te openen en te sluiten.<br>
 - Pas aan het einde van de rit sluit de huurder de auto met de MyWheels app of OV-chipkaart.`,
@@ -294,6 +357,13 @@ Wil een huurder een rit in een Nissan Leaf stoppen en de auto afsluiten?
       ]
     },
 
+    resource && resource.fuelType === "elektrisch" && {
+      title: "Moet de laadkabel meegenomen worden?",
+      content: `
+Ja, de laadkabel moet altijd meegenomen worden.<br>
+De huurder mag niet zonder de laadkabel vertrekken.`
+    },
+
     // Vragen over de Nissan Leaf
     // =============
 
@@ -312,14 +382,16 @@ Wil een huurder een rit in een Nissan Leaf stoppen en de auto afsluiten?
     resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
       title: "Hoe rijd ik in een Nissan Leaf?",
       content: `
-- Na het starten zet je de versnellingshendel in stand **D**. De standen zijn:<br>
+1. Haal de handrem eraf *(het kleine voetpedaal naast het rempedaal)*. Als de handrem is ingetrapt, zit deze tegen de bodem aan. Trap deze kort in en laat hem naar boven komen.<br>
+2. Houd de normale rem ingetrapt.<br>
+3. Na het starten zet je de versnellingshendel in stand **D**. De standen zijn:<br>
   - Stand D = vooruit (naar links + beneden)<br>
   - Stand R = achteruit (naar links + naar voren)<br>
   - Stand N = neutraal / vrij (naar links)<br>
   - Stand P = parkeerstand (knopje bovenop)<br>
   - Stand B = voor het afdalen van hellingen (schuin naar links)<br>
-- Zodra je de rem loslaat in stand **D**, **B** of **R**, begint de auto te rijden.<br>
-- Op het dashboard zie je hoeveel kilometer je nog kunt rijden.`,
+4. Zodra je de rem loslaat in stand **D**, **B** of **R**, begint de auto te rijden.<br>
+5. Op het dashboard zie je hoeveel kilometer je nog kunt rijden.`,
       images: [
         "/backoffice/assets/img/handleiding/nissan_leaf_pook.png",
       ]
@@ -350,6 +422,22 @@ Lukt bovenstaande niet? Controleer de volgende zaken:<br>
     },
 
     resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
+      title: "Hoe werkt het snelladen met een Nissan Leaf?",
+      content: `
+Wil een huurder onderweg snelladen met de elektrische Nissan Leaf bij een snellaadstation?<br>
+- De Nissan Leaf kan snelladen bij speciale snellaadstations van FastNed of Allego via de ChadeMo-stekker.<br>
+- Deze stekker zit niet in de auto, maar hangt bij de snellaadstations, en moet worden aangesloten in de zwarte klep aan de voorkant.<br>
+- Een snellaadstation kun je vinden via de website www.oplaadpalen.nl, filter op 'snel' om een snellaadstation te vinden op de route.<br>
+- De huurder kan laadsleutel/laadpas gebruiken om bij het laadstation het opladen te starten.<br>
+- De lampjes op het dashboard gaan knipperen als het opladen gestart is.<br>
+- De auto laadt binnen 25 minuten op tot 80% van de accu.`,
+      images: [
+        "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
+        "/backoffice/assets/img/handleiding/nissan_leaf_opladen.png",
+      ]
+    },
+
+    resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
       title: "Hoe weet ik of een Nissan Leaf oplaadt?",
       content: `
 De blauwe lampjes aan de binnenkant van de auto, op het dashboard, beginnen te knipperen / lopen als de kabel juist is aangesloten.<br>
@@ -373,6 +461,19 @@ De handrem is bij een Nissan Leaf een klein voetpedaal links naast het rempedaal
 
     // Vragen over algemene zaken omtrent een rit
     // =============
+
+    resource && {
+      title: "De voorruit van de auto is beslagen",
+      content: `
+Zijn de ramen van de auto beslagen / vol condens?
+- Om de ramen snel weer “droog” te krijgen, zet je de airconditioning aan.<br>
+- Richt de blazers op de voorruit en in een hoge stand.<br>
+- Zet de verwarming op de warmste stand.`
+    },
+
+    
+
+
 
     resource && {
       title: "Welke extra bestuurders mogen rijden?",
@@ -415,7 +516,7 @@ Deze ligt in het dashboardkastje.<br>
 De pincode / tankcode van de tankpas is ${resource.fuelCardCode}.<br>
 De auto rijdt op Euro95 / E10 - brandstof / benzine.<br><br>
 
-Is de tankpas kwijt? Vraag de huurder dan zelf te betalen.<br>
+Is de tankpas kwijt of werkt de tankpas niet? Vraag de huurder dan zelf te betalen.<br>
 De tankbon kunnen ze mailen naar support@mywheels.nl.`
     },
 
@@ -438,10 +539,22 @@ De berging en sleepkosten zijn meeverzekerd via de ritverzekering, de huurder ho
     },
 
     resource && {
-      title: "De huurder heeft pech",
+      title: "De huurder heeft pech / lege accu",
       content: `
-- Controleer altijd of de <strong>startblokkering</strong> niet ingeschakeld is door de auto te openen via de knop [Openen]. De auto zou daarna moeten starten.<br>
-- Start de auto daarna nog steeds niet? Klik dan op de knop [Pech] om de pechhulp in te schakelen.`
+Heeft de huurder pech of een lege accu?<br>
+- Controleer altijd of de <strong>startblokkering</strong> niet ingeschakeld is door de auto te openen via de knop [Openen]. De sleutel moet uit het contact zijn. De auto zou daarna moeten starten.<br>
+- Start de auto daarna nog steeds niet? Klik dan op de knop [Pech] om de pechhulp in te schakelen.<br><br>
+Branden er rode (alarm)lampjes op het dashboard / display van de auto?<br>
+- Vraag de huurder de auto te starten.<br>
+- Blijven de rode waarschuwingslampjes branden? Dan mag de huurder niet verder rijden.<br>
+- Schakel de pechhulp in via de knop [Pech].`
+    },
+
+    resource && {
+      title: "De huurder heeft een ongeluk gehad",
+      content: `
+Was de huurder met een auto betrokken bij een ongeluk / aanrijding / schade?<br>
+- Klik op de knop [Schade] om de huurder te helpen.`
     },
 
     {
@@ -459,7 +572,10 @@ Staat het raam van een auto open / op een kier?<br>
     {
       title: "De huurder kan niet inloggen",
       content: `
-Als een huurder niet kan inloggen, raden we aan om een nieuw wachtwoord in te stellen via Wachtwoord vergeten.<br>
+Kan een huurder niet inloggen op de website?
+- Vraag de huurder om een vinkje te zetten voor "Ik ben geen robot".<br><br>
+Lukt het nog niet om in te loggen in de website of app?
+- Vraag de huurder om een nieuw wachtwoord in te stellen via Wachtwoord vergeten.<br>
 Link: https://mywheels.nl/wachtwoord-vergeten`
     },
 
@@ -486,6 +602,14 @@ Een account kan om verschillende redenen gedeactiveerd / geblokkeerd worden.<br>
 Denk aan een ongeldig rijbewijs of verkeerd ingevulde gegevens.<br>
 Vraag de huurder te mailen  naar account@mywheels.nl om de reden van deactivatie op te vragen.<br>
 In verband met privacy overwegingen is het niet mogelijk om hier telefonisch navraag over te doen.`
+    },
+
+    {
+      title: "Problemen met de app",
+      content: `
+Heeft een huurder problemen met de MyWheels app voor Android of iOS / iPhone? Kan hij of zij bijvoorbeeld niet inloggen?<br>
+- Vraag de huurder dan de mobiele website https://mywheels.nl te gebruiken.<br>
+- Maak een notitie bij de rit wat het probleem is.`
     }
   ]
     .filter(Boolean)
