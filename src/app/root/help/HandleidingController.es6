@@ -322,10 +322,12 @@ De huurder vindt de zone in de MyWheels app of op de website.<br>
 - De sleutel en laadsleutel liggen in het dashboardkastje.<br>
 - Soms ligt de sleutel in de middenconsole, tussen de stoelen.<br>
 - De blauwe laadsleutel van newmotion zit aan de sleutel vast (zie foto).<br>
-- De zwarte druppel is geen laadsleutel, het moet een blauwe laadsleutel van newmotion zijn (zie foto).<br><br>
+- De zwarte druppel aan de sleutel is geen laadsleutel, het moet een blauwe laadsleutel van newmotion zijn (zie foto).<br><br>
 - De sleutel heb je niet nodig om te starten.<br>
 - De huurder gebruikt tijdens de rit de sleutel om de auto te openen en te sluiten.<br>
-- Pas aan het einde van de rit sluit de huurder de auto met de MyWheels app of OV-chipkaart.`,
+- Pas aan het einde van de rit sluit de huurder de auto met de MyWheels app of OV-chipkaart.<br><br>
+Let op: sommige auto's hebben nog een losse Vandebron laadpas, deze ligt los in het dashboardkastje of in de middenconsole.<br>
+Dit is voornamelijk het geval bij Nissan Leafs in Den Haag, Rotterdam, Brabant en Limburg.`,
       images: [
         "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
       ]
@@ -593,6 +595,15 @@ Vraag de huurder te bellen vanaf een telefoonnummer dat bij ons bekend is.`
 Een account wordt gecontroleerd bij het maken van een eerste reservering.<br>
 Meestal wordt een account automatisch geactiveerd, de huurder dan direct op weg!<br>
 Soms is handmatige controle nodig. De vaste supportmedewerkers van MyWheels doen dit op werkdagen tussen 09.00 en 17.00 uur.`
+    },
+
+    {
+      title: "Waarom kan ik wel betalen maar is mijn account nog niet actief?",
+      content: `
+Een huurder betaalt soms een rit, ook als zijn of haar account nog niet gecontroleerd / geactiveerd is.<br>
+We tonen wel een melding op de website en in de MyWheels app als dit het geval is.<br>
+We controleren het account op werkdagen tussen 09:00 en 17:00 uur.<br>
+Als we het account niet goedkeuren, storten we het saldo weer terug op de bankrekening van de huurder.`
     },
 
     {
