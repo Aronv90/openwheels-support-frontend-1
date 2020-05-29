@@ -1,0 +1,48 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Unlock account</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>    
+    <div layout="column" layout-margin class="md-dialog-content">
+
+      <p>De huurder heeft zelf het account gelocked. Meer informatie:</p>
+
+      <ul>
+        <li>Sinds donderdag 28 mei ontvangen huurders per mail of sms een melding bij inlogpoging in hun account via een nieuw apparaat of IP-adres.</li>
+        <li>Als de huurder op dat moment zelf van de MyWheels website of app gebruik maakte, is er niets aan de hand.</li>
+        <li>Als een huurder het niet vertrouwt en via de link op <i>[Tijdelijk blokkeren]</i> drukt, is het account gelocked / geblokkeerd.</li>
+        <li>In het account kan dan geen nieuwe reservering gemaakt worden of een lopende rit gestart / geopend worden.</li>
+      </ul>
+
+      <p>Wil de huurder het account unlocken? Verifeer dat het om de juiste huurder gaat:</p>
+      <ul>
+        <li>De huurder belt vanaf een telefoonnummer in zijn of haar account (geen anoniem of onbekend nummer).</li>
+        <li>Vraag de huurder om zijn of haar rijbewijsnummer ({{person.driverLicenseNumber}}).</li>
+      </ul>
+
+      <p><strong>Let op:</strong></p>
+      <ul>
+        <li>Kan de beller het rijbewijsnummer niet opnoemen / noemt deze een ander nummer op, laat de beller dan mailen met account@mywheels.nl , je kunt op dit moment niets voor de beller doen.</li>
+        <li>Noem het rijbewijsnummer nooit op naar de beller toe, je mag alleen bevestigen of het nummer overeenkomt, of niet.</li>
+      </ul>
+
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="done()">
+      Unlocken
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
