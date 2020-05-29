@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="col-sm-12" ng-if="!booking.ok || booking.status !== 'accepted'" style="padding-bottom: .5em;">
+  <div class="col-sm-12" ng-if="!booking.ok || booking.status !== 'accepted' && !booking.person.locked" style="padding-bottom: .5em;">
     <div class="notice notice--neg">
       <strong>De huurder kan de auto niet ophalen omdat de rit nog niet in orde is:</strong>
       <strong ng-if="booking.person.status === 'blocked'"><br>- Het account van de huurder is gedeactiveerd.</strong>
@@ -13,7 +13,13 @@
     </div>
   </div>
 
-  <div class="col-sm-12" ng-if="booking.ok && booking.status === 'accepted'" style="padding-bottom: .5em;">
+  <div class="col-sm-12" ng-if="booking.person.locked" style="padding-bottom: .5em;">
+    <div class="notice notice--neg" style="font-size:1.2em;">
+      <strong>Let op: het account van de huurder is gelocked. <a ng-click="unlockPerson(booking.person.id)" style="color:#fff!important; text-decoration:underline;">Klik hier voor het unlocken van het account</a>.  </strong>
+    </div>
+  </div>
+
+  <div class="col-sm-12" ng-if="booking.ok && booking.status === 'accepted' && !booking.person.locked" style="padding-bottom: .5em;">
     <div class="notice notice--agreed">
       <strong>Alles voor deze rit is in orde, de huurder mag de auto ophalen.</strong>
     </div>
