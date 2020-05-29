@@ -1570,6 +1570,7 @@ angular.module('openwheels.trip.dashboard', [])
         newProps: {locked: false}
       })
       .then(function(res) {
+        $scope.booking.person.locked = res.locked;
         return alertService.add('success', 'Het account van de huurder is unlocked.', 5000);
       })
       .catch(function(err) {

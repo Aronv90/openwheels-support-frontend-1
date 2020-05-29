@@ -18,7 +18,7 @@ angular.module('openwheels.person.show', [
 ])
 
 .controller('PersonShowController', function ($scope, person, settingsService, FRONT_DASHBOARD, FRONT_SWITCHUSER,
-  authService, personService, alertService) {
+  authService, personService, alertService, $window, $mdDialog, $mdMedia) {
 
   $scope.hide = false;
   $scope.toggleHide = function() {
@@ -29,6 +29,44 @@ angular.module('openwheels.person.show', [
         $scope.hide = false;
       }
     }
+  };
+
+  $scope.unlockPerson = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', function($scope, $mdDialog) {
+        personService.get({person: person.id})
+        .then(function(person) {
+          $scope.person = person;
+        });
+
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+      }],
+      templateUrl: 'trip/dashboard/unlock_account.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        person: $scope.person
+      }
+    })
+    .then(function(res) {
+      return personService.alter({
+        id: $scope.person.id,
+        newProps: {locked: false}
+      })
+      .then(function(res) {
+        $scope.person.locked = res.locked;
+        return alertService.add('success', 'Het account van de huurder is unlocked.', 5000);
+      })
+      .catch(function(err) {
+        if(err && err.message) {
+          alertService.add('warning', 'Het account van de huurder kon niet unlocked worden: ' + err.message, 5000);
+        }
+      });
+    });
   };
 
   $scope.person = person;

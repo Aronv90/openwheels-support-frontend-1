@@ -1,3 +1,9 @@
+<div class="panel panel-default card" ng-if="person.locked">
+  <div class="notice notice--neg" style="font-size:1.2em;">
+    <strong>Let op: het account van de huurder is gelocked. <a ng-click="unlockPerson(person.id)" style="color:#fff!important; text-decoration:underline;">Klik hier voor het unlocken van het account</a>.  </strong>
+  </div>
+</div>
+
 <div class="panel panel-default card">
   <div class="panel-heading card__heading">
     <div class="media">

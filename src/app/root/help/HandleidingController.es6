@@ -596,7 +596,7 @@ Als de huurder op dat moment zelf van de MyWheels website of app gebruik maakte,
 Als een huurder het niet vertrouwt en via de link op [Tijdelijk blokkeren] drukt, is het account locked / gelocked / geblokkeerd / blokkade.<br>
 In het account kan dan geen nieuwe reservering gemaakt worden of een lopende rit gestart / geopend worden.<br><br>
 Wil je het account unlocken?<br>
-Druk dan op de rode balk bovenaan de ritpagina.`
+Druk dan op de rode balk bovenaan een rit of persoon.`
     },
 
     {
