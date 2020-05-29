@@ -127,6 +127,15 @@ Een rit korter dan 1 uur maken, kan niet.`
     },
 
     resource && {
+      title: "De huurder heeft geen geld om de rit te verlengen",
+      content: `
+Heeft de huurder onvoldoende saldo om een rit te verlengen maar kan hij of zij niet bijbetalen per iDEAL en moet de auto nog teruggebracht worden?<br>
+- Klik op de knop [Verlengen] en daarna op de knop [Twee uur extra boeken] om een nieuwe reservering te maken.<br>
+- De huurder moet dan direct terug naar de beginlocatie rijden om de auto in te leveren.<br>
+- Open de auto met de knop [Open] om de startblokkering van de auto te halen.`
+    },
+
+    resource && {
       title: "Wanneer mag ik een rit annuleren?",
       content: `
 Je kunt een rit annuleren via de knop [Annuleren].<br><br>
@@ -473,10 +482,6 @@ Zijn de ramen van de auto beslagen / vol condens?
 - Zet de verwarming op de warmste stand.`
     },
 
-    
-
-
-
     resource && {
       title: "Welke extra bestuurders mogen rijden?",
       content: `
@@ -578,7 +583,20 @@ Kan een huurder niet inloggen op de website?
 - Vraag de huurder om een vinkje te zetten voor "Ik ben geen robot".<br><br>
 Lukt het nog niet om in te loggen in de website of app?
 - Vraag de huurder om een nieuw wachtwoord in te stellen via Wachtwoord vergeten.<br>
-Link: https://mywheels.nl/wachtwoord-vergeten`
+Link: https://mywheels.nl/wachtwoord-vergeten<br><br>
+Kan niet inloggen in de MyWheels app voor Android of iOS?<br>
+- Vraag of de huurder de laatste update van de app heeft geinstalleerd.`
+    },
+
+    {
+      title: "Het account van de huurder is gelocked",
+      content: `
+Sinds donderdag 28 mei ontvangen huurders per mail en sms een melding als ze inloggen via een nieuw apparaat of IP-adres.<br>
+Als de huurder op dat moment zelf van de MyWheels website of app gebruik maakte, is er niets aan de hand.<br><br>
+Als een huurder het niet vertrouwt en via de link op [Tijdelijk blokkeren] drukt, is het account locked / gelocked / geblokkeerd / blokkade.<br>
+In het account kan dan geen nieuwe reservering gemaakt worden of een lopende rit gestart / geopend worden.<br><br>
+Wil je het account unlocken?<br>
+Druk dan op de rode balk bovenaan de ritpagina.`
     },
 
     {

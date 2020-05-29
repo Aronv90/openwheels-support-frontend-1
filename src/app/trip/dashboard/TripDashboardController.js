@@ -764,7 +764,7 @@ angular.module('openwheels.trip.dashboard', [])
     $window.scrollTo(0, 0);
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
-      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
+      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', '$rootScope', function($scope, $mdDialog, booking, helyUser, $rootScope) {
         var originalEnd = moment(booking.endBooking, API_DATE_FORMAT);
 
         $scope.newDt = {};
@@ -772,6 +772,7 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.newDt.time = originalEnd.format('HH:mm');
         $scope.times = generateTimes();
         $scope.helyUser = helyUser;
+        $scope.booking = booking;
 
         $scope.tripIsNow = moment().isAfter(moment(booking.beginBooking, API_DATE_FORMAT)) && moment().isBefore(moment(booking.endBooking, API_DATE_FORMAT));
         $scope.tripHasEnded = moment().isAfter(moment(booking.endBooking, API_DATE_FORMAT));
@@ -784,6 +785,82 @@ angular.module('openwheels.trip.dashboard', [])
           } else {
             $scope.warning = undefined;
           }
+        };
+
+        $scope.act = function() {
+          $scope.state = {
+            loading: true,
+            newBooking: {
+              loading: true
+            }
+          };
+
+          var base = moment.max(
+            moment(booking.endBooking).add(1, 'minute'),
+            moment()
+          );
+          bookingService.create({
+            resource: booking.resource.id,
+            person: booking.person.id,
+            timeFrame: {
+              startDate: base.format('YYYY-MM-DD HH:mm'),
+              endDate: base.add(2, 'hours').format('YYYY-MM-DD HH:mm')
+            },
+            contract: booking.contract.id
+          })
+          .then(function (newBooking) {
+            $rootScope.newBooking = newBooking;
+            $scope.state.newBooking.booking = newBooking;
+            $scope.state.newBooking.success = true;
+            $scope.state.approving = {
+              loading: true
+            };
+
+            // Automatically approve new booking
+            bookingService.approve({ booking: newBooking.id })
+            .then(function (altertedNewBooking) {
+              $scope.state.approving.success = true;
+            })
+            .catch(function (err) {
+              $scope.state.approving.error = err.message || err;
+            })
+            .finally(function () {
+              $scope.state.approving.loading = false;
+              $scope.state.loading = false;
+              $scope.state.success = true;
+            });
+
+            $scope.immobilized = checkIfImmobilized(booking.resource);
+
+            // Make follow-up
+            $scope.state.makingFollowup = {
+              loading: true
+            };
+            remarkService.add({
+              booking: newBooking.id,
+              message: '[Automatisch aangemaakt] nieuwe boeking (2u) gemaakt - dubbele kosten checken',
+              type: 'custom',
+              followUp: nextBusinessDay().format('YYYY-MM-DD HH:mm')
+            })
+            .then(function () {
+              $scope.state.makingFollowup.success = true;
+            })
+            .catch(function (err) {
+              $scope.state.makingFollowup.error = err.message || '[Onbekende fout]';
+            })
+            .finally(function() {
+              $scope.state.makingFollowup.loading = false;
+            });
+          })
+          .catch(function (err) {
+            $scope.state.newBooking.error = err.message || err;
+            $scope.state.loading = false;
+          })
+          .finally(function () {
+            $scope.state.newBooking.loading = false;
+            $mdDialog.hide();
+            $state.go('root.trip.dashboard', { tripId: $rootScope.newBooking.id });
+          });
         };
 
         function makeNewDateString() {
@@ -1463,6 +1540,46 @@ angular.module('openwheels.trip.dashboard', [])
 
   var possiblyTransferExtraDriversFrom = (contract.type.id === 60) ? doTransferExtraDriversFrom : dontTransferExtraDriversFrom;
 
+  $scope.unlockPerson = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', 'booking', function($scope, $mdDialog, booking) {
+        $scope.booking = booking;
+
+        personService.get({person: booking.person.id})
+        .then(function(person) {
+          $scope.person = person;
+        });
+
+        $scope.done = function() {
+          $mdDialog.hide();
+        };
+        $scope.cancel = $mdDialog.cancel;
+      }],
+      templateUrl: 'trip/dashboard/unlock.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking,
+        person: $scope.person
+      }
+    })
+    .then(function(res) {
+      return personService.alter({
+        id: $scope.booking.person.id,
+        newProps: {locked: false}
+      })
+      .then(function(res) {
+        return alertService.add('success', 'Het account van de huurder is unlocked.', 5000);
+      })
+      .catch(function(err) {
+        if(err && err.message) {
+          alertService.add('warning', 'Het account van de huurder kon niet unlocked worden: ' + err.message, 5000);
+        }
+      });
+    });
+  };
+
   $scope.start = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
@@ -1567,7 +1684,6 @@ angular.module('openwheels.trip.dashboard', [])
           $scope.availableResources = resources.results;
         })
         .catch(function(error){
-          console.log(error.message);
           $scope.error = error.message;
         });
 
@@ -1623,6 +1739,7 @@ angular.module('openwheels.trip.dashboard', [])
       }
     });
   };
+
 
   $scope.showPhoneNumbers = function(person) {
     $window.scrollTo(0, 0);
@@ -1681,7 +1798,6 @@ angular.module('openwheels.trip.dashboard', [])
             $scope.availableResources = resources.results;
           })
           .catch(function(error){
-            console.log(error.message);
             $scope.error = error.message;
           })
           .finally(function () {
