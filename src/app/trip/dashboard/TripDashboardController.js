@@ -1557,7 +1557,7 @@ angular.module('openwheels.trip.dashboard', [])
         };
         $scope.cancel = $mdDialog.cancel;
       }],
-      templateUrl: 'trip/dashboard/unlock.tpl.html',
+      templateUrl: 'trip/dashboard/unlock_account.tpl.html',
       clickOutsideToClose:true,
       locals: {
         booking: booking,
