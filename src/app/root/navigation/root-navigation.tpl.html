@@ -28,10 +28,6 @@
           <li>
             <a ui-sref="root.person.search">Uitgebreid zoeken</a>
           </li>
-          <li ng-class="{ active: $state.includes('root.person.blacklist') }" show-if-user-has-role="ROLE_ADMIN" ng-if="!$root.isInterswitch">
-            <a
-            ui-sref="root.person.blacklist">Zwarte lijst</a>
-          </li>
         </ul>
       </li>
     </ul>

@@ -13,9 +13,7 @@
 
           <div class="col-md-7" style="margin-top:10px;">
             <h3 class="card__title">
-              {{ resource.alias | limitTo: 22}}{{resource.alias.length > 22 ? '...' : ''}}
-              van 
-              <a ui-sref="root.person.show.summary({ personId: resource.ownerId })">{{ resource.owner.firstName }}</a>
+              {{ resource.alias | limitTo: 40}}{{resource.alias.length > 40 ? '...' : ''}}
               <small>({{ resource.registrationPlate }}, {{ resource.id }})</small>
             </h3>
             <ul class="list-inline card__subtitle">
