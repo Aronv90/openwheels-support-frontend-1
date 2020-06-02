@@ -48,12 +48,9 @@ angular.module('openwheels.resource.edit', [])
     ];
 
     $scope.resourceTypeOptions = [
-      {label: 'Auto', value: 'car'},
-      {label: 'Cabrio', value: 'cabrio'},
-      {label: 'Camper', value: 'camper'},
-      {label: 'Oldtimer', value: 'oldtimer'},
-      {label: 'Station', value: 'station'},
-      {label: 'Bus', value: 'van'}
+      {label: 'Elektrische auto', value: 'Elektrische auto'},
+      {label: 'Gezinsauto', value: 'Gezinsauto'},
+      {label: 'Stadsauto', value: 'Stadsauto'}
     ];
 
     $scope.numberOfSeatsOptions = [
