@@ -1,0 +1,79 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Een auto boeken</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="helyUser">
+      <p>Deze bestuurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De bestuurder kan in de Hely app zelf een nieuwe rit maken of een andere auto claimen. Dit kan jij helaas niet doen.</p>
+    </div>
+
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
+      <fieldset class="standard">
+        <p>Klik op <strong>[Boeken]</strong> om een rit om te zetten op de betreffende auto. De huurder kan dan met die auto alsnog op weg.<br></p>
+        
+        <div ng-if="!availableResources.length && !loadingAvailableResources && !error">Geen auto's gevonden.</div>
+        <div ng-if="!availableResources.length && !loadingAvailableResources && error"><strong style="color:red;">Foutmelding:</strong> {{ error }}</div>
+
+        <div ng-if="loadingAvailableResources"><i class="fa fa-fw fa-spin fa-spinner"></i></div>
+
+        <div ng-repeat="resource in availableResources">
+          <div class="row">
+            <div class="col-xs-3">
+              <img class="img-responsive media-object" ng-src="{{ resource.pictures[0] | resourceAvatar:'normal' }}">
+            </div>
+            <div class="col-xs-7">
+              <h4 style="margin: 0px;" ng-if="resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }} {{ resource.streetNumber }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
+              <h4 style="margin: 0px;" ng-if="!resource.streetNumber"><a ui-sref="root.resource.show.summary({ resourceId: resource.id })">{{ resource.location }}, {{ resource.city}} ({{ resource.distance_to | formatKilometers }})</a></h4>
+              <md-list class="margin-right">
+                <md-list-item style="min-height: 20px; height: 20px;">
+                    <md-icon>directions_car</md-icon>
+                    <div flex>
+                      <span ng-if="resource.brand || resource.model" flex="none">{{ (resource.brand + ' ' + resource.model) | toTitleCase }}</span>
+                    </div>
+                </md-list-item>
+                <md-list-item style="min-height: 20px; height: 20px;">
+                    <md-icon>check</md-icon>
+                    <div flex>
+                      <span ng-if="resource.locktype === 'chipcard'">Openen met smartphone en chipkaart</span>
+                      <span ng-if="resource.locktype === 'smartphone'">Openen met smartphone</span>
+                    </div>
+                </md-list-item>
+                <md-list-item style="min-height: 20px; height: 20px;">
+                    <md-icon>euro_symbol</md-icon>
+                    <div flex>
+                      {{ resource.price.hourRate | currency }} per uur
+                    </div>
+                </md-list-item>
+                <md-list-item style="min-height: 20px; height: 20px;">
+                    <md-icon>local_gas_station</md-icon>
+                    <div flex>
+                      <span ng-if="resource.fuelType === 'benzine'">Benzine (Euro95 / E10)</span>
+                      <span ng-if="resource.fuelType === 'elektrisch'">Elektrisch</span>
+                    </div>
+                </md-list-item>
+              </md-list>
+            </div>
+            <div class="col-xs-2">
+              <md-button class="md-accent  md-raised" ng-click="bookOtherResource(resource)">Boeken</md-button>
+            </div>
+          </div>
+          <hr/>
+        </div>
+      </fieldset>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

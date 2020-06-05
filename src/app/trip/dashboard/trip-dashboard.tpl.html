@@ -616,7 +616,8 @@
     <li ng-click="start()" class="quickaction__item--trip" ng-hide="hideMain" ng-if="booking.resource.boardcomputer">
       <span tooltip-placement="right" uib-tooltip="Problemen met starten">Starten</span>
     </li>
-    <li ng-click="book()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Boek een auto">Boeken</span></li>
+    <li ng-click="bookAlternative(booking)" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Boek een andere auto">Omboeken</span></li>
+    <li ng-click="blockResource()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Blokkeer de andere auto">Blokkeren</span></li>
     <li ng-click="breakdown()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Pechhulp inschakelen">Pech</span></li>
     <li ng-click="damage()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Schade melden">Schade</span></li>
     <li ng-click="previousBooking()" class="quickaction__item--trip" ng-hide="hideMain"><span tooltip-placement="right" uib-tooltip="Contactgegevens van de vorige huurder">Vorige</span></li>
