@@ -1916,12 +1916,12 @@ angular.module('openwheels.trip.dashboard', [])
       alertService.load();
       bookingService.create({
         resource: res.booking.resource.id,
-        person: 37,
+        person: 282,
         timeFrame: { 
           startDate: res.newBeginDt, 
           endDate: res.newEndDt
         },
-        contract: 17
+        contract: 934646
       })
       .then(function(booking) {
         $mdDialog.cancel();
