@@ -1878,10 +1878,8 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.helyUser = helyUser;
 
         var mom = moment();
-        const roundedUp = Math.ceil(moment().minute() / 15) * 15;
+        var roundedUp = Math.ceil(moment().minute() / 15) * 15;
         mom.minutes(roundedUp);
-        console.log(mom);
-        console.log(moment(mom).format('HH:mm'));
 
         $scope.newBeginDt = {};
         $scope.newBeginDt.date = new Date();
