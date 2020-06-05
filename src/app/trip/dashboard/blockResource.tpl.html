@@ -1,0 +1,66 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Een auto boeken</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="helyUser">
+      <p>Deze bestuurder rijdt via onze <a href="https://hely.com" target="_blank">partner Hely</a>. De bestuurder kan in de Hely app zelf een nieuwe rit maken of een andere auto claimen. Dit kan jij helaas niet doen.</p>
+    </div>
+
+    <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
+      <fieldset class="standard">
+        <p>Hieronder kun je een reservering maken om de auto te blokkeren. Zet de einddatum op de eerstvolgende werkdag om 18.00 uur.</p>
+        <p>Is de auto niet beschikbaar om te blokkeren?
+          <ul>
+            <li>Kijk op deze pagina bij Volgende ritten om te zien welke ritten er plaatsvinden.</li>
+            <li>Klik op de knop [Omboeken] om een volgende rit om te boeken.</li>
+            <li>Blokkeer daarna deze auto via onderstaand formulier.</li>
+          </ul>
+        </p>
+        <div layout="column" layout-margin class="md-dialog-content">
+          <div layout="row">
+            <md-input-container flex>
+              <label>Begindatum</label>
+              <md-datepicker ng-change="change(newBeginDt)" ng-model="newBeginDt.date" md-placeholder="Kies een datum"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Begintijd</label>
+              <md-select ng-change="change(newBeginDt)" ng-model="newBeginDt.time" md-placeholder="Kies een tijd">
+                <md-option ng-repeat="time in times" ng-value="time.value">{{time.value}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+          <div layout="row">
+            <md-input-container flex>
+              <label>Einddatum</label>
+              <md-datepicker ng-change="change(newEndDt)" ng-model="newEndDt.date" md-placeholder="Kies een datum"></md-datepicker>
+            </md-input-container>
+            <md-input-container flex>
+              <label>Eindtijd</label>
+              <md-select ng-change="change(newEndDt)" ng-model="newEndDt.time" md-placeholder="Kies een tijd">
+                <md-option ng-repeat="time in times" ng-value="time.value">{{time.value}}</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="done()">
+      Versturen
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

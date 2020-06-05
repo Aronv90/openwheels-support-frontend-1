@@ -43,7 +43,7 @@ angular.module("openwheels.root.help.handleiding", [])
 Heb je een aantal keer geprobeerd om met de knop [Openen] de deuren van een auto te openen maar gaat de auto niet open?<br>
 - Vraag of de huurder bij de juiste auto met kenteken <strong>${resource.registrationPlate}</strong> staat.
 - Sluit de auto met de knop [Sluiten], en open hem dan nogmaals met de knop [Openen].<br>
-- Werkt het nog niet? Boek de huurder dan om naar een auto in de buurt via [Boeken].<br>
+- Werkt het nog niet? Boek de huurder dan om naar een auto in de buurt via [Omboeken].<br>
 - Is er geen andere auto beschikbaar? Soms werkt het openen na 5 minuten wachten wel.<br>
 - Of bel de beheerder van de auto om te vragen de auto met de reservesleutel te openen.`
     },
@@ -180,7 +180,7 @@ Als een beheerder van een auto deze gratis wil reserveren / boeken / huren, kan 
 Kan een huurder een auto niet op tijd terugbrengen naar de vaste parkeerplek of zone?<br>
 - Vraag de huurder de rit verlengen, eventueel is bijbetalen nodig.<br>
 - Lukt het verlengen van de rit niet omdat de auto niet beschikbaar is? Boek dan volgende huurders om.<br>
-- Klik hiervoor in de ritpagina op de balk [Komende ritten] en bij de volgende rit(ten) op omboeken.<br>
+- Klik hiervoor in de ritpagina op de balk [Komende ritten] en bij de volgende rit(ten) op [Omboeken].<br>
 - Bel de volgende huurder op om hem of haar te informeren over het omboeken.<br>
 - Kunnen toekomstige huurders niet omgeboekt worden? Dan moet de huidige huurder de auto op tijd terugbrengen.<br>
 - Vraag de huidige huurder de rit alsnog te verlengen.<br>

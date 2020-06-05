@@ -742,7 +742,7 @@ angular.module('openwheels.trip.dashboard', [])
             })
             .catch(function(err) {
               if(err && err.message) {
-                alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+                alertService.add('danger', 'De auto kon niet geopend worden: ' + err.message, 5000);
               }
             });
           }
@@ -1283,7 +1283,7 @@ angular.module('openwheels.trip.dashboard', [])
         alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
       })
       .catch(function(err) {
-        alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
+        alertService.add('danger', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
       });
     });
   };
@@ -1313,7 +1313,7 @@ angular.module('openwheels.trip.dashboard', [])
           })
           .catch(function(err) {
             if(err && err.message) {
-              alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+              alertService.add('danger', 'De auto kon niet geopend worden: ' + err.message, 5000);
             }
           });
         };
@@ -1326,7 +1326,7 @@ angular.module('openwheels.trip.dashboard', [])
             alertService.add('success', 'De boeking is naar de boordcomputer verstuurd.', 5000);
           })
           .catch(function(err) {
-            alertService.add('warning', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
+            alertService.add('danger', 'De boeking kon niet naar de boordcomputer verstuurd worden: ' + err.message, 5000);
           });
         };
 
@@ -1352,7 +1352,7 @@ angular.module('openwheels.trip.dashboard', [])
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+          alertService.add('danger', 'De auto kon niet geopend worden: ' + err.message, 5000);
         }
       });
     });
@@ -1389,7 +1389,7 @@ angular.module('openwheels.trip.dashboard', [])
             })
             .catch(function(err) {
               if(err && err.message) {
-                alertService.add('warning', 'De auto kon niet gesloten worden: ' + err.message, 5000);
+                alertService.add('danger', 'De auto kon niet gesloten worden: ' + err.message, 5000);
               }
             });
           });
@@ -1417,7 +1417,7 @@ angular.module('openwheels.trip.dashboard', [])
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'De auto kon niet gesloten worden: ' + err.message, 5000);
+          alertService.add('danger', 'De auto kon niet gesloten worden: ' + err.message, 5000);
         }
       });
     });
@@ -1460,7 +1460,7 @@ angular.module('openwheels.trip.dashboard', [])
         })
         .catch(function(err) {
           if(err && err.message) {
-            alertService.add('warning', 'Er kon helaas geen nieuwe pincode verstuurd worden ' + err.message, 5000);
+            alertService.add('danger', 'Er kon helaas geen nieuwe pincode verstuurd worden ' + err.message, 5000);
           }
         });
       });
@@ -1575,7 +1575,7 @@ angular.module('openwheels.trip.dashboard', [])
       })
       .catch(function(err) {
         if(err && err.message) {
-          alertService.add('warning', 'Het account van de huurder kon niet unlocked worden: ' + err.message, 5000);
+          alertService.add('danger', 'Het account van de huurder kon niet unlocked worden: ' + err.message, 5000);
         }
       });
     });
@@ -1611,7 +1611,7 @@ angular.module('openwheels.trip.dashboard', [])
           })
           .catch(function(err) {
             if(err && err.message) {
-              alertService.add('warning', 'De auto kon niet geopend worden: ' + err.message, 5000);
+              alertService.add('danger', 'De auto kon niet geopend worden: ' + err.message, 5000);
             }
           });
         };
@@ -1764,7 +1764,7 @@ angular.module('openwheels.trip.dashboard', [])
     });
   };
 
-  $scope.book = function() {
+  $scope.bookAlternative = function() {
     $window.scrollTo(0, 0);
     $mdDialog.show({
       fullscreen: $mdMedia('xs'),
@@ -1775,36 +1775,34 @@ angular.module('openwheels.trip.dashboard', [])
         $scope.now = moment().format('YYYY-MM-DD HH:mm');
         $scope.contract = {};
 
-        $scope.loadAvailableResources = function(resource) {
-          $scope.loadingAvailableResources =  true;
-          resourceService.searchV3({
-            person: $scope.booking.person.id,
-            timeFrame: { 
-              startDate: $scope.booking.beginBooking < $scope.now ? $scope.now : $scope.booking.beginBooking, 
-              endDate: $scope.booking.endBooking
-            },
-            radius: 15000,
-            sort: 'distance',
-            offest: 0,
-            maxresults: 20, 
-            filters: {
-              smartwheels: $scope.booking.resource.boardcomputer ? true : null
-            },
-            location: {
-              latitude: $scope.booking.resource.latitude,
-              longitude: $scope.booking.resource.longitude
-            }
-          })
-          .then(function(resources) {
-            $scope.availableResources = resources.results;
-          })
-          .catch(function(error){
-            $scope.error = error.message;
-          })
-          .finally(function () {
-            $scope.loadingAvailableResources =  false;
-          });
-        };
+        $scope.loadingAvailableResources =  true;
+        resourceService.searchV3({
+          person: $scope.booking.person.id,
+          timeFrame: { 
+            startDate: $scope.booking.beginBooking < $scope.now ? $scope.now : $scope.booking.beginBooking, 
+            endDate: $scope.booking.endBooking
+          },
+          radius: 15000,
+          sort: 'distance',
+          offest: 0,
+          maxresults: 20, 
+          filters: {
+            smartwheels: $scope.booking.resource.boardcomputer ? true : null
+          },
+          location: {
+            latitude: $scope.booking.resource.latitude,
+            longitude: $scope.booking.resource.longitude
+          }
+        })
+        .then(function(resources) {
+          $scope.availableResources = resources.results;
+        })
+        .catch(function(error){
+          $scope.error = error.message;
+        })
+        .finally(function () {
+          $scope.loadingAvailableResources =  false;
+        });
 
         $scope.loadContracts = function() {
           contractService.forDriver({person: $scope.booking.resource.owner.id})
@@ -1829,8 +1827,9 @@ angular.module('openwheels.trip.dashboard', [])
               remark: $scope.booking.remark,
               riskReduction: $scope.booking.riskReduction
             })
-            .then(possiblyTransferExtraDriversFrom(canceledBooking))
             .then(function(booking) {
+              possiblyTransferExtraDriversFrom(canceledBooking);
+
               if($scope.booking.approved === 'OK') {
                 bookingService.approve({booking: booking.id})
                 .then(function(booking) {
@@ -1845,20 +1844,51 @@ angular.module('openwheels.trip.dashboard', [])
               }
             })
             .catch(function(err) {
-              alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+              alertService.add('danger', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
             })
             .finally(function () {
               alertService.loaded();
             });
           });
         };
+        $scope.done = function() {
+          $mdDialog.hide({
+            bookForPerson: $scope.bookForPerson.val,
+            contract: $scope.contract.id,
+            booking: $scope.booking
+          });
+        };
+        $scope.cancel = $mdDialog.cancel;
+      }],
+      templateUrl: 'trip/dashboard/bookAlternative.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking,
+        helyUser: $scope.helyUser
+      }
+    });
+  };
+
+  $scope.blockResource = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', 'booking', 'helyUser', function($scope, $mdDialog, booking, helyUser) {
+        $scope.booking = booking;
+        $scope.helyUser = helyUser;
+
+        var mom = moment();
+        const roundedUp = Math.ceil(moment().minute() / 15) * 15;
+        mom.minutes(roundedUp);
+        console.log(mom);
+        console.log(moment(mom).format('HH:mm'));
 
         $scope.newBeginDt = {};
         $scope.newBeginDt.date = new Date();
-        $scope.newBeginDt.time = {};
+        $scope.newBeginDt.time = moment(mom).format('HH:mm');
         $scope.newEndDt = {};
         $scope.newEndDt.date = new Date();
-        $scope.newEndDt.time = {};
+        $scope.newEndDt.time = '18:00';
         $scope.times = generateTimes();
 
         function makeNewDateString(date) {
@@ -1868,16 +1898,14 @@ angular.module('openwheels.trip.dashboard', [])
 
         $scope.done = function() {
           $mdDialog.hide({
-            bookForPerson: $scope.bookForPerson.val,
             newBeginDt: makeNewDateString($scope.newBeginDt),
             newEndDt: makeNewDateString($scope.newEndDt),
-            contract: $scope.contract.id,
             booking: $scope.booking
           });
         };
         $scope.cancel = $mdDialog.cancel;
       }],
-      templateUrl: 'trip/dashboard/book.tpl.html',
+      templateUrl: 'trip/dashboard/blockResource.tpl.html',
       clickOutsideToClose:true,
       locals: {
         booking: booking,
@@ -1885,52 +1913,27 @@ angular.module('openwheels.trip.dashboard', [])
       }
     })
     .then(function(res) {
-      if (res.bookForPerson === 'blockResource') {
-        alertService.load();
-        bookingService.create({
-          resource: res.booking.resource.id,
-          person: res.booking.resource.owner.id,
-          timeFrame: { 
-            startDate: res.newBeginDt, 
-            endDate: res.newEndDt
-          },
-          contract: res.contract
-        })
-        .then(function(booking) {
-          $mdDialog.cancel();
-          alertService.add('success', 'De boeking is gemaakt.', 5000);
-          $state.go('root.trip.dashboard', {tripId: booking.id});
-        })
-        .catch(function(err) {
-          alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
-        })
-        .finally(function () {
-          alertService.loaded();
-        });
-      } else if (res.bookForPerson === 'sameResource') {
-        alertService.load();
-        bookingService.create({
-          resource: res.booking.resource.id,
-          person: res.booking.person.id,
-          timeFrame: { 
-            startDate: res.newBeginDt, 
-            endDate: res.newEndDt
-          },
-          contract: res.booking.contract.id
-        })
-        .then(possiblyTransferExtraDriversFrom(res.booking))
-        .then(function(booking) {
-          $mdDialog.cancel();
-          alertService.add('success', 'De boeking is gemaakt.', 5000);
-          $state.go('root.trip.dashboard', {tripId: booking.id});
-        })
-        .catch(function(err) {
-          alertService.add('warning', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
-        })
-        .finally(function () {
-          alertService.loaded();
-        });
-      }
+      alertService.load();
+      bookingService.create({
+        resource: res.booking.resource.id,
+        person: 37,
+        timeFrame: { 
+          startDate: res.newBeginDt, 
+          endDate: res.newEndDt
+        },
+        contract: 17
+      })
+      .then(function(booking) {
+        $mdDialog.cancel();
+        alertService.add('success', 'De boeking is gemaakt.', 5000);
+        $state.go('root.trip.dashboard', {tripId: booking.id});
+      })
+      .catch(function(err) {
+        alertService.add('danger', 'De boeking kon niet gemaakt worden: ' + err.message, 5000);
+      })
+      .finally(function () {
+        alertService.loaded();
+      });
     });
   };
 
