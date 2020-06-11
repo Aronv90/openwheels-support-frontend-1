@@ -1,0 +1,61 @@
+<md-dialog flex="50" flex-sm="70">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Auto openen en sluiten bij nood</h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cancel()">
+        <md-icon>close</md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <div layout="column" layout-margin class="md-dialog-content">
+
+      <div ng-if="!booking.ok || booking.status !== 'accepted' || (booking.approved !== 'OK' && booking.contract.id !== 50076)">
+        <p>De rit is niet in orde en daarom kan de auto niet geopend worden.</p>
+      </div>
+
+      <div ng-if="booking.ok && booking.status === 'accepted' && (booking.approved === 'OK' || booking.contract.id === 50076)">
+        <p ng-if="immobilized.no">De auto is op dit moment <strong>open</strong></p>
+        <p ng-if="immobilized.yes">De auto is op dit moment <strong>gesloten</strong></p>
+
+        <p>Wil je een auto openen terwijl de rit al afgelopen is? Dit kan <strong>alleen voor de volgende zaken</strong>:</p>
+          <ul>
+            <li>Een elektrische auto (opnieuw) aan een laadpaal koppelen.</li>
+            <li>Een auto op de vaste parkeerplek zetten.</li>
+            <li>De verlichting van de auto uitzetten.</li>
+            <li>Het raam van een auto sluiten.</li>
+            <li>Als de huurder iets vergeten is uit de auto.</li>
+          </ul>
+
+        <p>Open een auto <strong>alleen</strong> als de beller aan de volgende voorwaarden voldoet:</p>
+          <ul>
+            <li>De beller is de huurder of beheerder.</li>
+            <li>De huurder of beheerder belt met een telefoonnummer in zijn of haar account (geen anoniem of onbekend nummer).</li>
+          </ul>
+
+        <br>
+
+        <p>Gebruik onderstaande knoppen om de auto te openen en te sluiten.</p>
+
+        <div class="row box__row" ng-if="!$root.isInterswitch">
+          <div class="col-xs-2">
+            <md-button class="md-accent  md-raised" ng-click="open()">Openen</md-button>
+          </div>
+          <div class="col-xs-2">
+            <md-button class="md-accent  md-raised" ng-click="close()">Sluiten</md-button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </md-dialog-content>
+
+  <md-dialog-actions layout="row">
+    <span flex></span>
+    <md-button ng-click="cancel()">
+     Sluiten
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>
