@@ -16,7 +16,7 @@
 
     <div layout="column" layout-margin class="md-dialog-content" ng-if="!helyUser">
       <fieldset class="standard">
-        <p>Klik op <strong>[Boeken]</strong> om een rit om te zetten op de betreffende auto. De huurder kan dan met die auto alsnog op weg.<br></p>
+        <p>Klik op <strong>[Omboeken]</strong> om een rit om te zetten op de betreffende auto. De huurder kan dan met die auto alsnog op weg.<br></p>
         
         <div ng-if="!availableResources.length && !loadingAvailableResources && !error">Geen auto's gevonden.</div>
         <div ng-if="!availableResources.length && !loadingAvailableResources && error"><strong style="color:red;">Foutmelding:</strong> {{ error }}</div>

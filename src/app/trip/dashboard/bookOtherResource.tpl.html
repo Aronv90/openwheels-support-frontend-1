@@ -11,7 +11,7 @@
 
   <md-dialog-content>
     <div layout="column" layout-margin class="md-dialog-content">
-        <p>Klik op <strong>[Boeken]</strong> om de rit om te zetten op de betreffende auto. <span ng-if="personGet.phoneNumbers">De huurder kun je bereiken op telefoonnummer(s): <span ng-repeat="phoneNumber in personGet.phoneNumbers"><br/>{{ phoneNumber.number }}</span></p>
+        <p>Klik op <strong>[Omboeken]</strong> om de rit om te zetten op de betreffende auto. <span ng-if="personGet.phoneNumbers">De huurder kun je bereiken op telefoonnummer(s): <span ng-repeat="phoneNumber in personGet.phoneNumbers"><br/>{{ phoneNumber.number }}</span></p>
         <p>Bel de huurder op om hem te informeren over het omboeken van de rit.</span>
 
         <div ng-if="!availableResources.length && !loadingAvailableResources && !error">Geen auto's gevonden.</div>

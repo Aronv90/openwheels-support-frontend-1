@@ -37,8 +37,6 @@ angular.module('openwheels.trip.dashboard', [])
   $scope.booking = booking;
   $scope.contract = contract;
   $scope.driverContracts = driverContracts;
-  $scope.driverContracts.push({ id: 958979, contractorId: 280, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels Nissan Leafs'} });
-  $scope.driverContracts.push({ id: 924281, contractorId: 281, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels (Justlease)'} });
   $scope.driverContracts.push({ id: 50076, contractorId: 282, type: {name: 'MyWheels Free'}, contractor: {firstName: 'MyWheels'} });
   $scope.declarations = [];
   $scope.friends = [];
@@ -342,6 +340,73 @@ angular.module('openwheels.trip.dashboard', [])
             return res;
           });
         },
+      },
+    })
+    .then(function(res) {
+    })
+    .catch(function(err) {
+    })
+    ;
+  };
+
+  $scope.nood = function() {
+    $window.scrollTo(0, 0);
+    $mdDialog.show({
+      fullscreen: $mdMedia('xs'),
+      controller: ['$scope', '$mdDialog', 'booking', 'alertService', 'boardcomputerService', 'deviceService', function($scope, $mdDialog, booking,
+      alertService, boardcomputerService, deviceService) {
+        $scope.booking = booking;
+        $scope.cancel = $mdDialog.cancel;
+
+        $scope.immobilized = checkIfImmobilized(booking.resource);
+
+        $scope.open = function() {
+          var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+            deviceService.forceOpen({
+              resource: $scope.booking.resource.id
+            }) :
+            boardcomputerService.control({
+              action: 'OpenDoorStartEnable',
+              resource: $scope.booking.resource.id
+            });
+
+          methodCall
+          .then(function(res) {
+            return alertService.add('success', 'De auto opent binnen 15 seconden.', 5000);
+          })
+          .catch(function(err) {
+            if(err && err.message) {
+              alertService.add('danger', 'De auto kon niet geopend worden: ' + err.message, 5000);
+            }
+          });
+        };
+
+        $scope.close = function() {
+          var methodCall = ($scope.booking.resource.boardcomputer === 'invers') ?
+            deviceService.forceClose({
+              resource: $scope.booking.resource.id
+            }) :
+            boardcomputerService.control({
+              action: 'CloseDoorStartDisable',
+              resource: $scope.booking.resource.id
+            });
+
+          methodCall
+          .then(function(res) {
+            return alertService.add('success', 'De auto sluit binnen 15 seconden.', 5000);
+          })
+          .catch(function(err) {
+            if(err && err.message) {
+              alertService.add('danger', 'De auto kon niet gesloten worden: ' + err.message, 5000);
+            }
+          });
+        };
+
+      }],
+      templateUrl: 'trip/dashboard/nood.tpl.html',
+      clickOutsideToClose:true,
+      locals: {
+        booking: booking
       },
     })
     .then(function(res) {
@@ -918,7 +983,7 @@ angular.module('openwheels.trip.dashboard', [])
         if(err.message.match('onvoldoende')) {
           alertService.add('danger', err.message + '. De huurder heeft nog ' + err.data.extra_credit + ' euro extra saldo nodig voordat de boeking verlengd kan worden.', 7000);
         } else if (err.message.match('kilometers van de rit zijn al ingevuld')) {
-          alertService.add('danger', 'De rit kon niet verlengd worden: de rit is een uur na de eindtijd automatisch afgesloten. Maak een nieuwe reservering voor deze huurder via de knop [Boeken].', 7000);
+          alertService.add('danger', 'De rit kon niet verlengd worden: de rit is een uur na de eindtijd automatisch afgesloten.', 7000);
         } else {
           alertService.add('danger', 'De rit kon niet verlengd worden: ' + err.message, 5000);
         }

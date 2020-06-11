@@ -17,6 +17,7 @@ angular.module("openwheels.root.help.handleiding", [])
     contract,
     contactPerson,
     resource,
+    immobilized,
   } = $rootScope.datacontext;
 
   // Vanuit te template kun je ze direct gebruiken
@@ -48,15 +49,41 @@ Heb je een aantal keer geprobeerd om met de knop [Openen] de deuren van een auto
 - Of bel de beheerder van de auto om te vragen de auto met de reservesleutel te openen.`
     },
 
-    resource && {
+    resource && !immobilized && {
       title: "De deuren gaan niet op slot",
       content: `
-Heb je een aantal keer geprobeerd om met de knop [Sluiten] de deuren van een auto te sluiten maar gaat de auto niet dicht?<br>
+Open de auto eerst met de knop [Openen] en sluit de auto daarna weer met de knop [Sluiten].<br>
+Gaat de auto nog niet dicht?<br>
 - Vraag de huurder de sleutel in het dashboardkastje te leggen, de huurder mag daarna weggaan.<br>
 - De auto gaat binnen 30 minuten automatisch alsnog dicht.<br>
 - Er hoeft hiervoor niet naar de achterwacht gebeld te worden.<br>
 - Laat de huurder de auto nooit met de sleutel sluiten, maar laat de deuren open!<br>
 -  Graag wel een notitie maken in de reservering.`
+    },
+
+    resource && immobilized && {
+      title: "De deuren gaan niet op slot",
+      content: `
+Heb je een aantal keer geprobeerd om met de knop [Sluiten] de deuren van een auto te sluiten maar gaat de auto niet dicht?<br>
+Nog steeds problemen?<br>
+- Vraag de huurder de sleutel in het dashboardkastje te leggen, de huurder mag daarna weggaan.<br>
+- De auto gaat binnen 30 minuten automatisch alsnog dicht.<br>
+- Er hoeft hiervoor niet naar de achterwacht gebeld te worden.<br>
+- Laat de huurder de auto nooit met de sleutel sluiten, maar laat de deuren open!<br>
+-  Graag wel een notitie maken in de reservering.`
+    },
+
+    resource && {
+      title: "Een huurder na een rit toegang geven",
+      content: `
+Wil je een auto openen terwijl de rit al afgelopen is? Je kunt een huurder alleen buiten een rit toegang geven voor de volgende zaken:<br>
+- Een elektrische auto (opnieuw) aan een laadpaal koppelen / opladen / aansluiten.<br>
+- Een auto op de vaste parkeerplek zetten.<br>
+- De verlichting van de auto uitzetten.<br>
+- Het raam van een auto sluiten.<br>
+- Als de huurder spullen vergeten is uit de auto.<br>
+
+Klik op de knop [Nood] om een auto te openen na een rit.`
     },
 
     // Vragen over starten
@@ -165,13 +192,14 @@ We reageren op de mail tijdens werkdagen van 09:00 tot 17:00 uur.<br>`
 - Als de kortingscode geldig is, krijgt de huurder achteraf de korting alsnog.`
     },
 
-
     resource && {
       title: "Hoe reserveert een beheerder een auto?",
       content: `
 Als een beheerder van een auto deze gratis wil reserveren / boeken / huren, kan hij of zij een rit van minimaal 1 uur maken op het MyWheels Free contract / abonnement.<br>
 - De rit is dan gratis.
-- Graag de beheerder vragen om een notitie bij het reserveren te maken.`
+- Graag de beheerder vragen om een notitie bij het reserveren te maken.
+
+Lukt het niet? Met de knop [Nood] kun je de auto zonder een rit openen.`
     },
 
     resource && {
@@ -185,6 +213,17 @@ Kan een huurder een auto niet op tijd terugbrengen naar de vaste parkeerplek of 
 - Kunnen toekomstige huurders niet omgeboekt worden? Dan moet de huidige huurder de auto op tijd terugbrengen.<br>
 - Vraag de huidige huurder de rit alsnog te verlengen.<br>
 - Een rit kan verlengd worden maximaal 30 minuten na het einde van de rit. Daarna moet de huurder een nieuwe reservering maken.`
+    },
+
+    resource && {
+      title: "Hoe blokkeer ik als Interswitch agent een auto",
+      content: `
+Druk op de knop [Blokkeer] om een auto te blokkeren. Let op: tussen elke rit moet 2 uur tijdsverschil zitten (Corona maatregel).<br>
+Je kunt een auto blokkeren vanwege de volgende zaken:<br>
+- De auto heeft onrijdbare schade.<br>
+- De sleutel van de auto is kwijt.<br>
+- De auto heeft een lekke band.<br>
+- De auto is weggesleept.`
     },
 
     // Vragen over de Agyo's
@@ -223,6 +262,33 @@ De cruisecontrol bedien je met de schakelaar links achter het stuur.
 1. Draai het wieltje (1) naar beneden toe (cruisecontrol) of naar boven toe (snelheidsbegrenzer).
 2. Met de knopjes op de achterkant (2) kun je de snelheid verhogen of verlagen.
 3. Draai het wieltje (1) naar het midden om de cruisecontrol of snelheidsbegrenzer uit te schakelen.`
+    },
+
+    resource && resource.model === "C1" && {
+      title: "Het lampje voor de bandspanning brandt",
+      content: `
+Brandt bij een Citroën C1 het bandenspanningslampje (zie foto) op het dashboard / display van de auto?<br>
+<br>
+Vraag de huurder de banden op te pompen tijdens een tankbeurt.<br>
+- Er gaat 2.3 bar aan lucht in de banden.<br>
+- Na het oppompen van de banden reset de huurder het bandenspanningslampje via het knopje, links, in het dashboardkastje.`,
+      images: [
+        "/backoffice/assets/img/handleiding/bandenspanning.jpg",
+      ]
+    },
+
+    resource && resource.model === "C3" && {
+      title: "Het lampje voor de bandspanning brandt",
+      content: `
+Brandt bij een Citroën C3 het bandenspanningslampje (zie foto) op het dashboard / display van de auto?<br>
+<br>
+Vraag de huurder de banden op te pompen tijdens een tankbeurt.<br>
+- Er gaat 2.3 bar aan lucht in de banden.<br>
+- Na het oppompen van de banden reset de huurder het bandenspanningslampje via het navigatiescherm in het menu onder “Besturingsfuncties”.<br>
+- Kies voor “Bandenspan.contr.”.`,
+      images: [
+        "/backoffice/assets/img/handleiding/bandenspanning.jpg",
+      ]
     },
 
     resource && resource.model === "C1" && {
@@ -328,6 +394,7 @@ De huurder vindt de zone in de MyWheels app of op de website.<br>
     resource && resource.fuelType === "elektrisch" && {
       title: "Waar vind ik de (laad)sleutel?",
       content: `
+Wil een huurder de auto opladen?
 - De sleutel en laadsleutel liggen in het dashboardkastje.<br>
 - Soms ligt de sleutel in de middenconsole, tussen de stoelen.<br>
 - De blauwe laadsleutel van newmotion zit aan de sleutel vast (zie foto).<br>
@@ -337,6 +404,19 @@ De huurder vindt de zone in de MyWheels app of op de website.<br>
 - Pas aan het einde van de rit sluit de huurder de auto met de MyWheels app of OV-chipkaart.<br><br>
 Let op: sommige auto's hebben nog een losse Vandebron laadpas, deze ligt los in het dashboardkastje of in de middenconsole.<br>
 Dit is voornamelijk het geval bij Nissan Leafs in Den Haag, Rotterdam, Brabant en Limburg.`,
+      images: [
+        "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
+      ]
+    },
+
+    resource && resource.fuelType === "elektrisch" && {
+      title: "De huurder is de (laad)sleutel kwijtgeraakt",
+      content: `
+Is de huurder onderweg de laadsleutel of laadpas kwijt geraakt?<br>
+De huurder kan dan de Vattenfall InCharge app downloaden en hiermee de laadpaalsessie starten en beindigen.<br>
+Laden zal dan op eigen kosten zijn, en kan via de app alleen via creditcard.<br>
+De huurder mag bij terugkomst op de standplaats de auto <strong>niet<strong> aan een laadpaal koppelen.<br>
+Vraag de huurder naar ons te bellen om bij terugkomst de auto te blokkeren.<br>`,
       images: [
         "/backoffice/assets/img/handleiding/nissan_leaf_sleutel.png",
       ]
@@ -411,6 +491,33 @@ De huurder mag niet zonder de laadkabel vertrekken.`
     resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
       title: "Hoe laad ik een  Nissan Leaf op?",
       content: `
+Vraag de huurder volgende stappen te volgen om het opladen te starten:
+- Druk in de auto op de ontgrendelknop (links onder het stuur of de onderste knop van de sleutel) om de laadklep van de auto te openen.<br>
+- Steek de laadkabel in de auto in de **rechter** aansluiting (aan de voorkant van de auto).<br>
+- Steek de andere kant van de kabel in de laadpaal.<br>
+- Houd de blauwe laadsleutel (aan de sleutel) drie seconden voor het leesvlak van de laadpaal (<strong>niet de zwarte sleutelhanger</strong>).<br>
+- De blauwe lampjes aan de binnenkant van de auto, op het dashboard, beginnen te knipperen als de kabel juist is aangesloten.<br />
+  **Verlaat de auto nooit zonder deze aan te sluiten aan de laadpaal!**<br><br>
+
+Lukt bovenstaande niet? Controleer de volgende zaken:<br>
+- De laadkabel dient in de auto én de laadpaal aangesloten te zijn.<br>
+- De laadsleutel (deze zit aan de sleutel, zie foto) dient langs de lezer op de laadpaal gehaald te worden.<br>
+- Sommige auto's hebben nog een losse VandeBron laadpas, ter grootte van een chipkaart.<br>
+- Indien de paal niet geactiveerd wordt, verzoek de huurder het opnieuw te proberen, soms is het activeren lastig. Beweeg de laadpas langs de lezer / houdt hem gedurende een aantal seconden op verschillende plekken. <br>
+- Indien de laadpaal niet geactiveerd wordt / storing (rood licht) geeft, verzoek de huurder naar een andere laadpaal te rijden, binnen de zone van de auto, en de auto daar aan te sluiten.<br>
+- Laat de huurder bevestigen dat de auto laadt, door te controleren of de lampjes op het dashboard (onder het raam) gaan lopen (zie foto). Deze zijn goed zichtbaar als je voor de auto staat.<br>`,
+      images: [
+        "/backoffice/assets/img/handleiding/nissan_leaf_controle_opladen.png",
+        "/backoffice/assets/img/handleiding/nissan_leaf_opladen.png",
+      ]
+    },
+
+    resource && resource.fuelType === "elektrisch" && resource.model === "Leaf" && {
+      title: "De elektrische auto laadt niet op",
+      content: `
+Heeft een huurder een sms of push notificatie ontvangen dat de auto niet oplaadt / laad?<br>
+Je kunt met de knop <strong>[Nood]</strong> de auto openen voor een huurder als de rit al afgelopen is zodat de huurder de auto alsnog kan opladen.<br><br>
+
 Vraag de huurder volgende stappen te volgen om het opladen te starten:
 - Druk in de auto op de ontgrendelknop (links onder het stuur of de onderste knop van de sleutel) om de laadklep van de auto te openen.<br>
 - Steek de laadkabel in de auto in de **rechter** aansluiting (aan de voorkant van de auto).<br>
@@ -510,7 +617,7 @@ Heeft de huurder betaald, maar is het bedrag niet bijgesschreven in het saldo / 
     resource && {
       title: "Hoe klap ik de buitenspiegels in?",
       content: `
-Een huurder kan de buitenspiegels inklappen door deze naar binnen te duwen.
+Een huurder kan de spiegels inklappen door deze naar binnen te duwen.
 Dit hoeft niet binnenin de auto gedaan te worden.`
     },
 
@@ -564,13 +671,22 @@ Was de huurder met een auto betrokken bij een ongeluk / aanrijding / schade?<br>
 - Klik op de knop [Schade] om de huurder te helpen.`
     },
 
+    resource && resource.boardcomputer === "myfms" && {
+      title: "De boordcomputer maakt een piepend geluid",
+      content: `
+Maakt de chipkaartlezer / boordcomputer / kastje aan de voorruit een piepend geluid?<br>
+Laat de huurder een OV-chipkaart voor de chipkaartlezer houden.`
+    },
+
     {
       title: "Het raam van een auto staat open",
       content: `
 Staat het raam van een auto open / op een kier?<br>
 - Bel dan eerst de vorige huurder door op de knop [Vorige] te klikken. Spreek indien mogelijk een voicemail in.<br>
 - Geen gehoor? Bel dan de beheerder van de auto om te vragen om het raam dicht te doen. Spreek indien mogelijk een voicemail in.<br>
-- Geen gehoor? Wacht dan tot de vorige huurder of de beheerder terugbelt.`
+- Geen gehoor? Wacht dan tot de vorige huurder of de beheerder terugbelt.
+
+Met de knop [Nood] kun je een auto openen voor een huurder of beheerder.`
     },
 
     // Vragen over account
@@ -604,7 +720,7 @@ Druk dan op de rode balk bovenaan een rit of persoon.`
       content: `
 Belt een huurder met een onbekend of anoniem (mobiel) telefoonnummer?<br>
 Dan kun je de auto helaas niet openen.<br>
-Vraag de huurder te bellen vanaf een telefoonnummer dat bij ons bekend is.`
+Vraag de huurder te bellen met een telefoonnummer dat bij ons bekend is.`
     },
 
     {
