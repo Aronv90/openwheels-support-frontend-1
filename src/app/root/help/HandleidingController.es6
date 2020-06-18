@@ -83,7 +83,7 @@ Wil je een auto openen terwijl de rit al afgelopen is? Je kunt een huurder allee
 - Het raam van een auto sluiten.<br>
 - Als de huurder spullen vergeten is uit de auto.<br>
 
-Klik op de knop [Nood] om een auto te openen na een rit.`
+Klik op de knop [Noodcommando] om een auto te openen na een rit.`
     },
 
     // Vragen over starten
@@ -199,7 +199,7 @@ Als een beheerder van een auto deze gratis wil reserveren / boeken / huren, kan 
 - De rit is dan gratis.
 - Graag de beheerder vragen om een notitie bij het reserveren te maken.
 
-Lukt het niet? Met de knop [Nood] kun je de auto zonder een rit openen.`
+Lukt het niet? Met de knop [Noodcommando] kun je de auto zonder een rit openen.`
     },
 
     resource && {
@@ -357,13 +357,17 @@ ${resource.remark}`
       title: "De vaste parkeerplek van de auto is bezet",
       content: `
 Deze auto heeft een vaste parkeerplek aan de ${resource.location} ${resource.streetNumber}.<br>
-Is de parkeerplek bezet door een foutparkeerder / andere auto?<br>
-- Vraag de huurder om de auto op een openbare parkeerplek in de buurt te zetten.<br>
+Is de parkeerplek bij terugkomst bezet door een foutparkeerder / andere auto?<br>
+- Vraag de huurder om de auto op een openbare parkeerplek in de buurt te parkeren.<br>
 - Dit mag <strong>geen gehandicapten plek of parkeerplek</strong> met een wit kruis zijn.<br>
 - De huurder mag niet op een andere autodate parkeerplek dan van MyWheels staan (dus geen autodate plek van Greenwheels).<br>
-
-<strong>Informatie over het wegslepen van foutgeparkeerde auto:</strong><br>
-${resource.remark}`
+<br>
+Informatie over het <strong>wegslepen van foutgeparkeerde auto</strong>:<br>
+- Vraag de huurder om het kenteken en automerk van de foutparkeerder.<br>
+- Maak een notitie voor de volgende werkdag.<br>
+- Kijk in de opmerking hierover waar je heen kunt bellen om de foutparkeerde te melden:
+<br><br>
+<i>${resource.remark}</i>`
     },
 
     resource && resource.fuelType !== "elektrisch" && resource.parkingType === 'zone' && {
@@ -516,7 +520,7 @@ Lukt bovenstaande niet? Controleer de volgende zaken:<br>
       title: "De elektrische auto laadt niet op",
       content: `
 Heeft een huurder een sms of push notificatie ontvangen dat de auto niet oplaadt / laad?<br>
-Je kunt met de knop <strong>[Nood]</strong> de auto openen voor een huurder als de rit al afgelopen is zodat de huurder de auto alsnog kan opladen.<br><br>
+Je kunt met de knop <strong>[Noodcommando]</strong> de auto openen voor een huurder als de rit al afgelopen is zodat de huurder de auto alsnog kan opladen.<br><br>
 
 Vraag de huurder volgende stappen te volgen om het opladen te starten:
 - Druk in de auto op de ontgrendelknop (links onder het stuur of de onderste knop van de sleutel) om de laadklep van de auto te openen.<br>
@@ -686,7 +690,7 @@ Staat het raam van een auto open / op een kier?<br>
 - Geen gehoor? Bel dan de beheerder van de auto om te vragen om het raam dicht te doen. Spreek indien mogelijk een voicemail in.<br>
 - Geen gehoor? Wacht dan tot de vorige huurder of de beheerder terugbelt.
 
-Met de knop [Nood] kun je een auto openen voor een huurder of beheerder.`
+Met de knop [Noodcommando] kun je een auto openen voor een huurder of beheerder.`
     },
 
     // Vragen over account

@@ -17,11 +17,8 @@
               <small>({{ resource.registrationPlate }}, {{ resource.id }})</small>
             </h3>
             <ul class="list-inline card__subtitle">
-              <li ng-class="{'text-success': resource.isActive, 'text-danger': !resource.isActive}">
+              <li ng-class="{'text-success': resource.isActive && resource.isAvailableOthers, 'text-danger': !resource.isActive || !resource.isAvailableOthers}">
                 <i class="fa fa-check"></i> {{ resource.isActive ? 'Beschikbaar' : 'Niet beschikbaar' }}
-              </li>
-              <li ng-class="{'text-success': resource.isAvailableOthers, 'text-danger': !resource.isAvailableOthers}">
-                <i class="fa fa-search"></i> {{ resource.isAvailableOthers ? 'Beschikbaar voor anderen' : 'Niet beschikbaar voor anderen'}}
               </li>
               <li>
                 <i class="fa fa-calendar"></i> {{ resource.created | amDateFormat:'DD-MM-YYYY' }}

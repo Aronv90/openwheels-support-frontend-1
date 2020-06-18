@@ -95,21 +95,7 @@ angular.module('openwheels.resource', [
 	$stateProvider.state('root.resource.show.summary', {
 		url: '',
 		templateUrl: 'resource/show/summary/resource-show-summary.tpl.html',
-		controller: 'ResourceShowSummaryController',
-		resolve: {
-			bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
-				var startDate = moment().subtract(1, 'd');
-				var endDate = moment().add(1, 'w');
-
-				return bookingService.forResource({
-					resource: $stateParams.resourceId,
-					timeFrame: {
-						startDate: startDate.format('YYYY-MM-DD HH:mm'),
-						endDate: endDate.format('YYYY-MM-DD HH:mm')
-					}
-				});
-			}]
-		}
+		controller: 'ResourceShowSummaryController'
 	});
 
 	/**

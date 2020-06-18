@@ -164,6 +164,26 @@
   </div>
   <div class="col-md-6">
     <div class="form-group">
+      <label for="owner">Schadehersteller</label>
+        <input type="text" id="garage" class="form-control input-sm typeahead" placeholder="Zoek schadehersteller"
+           ng-model="resource.garageRepair"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="owner">Leasemaatschappij</label>
+        <input type="text" id="garage" class="form-control input-sm typeahead" placeholder="Zoek leasemaatschappij"
+           ng-model="resource.garageLease"
+           uib-typeahead="garage as ('<p>' + garage.name + ' [' + garage.id + ']' + '<br><small>' + garage.address + '</p>') for garage in searchGarages($viewValue)"
+           typeahead-min-length="3" typeahead-input-formatter="formatGarage($model)">
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="form-group">
         <label for="resourceType">Type auto</label>
         <select id="resourceType" class="form-control" ng-model="resource.resourceType"
                 ng-options="o.value as o.label for o in resourceTypeOptions"></select>
@@ -268,7 +288,7 @@
 <h3>Huurprijs</h3>
 
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="form-group">
             <label for="dayRateTotal">Prijs per dag</label>
 
@@ -279,7 +299,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="form-group">
             <label for="hourRate">Prijs per uur</label>
 
@@ -290,7 +310,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-4">
         <div class="form-group">
             <label for="kilometerRate">Prijs per kilometer</label>
 
@@ -298,23 +318,6 @@
                 <span class="input-group-addon">€</span>
                 <input type="text" smart-float id="kilometerRate" name="kilometerRate" class="form-control"
                        ng-model="resource.kilometerRate" required placeholder="per km">
-                <span class="input-group-addon">
-                  <input type="checkbox" ng-model="resource.kmFree"> 100km vrij
-                </span>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="form-group">
-            <label for="fuelPerKilometer">Brandstofprijs per kilometer</label>
-
-            <div class="input-group">
-                <span class="input-group-addon">€</span>
-                <input type="text" ng-disabled="resource.refuelByRenter" smart-float id="fuelPerKilometer" name="fuelPerKilometer" class="form-control"
-                       ng-model="resource.fuelPerKilometer" required placeholder="per km">
-                <span class="input-group-addon">
-                  <input type="checkbox" ng-model="resource.refuelByRenter"> Zelf tanken
-                </span>
             </div>
         </div>
     </div>

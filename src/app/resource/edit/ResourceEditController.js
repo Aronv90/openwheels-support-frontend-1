@@ -87,21 +87,17 @@ angular.module('openwheels.resource.edit', [])
 
     $scope.locktypeOptions = [
       {label: 'OV-chipkaart', value: 'chipcard'},
-      {label: 'Sleutelkluisje', value: 'locker'},
       {label: 'Afspraak maken', value: 'meeting'},
       {label: 'Smartphone', value: 'smartphone'}
     ];
 
     $scope.resourcePropertyOptions = [
       { value: 'airconditioning'    , label: 'airconditioning' },
-      { value: 'fietsendrager'      , label: 'fietsendrager' },
       { value: 'winterbanden'       , label: 'winterbanden' },
-      { value: 'kinderzitje'        , label: 'kinderzitje' },
       { value: 'navigatie'          , label: 'navigatie' },
       { value: 'trekhaak'           , label: 'trekhaak' },
       { value: 'automaat'           , label: 'automaat' },
-      { value: 'mp3-aansluiting'    , label: 'mp3-aansluiting' },
-      { value: 'rolstoelvriendelijk', label: 'rolstoelvriendelijk' }
+      { value: 'mp3-aansluiting'    , label: 'mp3-aansluiting' }
     ];
 
     /**
