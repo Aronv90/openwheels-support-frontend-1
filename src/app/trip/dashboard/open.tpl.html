@@ -31,7 +31,7 @@
       </div>
 
       <div ng-if="booking.person.status === 'active' && booking.approved !== 'BUY_VOUCHER' && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">
-        Lukt het openen met de knop <strong>[Versturen]</strong> niet? Klik op de knop <strong>[Nood]</strong> om de auto op afstand te openen en de startblokkering eraf te halen.
+        Lukt het openen met de knop <strong>[Versturen]</strong> niet? Klik op de knop <strong>[Noodcommando]</strong> om de auto op afstand te openen en de startblokkering eraf te halen.
       </div>
 
       <div ng-if="booking.person.status === 'active' && (booking.approved === 'OK' || !booking.approved) && booking.status === 'accepted' && booking.beginBooking < now && booking.endBooking > now">

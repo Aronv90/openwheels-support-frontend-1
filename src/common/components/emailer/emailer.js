@@ -60,7 +60,7 @@ angular.module('openwheels.components')
             "Hans Rombout": "https://docs.google.com/forms/d/e/1FAIpQLScWmFKXYxb_rRAQBKjaA_RPHYODTjWaDhC9qdoHEJjvMdxSxw/viewform?usp=sf_link",
             "Daanjan Wisselink": "https://docs.google.com/forms/d/e/1FAIpQLSfGFL6RVIyhqZqR2dMV2JwDqjKcxZxCUd8Hvr66A-g6WLEvcQ/viewform?usp=sf_link",
             "Aida Kopmels": "https://forms.gle/pDfx5tY3n5iafHnt6",
-            "Laura Koenders": "https://forms.gle/pDfx5tY3n5iafHnt6",
+            "Laura Koenders": "https://forms.gle/GEVJsWsKRXNBdtaz5",
             "Aron Vaas": "",
           };
 

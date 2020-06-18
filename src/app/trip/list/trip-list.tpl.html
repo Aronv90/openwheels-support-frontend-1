@@ -16,10 +16,9 @@
       <th>Ritnummer</th>
       <th>Status</th>
       <th colspan="2">Tijdframe</th>
-      <th>Begin trip</th>
+      <th>Begin rit</th>
       <th ng-if="!$state.includes('root.resource')">Auto</th>
       <th ng-if="!$state.includes('root.person')">Persoon</th>
-      <th ng-if="!$state.includes('root.person')">E-mail</th>
       <th>Betaald</th>
     </tr>
   </thead>
@@ -41,7 +40,6 @@
       <td>{{ booking.trip.begin | amDateFormat:'DD-MM HH:mm' }}</td>
       <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.trip({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
       <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
-      <td ng-if="!$state.includes('root.person')"><a ng-href="mailto:{{ booking.person.email }}">{{ booking.person.email }}</a></td>
       <td>
         <span>{{ booking.approved }}</span>
       </td>
