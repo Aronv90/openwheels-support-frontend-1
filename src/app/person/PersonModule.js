@@ -135,8 +135,8 @@ angular.module('openwheels.person', [
 			data: {pageTitle: 'Persoon ritten'},
 			resolve: {
 				bookings: ['$stateParams', '$rootScope', 'bookingService', function ($stateParams, $rootScope, bookingService) {
-					var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
-					var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(1, 'months');
+					var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(15, 'days');
+					var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(15, 'days');
 
 					return bookingService.getBookingList({
 						person: $stateParams.personId,

@@ -137,6 +137,9 @@ angular.module('openwheels.person.edit.data.driverlicense', [])
       case 'nok':
 				newProps.driverLicenseStatus = 'nok';
         break;
+      case 'unchecked':
+        newProps.driverLicenseStatus = 'unchecked';
+        break;
 			}
 
 			if ('block' === block) {

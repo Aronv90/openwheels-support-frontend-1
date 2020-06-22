@@ -1,16 +1,6 @@
 <div class="row">
 
-  <div class="col-md-12">
-    <h2 class="no-margin" ng-class="{'ok':'text-success', 'nok':'text-danger', 'unchecked':'text-muted'}[person.driverLicenseStatus]">
-      <span ng-if="person.driverLicenseStatus === 'ok'">Rijbewijs goedgekeurd</span>
-      <span ng-if="person.driverLicenseStatus === 'nok'">Rijbewijs niet goedgekeurd</span>
-      <span ng-if="person.driverLicenseStatus === 'unchecked'">Rijbewijs nog niet gecontroleerd</span>
-    </h2>
-    <hr>
-  </div>
-
   <div class="col-md-6">
-
     <h2>Accountcontrole</h2>
 
     <div ng-if="reasonError">
@@ -302,9 +292,10 @@
   </div>
 
   <div class="col-md-6">
-    <h2>Rijbewijsgegevens</h2>
+    <h2>Nederlands rijbewijs</h2>
 
-    <h4>Nederlands rijbewijs</h4>
+    <div class="row">&nbsp;</div>
+
     <form name="form">
       <div class="form-group">
         <div class="form-group">
@@ -322,21 +313,18 @@
           </div>
           <p ng-if="form.driverLicenseDate3.$touched && !hasFocus"><span ng-if="notValidDate()">Datum is nog niet in het goede formaat (dd-mm-YYYY) of ongeldig</span></p>
         </div>
-        <div class="form-group">
-            <button class="btn btn-default" ng-disabled="!form.$dirty || !person.driverLicenseNumber || notValidDate()" ng-click="saveDriverLicenseData()">Opslaan</button>
-        </div>
       </div>
 
-      <button type="button" class="btn btn-success" ng-click="moderateLicense(person, 'ok')" ng-disabled="form.$invalid">OK</button>
-      <button type="button" class="btn btn-warning" ng-click="moderateLicense(person, 'nok')">Niet OK</button>
-      <button type="button" class="btn btn-danger" ng-click="moderateLicense(person, 'nok', 'block')">Niet OK + Deactiveren</button>
+      <button type="button" class="btn btn-success" ng-click="saveDriverLicenseData(); moderateLicense(person, 'ok')" ng-disabled="form.$invalid">Goedkeuren</button>
+      <button type="button" class="btn btn-default" ng-click="saveDriverLicenseData(); moderateLicense(person, 'nok', 'block')">Deactiveren</button>
+      <button type="button" class="btn btn-default" ng-click="saveDriverLicenseData(); moderateLicense(person, 'unchecked', 'block')">Deactiveren zonder mail</button>
     </form>
 
     <div class="row">&nbsp;</div>
     <hr>
     <div class="row">&nbsp;</div>
 
-    <h4>Buitenlands rijbewijs</h4>
+    <h2>Buitenlands rijbewijs</h2>
     <form>
       <div class="form-group">
         <strong>Voorkant:</strong>

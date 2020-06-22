@@ -1,9 +1,14 @@
 <div style="margin-bottom: 20px">
-  <button class="btn btn-default" ng-click="showAll()">Toon alle ritten</button>
-  <button class="btn btn-default" ng-click="reset()">Reset</button>
-  <button class="btn btn-default" ng-click="previous()">&laquo;&nbsp;Vorige</button>
-  <button class="btn btn-default" ng-click="next()">Volgende&nbsp;&raquo;</button>
-  {{ currentTimeFrame.startDate | amDateFormat: 'DD MMM YYYY'}} - {{ currentTimeFrame.endDate | amDateFormat: 'DD MMM YYYY'}}
+  <button class="btn btn-default" ng-click="previous()" hide-xs>&laquo;&nbsp;15 dagen terug</button>
+  <button class="btn btn-default" ng-click="previousMonth()">&laquo;&nbsp;1 maand terug</button>
+  <span hide-xs>
+    &nbsp; &nbsp; &nbsp;
+    {{ currentTimeFrame.startDate | amDateFormat: 'DD MMM YYYY'}} - {{ currentTimeFrame.endDate | amDateFormat: 'DD MMM YYYY'}} 
+    &nbsp; &nbsp; &nbsp;
+  </span>
+  <button class="btn btn-default" ng-click="next()" hide-xs>15 dagen vooruit&nbsp;&raquo;</button>
+  <button class="btn btn-default" ng-click="nextMonth()">1 maand vooruit&nbsp;&raquo;</button>
+
 </div>
 
 <div class="alert alert-info" ng-hide="bookings.length > 0">
@@ -13,12 +18,13 @@
 <table class="table table-hover" ng-show="bookings.length > 0">
   <thead>
     <tr>
-      <th>Ritnummer</th>
-      <th>Status</th>
-      <th colspan="2">Tijdframe</th>
-      <th>Begin rit</th>
+      <th hide-xs>Ritnummer</th>
+      <th hide-xs>Status</th>
+      <th colspan="2">Tijden</th>
+      <th hide-xs>Ingestapt op</th>
+      <th hide-xs>Kilometers</th>
       <th ng-if="!$state.includes('root.resource')">Auto</th>
-      <th ng-if="!$state.includes('root.person')">Persoon</th>
+      <th ng-if="!$state.includes('root.person')">Huurder</th>
       <th>Betaald</th>
     </tr>
   </thead>
@@ -30,18 +36,27 @@
         success: booking.beginBooking < now && booking.endBooking > now
       }" 
       ng-repeat="booking in bookings | orderBy: ['-beginBooking','-beginRequested']"
+      class='clickable-row' ui-sref="root.trip.dashboard({ tripId: booking.id })"
     >
-      <td><a ui-sref="root.trip.dashboard({ tripId: booking.id })">#{{ booking.id }}</a></td>
-      <td>{{ booking.status }}</td>
+      <td hide-xs>{{ booking.id }}</td>
+      <td ng-if="booking.status === 'accepted'" hide-xs>geaccepteerd</td>
+      <td ng-if="booking.status === 'cancelled'" hide-xs>geannuleerd</td>
+      <td ng-if="booking.status === 'owner_cancelled'" hide-xs>geannuleerd door eigenaar</td>
+      <td ng-if="booking.status === 'rejected'" hide-xs>afgewezen door eigenaar</td>
+      <td ng-if="booking.status === 'requested'" hide-xs>in aanvraag</td>
       <td colspan="2">
         <booking-date ng-if="booking.beginBooking" booking="booking"></booking-date>
         <booking-date ng-if="booking.beginRequested && !booking.beginBooking" booking="booking" type="requested"></booking-date>
       </td>
-      <td>{{ booking.trip.begin | amDateFormat:'DD-MM HH:mm' }}</td>
-      <td ng-if="!$state.includes('root.resource')"><a ui-sref="root.resource.show.trip({ resourceId: booking.resource.id })">{{ booking.resource.alias }}</a></td>
-      <td ng-if="!$state.includes('root.person')"><a ui-sref="root.person.show.trip({ personId: booking.person.id })">{{ booking.person.firstName }}</a></td>
+      <td hide-xs>{{ booking.trip.begin | amDateFormat:'DD-MM HH:mm' }}</td>
+      <td ng-if="booking.trip.finalized" hide-xs>{{ booking.trip.odoEnd - booking.trip.odoBegin }}</td>
+      <td ng-if="!booking.trip.finalized" hide-xs></td>
+      <td ng-if="!$state.includes('root.resource')">{{ booking.resource.alias }}</td>
+      <td ng-if="!$state.includes('root.person')">{{ booking.person | fullname }}</td>
       <td>
-        <span>{{ booking.approved }}</span>
+        <span ng-if="!booking.approved || booking.contract.id === 934646">Onderhoud</span>
+        <span ng-if="booking.approved === 'OK' && booking.contract.id !== 934646">Ja</span>
+        <span ng-if="booking.approved === 'BUY_VOUCHER'">Nee</span>
       </td>
     </tr>
   </tbody>

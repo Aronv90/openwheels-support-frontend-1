@@ -3,7 +3,11 @@
     <h5><strong>Auto</strong></h5>
     <table class="table table-condensed">
       <tbody>
-        <tr>
+        <tr ng-if="user.identity.provider.id === 5">
+          <td>Eigenaar</td>
+          <td><a ui-sref="root.person.show.summary({ personId: resource.owner.id })">{{ resource.owner | fullname }}</a></td>
+        </tr>
+        <tr ng-if="user.identity.provider.id !== 5">
           <td>Beheerder</td>
           <td><a ui-sref="root.person.show.summary({ personId: resource.contactPerson.id })">{{ resource.contactPerson | fullname }}</a></td>
         </tr>

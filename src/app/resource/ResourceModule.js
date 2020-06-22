@@ -127,8 +127,8 @@ angular.module('openwheels.resource', [
 		data: {pageTitle: 'Auto ritten lijst'},
 		resolve: {
 			bookings: ['$stateParams', 'bookingService', function ($stateParams, bookingService) {
-				var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(1, 'months');
-				var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(1, 'months');
+				var startDate = $stateParams.startDate ? moment($stateParams.startDate) : moment().subtract(15, 'days');
+				var endDate = $stateParams.endDate ? moment($stateParams.endDate) : moment().add(15, 'days');
 
 				return bookingService.forResource({
 					resource: $stateParams.resourceId,

@@ -1,26 +1,6 @@
 <form name="editResourceForm">
-<div class="row">
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="owner">Eigenaar</label>
-      <input type="text" find-person id="owner" model="resource.owner" placeholder="Zoek persoon" />
-    </div>
-  </div>
-  <div class="col-md-6">
-    <div class="form-group">
-      <label for="contactPerson">Beheerder</label>
-      <input type="text" find-person id="contactPerson" model="resource.contactPerson" placeholder="Zoek persoon" />
-    </div>
-  </div>
-</div>
-<div class="row" ng-if="!$root.isInterswitch">
-    <div class="col-md-6">
-        <div class="form-group">
-            <label for="providerId">Provider</label>
-            <input type="number" id="provider.id" class="form-control" ng-model="resource.provider.id"
-                    name="providerId"></select>
-        </div>
-    </div>
+<div class="row" ng-if="user.identity.provider.id === 5">
+
     <div class="col-md-6">
         <div class="form-group">
             <label for="fleet">Vloot</label>
@@ -29,14 +9,24 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" ng-if="user.identity.provider.id === 5">
     <div class="col-md-6">
         <div class="form-group">
-            <label for="registrationPlate">Kenteken</label>
-            <input type="text" id="registrationPlate" name="registrationPlate" class="form-control"
-                   ng-model="resource.registrationPlate" required placeholder="Kenteken" ng-disbaled>
+            <label for="providerId">Provider</label>
+            <input type="number" id="provider.id" class="form-control" ng-model="resource.provider.id"
+                    name="providerId"></select>
         </div>
     </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+      <div class="form-group">
+          <label for="registrationPlate">Kenteken</label>
+          <input type="text" id="registrationPlate" name="registrationPlate" class="form-control"
+                 ng-model="resource.registrationPlate" required placeholder="Kenteken" ng-disbaled>
+      </div>
+  </div>
     <div class="col-md-6">
         <div class="form-group">
             <label for="alias">Naam</label>
@@ -44,6 +34,22 @@
                    placeholder="Naam van de auto">
         </div>
     </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="owner">Eigenaar</label>
+      <input type="text" find-person id="owner" model="resource.owner" placeholder="Zoek persoon" />
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="contactPerson">Beheerder</label>
+      <input type="text" find-person id="contactPerson" model="resource.contactPerson" placeholder="Zoek persoon" />
+    </div>
+  </div>
 </div>
 
 <div class="row">
@@ -195,19 +201,19 @@
 
 <div class="form-group">
     <label for="advertisement">Advertentietekst</label>
-    <textarea id="advertisement" rows="6" class="form-control" ng-model="resource.advertisement"
+    <textarea id="advertisement" rows="8" class="form-control" ng-model="resource.advertisement"
               placeholder="Advertentietekst"></textarea>
 </div>
 
 <div class="form-group">
     <label for="notes">Handleiding (alleen in mails)</label>
-    <textarea id="usageManual" rows="6" class="form-control" ng-model="resource.usageManual"
+    <textarea id="usageManual" rows="8" class="form-control" ng-model="resource.usageManual"
               placeholder="Handleiding"></textarea>
 </div>
 
 <div class="form-group">
-    <label for="remark">Opmerkingen</label>
-    <textarea id="remark" rows="6" class="form-control" ng-model="resource.remark" placeholder="Opmerkingen"></textarea>
+    <label for="remark">Interne opmerkingen</label>
+    <textarea id="remark" rows="8" class="form-control" ng-model="resource.remark" placeholder="Opmerkingen"></textarea>
 </div>
 
 <div class="form-group">
@@ -285,7 +291,7 @@
 
 <hr>
 
-<h3>Huurprijs</h3>
+<h3>Tarieven</h3>
 
 <div class="row">
     <div class="col-md-4">
@@ -350,11 +356,6 @@
       </div>
       <div class="col-xs-2">
         <button class="btn btn-primary" ng-click="lookupZip()" ng-disabled="isZipLookupBusy">Adres opzoeken</button>
-      </div>
-      <div class="col-xs-2">
-        <a class="btn btn-default" ng-href="https://www.google.nl/maps/search/{{resource.latitude}},%20{{resource.longitude}}" target="_blank" ng-disabled="isZipLookupBusy">
-            Toop op kaart
-        </a>
       </div>
     </div>
 </div>

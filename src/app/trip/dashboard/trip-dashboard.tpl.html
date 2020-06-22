@@ -68,9 +68,9 @@
         </div>
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Betaald</span></div>
-          <div class="col-xs-6"><span class="box__sdata box__sdata--green" ng-if="booking.approved == 'OK'">Ja</span></div>
+          <div class="col-xs-6"><span class="box__sdata box__sdata--green" ng-if="booking.approved == 'OK' && booking.contract.id !== 934646">Ja</span></div>
           <div class="col-xs-6"><span class="box__sdata text-danger" ng-if="booking.approved == 'BUY_VOUCHER'">Nee</span></div>
-          <div class="col-xs-6"><span class="box__sdata" ng-class="{'box__sdata--green': true}" ng-if="!booking.approved && booking.status === 'accepted'">Onderhoud</span></div>
+          <div class="col-xs-6"><span class="box__sdata" ng-class="{'box__sdata--green': true}" ng-if="!booking.approved && booking.status === 'accepted' || booking.contract.id === 934646">Onderhoud</span></div>
         </div>
         <div class="row box__row">
           <div class="col-xs-6"><span class="box__slabel">Afgesloten + KM</span></div>

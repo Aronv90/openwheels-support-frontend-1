@@ -6,8 +6,8 @@ angular.module('openwheels.trip.list')
   $log, $state, $stateParams, $scope, alertService, dialogService, bookingService, paymentService, bookings) {
 
   var todayTimeframe = {
-    startDate: moment().subtract(1, 'months').format('YYYY-MM-DD'),
-    endDate: moment().add(1, 'months').format('YYYY-MM-DD')
+    startDate: moment().subtract(15, 'days').format('YYYY-MM-DD'),
+    endDate: moment().add(15, 'days').format('YYYY-MM-DD')
   };
 
   $scope.bookings = bookings;
@@ -71,15 +71,29 @@ angular.module('openwheels.trip.list')
 
   $scope.previous = function () {
     $state.go($state.current.name, {
-      startDate: moment($scope.currentTimeFrame.startDate).subtract(2, 'months').format('YYYY-MM-DD'),
-      endDate: moment($scope.currentTimeFrame.endDate).subtract(2, 'months').format('YYYY-MM-DD')
+      startDate: moment($scope.currentTimeFrame.startDate).subtract(15, 'days').format('YYYY-MM-DD'),
+      endDate: moment($scope.currentTimeFrame.endDate).subtract(15, 'days').format('YYYY-MM-DD')
     });
   };
 
   $scope.next = function () {
     $state.go($state.current.name, {
-      startDate: moment($scope.currentTimeFrame.startDate).add(2, 'months').format('YYYY-MM-DD'),
-      endDate: moment($scope.currentTimeFrame.endDate).add(2, 'months').format('YYYY-MM-DD')
+      startDate: moment($scope.currentTimeFrame.startDate).add(15, 'days').format('YYYY-MM-DD'),
+      endDate: moment($scope.currentTimeFrame.endDate).add(15, 'days').format('YYYY-MM-DD')
+    });
+  };
+
+  $scope.previousMonth = function () {
+    $state.go($state.current.name, {
+      startDate: moment($scope.currentTimeFrame.startDate).subtract(1, 'months').format('YYYY-MM-DD'),
+      endDate: moment($scope.currentTimeFrame.endDate).subtract(1, 'months').format('YYYY-MM-DD')
+    });
+  };
+
+  $scope.nextMonth = function () {
+    $state.go($state.current.name, {
+      startDate: moment($scope.currentTimeFrame.startDate).add(1, 'months').format('YYYY-MM-DD'),
+      endDate: moment($scope.currentTimeFrame.endDate).add(1, 'months').format('YYYY-MM-DD')
     });
   };
 
